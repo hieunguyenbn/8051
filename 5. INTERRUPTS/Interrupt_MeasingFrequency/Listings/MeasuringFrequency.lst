@@ -1,0 +1,85 @@
+C51 COMPILER V9.56.0.0   MEASURINGFREQUENCY                                                11/17/2017 15:38:30 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MEASURINGFREQUENCY
+OBJECT MODULE PLACED IN .\Objects\MeasuringFrequency.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE MeasuringFrequency.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\MeasuringFrequency.lst) TABS(5) OBJECT(.\Objects\MeasuringFrequency.obj)
+
+line level    source
+
+   1          //do tan so su dung ngat ngoai + ngat timer
+   2          #include <reg52.h>
+   3          
+   4          #define on 0
+   5          #define off 1
+   6          sbit in = P3^2;
+   7          sbit led1 = P2^0;
+   8          sbit led2 = P2^1;
+   9          sbit led3 = P2^2;
+  10          sbit led4 = P2^3;
+  11          unsigned int count = 0, f, t = 0;
+  12          unsigned char a[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
+  13          
+  14          void init();
+  15          void show(unsigned int dem);
+  16          void delay(unsigned int time);
+  17          
+  18          main() {
+  19   1           init();
+  20   1           while (1) {
+  21   2                show(f);
+  22   2           }              
+  23   1      }
+  24          void delay(unsigned int time) {
+  25   1           while(time--);
+  26   1      }
+  27          void init() {
+  28   1           TMOD = 0x10; //timer 1, che do 1
+  29   1           in = 1;
+  30   1           EX0 = 1;
+  31   1           ET1 = 1;
+  32   1           IT0 = 1;
+  33   1           TR1 = 1;
+  34   1           EA = 1;
+  35   1      }
+  36          void ClockCounting(void) interrupt 0 {
+  37   1           count++;
+  38   1      }
+  39          void timer(void) interrupt 3 {
+  40   1           t++;
+  41   1           TH1 = 0xFC;
+  42   1           TL1 = 0x18;
+  43   1           TR1 = 1;
+  44   1           if (t >= 1000) {
+  45   2                f = count;
+  46   2                count = 0; t = 0;
+  47   2           }
+  48   1      }
+  49          void show(unsigned int dem) {
+  50   1           unsigned char nghin, tram, chuc, donVi;
+  51   1           unsigned int i;
+  52   1           nghin = dem/1000; tram = (dem%1000)/100; chuc = (dem%100)/10; donVi = dem%10;
+  53   1           for (i = 0; i < 20; i++) {
+  54   2                led1 = on; P0 = a[nghin]; delay(100); led1 = off;
+C51 COMPILER V9.56.0.0   MEASURINGFREQUENCY                                                11/17/2017 15:38:30 PAGE 2   
+
+  55   2                led2 = on; P0 = a[tram]; delay(100); led2 = off;
+  56   2                led3 = on; P0 = a[chuc]; delay(100); led3 = off;
+  57   2                led4 = on; P0 = a[donVi]; delay(100); led4 = off;
+  58   2           }
+  59   1      }    
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    248    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

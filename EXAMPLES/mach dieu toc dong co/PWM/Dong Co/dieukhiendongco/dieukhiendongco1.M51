@@ -1,0 +1,78 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/24/2014  17:47:26  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRAM FILES\KEIL\C51\BIN\BL51.EXE dieukhiendongco1.obj TO dieukhiendongco1 CODE (0X0000-0X0FFF)
+
+
+INPUT MODULES INCLUDED:
+  dieukhiendongco1.obj (DIEUKHIENDONGCO1)
+
+
+LINK MAP OF MODULE:  dieukhiendongco1 (DIEUKHIENDONGCO1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     003BH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  dieukhiendongco1 (DIEUKHIENDONGCO1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        DIEUKHIENDONGCO1
+  C:0011H         SYMBOL        DBPNEXT1
+  C:0018H         SYMBOL        DBPNEXT2
+  C:001FH         SYMBOL        DBPOK
+  C:0021H         SYMBOL        DIEUKHIENDONGCO
+  C:002AH         SYMBOL        DKDCNEXT1
+  C:0033H         SYMBOL        DKDCNEXT2
+  C:003AH         SYMBOL        DKDCOK
+  C:000AH         SYMBOL        DOCBANPHIM
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  C:0002H         SYMBOL        START
+  C:0020H         SYMBOL        TINHTOAN
+  C:0000H         LINE#         2
+  C:0002H         LINE#         4
+  C:0004H         LINE#         5
+  C:0006H         LINE#         6
+  C:0008H         LINE#         7
+  C:000AH         LINE#         9
+  C:000DH         LINE#         10
+  C:000FH         LINE#         11
+  C:0011H         LINE#         13
+  C:0014H         LINE#         14
+  C:0016H         LINE#         15
+  C:0018H         LINE#         17
+  C:001BH         LINE#         18
+  C:001DH         LINE#         19
+  C:001FH         LINE#         21
+  C:0020H         LINE#         23
+  C:0021H         LINE#         25
+  C:0024H         LINE#         26
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/24/2014  17:47:26  PAGE 2
+
+
+  C:0026H         LINE#         27
+  C:0028H         LINE#         28
+  C:002AH         LINE#         30
+  C:002DH         LINE#         31
+  C:002FH         LINE#         32
+  C:0031H         LINE#         33
+  C:0033H         LINE#         35
+  C:0036H         LINE#         36
+  C:0038H         LINE#         37
+  C:003AH         LINE#         39
+  -------         ENDMOD        DIEUKHIENDONGCO1
+
+Program Size: data=8.0 xdata=0 code=59
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

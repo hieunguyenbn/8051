@@ -1,0 +1,80 @@
+A51 MACRO ASSEMBLER  DIEUKHIENDONGCO1                                                     05/24/2014 17:47:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN dieukhiendongco1.OBJ
+ASSEMBLER INVOKED BY: C:\Program Files\Keil\C51\BIN\A51.EXE dieukhiendongco1.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 8000              2        JMP START
+0002                   3      START:
+0002 110A              4       CALL DOCBANPHIM
+0004 1120              5       CALL TINHTOAN
+0006 1121              6       CALL DIEUKHIENDONGCO
+0008 80F8              7     JMP START
+000A                   8     DOCBANPHIM:
+000A 209004            9     JB P1.0, DBPNEXT1
+000D 7800             10       MOV R0, #0; STOP
+000F 800E             11       JMP DBPOK
+0011                  12       DBPNEXT1:
+0011 209404           13     JB P1.4, DBPNEXT2
+0014 7801             14     MOV R0,#1; THUAN
+0016 8007             15     JMP DBPOK
+0018                  16     DBPNEXT2:
+0018 209704           17     JB P1.7, DBPOK
+001B 7802             18     MOV R0, #2; NGUOC
+001D 8000             19     JMP DBPOK
+001F                  20     DBPOK:
+001F 22               21      RET
+0020                  22      TINHTOAN:
+0020 22               23      RET
+0021                  24      DIEUKHIENDONGCO:
+0021 B80006           25      CJNE R0, #0,DKDCNEXT1
+0024 C2A0             26        CLR P2.0
+0026 C2A2             27        CLR P2.2
+0028 8010             28     JMP DKDCOK
+002A                  29     DKDCNEXT1:
+002A B80106           30     CJNE R0, #1, DKDCNEXT2
+002D D2A0             31     SETB P2.0
+002F C2A2             32     CLR P2.2
+0031 8007             33     JMP DKDCOK
+0033                  34     DKDCNEXT2:
+0033 B80204           35     CJNE R0, #2, DKDCOK
+0036 C2A0             36     CLR P2.0
+0038 D2A2             37     SETB P2.2
+003A                  38     DKDCOK:
+003A 22               39     RET
+                      40     END
+                             
+                             
+                              
+                             
+                             
+A51 MACRO ASSEMBLER  DIEUKHIENDONGCO1                                                     05/24/2014 17:47:26 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DBPNEXT1 . . . . .  C ADDR   0011H   A   
+DBPNEXT2 . . . . .  C ADDR   0018H   A   
+DBPOK. . . . . . .  C ADDR   001FH   A   
+DIEUKHIENDONGCO. .  C ADDR   0021H   A   
+DKDCNEXT1. . . . .  C ADDR   002AH   A   
+DKDCNEXT2. . . . .  C ADDR   0033H   A   
+DKDCOK . . . . . .  C ADDR   003AH   A   
+DOCBANPHIM . . . .  C ADDR   000AH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0002H   A   
+TINHTOAN . . . . .  C ADDR   0020H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

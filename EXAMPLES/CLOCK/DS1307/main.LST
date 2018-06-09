@@ -1,0 +1,155 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/16/2017 16:41:06 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "Soft_I2c.h"
+   3          #include "lcd.h"
+   4          #include "DS1307.h"
+   5          #include "port.h"
+   6          
+   7          sbit K1 = P3^2;
+   8          sbit K2 = P3^3;
+   9          sbit K3 = P3^4;
+  10          sbit K4 = P3^7;
+  11          sbit BZ = P3^6;
+  12          unsigned char * code Days[] = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
+  13          unsigned char Hour, Minute, Second, Mode, Day, Date, Month, Year, old_second;
+  14          unsigned char AlarmHour,AlarmMinute;
+  15          void SetAlarm()
+  16          {
+  17   1        AlarmHour = Hour;
+  18   1        AlarmMinute = Minute;
+  19   1        while(!K1);
+  20   1        while(1)
+  21   1        {
+  22   2          //Ds1307_Read_Time(&Hour, &Minute, &Second, &Mode);
+  23   2          
+  24   2          LCD_char_pos(1,5,AlarmHour/10+0x30);
+  25   2          LCD_char(AlarmHour%10+0x30);
+  26   2          LCD_str(":");
+  27   2          LCD_char(AlarmMinute/10+0x30);
+  28   2          LCD_char(AlarmMinute%10+0x30);
+  29   2          LCD_str(":");
+  30   2          LCD_char(Second/10+0x30);
+  31   2          LCD_char(Second%10+0x30);
+  32   2      
+  33   2          //Ds1307_Read_Date(&Day, &Date, &Month, &Year);
+  34   2          
+  35   2          LCD_str_pos(2,2,Days[Day-1]);
+  36   2          LCD_str(" ");
+  37   2          LCD_char(Date/10+0x30);
+  38   2          LCD_char(Date%10+0x30);
+  39   2          LCD_str("/");
+  40   2          LCD_char(Month/10+0x30);
+  41   2          LCD_char(Month%10+0x30);
+  42   2          LCD_str("/20");
+  43   2          LCD_char(Year/10+0x30);
+  44   2          LCD_char(Year%10+0x30);
+  45   2          
+  46   2          if(K2 == 0)
+  47   2          {
+  48   3            while(!K2);
+  49   3            AlarmHour++;
+  50   3            if(AlarmHour == 13) 
+  51   3            {
+  52   4              AlarmHour = 1;
+  53   4            }
+  54   3          }
+  55   2          if(K3 == 0)
+C51 COMPILER V9.52.0.0   MAIN                                                              08/16/2017 16:41:06 PAGE 2   
+
+  56   2          {
+  57   3            while(!K3);
+  58   3            AlarmMinute++;
+  59   3            if(AlarmMinute == 60)
+  60   3            {
+  61   4              AlarmMinute = 0;
+  62   4            }       
+  63   3          }
+  64   2          if(K4 == 0) break;
+  65   2        }
+  66   1      }
+  67          
+  68          void Alarm()
+  69          {
+  70   1        if(Hour == AlarmHour)
+  71   1        {
+  72   2          if(Minute == AlarmMinute)
+  73   2          {
+  74   3            BZ = 1;
+  75   3          }
+  76   2          else
+  77   2          {
+  78   3            BZ = 0;
+  79   3          }
+  80   2        }
+  81   1        else
+  82   1        {
+  83   2          BZ = 0;
+  84   2        }
+  85   1      }
+  86          
+  87          void main()
+  88          {
+  89   1        Soft_I2c_Init();
+  90   1        Ds1307_Init();
+  91   1        LCD_init();
+  92   1        
+  93   1        Ds1307_Write_Time(11,59,50,12,1);
+  94   1        Ds1307_Write_Date(7,31,12,16);
+  95   1      
+  96   1        while(1)
+  97   1        {
+  98   2          Ds1307_Read_Time(&Hour, &Minute, &Second, &Mode);
+  99   2          if(K1 == 0) SetAlarm();
+ 100   2          Alarm();
+ 101   2          if(old_second != Second)
+ 102   2          { 
+ 103   3            old_second = Second;
+ 104   3      
+ 105   3            LCD_char_pos(1,5,Hour/10+0x30);
+ 106   3            LCD_char(Hour%10+0x30);
+ 107   3            LCD_str(":");
+ 108   3            LCD_char(Minute/10+0x30);
+ 109   3            LCD_char(Minute%10+0x30);
+ 110   3            LCD_str(":");
+ 111   3            LCD_char(Second/10+0x30);
+ 112   3            LCD_char(Second%10+0x30);
+ 113   3      
+ 114   3            Ds1307_Read_Date(&Day, &Date, &Month, &Year);
+ 115   3            LCD_str_pos(2,2,Days[Day-1]);
+ 116   3            LCD_str(" ");
+ 117   3            LCD_char(Date/10+0x30);
+C51 COMPILER V9.52.0.0   MAIN                                                              08/16/2017 16:41:06 PAGE 3   
+
+ 118   3            LCD_char(Date%10+0x30);
+ 119   3            LCD_str("/");
+ 120   3            LCD_char(Month/10+0x30);
+ 121   3            LCD_char(Month%10+0x30);
+ 122   3            LCD_str("/20");
+ 123   3            LCD_char(Year/10+0x30);
+ 124   3            LCD_char(Year%10+0x30);
+ 125   3            
+ 126   3          }
+ 127   2        }
+ 128   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    673    ----
+   CONSTANT SIZE    =     59    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

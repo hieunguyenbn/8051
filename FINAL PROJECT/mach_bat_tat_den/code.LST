@@ -1,0 +1,102 @@
+C51 COMPILER V8.05a   CODE                                                                 10/31/2012 15:09:47 PAGE 1   
+
+
+C51 COMPILER V8.05a, COMPILATION OF MODULE CODE
+OBJECT MODULE PLACED IN code.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE code.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1                                                          #include <at89x52.h>
+   2          void delay(int t)
+   3          {
+   4   1              int i,j;
+   5   1              {
+   6   2                      for(i=1;i<t;++i)
+   7   2                              for(j=1;j<125;++j)
+   8   2                                      {}
+   9   2              }
+  10   1      }
+  11          int i=0;
+  12          int dem()
+  13          {
+  14   1              
+  15   1              if(P3_1==1)
+  16   1              {
+  17   2                      delay(1);
+  18   2                      while(P3_1==1)
+  19   2                      {;}
+  20   2                      if(P3_2==1)
+  21   2                      {
+  22   3                              delay(1);
+  23   3                              while(P3_2==1)
+  24   3                              {;}
+  25   3                              i=i+1;
+  26   3                                              if(i<0)
+  27   3                              {
+  28   4                                      i=0;
+  29   4                              }
+  30   3                      if (i==10)
+  31   3                              {
+  32   4                                      i=9;
+  33   4                              }
+  34   3                      
+  35   3              }
+  36   2              }
+  37   1      
+  38   1              if(P3_2==1)
+  39   1              {
+  40   2                      delay(1);
+  41   2                      while(P3_2==1)
+  42   2                      {;}
+  43   2                      if(P3_1==1)
+  44   2              {
+  45   3                      delay(1);
+  46   3                              while(P3_1==1)
+  47   3                              {;}
+  48   3                              i=i-1;
+  49   3                                      if(i<0)
+  50   3                              {
+  51   4                                      i=0;
+  52   4                              }
+  53   3                      if (i==10)
+  54   3                              {
+  55   4                                      i=9;
+C51 COMPILER V8.05a   CODE                                                                 10/31/2012 15:09:47 PAGE 2   
+
+  56   4                              }
+  57   3              }
+  58   2              }
+  59   1              return i;
+  60   1      }
+  61          unsigned char code ma[10]={0xce,0x0d,0x77,0x5f,0xcd,0xdb,0xfb,0x0f,0xff,0xdf};
+  62          void main()
+  63          { 
+  64   1              int k;
+  65   1              P2=255;
+  66   1              k=0;
+  67   1              P3_1=0;
+  68   1              P3_2=0;
+  69   1              while(1)
+  70   1              {
+  71   2                      k=dem();
+  72   2                      delay(50);
+  73   2                      P2=ma[k];
+  74   2                      delay(5);
+  75   2                      
+  76   2      }       
+  77   1       }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    204    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

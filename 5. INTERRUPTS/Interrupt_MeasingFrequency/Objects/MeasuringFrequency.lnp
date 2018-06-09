@@ -1,0 +1,3 @@
+".\Objects\MeasuringFrequency.obj" 
+TO ".\Objects\MeasuringFrequency" 
+PRINT(".\Listings\MeasuringFrequency.m51") RAMSIZE(256) 

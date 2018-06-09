@@ -1,0 +1,72 @@
+C51 COMPILER V9.56.0.0   DS18B20                                                           01/07/2018 11:08:10 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DS18B20
+OBJECT MODULE PLACED IN .\Objects\ds18b20.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\LIBRARY\ds18b20.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\ds18b20.lst) TABS(2) OBJECT(.\Objects\ds18b20.obj)
+
+line level    source
+
+   1          #include "ds18b20.h"
+   2          #include "delay.h"
+   3          
+   4          unsigned char DS18B20_Reset(void) {
+   5   1          unsigned char presence;
+   6   1          DQ = 1;
+   7   1          DQ = 0; // keo xuong
+   8   1          delay_us(29); // delay (480-24)/16=28.5 do thoi gian goi ham 24us, ham nay tre trong 16us
+   9   1          DQ = 1; // keo len
+  10   1          delay_us(3); // delay (70-24)/16 = 2.875 // cho tin hieu presence
+  11   1          presence = DQ;
+  12   1          delay(25); // delay (410-24)/16 = 24.125; // ket thuc timeslot
+  13   1          return presence; // Neu presence = 0 thi OK chip slave tra loi, =1 thi NOT OK;
+  14   1      }
+  15          void DS18B20_WriteBit(char c) {
+  16   1          DQ = 0; // keo xuong muc 0 de khoi dong timeslot
+  17   1          if (c == 1) DQ = 1; // Neu write 1
+  18   1          delay_us(5); // delay 104 us luu gia tri cua timeslot
+  19   1          DQ = 1;
+  20   1      }
+  21          void DS18B20_WriteByte(char c) {
+  22   1          unsigned char i;
+  23   1          unsigned char temp;
+  24   1          for (i = 0; i < 8; i++) {
+  25   2              temp = c >> i; // lan luot viet tung bit
+  26   2              temp &= 0x01; // luu bit thap nhat vao bien temp
+  27   2              DS18B20_WriteBit(temp); // viet bit do len bus
+  28   2          }
+  29   1          delay_us(5);
+  30   1      }
+  31          unsigned char DS18B20_ReadBit(void) {
+  32   1          unsigned char i;
+  33   1          DQ = 0;
+  34   1          DQ = 1;
+  35   1          for (i = 0; i < 3; i++); // delay 15us
+  36   1          return (DQ);
+  37   1      }
+  38          unsigned char DS18B20_ReadByte(void) {
+  39   1          unsigned char i;
+  40   1          unsigned char value = 0;
+  41   1          for (i = 0; i < 8; i++) {
+  42   2              if (DS18B20_ReadBit()) value |= 0x01 << i; // dich trai doc lan luot tung bit
+  43   2              delay_us(6);
+  44   2          }
+  45   1          return value;
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    159    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       6
+C51 COMPILER V9.56.0.0   DS18B20                                                           01/07/2018 11:08:10 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

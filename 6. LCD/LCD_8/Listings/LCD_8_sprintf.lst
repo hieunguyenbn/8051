@@ -1,0 +1,124 @@
+C51 COMPILER V9.56.0.0   LCD_8_SPRINTF                                                     12/02/2017 12:50:52 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_8_SPRINTF
+OBJECT MODULE PLACED IN .\Objects\LCD_8_sprintf.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_8_sprintf.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\LCD_8_sprintf.lst) TABS(2) OBJECT(.\Objects\LCD_8_sprintf.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <string.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          #include <math.h>
+   5          #include <stdio.h>
+   6          
+   7          sbit RS = P0^5;
+   8          sbit RW = P0^6;
+   9          sbit EN = P0^7;
+  10          
+  11          void delay(unsigned int t) {
+  12   1        while(t--);
+  13   1      }
+  14          
+  15          void init(); //khoi tao
+  16          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+  17          void WriteCharacter(char c); // Gui ky tu
+  18          void WriteCharPosition(unsigned char row, unsigned char col, char c); // xuat ky tu ra LCD tai vt hang row
+             -, cot col
+  19          void WriteString(char *s);
+  20          void WriteStringPosition(unsigned char row, unsigned char col, char *s); // xuat chuoi ra LCD tai vt hang 
+             -row cot col
+  21          
+  22          volatile long i;
+  23          char b[11];
+  24          
+  25          int main(void) {
+  26   1          EX0 = 1;
+  27   1          EX1 = 1 ;
+  28   1          EA = 1;//IE = 0x85; //Ngat ngoai 
+  29   1          IT0 = 1;
+  30   1          IT1 = 1;
+  31   1          init();
+  32   1          WriteCharPosition(2,2,'H');
+  33   1          
+  34   1          while (1) {
+  35   2            sprintf(b,"COUNT = %ld",i);
+  36   2            WriteStringPosition(1,2,b);
+  37   2          }
+  38   1          return 0;
+  39   1      }
+  40          
+  41          void UP(void) interrupt 0 {
+  42   1        i++;
+  43   1        delay(20);  
+  44   1      }
+  45          void DOWN(void) interrupt 2 {
+  46   1        i--;
+  47   1        delay(145);
+  48   1        if (i < 1) i = 0; 
+  49   1      }
+  50          void WriteCommand(unsigned char cmd) {
+  51   1        RW = 0;
+  52   1        RS = 0;
+C51 COMPILER V9.56.0.0   LCD_8_SPRINTF                                                     12/02/2017 12:50:52 PAGE 2   
+
+  53   1        P2 = cmd;
+  54   1        EN = 0;
+  55   1        EN = 1;
+  56   1        if (cmd <= 0x02) delay_ms(2);
+  57   1        else delay_ms(1);
+  58   1      }
+  59          void init() {
+  60   1        WriteCommand(0x30);
+  61   1        delay_ms(5);
+  62   1        WriteCommand(0x30);
+  63   1        delay_ms(1);
+  64   1        WriteCommand(0x30); 
+  65   1        WriteCommand(0x38); //Hien thi 2 line
+  66   1        WriteCommand(0x01); //delete LCD
+  67   1        WriteCommand(0x0C);//Display and delete cursor  
+  68   1        WriteCommand(0x06); //AUTO increment cursor
+  69   1      }
+  70          void WriteCharacter(char c) {
+  71   1        RW = 0;
+  72   1        RS = 1;
+  73   1        P2 = c;
+  74   1        EN = 0;
+  75   1        delay_ms(1);
+  76   1        EN = 1;
+  77   1        delay_ms(1);
+  78   1      }
+  79          void WriteCharPosition(unsigned char row, unsigned char col, char c) {
+  80   1        unsigned char cmd;
+  81   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  82   1        WriteCommand(cmd);
+  83   1        WriteCharacter(c);
+  84   1      }
+  85          void WriteString(char *s) {
+  86   1        while (*s) {
+  87   2          WriteCharacter(*s++);
+  88   2        }
+  89   1      }
+  90          void WriteStringPosition(unsigned char row, unsigned char col, char *s) {
+  91   1        unsigned char cmd;
+  92   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  93   1        WriteCommand(cmd);
+  94   1        WriteString(s);
+  95   1      }
+*** WARNING C294 IN LINE 38 OF LCD_8_sprintf.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    473    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     15       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,3 @@
+".\Objects\BoPhanPhatHongNgoai.obj" 
+TO ".\Objects\BoPhanPhatHongNgoai" 
+PRINT(".\Listings\BoPhanPhatHongNgoai.m51") RAMSIZE(256) 

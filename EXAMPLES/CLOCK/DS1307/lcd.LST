@@ -1,0 +1,105 @@
+C51 COMPILER V9.52.0.0   LCD                                                               08/16/2017 16:41:06 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LCD
+OBJECT MODULE PLACED IN lcd.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE lcd.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "LCD.h"
+   2          #include "main.h"
+   3          #include "port.h"
+   4          
+   5          //Declare hardware connections (in port.h)
+   6          //sbit RS = P2^6;
+   7          //sbit RW = P2^5;
+   8          //sbit EN = P2^7;
+   9          //#define LCD P0
+  10          void delay(unsigned int t)
+  11          {
+  12   1        int i,j;
+  13   1        for(i=0;i<t;i++)
+  14   1        {
+  15   2          for(j=0;j<122;j++);
+  16   2        }
+  17   1      }
+  18           
+  19          //Ham ra lech cho LCD
+  20          void LCD_cmd(int a)
+  21          {
+  22   1        RW = 0;
+  23   1        RS = 0;
+  24   1        LCD = a;
+  25   1        EN = 0;
+  26   1        EN = 1;
+  27   1        if (a <= 0x01) delay(2);
+  28   1        else delay(1);
+  29   1      }
+  30          //Ham hien thi 1 ky tu len LCD
+  31          void LCD_char(char a)
+  32          {
+  33   1        RW = 0;
+  34   1        RS = 1;
+  35   1        LCD = a;
+  36   1        EN = 0;
+  37   1        EN = 1;
+  38   1        delay(1);
+  39   1      }
+  40          //Ham hien thi 1 xau len LCD
+  41          void LCD_str(char *c)
+  42          {
+  43   1        int i=0;
+  44   1        while(c[i] != 0){
+  45   2          LCD_char(c[i]);
+  46   2          i++;
+  47   2        }
+  48   1      }
+  49          //Ham hien thi 1 xau tai vi tri nhap vao
+  50          void LCD_str_pos(unsigned char row, unsigned char col, char *a)
+  51          {
+  52   1        int cmd;
+  53   1        //Di chuyen den vi tri hang row, cot col
+  54   1        if (row == 1) cmd = 0x80 + col -1;
+  55   1        if (row == 2) cmd = 0xc0 + col -1;
+C51 COMPILER V9.52.0.0   LCD                                                               08/16/2017 16:41:06 PAGE 2   
+
+  56   1        LCD_cmd(cmd);
+  57   1        LCD_str(a);
+  58   1      }
+  59          //Ham hien thi 1 ky tu tai vi tri nhap vao
+  60          void LCD_char_pos(unsigned char row, unsigned char col, char a)
+  61          {
+  62   1        int cmd;
+  63   1        //Di chuyen den vi tri hang row, cot col
+  64   1        if (row == 1) cmd = 0x80 + col -1;
+  65   1        if (row == 2) cmd = 0xc0 + col -1;
+  66   1        LCD_cmd(cmd);
+  67   1        LCD_char(a);
+  68   1      }
+  69          //Khoi tao LCD
+  70          void LCD_init()
+  71          {
+  72   1        LCD_cmd(0x38);
+  73   1        delay(5);
+  74   1        LCD_cmd(0x38);
+  75   1        delay(1);
+  76   1        LCD_cmd(0x38);
+  77   1        LCD_cmd(0x38); // hien thi 2 dong font chu la 5x7
+  78   1        LCD_cmd(0x01);// xoa ma hinh
+  79   1        LCD_cmd(0x0c);// bat hien thi con tro
+  80   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    256    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

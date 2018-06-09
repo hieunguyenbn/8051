@@ -1,0 +1,96 @@
+A51 MACRO ASSEMBLER  MOTOR1                                                               05/25/2014 16:39:22 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN motor1.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE motor1.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1      ORG 00H
+0000 020030            2      LJMP MAIN
+0030                   3      ORG 30H
+0030                   4      MAIN:
+0030 C2A0              5             CLR P2.0
+0032 C2A4              6             CLR P2.4
+0034 113C              7             CALL THUAN
+0036 1147              8             CALL DUNG
+0038 1152              9             CALL NGUOC
+003A 80F4             10             JMP MAIN
+                      11     
+                      12             ;----------------------------------------------------------------------------------
+003C                  13             THUAN:
+003C D2A0             14                     SETB P2.0
+003E C2A4             15                     CLR P2.4
+0040 7D03             16                     MOV R5, #3
+0042                  17                     DELAY3S:
+0042 115D             18                             CALL DELAY
+0044 DDFC             19                             DJNZ R5, DELAY3S
+0046 22               20             RET
+                      21             ;---------------------------------------------------------------------------------
+0047                  22             DUNG:
+0047 C2A0             23                CLR P2.0
+0049 C2A4             24                CLR P2.4
+004B 7D05             25                MOV R5, #5
+004D                  26                DELAY5S:
+004D 115D             27                             CALL DELAY
+004F DDFC             28                             DJNZ R5, DELAY5S
+                      29                             
+0051 22               30             RET
+                      31             ;----------------------------------------------------------------------------------
+0052                  32             NGUOC:
+0052 D2A4             33                     SETB P2.4
+0054 C2A0             34                     CLR P2.0
+0056 7D04             35                     MOV R5, #4
+0058                  36                     DELAY4:
+0058 115D             37                             CALL DELAY
+005A DDE6             38                             DJNZ R5, DELAY3S
+005C 22               39             RET
+                      40             ;----------------------------------------------------------------------------------
+                             -
+005D                  41             DELAY:
+005D 758901           42                MOV TMOD, #01
+0060 7F14             43                MOV R7, #20
+0062                  44                TRE1S:
+0062 758CB0           45                        MOV TH0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 45 (motor1.asm, LINE 45): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0065 758AB0           46                        MOV TL0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 46 (motor1.asm, LINE 46): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0068 D28C             47                        SETB TR0
+006A 308DFD           48                        JNB TF0, $
+006D C28C             49                        CLR TR0
+006F C28D             50                        CLR TF0
+0071 DFEF             51                        DJNZ R7, TRE1S
+0073 22               52             RET
+                      53      END
+A51 MACRO ASSEMBLER  MOTOR1                                                               05/25/2014 16:39:22 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   005DH   A   
+DELAY3S. . . . . .  C ADDR   0042H   A   
+DELAY4 . . . . . .  C ADDR   0058H   A   
+DELAY5S. . . . . .  C ADDR   004DH   A   
+DUNG . . . . . . .  C ADDR   0047H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+NGUOC. . . . . . .  C ADDR   0052H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+THUAN. . . . . . .  C ADDR   003CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TRE1S. . . . . . .  C ADDR   0062H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  2 WARNING(S), 0 ERROR(S)

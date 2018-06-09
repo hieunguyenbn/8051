@@ -1,0 +1,12 @@
+   ORG 0
+   LJMP MAIN
+   ORG 000BH
+   CPL P1.5
+   RETI
+   ORG 30H
+   MAIN:
+	  MOV TMOD, #20H
+	  MOV TH1, #92
+	  MOV IE, #10010010B
+	  SETB TR1
+   END

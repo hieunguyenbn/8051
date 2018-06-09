@@ -1,0 +1,84 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/03/2017  10:40:28  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE main.obj TO LedMatrix RAMSIZE (256) CODE (0X0000-0X1FFF)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+
+
+LINK MAP OF MODULE:  LedMatrix (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     001CH     UNIT         ?DT?MAIN
+            IDATA   0024H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001BH     UNIT         ?PR?_DELAY_MS?MAIN
+                    001EH     0005H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     0205H     UNIT         ?CO?MAIN
+            CODE    022BH     00A0H     UNIT         ?PR?MAIN?MAIN
+            CODE    02CBH     002BH     UNIT         ?PR?_DISPLAY?MAIN
+            CODE    02F6H     0019H     UNIT         ?C?LIB_CODE
+            CODE    030FH     0013H     UNIT         ?PR?_PUTSTR?MAIN
+            CODE    0322H     0010H     UNIT         ?PR?DELAY?MAIN
+            CODE    0332H     000CH     UNIT         ?C_C51STARTUP
+            CODE    033EH     0009H     UNIT         ?PR?SERIAL_IT?MAIN
+            CODE    0347H     0008H     UNIT         ?PR?_SEND?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   LedMatrix (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?CO?MAIN
+  +--> ?PR?_PUTSTR?MAIN
+  +--> ?PR?_SEND?MAIN
+  +--> ?PR?_DISPLAY?MAIN
+
+?PR?_PUTSTR?MAIN
+  +--> ?PR?_SEND?MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/03/2017  10:40:28  PAGE 2
+
+
+
+?PR?_DISPLAY?MAIN
+  +--> ?PR?DELAY?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  LedMatrix (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?CLDPTR
+  C:02F6H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?MAIN
+
+Program Size: data=37.0 xdata=0 code=842
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

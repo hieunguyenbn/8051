@@ -1,0 +1,4 @@
+".\Objects\InterruptTimer2.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\InterruptTimer2" 
+PRINT(".\Listings\InterruptTimer2.m51") RAMSIZE(256) 

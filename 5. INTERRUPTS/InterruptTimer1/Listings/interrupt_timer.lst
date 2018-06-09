@@ -1,0 +1,59 @@
+C51 COMPILER V9.56.0.0   INTERRUPT_TIMER                                                   11/13/2017 20:23:37 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE INTERRUPT_TIMER
+OBJECT MODULE PLACED IN .\Objects\interrupt_timer.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE interrupt_timer.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Li
+                    -stings\interrupt_timer.lst) TABS(5) OBJECT(.\Objects\interrupt_timer.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "..\..\LIBRARY\delay.h"
+   3          unsigned char count = 200;
+   4          sbit led = P0^0;
+   5          
+   6          void delay(unsigned int t) {
+   7   1           while(t--);
+   8   1      }
+   9          main() {
+  10   1      
+  11   1           TMOD = 0x02; // Timer 0 che do 2
+  12   1           TH0 = 5;
+  13   1           TL0 = 0; // Nap TH0,
+  14   1           TF0 = 0; // xoa co tràn
+  15   1           IE = 0x82; //cho phep ngat timer 0
+  16   1           //ET0 = 1;
+  17   1           //EA =1;
+  18   1           TR0 = 1; // khoi dong Timer 0
+  19   1           while(1) {
+  20   2                PCON |= 0x01;
+  21   2                led = ~ led;
+  22   2                delay(300);
+  23   2      
+  24   2           }
+  25   1      
+  26   1      }
+  27          void Stop() interrupt 1 { //NGAT TIMER 0
+  28   1           count--;
+  29   1           if (count == 0) {
+  30   2                count = 200;
+  31   2                P1 = ~P1;
+  32   2                delay_ms(2000);
+  33   2                          
+  34   2           }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    113    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,224 @@
+C51 COMPILER V9.56.0.0   LCD_CGRAM_3                                                       12/03/2017 21:02:34 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_CGRAM_3
+OBJECT MODULE PLACED IN .\Objects\LCD_CGRAM_3.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_CGRAM_3.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\LCD_CGRAM_3.lst) TABS(2) OBJECT(.\Objects\LCD_CGRAM_3.obj)
+
+line level    source
+
+   1          /*  
+   2           Example 2 Animation: Pacman chasing Dot */
+   3          #include<reg52.h>
+   4          
+   5          sbit rs=P0^5;     /* Register select pin */
+   6          sbit rw=P0^6;     /* Read/Write pin */
+   7          sbit en=P0^7;     /* Enable pin */
+   8          
+   9          void lcd_built(void);
+  10          
+  11          unsigned char addr,i;
+  12          
+  13          void delay(unsigned int count)  /* Function to provide delay Approx 1ms */
+  14          {
+  15   1        int i,j;
+  16   1        for(i=0;i<count;i++)
+  17   1          for(j=0;j<112;j++);
+  18   1      }
+  19          
+  20          void LCD_Command (char cmd) /* LCD16x2 command funtion */
+  21          {
+  22   1        P2=cmd;
+  23   1        rs=0;     /* command reg. */
+  24   1        rw=0;     /* Write operation */
+  25   1        en=1; 
+  26   1        delay(1);
+  27   1        en=0;
+  28   1        delay(5);
+  29   1      }
+  30          
+  31          void LCD_Char (char char_data)  /* LCD data write function */
+  32          {
+  33   1        P2=char_data;
+  34   1        rs=1;     /*Data reg.*/
+  35   1        rw=0;     /*Write operation*/
+  36   1        en=1;           
+  37   1        delay(1);
+  38   1        en=0;
+  39   1        delay(5);
+  40   1      }
+  41          
+  42          void LCD_String (char *str) /* Send string to LCD function */
+  43          {
+  44   1        int i;
+  45   1        for(i=0;str[i]!=0;i++)  /* Send each char of string till the NULL */
+  46   1        {
+  47   2          LCD_Char (str[i]);  /* Call LCD data write */
+  48   2        }
+  49   1      }
+  50          
+  51          void LCD_Init (void)    /* LCD Initialize function */
+  52          {
+  53   1        delay(20);    /* LCD Power ON Initialization time >15ms */
+  54   1        
+C51 COMPILER V9.56.0.0   LCD_CGRAM_3                                                       12/03/2017 21:02:34 PAGE 2   
+
+  55   1        LCD_Command (0x38); /* Initialization of 16X2 LCD in 8bit mode */
+  56   1        LCD_Command (0x0C); /* Display ON Cursor OFF */
+  57   1        LCD_Command (0x06); /* Auto Increment cursor */
+  58   1        LCD_Command (0x01); /* Clear display */
+  59   1        LCD_Command (0x80); /* Cursor at home position */
+  60   1      }
+  61          
+  62          void LCD_Clear()
+  63          {
+  64   1        LCD_Command (0x01); /* Clear display */
+  65   1        LCD_Command (0x80); /* Cursor at home position */
+  66   1      }
+  67          
+  68          void LCD_Custom_Char (unsigned char loc, unsigned char *msg)
+  69          {
+  70   1          unsigned char i;
+  71   1          if(loc<8)
+  72   1          {
+  73   2           LCD_Command (0x40 + (loc*8));
+  74   2             for(i=0;i<8;i++)
+  75   2                 LCD_Char(msg[i]);      
+  76   2          }   
+  77   1      }
+  78          
+  79          void show_set1()
+  80          {
+  81   1        LCD_Char(0x0);
+  82   1        LCD_Char(0x01);
+  83   1      }
+  84          
+  85          void show_set2()
+  86          {
+  87   1        LCD_Char(0x2);
+  88   1        LCD_Char(0x3);
+  89   1      }
+  90          
+  91          
+  92          void show_dots(char j)
+  93          {
+  94   1        LCD_Command(0x80|(addr&0x0f));
+  95   1        LCD_Char(j);
+  96   1      }
+  97          
+  98          int main(void)
+  99          {
+ 100   1        
+ 101   1        LCD_Init();
+ 102   1        LCD_String("Ewings");
+ 103   1        LCD_Command(0x0c3);
+ 104   1        LCD_String("Animation");
+ 105   1        delay(300);
+ 106   1        lcd_built();
+ 107   1        addr=0xc1;
+ 108   1        
+ 109   1        while(1)
+ 110   1        {
+ 111   2          addr=0xc1;
+ 112   2          i=4;
+ 113   2          /* showing set 1 left to right rolling */
+ 114   2          do{
+ 115   3            LCD_Command(addr++);
+ 116   3            show_set1();
+C51 COMPILER V9.56.0.0   LCD_CGRAM_3                                                       12/03/2017 21:02:34 PAGE 3   
+
+ 117   3            show_dots(i);
+ 118   3            if(i<7)
+ 119   3            i++;
+ 120   3            else
+ 121   3            i=4;
+ 122   3            delay(200);
+ 123   3            LCD_Clear();
+ 124   3            
+ 125   3            LCD_Command(addr++);
+ 126   3            show_set2();
+ 127   3            show_dots(i);
+ 128   3            if(i<7)
+ 129   3            i++;
+ 130   3            else
+ 131   3            i=7;
+ 132   3            delay(200);
+ 133   3            LCD_Clear();
+ 134   3          }while(addr<0xce);
+ 135   2          
+ 136   2          /* showing set 2 right to left rolling */
+ 137   2          do{
+ 138   3            LCD_Command(addr--);
+ 139   3            show_set1();
+ 140   3            show_dots(i);
+ 141   3            if(i<7)
+ 142   3            i++;
+ 143   3            else
+ 144   3            i=4;
+ 145   3            delay(200);
+ 146   3            LCD_Clear();
+ 147   3            
+ 148   3            LCD_Command(addr--);
+ 149   3            show_set2();
+ 150   3            show_dots(i);
+ 151   3            if(i<7)
+ 152   3            i++;
+ 153   3            else
+ 154   3            i=7;
+ 155   3            delay(200);
+ 156   3            LCD_Clear();
+ 157   3          }while(addr>0xc2);
+ 158   2          
+ 159   2          
+ 160   2        }
+ 161   1      }
+ 162          
+ 163          
+ 164          void lcd_built(void)
+ 165          {
+ 166   1        unsigned char Character1[8] = { 0x01, 0x03, 0x07, 0x0D, 0x0F, 0x02, 0x05, 0x0A };
+ 167   1        unsigned char Character2[8] = { 0x10, 0x18, 0x1C, 0x16, 0x1E, 0x08, 0x14, 0x0A };
+ 168   1        unsigned char Character3[8] = { 0x01, 0x03, 0x07, 0x0D, 0x0F, 0x05, 0x08, 0x04 };
+ 169   1        unsigned char Character4[8] = { 0x10, 0x18, 0x1C, 0x16, 0x1E, 0x14, 0x02, 0x04 };
+ 170   1        unsigned char Character5[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18 };
+ 171   1        unsigned char Character6[8] = { 0x00, 0x00, 0x00, 0x00, 0x06, 0x06, 0x00, 0x00 };
+ 172   1        unsigned char Character7[8] = { 0x00, 0x00, 0x03, 0x03, 0x00, 0x00, 0x00, 0x00 };
+ 173   1        unsigned char Character8[8] = { 0x00, 0x18, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00 };
+ 174   1      
+ 175   1        /* ---------- Build Custom Characters -----------------*/
+ 176   1        
+ 177   1        LCD_Custom_Char(0, Character1);  /* Build Character1 at position 0 */
+ 178   1        LCD_Custom_Char(1, Character2);  /* Build Character2 at position 1 */
+C51 COMPILER V9.56.0.0   LCD_CGRAM_3                                                       12/03/2017 21:02:34 PAGE 4   
+
+ 179   1        LCD_Custom_Char(2, Character3);  /* Build Character3 at position 2 */
+ 180   1        LCD_Custom_Char(3, Character4);  /* Build Character4 at position 3 */
+ 181   1        LCD_Custom_Char(4, Character5);  /* Build Character5 at position 4 */
+ 182   1        LCD_Custom_Char(5, Character6);  /* Build Character6 at position 5 */
+ 183   1        LCD_Custom_Char(6, Character7);  /* Build Character6 at position 6 */
+ 184   1        LCD_Custom_Char(7, Character8);  /* Build Character6 at position 7 */
+ 185   1      }
+ 186          
+ 187          //void LCD_String_xy (char row, char pos, char *str)  /* Send string to LCD function */
+ 188          //{
+ 189          //  if (row == 0)
+ 190          //  LCD_Command((pos & 0x0F)|0x80);
+ 191          //  else if (row == 1)
+ 192          //  LCD_Command((pos & 0x0F)|0xC0);
+ 193          //  LCD_String(str);  /* Call LCD string function */
+ 194          //}
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    674    ----
+   CONSTANT SIZE    =     81    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2      73
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

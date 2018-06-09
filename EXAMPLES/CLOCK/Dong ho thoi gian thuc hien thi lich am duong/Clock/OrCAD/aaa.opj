@@ -1,0 +1,116 @@
+(ExpressProject "aaa"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\aaa.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (Netlist_TAB "3")
+    (LAYOUT_Netlist_File "AAA.MNL")
+    (LAYOUT_PCB_Footprint "{PCB Footprint}")
+    ( "TRUE")
+    (LAYOUT_Units "0"))
+  (Folder "Outputs"
+    (File ".\aaa.mnl"
+      (Type "LAYOUT Netlist File")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    ("Led S"
+      (FullPartName "Led S.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Battery 3v"
+      (FullPartName "Battery 3v.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\LIBRARY6.OLB")
+      (DeviceIndex "0"))
+    (DS1307
+      (FullPartName "DS1307.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MISC.OLB")
+      (DeviceIndex "0"))
+    (74HC138
+      (FullPartName "74HC138.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MUXDECODER.OLB")
+      (DeviceIndex "0"))
+    (7805
+      (FullPartName "7805.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN MACH NGUYEN LY ORCAD\LIBRARY1.OLB")
+      (DeviceIndex "0"))
+    ("JACK DC"
+      (FullPartName "JACK DC.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    (A1015
+      (FullPartName "A1015.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\THU VIEN CAPTURE (2).OLB")
+      (DeviceIndex "0"))
+    ("RESISTOR SIP 9"
+      (FullPartName "RESISTOR SIP 9.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\THU VIEN CAPTURE (2).OLB")
+      (DeviceIndex "0"))
+    ("Thach anh"
+      (FullPartName "Thach anh.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Nut nhan 2"
+      (FullPartName "Nut nhan 2.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Tu hoa"
+      (FullPartName "Tu hoa.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Tu gom"
+      (FullPartName "Tu gom.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Dien tro"
+      (FullPartName "Dien tro.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Led 7 doan"
+      (FullPartName "Led 7 doan.Normal")
+      (LibraryName
+         "D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    (AT89C52
+      (FullPartName "AT89C52.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MICROCONTROLLER.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\aaa.dsn")
+      (Path "Design Resources" ".\aaa.dsn" "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources" ".\aaa.dsn"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -5 -27 0 200 0 583"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -5 -27 50 1055 50 665")
+        (Scroll "0 0")
+        (Zoom "137")
+        (Occurrence "/"))
+      (Path "C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\AAA.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))

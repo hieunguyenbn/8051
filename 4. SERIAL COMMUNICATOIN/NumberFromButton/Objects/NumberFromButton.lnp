@@ -1,0 +1,4 @@
+".\Objects\NumberFromButton.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\NumberFromButton" 
+PRINT(".\Listings\NumberFromButton.m51") RAMSIZE(256) 

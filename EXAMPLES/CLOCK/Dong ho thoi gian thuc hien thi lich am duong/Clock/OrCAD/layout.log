@@ -1,0 +1,813 @@
+Sun May 29 22:56:25 UserDiv from Layout.INI for AutoECO: 60
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT_PLUS\DATA\_DEFAULT.TCH
+Sun May 29 22:56:25 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:56:25 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\HUNGVUONG_THUVIEN.LLB
+Sun May 29 22:56:25 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 22:56:25 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BCON100T.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BCON156T.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BGA.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\CLCC.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DCON050T.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DCON085T.LLB
+Sun May 29 22:56:25 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIMM050F.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIMM050T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIN.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIP100B.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIP100T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DSUBT.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DSUBT_HD.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ECON100T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\EMPTY.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\EX_GUI.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\FBUS.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ISA.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\JUMPER.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\LAYOUT.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\LCON100T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\METRIC.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PADSTACK.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PC104.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCI.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCON100T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCON156T.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PGA.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PLCC.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\QUAD.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\QUADB.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\RELAY.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\RF.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SBUS.LLB
+Sun May 29 22:56:26 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM050F.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM050T.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM100F.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM100T.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIP.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SM.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SOG.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SOJ.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\STIFF.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TELE.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_AXIAL.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CAP_P.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CYLND.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DIODE.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DISC.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_RAD.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TO.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TRAINING.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\VRES.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\WCON100T.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\XT.LLB
+Sun May 29 22:56:27 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ZIGZAG.LLB
+Sun May 29 22:56:27 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\BK_CBG.LLB
+Sun May 29 22:56:27 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\CONG TAC NUT.LLB
+Sun May 29 22:56:27 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HGN.LLB
+Sun May 29 22:56:27 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HUUTAN.LLB
+Sun May 29 22:56:27 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HUY.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\IC PIN.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\KIEENNX.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\KITTEN.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\L298.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT LIBRARY MANUAL 2.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT LIBRARY MANUAL.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT_LIBRARY_MANUAL1.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LIBRARY LONG.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LINHKIEN 2.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LINHKIEN.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\NUT_BAM.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\PAD.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\PHAMHUY.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT 2.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THACHANH_LCD.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THANHSON.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN _HOANGLONGU.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN LAYOUT BETA 3.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN PIC .LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN2.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU_VIEN_LAYOUT_BETA_3.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TRANSITROR.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TU TAO.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TUHOA.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\VIEN.LLB
+Sun May 29 22:56:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BCON100T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BCON156T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BGA.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\CLCC.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DCON050T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DCON085T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIMM050F.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIMM050T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIN.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIP100B.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIP100T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DSUBT.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DSUBT_HD.LLB
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ECON100T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\FBUS.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ISA.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\JUMPER.LLB
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\LAYOUT.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\LCON100T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PC104.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCI.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCON100T.llb
+Sun May 29 22:56:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCON156T.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PGA.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PLCC.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\QUAD.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\QUADB.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\RELAY.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\RF.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SBUS.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM050F.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM050T.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM100F.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM100T.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIP.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SM.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SOG.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SOJ.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\STIFF.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TELE.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_AXIAL.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_CAP_P.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_CYLND.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_DIODE.llb
+Sun May 29 22:56:30 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_DISC.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_RAD.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TO.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TRAINING.LLB
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\VRES.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\WCON100T.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\XT.llb
+Sun May 29 22:56:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ZIGZAG.llb
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HGN.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LINHKIEN 2.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\KIEENNX.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TU TAO.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\HUNGVUONG_THUVIEN.LLB
+Sun May 29 22:56:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 22:56:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:47 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:56:48 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:52 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:53 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:56:55 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:55 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:56:58 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:57:01 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:57:10 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:57:11 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:57:11 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 22:57:11 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:57:11 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 22:57:13 Saved as file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT.MAX
+Sun May 29 22:58:32 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:33 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:33 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:33 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:36 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 22:58:38 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:38 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 22:58:42 Saved as file ~undo.max
+Sun May 29 23:00:56 Saved as file ~undo.max
+Sun May 29 23:00:58 Saved as file ~undo.max
+Sun May 29 23:01:07 Saved as file ~undo.max
+Sun May 29 23:01:12 Saved as file ~undo.max
+Sun May 29 23:01:17 Saved as file ~undo.max
+Sun May 29 23:01:32 Saved as file ~undo.max
+Sun May 29 23:01:38 Saved as file ~undo.max
+Sun May 29 23:01:45 Saved as file ~undo.max
+Sun May 29 23:01:51 Saved as file ~undo.max
+Sun May 29 23:01:53 Saved as file ~undo.max
+Sun May 29 23:01:56 Saved as file ~undo.max
+Sun May 29 23:02:02 Saved as file ~undo.max
+Sun May 29 23:02:04 Saved as file ~undo.max
+Sun May 29 23:02:13 Saved as file ~undo.max
+Sun May 29 23:04:08 Saved as file ~undo.max
+Sun May 29 23:04:11 Saved as file ~undo.max
+Sun May 29 23:04:16 Saved as file ~undo.max
+Sun May 29 23:04:18 Saved as file ~undo.max
+Sun May 29 23:04:19 Saved as file ~undo.max
+Sun May 29 23:04:21 Saved as file ~undo.max
+Sun May 29 23:04:47 Saved as file ~undo.max
+Sun May 29 23:04:48 Saved as file ~undo.max
+Sun May 29 23:04:49 Saved as file ~undo.max
+Sun May 29 23:06:17 Saved as file ~undo.max
+Sun May 29 23:06:21 Saved as file ~undo.max
+Sun May 29 23:06:22 Saved as file ~undo.max
+Sun May 29 23:06:23 Saved as file ~undo.max
+Sun May 29 23:06:26 Saved as file ~undo.max
+Sun May 29 23:06:30 Saved as file ~undo.max
+Sun May 29 23:06:33 Saved as file ~undo.max
+Sun May 29 23:06:35 Saved as file ~undo.max
+Sun May 29 23:06:37 Saved as file ~undo.max
+Sun May 29 23:06:56 Saved as file ~undo.max
+Sun May 29 23:07:02 Saved as file ~undo.max
+Sun May 29 23:07:25 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:25 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:25 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:26 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:28 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:07:31 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:40 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BCON100T.LLB
+Sun May 29 23:07:41 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:07:42 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:42 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:46 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:46 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:07:58 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:12 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\VRES.llb
+Sun May 29 23:08:13 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 23:08:14 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:08:15 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TELE.LLB
+Sun May 29 23:08:15 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_AXIAL.LLB
+Sun May 29 23:08:16 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CAP_P.LLB
+Sun May 29 23:08:16 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CYLND.LLB
+Sun May 29 23:08:16 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DIODE.LLB
+Sun May 29 23:08:17 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DISC.LLB
+Sun May 29 23:08:17 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_RAD.LLB
+Sun May 29 23:08:17 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TO.LLB
+Sun May 29 23:08:18 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TRAINING.LLB
+Sun May 29 23:08:18 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT 2.LLB
+Sun May 29 23:08:19 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT.LLB
+Sun May 29 23:08:19 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THACHANH_LCD.LLB
+Sun May 29 23:08:20 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THANHSON.LLB
+Sun May 29 23:08:20 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN _HOANGLONGU.LLB
+Sun May 29 23:08:23 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN LAYOUT BETA 3.LLB
+Sun May 29 23:08:38 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:42 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:44 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN PIC .LLB
+Sun May 29 23:08:45 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN.LLB
+Sun May 29 23:08:45 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN2.LLB
+Sun May 29 23:08:45 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU_VIEN_LAYOUT_BETA_3.LLB
+Sun May 29 23:08:46 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TRANSITROR.LLB
+Sun May 29 23:08:46 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TU TAO.LLB
+Sun May 29 23:08:47 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TUHOA.LLB
+Sun May 29 23:08:47 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 23:08:49 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:08:54 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:06 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:12 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:14 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:17 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:19 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:22 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:09:25 Saved as file ~undo.max
+Sun May 29 23:09:41 Saved as file ~undo.max
+Sun May 29 23:09:45 Saved as file ~undo.max
+Sun May 29 23:10:31 Saved as file BACKUP1.MAX
+Sun May 29 23:10:31 Saved as file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT.MAX
+Sun May 29 23:10:37 UserDiv from Layout.INI for AutoECO: 60
+Sun May 29 23:10:37 Loaded file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT.MAX
+Sun May 29 23:10:37 Saved as file BACKUP1.MAX
+Sun May 29 23:10:37 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:10:37 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\HUNGVUONG_THUVIEN.LLB
+Sun May 29 23:10:37 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 23:10:37 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BCON100T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BCON156T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\BGA.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\CLCC.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DCON050T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DCON085T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIMM050F.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIMM050T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIN.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIP100B.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DIP100T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DSUBT.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\DSUBT_HD.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ECON100T.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\EMPTY.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\EX_GUI.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\FBUS.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ISA.LLB
+Sun May 29 23:10:37 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\JUMPER.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\LAYOUT.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\LCON100T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\METRIC.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PADSTACK.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PC104.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCI.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCON100T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PCON156T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PGA.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\PLCC.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\QUAD.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\QUADB.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\RELAY.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\RF.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SBUS.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM050F.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM050T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM100F.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIMM100T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SIP.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SM.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SOG.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\SOJ.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\STIFF.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TELE.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_AXIAL.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CAP_P.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_CYLND.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DIODE.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_DISC.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TM_RAD.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TO.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\TRAINING.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\VRES.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\WCON100T.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\XT.LLB
+Sun May 29 23:10:38 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\ZIGZAG.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\BK_CBG.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\CONG TAC NUT.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HGN.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HUUTAN.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\HUY.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\IC PIN.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\KIEENNX.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\KITTEN.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\L298.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT LIBRARY MANUAL 2.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT LIBRARY MANUAL.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LAYOUT_LIBRARY_MANUAL1.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LIBRARY LONG.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LINHKIEN 2.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\LINHKIEN.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\NUT_BAM.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\PAD.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\PHAMHUY.LLB
+Sun May 29 23:10:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT 2.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\T2L LAYOUT.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THACHANH_LCD.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THANHSON.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN _HOANGLONGU.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN LAYOUT BETA 3.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN PIC .LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU VIEN2.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\THU_VIEN_LAYOUT_BETA_3.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TRANSITROR.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TU TAO.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\TUHOA.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\VIEN.LLB
+Sun May 29 23:10:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BCON100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BCON156T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\BGA.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\CLCC.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DCON050T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DCON085T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIMM050F.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIMM050T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIN.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIP100B.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DIP100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DSUBT.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\DSUBT_HD.LLB
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ECON100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\FBUS.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ISA.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\JUMPER.LLB
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\LAYOUT.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\LCON100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PC104.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCI.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCON100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PCON156T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PGA.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\PLCC.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\QUAD.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\QUADB.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\RELAY.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\RF.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SBUS.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM050F.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM050T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM100F.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIMM100T.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SIP.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SM.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SOG.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\SOJ.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\STIFF.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TELE.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_AXIAL.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_CAP_P.llb
+Sun May 29 23:10:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_CYLND.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_DIODE.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_DISC.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TM_RAD.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TO.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\TRAINING.LLB
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\VRES.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\WCON100T.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\XT.llb
+Sun May 29 23:10:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\ZIGZAG.llb
+Sun May 29 23:10:41 Saved as file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT-1.MAX
+Sun May 29 23:10:41 Loaded file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT-1.MAX
+Sun May 29 23:10:49 Saved as file ~undo.max
+Sun May 29 23:10:57 Saved as file ~undo.max
+Sun May 29 23:11:02 Saved as file ~undo.max
+Sun May 29 23:11:08 Saved as file ~undo.max
+Sun May 29 23:11:10 Saved as file ~undo.max
+Sun May 29 23:11:27 Saved as file ~undo.max
+Sun May 29 23:11:31 Saved as file ~undo.max
+Sun May 29 23:11:37 Saved as file ~undo.max
+Sun May 29 23:11:39 Saved as file ~undo.max
+Sun May 29 23:11:43 Saved as file ~undo.max
+Sun May 29 23:11:46 Saved as file ~undo.max
+Sun May 29 23:11:50 Saved as file ~undo.max
+Sun May 29 23:11:53 Saved as file ~undo.max
+Sun May 29 23:11:55 Saved as file ~undo.max
+Sun May 29 23:11:58 Saved as file ~undo.max
+Sun May 29 23:12:02 Saved as file ~undo.max
+Sun May 29 23:12:06 Saved as file ~undo.max
+Sun May 29 23:12:08 Saved as file ~undo.max
+Sun May 29 23:12:12 Saved as file ~undo.max
+Sun May 29 23:12:15 Saved as file ~undo.max
+Sun May 29 23:12:22 Saved as file ~undo.max
+Sun May 29 23:12:26 Saved as file ~undo.max
+Sun May 29 23:12:29 Saved as file ~undo.max
+Sun May 29 23:12:33 Saved as file ~undo.max
+Sun May 29 23:12:36 Saved as file ~undo.max
+Sun May 29 23:12:40 Saved as file ~undo.max
+Sun May 29 23:12:45 Saved as file ~undo.max
+Sun May 29 23:12:47 Saved as file ~undo.max
+Sun May 29 23:12:51 Saved as file ~undo.max
+Sun May 29 23:13:09 Saved as file ~undo.max
+Sun May 29 23:13:21 Saved as file ~undo.max
+Sun May 29 23:13:23 Saved as file ~undo.max
+Sun May 29 23:13:25 Saved as file ~undo.max
+Sun May 29 23:13:28 Saved as file ~undo.max
+Sun May 29 23:13:29 Saved as file ~undo.max
+Sun May 29 23:13:37 Saved as file ~undo.max
+Sun May 29 23:13:47 Saved as file ~undo.max
+Sun May 29 23:13:57 Saved as file ~undo.max
+Sun May 29 23:14:05 Saved as file ~undo.max
+Sun May 29 23:14:27 Saved as file ~undo.max
+Sun May 29 23:15:35 Saved as file ~undo.max
+Sun May 29 23:15:39 Saved as file ~undo.max
+Sun May 29 23:15:42 Saved as file ~undo.max
+Sun May 29 23:15:46 Saved as file ~undo.max
+Sun May 29 23:15:50 Saved as file ~undo.max
+Sun May 29 23:15:53 Saved as file ~undo.max
+Sun May 29 23:15:57 Saved as file ~undo.max
+Sun May 29 23:16:00 Saved as file ~undo.max
+Sun May 29 23:16:02 Saved as file ~undo.max
+Sun May 29 23:16:08 Saved as file ~undo.max
+Sun May 29 23:16:11 Saved as file ~undo.max
+Sun May 29 23:16:18 Saved as file ~undo.max
+Sun May 29 23:16:22 Saved as file ~undo.max
+Sun May 29 23:16:25 Saved as file ~undo.max
+Sun May 29 23:16:29 Saved as file ~undo.max
+Sun May 29 23:16:59 Saved as file ~undo.max
+Sun May 29 23:17:04 Saved as file ~undo.max
+Sun May 29 23:17:06 Saved as file ~undo.max
+Sun May 29 23:17:11 Saved as file ~undo.max
+Sun May 29 23:17:12 Saved as file ~undo.max
+Sun May 29 23:17:16 Saved as file ~undo.max
+Sun May 29 23:17:18 Saved as file ~undo.max
+Sun May 29 23:17:21 Saved as file ~undo.max
+Sun May 29 23:17:24 Saved as file ~undo.max
+Sun May 29 23:17:28 Saved as file ~undo.max
+Sun May 29 23:17:30 Saved as file ~undo.max
+Sun May 29 23:17:35 Saved as file ~undo.max
+Sun May 29 23:17:38 Saved as file ~undo.max
+Sun May 29 23:17:40 Saved as file ~undo.max
+Sun May 29 23:17:42 Saved as file ~undo.max
+Sun May 29 23:17:44 Saved as file ~undo.max
+Sun May 29 23:17:46 Saved as file ~undo.max
+Sun May 29 23:17:47 Saved as file ~undo.max
+Sun May 29 23:17:50 Saved as file ~undo.max
+Sun May 29 23:18:08 Saved as file ~undo.max
+Sun May 29 23:18:21 Saved as file ~undo.max
+Sun May 29 23:18:31 Saved as file ~undo.max
+Sun May 29 23:18:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:46 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:18:48 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:50 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:50 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:51 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:52 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:55 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:56 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:18:57 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:19:00 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:19:01 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\VRES.LLB
+Sun May 29 23:19:02 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\VIEN.LLB
+Sun May 29 23:19:02 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\library\VRES.llb
+Sun May 29 23:19:03 Loaded file C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT\LIBRARY\VRES.LLB
+Sun May 29 23:19:03 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\LAY OUT TONG HOP\VIEN.LLB
+Sun May 29 23:19:05 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 23:19:07 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:19:10 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:19:10 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:19:11 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:19:13 Saved as file ~undo.max
+Sun May 29 23:19:18 Saved as file ~undo.max
+Sun May 29 23:19:24 Saved as file ~undo.max
+Sun May 29 23:19:30 Saved as file ~undo.max
+Sun May 29 23:19:34 Saved as file ~undo.max
+Sun May 29 23:19:38 Saved as file ~undo.max
+Sun May 29 23:19:42 Saved as file ~undo.max
+Sun May 29 23:19:47 Saved as file ~undo.max
+Sun May 29 23:19:54 Saved as file ~undo.max
+Sun May 29 23:20:07 Saved as file ~undo.max
+Sun May 29 23:20:13 Saved as file ~undo.max
+Sun May 29 23:20:17 Saved as file ~undo.max
+Sun May 29 23:20:23 Saved as file ~undo.max
+Sun May 29 23:20:29 Saved as file ~undo.max
+Sun May 29 23:20:34 Saved as file ~undo.max
+Sun May 29 23:20:40 Saved as file ~undo.max
+Sun May 29 23:20:42 Saved as file ~undo.max
+Sun May 29 23:20:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:45 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:47 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:20:48 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:55 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:20:57 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:03 Saved as file ~undo.max
+Sun May 29 23:21:36 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:36 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:36 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:36 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:38 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:21:39 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:42 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:44 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:44 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:44 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:44 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:49 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:21:50 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:52 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:53 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:21:59 Saved as file ~undo.max
+Sun May 29 23:22:07 Saved as file BACKUP1.MAX
+Sun May 29 23:22:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:22:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:22:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:22:29 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:22:31 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:22:43 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\KY NHONG\THU VIEN1.LLB
+Sun May 29 23:22:48 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:22:50 Saved as file ~undo.max
+Sun May 29 23:23:04 Saved as file ~undo.max
+Sun May 29 23:23:09 Saved as file ~undo.max
+Sun May 29 23:23:12 Saved as file ~undo.max
+Sun May 29 23:23:17 Saved as file ~undo.max
+Sun May 29 23:23:26 Saved as file ~undo.max
+Sun May 29 23:23:33 Saved as file ~undo.max
+Sun May 29 23:23:38 Saved as file ~undo.max
+Sun May 29 23:23:46 Saved as file ~undo.max
+Sun May 29 23:23:47 Saved as file ~undo.max
+Sun May 29 23:23:51 Saved as file ~undo.max
+Sun May 29 23:23:53 Saved as file ~undo.max
+Sun May 29 23:23:59 Saved as file ~undo.max
+Sun May 29 23:24:02 Saved as file ~undo.max
+Sun May 29 23:24:17 Saved as file ~undo.max
+Sun May 29 23:24:27 Saved as file ~undo.max
+Sun May 29 23:24:33 Saved as file ~undo.max
+Sun May 29 23:24:37 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:37 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:37 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:37 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:39 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:24:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:40 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:44 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN2 .LLB
+Sun May 29 23:24:45 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN.LLB
+Sun May 29 23:24:48 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:24:58 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:25:02 Loaded file D:\STUDY\ELECTRONIC\SOFT\THU VIEN ORCAD\THU VIEN ORCAD LAYOUT\HUUTAN.LLB
+Sun May 29 23:25:04 Loaded file C:\OrCAD\OrCAD_10.5\tools\Layout_Plus\data\template.imp
+Sun May 29 23:25:07 Saved as file ~undo.max
+Sun May 29 23:25:14 Saved as file ~undo.max
+Sun May 29 23:25:31 Saved as file ~undo.max
+Sun May 29 23:25:34 Saved as file ~undo.max
+Sun May 29 23:25:35 Saved as file ~undo.max
+Sun May 29 23:25:37 Saved as file ~undo.max
+Sun May 29 23:25:40 Saved as file ~undo.max
+Sun May 29 23:25:45 Saved as file ~undo.max
+Sun May 29 23:25:49 Saved as file ~undo.max
+Sun May 29 23:25:51 Saved as file ~undo.max
+Sun May 29 23:25:52 Saved as file ~undo.max
+Sun May 29 23:25:57 Saved as file ~undo.max
+Sun May 29 23:26:01 Saved as file ~undo.max
+Sun May 29 23:26:08 Saved as file ~undo.max
+Sun May 29 23:26:21 Saved as file ~undo.max
+Sun May 29 23:26:36 Saved as file ~undo.max
+Sun May 29 23:26:41 Saved as file ~undo.max
+Sun May 29 23:26:50 Saved as file ~undo.max
+Sun May 29 23:27:09 Saved as file ~undo.max
+Sun May 29 23:27:18 Saved as file ~undo.max
+Sun May 29 23:27:41 Saved as file ~undo.max
+Sun May 29 23:27:49 Saved as file ~undo.max
+Sun May 29 23:27:55 Saved as file ~undo.max
+Sun May 29 23:28:10 Saved as file ~undo.max
+Sun May 29 23:28:18 Saved as file ~undo.max
+Sun May 29 23:28:24 Saved as file ~undo.max
+Sun May 29 23:28:29 Saved as file ~undo.max
+Sun May 29 23:28:35 Saved as file ~undo.max
+Sun May 29 23:28:48 Saved as file ~undo.max
+Sun May 29 23:28:53 Saved as file ~undo.max
+Sun May 29 23:28:57 Saved as file ~undo.max
+Sun May 29 23:29:00 Saved as file ~undo.max
+Sun May 29 23:29:03 Saved as file ~undo.max
+Sun May 29 23:29:10 Saved as file ~undo.max
+Sun May 29 23:29:13 Saved as file ~undo.max
+Sun May 29 23:29:18 Saved as file ~undo.max
+Sun May 29 23:29:26 Saved as file ~undo.max
+Sun May 29 23:29:34 Saved as file ~undo.max
+Sun May 29 23:29:43 Saved as file ~undo.max
+Sun May 29 23:29:51 Saved as file ~undo.max
+Sun May 29 23:29:56 Saved as file ~undo.max
+Sun May 29 23:30:03 Saved as file ~undo.max
+Sun May 29 23:30:16 Saved as file ~undo.max
+Sun May 29 23:30:20 Saved as file ~undo.max
+Sun May 29 23:30:33 Saved as file ~undo.max
+Sun May 29 23:30:54 Saved as file ~undo.max
+Sun May 29 23:31:05 Saved as file ~undo.max
+Sun May 29 23:31:14 Saved as file ~undo.max
+Sun May 29 23:31:16 Saved as file ~undo.max
+Sun May 29 23:31:20 Saved as file ~undo.max
+Sun May 29 23:31:25 Saved as file ~undo.max
+Sun May 29 23:31:34 Saved as file ~undo.max
+Sun May 29 23:31:42 Saved as file ~undo.max
+Sun May 29 23:31:47 Saved as file ~undo.max
+Sun May 29 23:31:49 Saved as file ~undo.max
+Sun May 29 23:31:50 Saved as file ~undo.max
+Sun May 29 23:31:50 Saved as file ~undo.max
+Sun May 29 23:31:50 Saved as file ~undo.max
+Sun May 29 23:31:55 Saved as file ~undo.max
+Sun May 29 23:31:57 Saved as file ~undo.max
+Sun May 29 23:32:24 Saved as file ~undo.max
+Sun May 29 23:32:30 Saved as file ~undo.max
+Sun May 29 23:32:37 Saved as file ~undo.max
+Sun May 29 23:32:42 Saved as file ~undo.max
+Sun May 29 23:32:47 Saved as file ~undo.max
+Sun May 29 23:32:51 Saved as file ~undo.max
+Sun May 29 23:32:59 Saved as file ~undo.max
+Sun May 29 23:33:02 Saved as file ~undo.max
+Sun May 29 23:33:08 Saved as file BACKUP1.MAX
+Sun May 29 23:33:14 Saved as file ~undo.max
+Sun May 29 23:33:17 Saved as file ~undo.max
+Sun May 29 23:33:33 Saved as file ~undo.max
+Sun May 29 23:37:01 Saved as file BACKUP1.MAX
+Sun May 29 23:37:01 Saved as file BACKUP1.MAX
+Sun May 29 23:37:01 Saved as file BACKUP1.MAX
+Sun May 29 23:37:02 Saved as file BACKUP1.MAX
+Sun May 29 23:37:02 Saved as file BACKUP1.MAX
+Sun May 29 23:37:02 Saved as file BACKUP1.MAX
+Sun May 29 23:37:03 Saved as file BACKUP1.MAX
+Sun May 29 23:37:03 Saved as file BACKUP1.MAX
+Sun May 29 23:37:04 Saved as file BACKUP1.MAX
+Sun May 29 23:37:04 Saved as file BACKUP1.MAX
+Sun May 29 23:37:04 Routed 44 connections in 4 seconds.
+Sun May 29 23:37:04 Total is now 44 out of 246 (17%).
+Sun May 29 23:37:04 Saved as file SWEEP1.MAX
+Sun May 29 23:37:12 Saved as file BACKUP1.MAX
+Sun May 29 23:37:12 Saved as file BACKUP1.MAX
+Sun May 29 23:37:13 Saved as file BACKUP1.MAX
+Sun May 29 23:37:14 Saved as file BACKUP1.MAX
+Sun May 29 23:37:14 Saved as file BACKUP1.MAX
+Sun May 29 23:37:14 Saved as file BACKUP1.MAX
+Sun May 29 23:37:15 Routed 215 connections in 10 seconds.
+Sun May 29 23:37:15 Total is now 245 out of 246 (99%).
+Sun May 29 23:38:04 Saved as file BACKUP1.MAX
+Sun May 29 23:38:05 Saved as file BACKUP1.MAX
+Sun May 29 23:38:05 Saved as file BACKUP1.MAX
+Sun May 29 23:38:05 Saved as file BACKUP1.MAX
+Sun May 29 23:38:05 Routed 44 connections in 1 seconds.
+Sun May 29 23:38:05 Total is now 44 out of 246 (17%).
+Sun May 29 23:38:05 Saved as file SWEEP1.MAX
+Sun May 29 23:38:11 Saved as file BACKUP1.MAX
+Sun May 29 23:38:13 Saved as file BACKUP1.MAX
+Sun May 29 23:38:13 Saved as file BACKUP1.MAX
+Sun May 29 23:38:13 Saved as file BACKUP1.MAX
+Sun May 29 23:38:13 Routed 230 connections in 8 seconds.
+Sun May 29 23:38:13 Total is now 246 out of 246 (100%).
+Sun May 29 23:38:13 Saved as file SWEEP2.MAX
+Sun May 29 23:38:14 No new connections routed.
+Sun May 29 23:38:14 Total is now 246 out of 246 (100%).
+Sun May 29 23:38:14 Saved as file SWEEP3.MAX
+Sun May 29 23:38:14 No new connections routed.
+Sun May 29 23:38:14 Total is now 246 out of 246 (100%).
+Sun May 29 23:38:14 Saved as file SWEEP4.MAX
+Sun May 29 23:38:15 No new connections routed.
+Sun May 29 23:38:15 Total is now 246 out of 246 (100%).
+Sun May 29 23:38:15 Saved as file SWEEP5.MAX
+Sun May 29 23:39:15 Saved as file BACKUP1.MAX
+Sun May 29 23:39:15 Saved as file BACKUP1.MAX
+Sun May 29 23:39:16 Saved as file BACKUP1.MAX
+Sun May 29 23:39:16 Saved as file BACKUP1.MAX
+Sun May 29 23:39:16 Saved as file BACKUP1.MAX
+Sun May 29 23:39:17 Saved as file BACKUP1.MAX
+Sun May 29 23:39:17 Routed 28 connections in 1 seconds.
+Sun May 29 23:39:17 Total is now 28 out of 246 (11%).
+Sun May 29 23:39:17 Saved as file SWEEP1.MAX
+Sun May 29 23:39:41 Saved as file BACKUP1.MAX
+Sun May 29 23:39:45 Saved as file BACKUP1.MAX
+Sun May 29 23:39:47 Saved as file BACKUP1.MAX
+Sun May 29 23:39:50 Saved as file BACKUP1.MAX
+Sun May 29 23:39:51 Saved as file BACKUP1.MAX
+Sun May 29 23:39:52 Saved as file BACKUP1.MAX
+Sun May 29 23:39:52 Routed 171 connections in 35 seconds.
+Sun May 29 23:39:52 Total is now 150 out of 246 (60%).
+Sun May 29 23:39:52 Saved as file SWEEP2.MAX
+Sun May 29 23:41:54 Routed 8 connections in  2.0 minutes.
+Sun May 29 23:41:54 Total is now 158 out of 246 (64%).
+Sun May 29 23:41:54 Saved as file SWEEP3.MAX
+Sun May 29 23:44:08 Saved as file BACKUP1.MAX
+Sun May 29 23:52:46 Saved as file ~undo.max
+Sun May 29 23:52:57 Saved as file ~undo.max
+Sun May 29 23:53:01 Saved as file ~undo.max
+Sun May 29 23:53:06 Saved as file ~undo.max
+Sun May 29 23:53:14 Saved as file ~undo.max
+Sun May 29 23:53:27 Saved as file ~undo.max
+Sun May 29 23:53:32 Saved as file ~undo.max
+Sun May 29 23:53:43 Saved as file ~undo.max
+Sun May 29 23:53:46 Saved as file ~undo.max
+Sun May 29 23:53:48 Saved as file ~undo.max
+Sun May 29 23:53:55 Saved as file ~undo.max
+Sun May 29 23:53:58 Saved as file ~undo.max
+Sun May 29 23:54:08 Saved as file BACKUP1.MAX
+Sun May 29 23:54:10 Saved as file ~undo.max
+Sun May 29 23:54:13 Saved as file ~undo.max
+Sun May 29 23:54:26 Saved as file ~undo.max
+Sun May 29 23:54:34 Saved as file ~undo.max
+Sun May 29 23:54:36 Saved as file ~undo.max
+Sun May 29 23:54:42 Saved as file ~undo.max
+Sun May 29 23:54:44 Saved as file ~undo.max
+Sun May 29 23:54:47 Saved as file ~undo.max
+Sun May 29 23:54:56 Saved as file ~undo.max
+Sun May 29 23:54:57 Saved as file ~undo.max
+Sun May 29 23:55:07 Saved as file ~undo.max
+Sun May 29 23:55:11 Saved as file ~undo.max
+Sun May 29 23:55:17 Saved as file ~undo.max
+Sun May 29 23:55:19 Saved as file ~undo.max
+Sun May 29 23:55:21 Saved as file ~undo.max
+Sun May 29 23:55:22 Saved as file ~undo.max
+Sun May 29 23:57:28 Saved as file BACKUP1.MAX
+Sun May 29 23:57:29 Saved as file BACKUP1.MAX
+Sun May 29 23:57:29 Saved as file BACKUP1.MAX
+Sun May 29 23:57:29 Routed 42 connections in 1 seconds.
+Sun May 29 23:57:29 Total is now 42 out of 246 (17%).
+Sun May 29 23:57:29 Saved as file SWEEP1.MAX
+Sun May 29 23:57:52 Saved as file BACKUP1.MAX
+Sun May 29 23:57:54 Saved as file BACKUP1.MAX
+Sun May 29 23:57:55 Saved as file BACKUP1.MAX
+Sun May 29 23:57:55 Routed 203 connections in 25 seconds.
+Sun May 29 23:57:55 Total is now 235 out of 246 (95%).
+Sun May 29 23:57:55 Saved as file SWEEP2.MAX
+Sun May 29 23:58:07 No new connections routed.
+Sun May 29 23:58:07 Total is now 235 out of 246 (95%).
+Sun May 29 23:58:07 Saved as file SWEEP3.MAX
+Mon May 30 00:00:20 Routed 10 connections in  2.2 minutes.
+Mon May 30 00:00:20 Total is now 245 out of 246 (99%).
+Mon May 30 00:00:20 Saved as file SWEEP4.MAX
+Mon May 30 00:01:26 Saved as file BACKUP1.MAX
+Mon May 30 00:01:27 Saved as file BACKUP1.MAX
+Mon May 30 00:01:27 Saved as file BACKUP1.MAX
+Mon May 30 00:01:27 Routed 44 connections in 0 seconds.
+Mon May 30 00:01:27 Total is now 44 out of 246 (17%).
+Mon May 30 00:01:27 Saved as file SWEEP1.MAX
+Mon May 30 00:01:42 Saved as file BACKUP1.MAX
+Mon May 30 00:01:43 Saved as file BACKUP1.MAX
+Mon May 30 00:01:43 Saved as file BACKUP1.MAX
+Mon May 30 00:01:43 Routed 201 connections in 16 seconds.
+Mon May 30 00:01:43 Total is now 239 out of 246 (97%).
+Mon May 30 00:01:43 Saved as file SWEEP2.MAX
+Mon May 30 00:01:52 Routed 1 connections in 8 seconds.
+Mon May 30 00:01:52 Total is now 240 out of 246 (97%).
+Mon May 30 00:01:52 Saved as file SWEEP3.MAX
+Mon May 30 00:03:13 Routed 6 connections in 81 seconds.
+Mon May 30 00:03:13 Total is now 246 out of 246 (100%).
+Mon May 30 00:03:13 Saved as file SWEEP4.MAX
+Mon May 30 00:03:14 No new connections routed.
+Mon May 30 00:03:14 Total is now 246 out of 246 (100%).
+Mon May 30 00:03:14 Saved as file SWEEP5.MAX
+Mon May 30 00:04:39 Saved as file BACKUP1.MAX
+Mon May 30 00:19:09 Saved as file BACKUP1.MAX
+Mon May 30 00:23:30 Saved as file C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT-1.MAX

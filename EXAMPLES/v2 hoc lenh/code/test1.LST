@@ -1,0 +1,575 @@
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE TEST1
+OBJECT MODULE PLACED IN test1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE test1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /************************************************************
+   2          IR Remote Decode - For 21 Key Remote
+   3          Version: 17.01.01
+   4          Author: Mastronic.com - Free Sample Code for Microcontroller
+   5          *************************************************************/
+   6          #include <REGX52.H>
+   7           //khai bao ket noi lcd
+   8          //#define LCD_RS  P2_0  
+   9          //#define LCD_EN  P2_1   
+  10          //#define LCD_D4  P2_4   
+  11          //#define LCD_D5  P2_5
+  12          //#define LCD_D6  P2_6
+  13          //#define LCD_D7  P2_7
+  14          #define bt  P0_0
+  15          /* Các lenh dinh nghia giao tiep i2c*/
+  16          #define SCL  P1_0
+  17          #define SDA  P1_1
+  18          
+  19          #define tb1  P2_0
+  20          #define tb2  P2_1
+  21          #define tb3  P2_2
+  22          #define tb4  P2_3
+  23          #define tb5  P2_4
+  24          #define tb6  P2_5
+  25          #define tb7  P2_6
+  26          #define tb8  P2_7
+  27          
+  28          sbit IR_pin = P3^2;
+  29          
+  30          unsigned int IR_dodai,trangthaiIR;
+  31          unsigned long giatri,g;
+  32          unsigned char g1,g2,g3,g4;
+  33          unsigned char hoclenh;
+  34          unsigned char ghi=1,doc=0;
+  35          
+  36          //////////////////////// Cac Ham thiet lap LCD///////////////////////////////////
+  37          //void delay_us(unsigned int t)  // Ham tre micro giay
+  38          //{
+  39          //      unsigned int i;
+  40          //      for(i=0;i<t;i++);
+  41          //}
+  42          void delay_ms(unsigned int t)   // Ham tre mini giay
+  43          {
+  44   1              unsigned int i,j;
+  45   1              for(i=0;i<t;i++)
+  46   1                      for(j=0;j<125;j++);
+  47   1      }
+  48          //// Ham cho phep hien thi len LCD
+  49          //void LCD_Enable(void)
+  50          //{
+  51          //      LCD_EN = 1;
+  52          //      delay_us(3);
+  53          //      LCD_EN = 0;
+  54          //      delay_us(50); 
+  55          //}
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 2   
+
+  56          //// Ham gui 4 bit
+  57          //void LCD_Send4Bit(unsigned char Data)
+  58          //{
+  59          //      LCD_D4 = Data & 0x01;
+  60          //      LCD_D5 = (Data>>1)&1;
+  61          //      LCD_D6 = (Data>>2)&1;
+  62          //      LCD_D7 = (Data>>3)&1;
+  63          //}
+  64          //// Ham gui 1 Byte du lieu
+  65          //void LCD_Send1Byte(unsigned char byte)
+  66          //{
+  67          //      LCD_Send4Bit(byte >>4);/* Gui 4 bit cao */
+  68          //      LCD_Enable();
+  69          //      LCD_Send4Bit(byte); /* Gui 4 bit thap*/
+  70          //      LCD_Enable();
+  71          //}
+  72          //// Ham di chuyen con tro: row=0-1; col=0-15 (2 hang + 16 cot)
+  73          //void LCD_chonvitri(unsigned char row, unsigned char col)
+  74          //{
+  75          //      unsigned char address;   
+  76          //      if (row == 0) address = (0x80 + col);    // row=0 - hang 1
+  77          //    else address = (0xC0 + col);                       // row=1 - hang 2
+  78          //    delay_us(1000);
+  79          //    LCD_Send1Byte(address);
+  80          //    delay_us(50);
+  81          //}
+  82          //// Ham hien thi ra man hinh chuoi ki tu
+  83          //void LCD_guichuoi(char *s)
+  84          //{
+  85          //      while (*s)
+  86          //      {
+  87          //              LCD_RS=1;
+  88          //              LCD_Send1Byte(*s);
+  89          //              LCD_RS=0;
+  90          //              s++;
+  91          //      }
+  92          //}
+  93          //void LCD_guikitu(int s)
+  94          //{
+  95          //              LCD_RS=1;
+  96          //              LCD_Send1Byte(s);
+  97          //              LCD_RS=0;       
+  98          //      
+  99          //}
+ 100          //// Ham xoa man hinh
+ 101          //void LCD_xoamanhinh()
+ 102          //{
+ 103          //    LCD_chonvitri(0,0);
+ 104          //      LCD_guichuoi("                ");
+ 105          //      LCD_chonvitri(1,0);
+ 106          //      LCD_guichuoi("                ");
+ 107          //      LCD_chonvitri(0,0);
+ 108          //}
+ 109          //// Ham khoi tao LCD
+ 110          //void LCD_khoitao()
+ 111          //{
+ 112          //      LCD_Send4Bit(0x00);
+ 113          //      delay_ms(20);
+ 114          //      LCD_RS = 0;
+ 115          //      LCD_Send4Bit(0x03);      // 
+ 116          //      LCD_Enable();
+ 117          //      delay_ms(5);
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 3   
+
+ 118          //      LCD_Enable();
+ 119          //      delay_ms(100);
+ 120          //      LCD_Enable();
+ 121          //      LCD_Send4Bit(0x02);     // dua con tro ve dau man hinh
+ 122          //      LCD_Enable();
+ 123          //      LCD_Send1Byte(0x28);
+ 124          //      LCD_Send1Byte(0x0C); // Bat hien thi, bat con tro        0x0C neu muon tat con tro         0x0F neu muon bat con t
+             -ro
+ 125          //      LCD_Send1Byte(0x06);
+ 126          //      LCD_xoamanhinh();
+ 127          //      delay_ms(20);
+ 128          //}
+ 129          //void LCD_hex(unsigned long d)
+ 130          //{ 
+ 131          //unsigned char byte;
+ 132          //(((d>>28)&0x0F)<=9)?(byte='0'+((d>>28)&0x0F)):(byte='A'+((d>>28)&0x0F)-0x0A); LCD_guikitu(byte);
+ 133          //(((d>>24)&0x0F)<=9)?(byte='0'+((d>>24)&0x0F)):(byte='A'+((d>>24)&0x0F)-0x0A); LCD_guikitu(byte);
+ 134          //(((d>>20)&0x0F)<=9)?(byte='0'+((d>>20)&0x0F)):(byte='A'+((d>>20)&0x0F)-0x0A); LCD_guikitu(byte);
+ 135          //(((d>>16)&0x0F)<=9)?(byte='0'+((d>>16)&0x0F)):(byte='A'+((d>>16)&0x0F)-0x0A); LCD_guikitu(byte);
+ 136          //(((d>>12)&0x0F)<=9)?(byte='0'+((d>>12)&0x0F)):(byte='A'+((d>>12)&0x0F)-0x0A); LCD_guikitu(byte);
+ 137          //(((d>>8)&0x0F)<=9)?(byte='0'+((d>>8)&0x0F)):(byte='A'+((d>>8)&0x0F)-0x0A); LCD_guikitu(byte);
+ 138          //(((d>>4)&0x0F)<=9)?(byte='0'+((d>>4)&0x0F)):(byte='A'+((d>>4)&0x0F)-0x0A); LCD_guikitu(byte);
+ 139          //((d&0x0F)<=9)?(byte='0'+(d&0x0F)):(byte='A'+(d&0x0F)-0x0A); LCD_guikitu(byte); 
+ 140          //} 
+ 141          //////////////ket thuc cac ham thiet lap LCD/////////
+ 142          
+ 143          ///*-----------------------------------------*/
+ 144          
+ 145          /***********Hàm khoi tao i2c***************/
+ 146          /* Mô ta : 
+ 147             de goi i2c start bat dau qua trinh giao tiep, chan SDA phai duoc dua xuong muc 0, trong khi SLC dang o 
+             -muc 1. sau 1 thoi gian ngan
+ 148             chan SCL cung duoc dua xuong muc 0. ngay tai thoi diem chan SCL duoc dau xuong muc 0. qua trình truyen 
+             -du lieu bat dau
+ 149          */
+ 150          void I2C_Start(void)
+ 151          {
+ 152   1              SDA = 1;        
+ 153   1              SCL = 1;        // dua SCL va SDA len muc 1
+ 154   1              SDA = 0;        // keo SDA xuong 0
+ 155   1              delay_ms(1); // delay 1 khoang thoi gian ngan
+ 156   1              SCL = 0;          // keo SCL xuong 0  ( qua trinh Start ket thuc)
+ 157   1              SDA = 1;          // dua SDA len muc 1 ( cau lenh nay khong can cung dc)
+ 158   1      }
+ 159          /*------------------------end Start----------------------------------/
+ 160          
+ 161          
+ 162          /* Mô ta : 
+ 163             Sau khi qua trinh truyen du lieu hoan tat thi ta can Stop de ket thuc qua trinh truyen
+ 164             Muon Stop. kéo chân SDA lên muc 1 trong khi SCL dang o muc 1
+ 165          */
+ 166          void I2C_STOP()
+ 167          {
+ 168   1        SDA=0; // cho SDA xuong 0 de chuan bi dua len 1
+ 169   1        SCL=1; // dua SCL len muc 1 
+ 170   1        SDA=1; // SDA duoc dua len muc 1. Qua trinh Stop hoan tat
+ 171   1      }
+ 172          /*------------------------end Stop------------------*/
+ 173          
+ 174          
+ 175          /* Mô ta : 
+ 176             Ghi du lieu trong chuan I2C 
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 4   
+
+ 177             Nhiem vu : VDK truyen du lieu vao slaver ( o day la DS1307)  
+ 178             Tham bien truyen vao : dat
+ 179             Tra ve : 0 hoac 1 ( khong nhat thiet phai tra ve, muc dich la lay bit ack de kiem tra qua trinh truyen 
+             -du lieu da ok chua)
+ 180             bang cach goi ham va nhap vao 1 byte du lieu can truyen. ta se truyen duoc duoc du lieu do vao slaver
+ 181          */
+ 182          bit I2C_Write(unsigned char dat) // khai bao ham truyen du lieu va bien dat  
+ 183          {
+ 184   1              unsigned char i;  // khai bao bien i
+ 185   1              bit outbit;               // khai bao bit 
+ 186   1              
+ 187   1              for (i = 1; i <= 8; i++)        //vong lap for lap 8 lan tuong duong 8 bit ( 1 byte)
+ 188   1              {
+ 189   2                      outbit=dat&0x80;            // gán bien outbit cho byte can truen & 0x80 ; 
+ 190   2                      SDA = outbit;                    // cho SDA bang voi gia tri cua outbit ( 1 hoac 0)
+ 191   2                      dat = dat << 1;                  // dich trai 1 lan
+ 192   2                      SCL = 1;
+ 193   2                      SCL = 0;                                 // tao 1 xung clock tren chan SCL de dich gia tri 1 hoac 0 tren chan SDA vao slaver
+ 194   2          }   
+ 195   1              SDA = 1;        
+ 196   1              SCL = 1;          // dua SDA va SCL len muc 1 chuan bi doc bit ack
+ 197   1              outbit = SDA;   // lay bit ack tu chan SDA
+ 198   1              SCL = 0;                // cho SCL ve 0  
+ 199   1              return(outbit); // lay gia tri ve
+ 200   1      }
+ 201          /* giai thich dong 87 ---> 94
+ 202           De co the truyen 1 byte ( vi du 0xBA) vao slaver. ta tien hanh tach 1 byte do ra thành 8 bit. do do can c
+             -o vong lap for 8 lan ( moi lan truyen 1 bit)
+ 203           Dau tien i=1 
+ 204                         truyen bit thu nhat : ta co 0xBA = 1 0 1 1 1 0 1 0 . Bit dau tien la bit so 1 ( ben tay tra
+             -i, truyen tu trai sang phai)
+ 205                                                           TA có : 0xBA & 0x80 = 10111010 & 10000000 = 10000000 
+ 206                                                                                                           Do ket qua nhan dc la 10000000 khac 0. ma outbit chi nhan 2 gia tri 1 hoac 0 , Cho nen outbit
+             - = 1
+ 207                                                                                                           Nhu vay, ta da truyen dc bit dau tien la 1 vao I2C
+ 208                                                                                                           Sau do dich 0xBA sang 1 : 0xBA <<1 = 01110100
+ 209          Vong lap thu 2, i = 2 : 
+ 210                       tiep tuc nhu vay . nhung lan nay 01110100 & 0x80 se = 0 . outbit se = 0
+ 211                                   Cu nhu vay 8 lan. byte 0xBA se duoc truyen sang slaver
+ 212          
+ 213          /*------------------------end I2C write------------------*/
+ 214          
+ 215          
+ 216          
+ 217          /* Mô ta : 
+ 218            Doc du lieu tu i2C gui ra vdk
+ 219          */
+ 220          unsigned char I2C_Read(bit ack)
+ 221          {
+ 222   1              unsigned char i, dat;
+ 223   1              bit inbit;      
+ 224   1              dat = 0;
+ 225   1              for(i=1;i<=8;i++)       // moi lan doc 1 bit. 8 lan doc = 1 byte
+ 226   1               {
+ 227   2                      SCL = 1;           // cho SCL len =1 , slaver se gui 1 bit vao chan SDA
+ 228   2                      inbit = SDA;    // lay gia tri cua chan SDA gán vao inbit
+ 229   2                      dat = dat << 1;  // dich byte data sang trái  1 lan
+ 230   2                      dat = dat | inbit;      // muc dich la gán giá tri cua bit inbit vao byte dat
+ 231   2                      SCL = 0;                // cho SLC xuong muc 0 san sang cho lan doc bit tiep thep
+ 232   2               }
+ 233   1              if (ack) SDA = 0;        // cac cau lenh  nay dung de doc bit ack ( co the k can quan tam)
+ 234   1              else SDA = 1;
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 5   
+
+ 235   1              SCL = 1;        
+ 236   1              SCL = 0;        
+ 237   1              SDA = 1;                                                         
+ 238   1              return(dat);
+ 239   1      }
+ 240           /*------------------------end I2C read------------------*/
+ 241          
+ 242           //--------------cac ham phuc vu giao tiep I2c------------
+ 243           // Ham doc du lieu thoi gian trong ds
+ 244          unsigned char EEP_docdulieu(unsigned char diachi)
+ 245          {
+ 246   1              unsigned char dat;
+ 247   1              
+ 248   1              I2C_Start();   // bat dau doc
+ 249   1              
+ 250   1              I2C_Write(0xa0);        // dau tien gui lenh ghi du lieu(ghi dia EEP)
+ 251   1              I2C_Write(diachi); // Dia chi ma ta muon doc ( vi du, muon doc giay thi ta ghi dia chi 0x00)
+ 252   1              I2C_Start();     // bat dau doc du lieu
+ 253   1              I2C_Write(0xa1);        // gui ma lenh doc du lieu tu dia chi(add)
+ 254   1              dat = I2C_Read(0);        // doc xong thi luu gia tri da doc dc vao dat
+ 255   1              I2C_STOP();                     // ket thuc qua trinh doc du lieu                         
+ 256   1              return (dat);  // tra ve gia tri da doc duoc
+ 257   1      }
+ 258          
+ 259          void EEP_ghidulieu(unsigned char add, unsigned long Data)
+ 260          {
+ 261   1              I2C_Start(); // bat dau ghi     
+ 262   1              I2C_Write(0xa0); //0xao la dia chi EEP C24
+ 263   1              I2C_Write(add); // gia tri can ghi
+ 264   1              I2C_Write(Data);         // ghi du lieu vao
+ 265   1              I2C_STOP();      // ket thuc qua trinh truyen du lieu
+ 266   1              delay_ms(100);
+ 267   1      }
+ 268          ////--------------Ket thuc cac ham giao tiep voi EEPROM----------
+ 269          
+ 270          
+ 271          void IR_khoitao()
+ 272          {
+ 273   1       TMOD=0x01; //Timer 0 Mode 1
+ 274   1       EX0=1;  // ngat theo suon am
+ 275   1       IT0 = 1; // cho phep ngat ngoai
+ 276   1       ET0  = 1;  // cho ngat timer
+ 277   1       EA = 1;        //cho phep ngat
+ 278   1      }
+ 279          void tach_dulieu()
+ 280          {
+ 281   1              g1=giatri>>24;
+ 282   1              g2=giatri>>16;
+ 283   1              g3=giatri>>8;
+ 284   1              g4=giatri;
+ 285   1      /*
+ 286   1      Tai sao phai tach du lieu ??? 
+ 287   1      Li do nhu sau: De co the luu duoc gia tri remote ma ta da giai ma duoc. Ta phai luu gia tri do vao EEPROM.
+             - TUy nhien,
+ 288   1      1 thanh ghi cua EEPROM C24 chi co do dai toi da la 1byte. Trong khi gia tri ta giai ma duoc len den 4byte.
+ 289   1      Do do phai tach gia tri do ra lam 4 gia tri nho. Moi gia tri kick thuoc bang 1byte va duoc luu vao 4 bien 
+             -g1 g2 g3 g4
+ 290   1      */
+ 291   1      }
+ 292          void ghep_dulieu()
+ 293          {
+ 294   1              g = g1*16777216 + g2*65536 + g3*256 + g4; // giatri= g1 * 2^24 + g2 * 2^16 + g3 * 2 ^ 8 + g4 *  2^0  
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 6   
+
+ 295   1      /*
+ 296   1      Tai sao phai ghep du lieu ??? 
+ 297   1      Li do nhu sau: Do truoc do ta da tach ra roi thi gio duong nhien phai ghep lai hihi
+ 298   1      */
+ 299   1      }
+ 300          void ghi_dulieu()
+ 301          {
+ 302   1       if(ghi==8)
+ 303   1       {
+ 304   2        EEP_ghidulieu(0x81,g1);  EEP_ghidulieu(0x82,g2); EEP_ghidulieu(0x83,g3);  EEP_ghidulieu(0x84,g4);     ghi=1;
+             - hoclenh=0; tb8=1;
+ 305   2       }
+ 306   1       else if(ghi==7)
+ 307   1       {
+ 308   2        EEP_ghidulieu(0x71,g1);  EEP_ghidulieu(0x72,g2); EEP_ghidulieu(0x73,g3);  EEP_ghidulieu(0x74,g4);     ghi=8;
+             -tb7=1;tb8=0;
+ 309   2       }
+ 310   1        else if(ghi==6)
+ 311   1       {
+ 312   2        EEP_ghidulieu(0x61,g1);  EEP_ghidulieu(0x62,g2); EEP_ghidulieu(0x63,g3);  EEP_ghidulieu(0x64,g4);     ghi=7;
+             -tb6=1;tb7=0;
+ 313   2       }
+ 314   1        else if(ghi==5)
+ 315   1       {
+ 316   2        EEP_ghidulieu(0x51,g1);  EEP_ghidulieu(0x52,g2); EEP_ghidulieu(0x53,g3);  EEP_ghidulieu(0x54,g4);     ghi=6;
+             -tb5=1;tb6=0;
+ 317   2       }
+ 318   1        else if(ghi==4)
+ 319   1       {
+ 320   2        EEP_ghidulieu(0x41,g1);  EEP_ghidulieu(0x42,g2); EEP_ghidulieu(0x43,g3);  EEP_ghidulieu(0x44,g4);     ghi=5;
+             -tb4=1;tb5=0;
+ 321   2       }
+ 322   1       else if(ghi==3)
+ 323   1       {
+ 324   2        EEP_ghidulieu(0x31,g1);  EEP_ghidulieu(0x32,g2); EEP_ghidulieu(0x33,g3);  EEP_ghidulieu(0x34,g4);     ghi=4;
+             -tb3=1;tb4=0;
+ 325   2       }
+ 326   1        else if(ghi==2)
+ 327   1       {
+ 328   2        EEP_ghidulieu(0x21,g1);  EEP_ghidulieu(0x22,g2); EEP_ghidulieu(0x23,g3);  EEP_ghidulieu(0x24,g4); ghi=3;
+             -tb2=1;tb3=0;
+ 329   2       }
+ 330   1       else if(ghi==1)
+ 331   1       {
+ 332   2        EEP_ghidulieu(0x11,g1);  EEP_ghidulieu(0x12,g2); EEP_ghidulieu(0x13,g3);  EEP_ghidulieu(0x14,g4);     ghi=2;
+             -tb2=0;tb1=1;
+ 333   2       }
+ 334   1       
+ 335   1      }
+ 336          void docdulieu(unsigned char tb)
+ 337          {
+ 338   1            if(tb==1){g1=EEP_docdulieu(0x11);g2=EEP_docdulieu(0x12);g3=EEP_docdulieu(0x13);g4=EEP_docdulieu(0x14
+             -);}
+ 339   1       else if(tb==2){g1=EEP_docdulieu(0x21);g2=EEP_docdulieu(0x22);g3=EEP_docdulieu(0x23);g4=EEP_docdulieu(0x24
+             -);}
+ 340   1       else if(tb==3){g1=EEP_docdulieu(0x31);g2=EEP_docdulieu(0x32);g3=EEP_docdulieu(0x33);g4=EEP_docdulieu(0x34
+             -);}
+ 341   1       else if(tb==4){g1=EEP_docdulieu(0x41);g2=EEP_docdulieu(0x42);g3=EEP_docdulieu(0x43);g4=EEP_docdulieu(0x44
+             -);}
+ 342   1       else if(tb==5){g1=EEP_docdulieu(0x51);g2=EEP_docdulieu(0x52);g3=EEP_docdulieu(0x53);g4=EEP_docdulieu(0x54
+             -);}
+ 343   1       else if(tb==6){g1=EEP_docdulieu(0x61);g2=EEP_docdulieu(0x62);g3=EEP_docdulieu(0x63);g4=EEP_docdulieu(0x64
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 7   
+
+             -);}
+ 344   1       else if(tb==7){g1=EEP_docdulieu(0x71);g2=EEP_docdulieu(0x72);g3=EEP_docdulieu(0x73);g4=EEP_docdulieu(0x74
+             -);}
+ 345   1       else if(tb==8){g1=EEP_docdulieu(0x81);g2=EEP_docdulieu(0x82);g3=EEP_docdulieu(0x83);g4=EEP_docdulieu(0x84
+             -);}
+ 346   1       ghep_dulieu();
+ 347   1      }
+ 348          
+ 349          /*-----------------------------------------------------------------------------
+ 350          // Check START============
+ 351          unsigned char kiemtra()
+ 352          {
+ 353                     TH0 = 0x00;  //Reset Timer 0 Value  = 0                 
+ 354                     TL0 = 0x00; //Reset Timer 0 Value  = 0
+ 355                     TR0 = 1; //Start Timer 0
+ 356                     while(IR_pin == 0);    //Cho cho den khi het muc 0
+ 357                     TR0 = 0; //Stop Timer 0
+ 358                     TF0 = 0;//Clear timer 0 Flag
+ 359                     IR_dodai_0 = TH0;                    
+ 360                         IR_dodai_0 <<= 8;                                
+ 361                         IR_dodai_0 |= TL0;
+ 362                     if(IR_dodai_0>2000)            // neu 2000 thi day dung la bit Start
+ 363                      return 1;
+ 364                     else  return 0;
+ 365          }
+ 366          
+ 367          
+ 368          
+ 369          void Read_IR_Key(void) interrupt 0  //External Interrupt
+ 370          {
+ 371              unsigned char i=0,doc;
+ 372          
+ 373             if(kiemtra()== 1)
+ 374             {
+ 375                while(IR_pin == 1); //Cho cho het phan bit 1 cua START
+ 376          
+ 377                while(i<32)
+ 378                {
+ 379                   if(IR_pin == 1) //Neu co muc cao
+ 380                    {
+ 381                     TH0 = 0x00; //Reset Timer 0 Value  = 0
+ 382                     TL0 = 0x00; //Reset Timer 0 Value  = 0
+ 383                     TR0 = 1; //Start timer 0
+ 384                     while(IR_pin == 1);    //Cho cho den khi het muc 1
+ 385                     TR0 = 0; //Stop Timer 0
+ 386                     TF0 = 0;//Clear timer 0 Flag
+ 387                     IR_dodai_0 = 0;                                         
+ 388                     IR_dodai_0 = TH0*256+TL0;
+ 389                     giatri = giatri <<= 1;
+ 390                     if(IR_dodai_0>800)
+ 391                                                   {giatri+=1;}
+ 392                     i++;
+ 393                    }
+ 394                   while(IR_pin == 0);
+ 395                }
+ 396                    delay_ms(50);
+ 397              if(hoclenh==1)
+ 398                  {
+ 399                    tach_dulieu();ghi_dulieu();   
+ 400                  }
+ 401                  else
+ 402                  {
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 8   
+
+ 403                    for(doc=1;doc<9;doc++)
+ 404                    {
+ 405                      docdulieu(doc);
+ 406                               if(doc==1 && g == giatri){tb1=~tb1;}
+ 407                          else if(doc==2 && g == giatri){tb2=~tb2;}
+ 408                          else if(doc==3 && g == giatri){tb3=~tb3;}
+ 409                          else if(doc==4 && g == giatri){tb4=~tb4;}
+ 410                          else if(doc==5 && g == giatri){tb5=~tb5;}
+ 411                          else if(doc==6 && g == giatri){tb6=~tb6;}
+ 412                          else if(doc==7 && g == giatri){tb7=~tb7;}
+ 413                          else if(doc==8 && g == giatri){tb8=~tb8;}
+ 414                    }     
+ 415                  }
+ 416             }
+ 417          giatri=0x00000000;
+ 418          }
+ 419          
+ 420          --------------------------------------------------------------------------------*/
+ 421          void ngat_giama(void) interrupt 0
+ 422          {
+ 423   1       TR0=0; //dung timer
+ 424   1       switch(trangthaiIR)
+ 425   1       {
+ 426   2         case 0:                                 // khi xay ra ngat thi case dang bang 0, ta se dung timer lai de set bien trang thai IR l
+             -en bang 1 va khoi dong timer 0 cho no dem
+ 427   2         {
+ 428   3           trangthaiIR=1;
+ 429   3               giatri=0;                     // xoa gia tri IR da thu dc truoc do
+ 430   3               TL0=0xDF;
+ 431   3               TH0=0xB1;                         // ta nap gia tri   cho THTL = 65535- 20000= B1DF. 20000 la do dai toi da de chap nhan do
+             - la bit start
+ 432   3               TR0=1;                            // timer bat dau dem
+ 433   3               break;
+ 434   3         }
+ 435   2         case 1:
+ 436   2         {
+ 437   3           IR_dodai=TH0-0xB1;                   // tinh toan thoi gian ma timer dem duoc. do truoc do ta da nap gia tri B1DF r
+             -oi ne gio phai - di
+ 438   3               IR_dodai=IR_dodai*255+(TL0-0xDF);                       // ghep gia tri cua 2 thanh TH TL
+ 439   3               if(IR_dodai>2000)
+ 440   3               {                                                         
+ 441   4                 trangthaiIR=2;                                // neu dung la bit star ( > 2000) thi set trang thau  =2 ( chuyen sang doc data)
+ 442   4                 TL0=0x47;
+ 443   4                 TH0=0xF4;
+ 444   4                 TR0=1;                          // timer bat dau dem
+ 445   4               }
+ 446   3               else {trangthaiIR=0;}   // nguoc lai khong phai start, quay ve lam lai
+ 447   3               break;
+ 448   3         }
+ 449   2         case 2:
+ 450   2         {  
+ 451   3           IR_dodai=TH0-0xF4;                   // tinh toan thoi gian ma timer dem duoc. do truoc do ta da nap gia tri f447 r
+             -oi ne gio phai - di
+ 452   3               IR_dodai=IR_dodai*255+(TL0-0x47);                       // ghep gia tri cua 2 thanh TH TL
+ 453   3               TL0=0x47;
+ 454   3               TH0=0xF4;
+ 455   3               TR0=1;                    // timer bat dau dem
+ 456   3               giatri<<=1;
+ 457   3               if(IR_dodai>1500)
+ 458   3               {      
+ 459   4                      giatri++;
+ 460   4               }
+C51 COMPILER V9.01   TEST1                                                                 06/28/2017 09:19:31 PAGE 9   
+
+ 461   3         }
+ 462   2       }
+ 463   1      }
+ 464          void ngattimer0(void) interrupt 1               //ngat timer 0 de giai ma 
+ 465             { 
+ 466   1               TR0 =0;                                //dung timer 0
+ 467   1               if (trangthaiIR==1) trangthaiIR = 0;   //  khong chap nhan do la bit start vi qua dai
+ 468   1               else if (trangthaiIR==2)               // Bit stop
+ 469   1               {
+ 470   2                       EX0 = 0;                       // cam ngat ngoai 0 de xu ly ket qua giai ma
+ 471   2                       trangthaiIR = 3;
+ 472   2               }
+ 473   1         }
+ 474          
+ 475          
+ 476          void main()
+ 477          {       
+ 478   1      IR_khoitao();
+ 479   1        while(1)
+ 480   1                {
+ 481   2                              if(bt==0){hoclenh=1;P2=~0x01;}  
+ 482   2                              if(trangthaiIR==3)
+ 483   2                              {
+ 484   3                                 if(hoclenh==1)
+ 485   3                                              {
+ 486   4                                                tach_dulieu();ghi_dulieu();   
+ 487   4                                              }
+ 488   3                                 else
+ 489   3                                              {
+ 490   4                                                for(doc=1;doc<9;doc++)
+ 491   4                                                {
+ 492   5                                                  docdulieu(doc);
+ 493   5                                                           if(doc==1 && g == giatri){tb1=~tb1;}
+ 494   5                                                      else if(doc==2 && g == giatri){tb2=~tb2;}
+ 495   5                                                      else if(doc==3 && g == giatri){tb3=~tb3;}
+ 496   5                                                      else if(doc==4 && g == giatri){tb4=~tb4;}
+ 497   5                                                      else if(doc==5 && g == giatri){tb5=~tb5;}
+ 498   5                                                      else if(doc==6 && g == giatri){tb6=~tb6;}
+ 499   5                                                      else if(doc==7 && g == giatri){tb7=~tb7;}
+ 500   5                                                      else if(doc==8 && g == giatri){tb8=~tb8;}
+ 501   5                                                }     
+ 502   4                                              }
+ 503   3                               EX0 = 1;
+ 504   3                               trangthaiIR=0;
+ 505   3                              }       
+ 506   2                        }
+ 507   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1798    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     19       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       3
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

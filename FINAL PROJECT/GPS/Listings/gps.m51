@@ -1,0 +1,291 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/21/2018  13:58:17  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\gps.obj, .\Objects\delay.obj TO .\Objects\gps PRINT (.\Listings\gps.m51) RAMSIZE (
+>> 256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\gps.obj (GPS)
+  .\Objects\delay.obj (DELAY)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (STRLEN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\gps (GPS)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     004CH     UNIT         ?DT?GPS
+            DATA    0054H     0004H     UNIT         _DATA_GROUP_
+            IDATA   0058H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0020H     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     0145H     UNIT         ?PR?MAIN?GPS
+            CODE    016BH     008CH     UNIT         ?C_C51STARTUP
+            CODE    01F7H     0042H     UNIT         ?PR?RECEIVE?GPS
+            CODE    0239H     0042H     UNIT         ?PR?_WRITECHAR?GPS
+            CODE    027BH     003BH     UNIT         ?PR?_WRITECOMMAND?GPS
+            CODE    02B6H     002BH     UNIT         ?PR?_WRITESTRING?GPS
+            CODE    02E1H     0022H     UNIT         ?PR?LCD_INIT?GPS
+            CODE    0303H     0019H     UNIT         ?C?LIB_CODE
+            CODE    031CH     0016H     UNIT         ?CO?GPS
+            CODE    0332H     0015H     UNIT         ?PR?_STRLEN?STRLEN
+            CODE    0347H     0012H     UNIT         ?PR?_DELAY_US?DELAY
+            CODE    0359H     000CH     UNIT         ?C_INITSEG
+            CODE    0365H     000BH     UNIT         ?PR?_DELAY?DELAY
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\gps (GPS)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?GPS
+  +--> ?C_INITSEG
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/21/2018  13:58:17  PAGE 2
+
+
+
+?PR?MAIN?GPS                   -----    -----
+  +--> ?PR?LCD_INIT?GPS
+  +--> ?CO?GPS
+  +--> ?PR?_WRITESTRING?GPS
+  +--> ?PR?_WRITECOMMAND?GPS
+  +--> ?PR?_WRITECHAR?GPS
+  +--> ?PR?_STRLEN?STRLEN
+  +--> ?PR?_DELAY_MS?DELAY
+
+?PR?LCD_INIT?GPS               -----    -----
+  +--> ?PR?_DELAY_MS?DELAY
+  +--> ?PR?_WRITECOMMAND?GPS
+
+?PR?_WRITECOMMAND?GPS          0054H    0001H
+  +--> ?PR?_DELAY?DELAY
+
+?PR?_WRITESTRING?GPS           0054H    0003H
+  +--> ?CO?GPS
+  +--> ?PR?_WRITECHAR?GPS
+
+?PR?_WRITECHAR?GPS             0057H    0001H
+  +--> ?PR?_DELAY?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\gps (GPS)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        GPS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:02BCH         PUBLIC        _WriteString
+  D:00A8H         PUBLIC        IE
+  C:0240H         PUBLIC        _WriteChar
+  B:00A0H.2       PUBLIC        EN
+  D:0008H         PUBLIC        chuoi
+  B:0098H.0       PUBLIC        RI
+  B:00B8H.4       PUBLIC        PS
+  B:00A0H.0       PUBLIC        RS
+  C:0026H         PUBLIC        main
+  B:00A0H.1       PUBLIC        RW
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:002BH         PUBLIC        longtitude
+  D:008DH         PUBLIC        TH1
+  C:027BH         PUBLIC        _WriteCommand
+  B:0088H.6       PUBLIC        TR1
+  D:003AH         PUBLIC        GLL
+  D:0040H         PUBLIC        latitude
+  D:004FH         PUBLIC        h
+  C:01F7H         PUBLIC        receive
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/21/2018  13:58:17  PAGE 3
+
+
+  D:0050H         PUBLIC        i
+  D:0051H         PUBLIC        j
+  D:0052H         PUBLIC        k
+  C:02E1H         PUBLIC        LCD_init
+  D:0053H         PUBLIC        dauphay
+  -------         PROC          MAIN
+  C:0026H         LINE#         16
+  C:0026H         LINE#         17
+  C:0029H         LINE#         18
+  C:002CH         LINE#         19
+  C:002FH         LINE#         20
+  C:0032H         LINE#         21
+  C:0034H         LINE#         22
+  C:0036H         LINE#         23
+  C:0039H         LINE#         24
+  C:0042H         LINE#         25
+  C:0042H         LINE#         26
+  C:004BH         LINE#         28
+  C:004DH         LINE#         29
+  C:004FH         LINE#         30
+  C:005BH         LINE#         31
+  C:006BH         LINE#         32
+  C:006BH         LINE#         33
+  C:007CH         LINE#         34
+  C:007EH         LINE#         35
+  C:007EH         LINE#         36
+  C:0082H         LINE#         37
+  C:0084H         LINE#         38
+  C:0084H         LINE#         39
+  C:0092H         LINE#         40
+  C:0094H         LINE#         41
+  C:0094H         LINE#         42
+  C:00A2H         LINE#         43
+  C:00A2H         LINE#         44
+  C:00A2H         LINE#         45
+  C:00A2H         LINE#         46
+  C:00A2H         LINE#         47
+  C:00AAH         LINE#         48
+  C:00AFH         LINE#         49
+  C:00B4H         LINE#         50
+  C:00BDH         LINE#         51
+  C:00CCH         LINE#         52
+  C:00D6H         LINE#         53
+  C:00E5H         LINE#         54
+  C:00E8H         LINE#         55
+  C:00FDH         LINE#         56
+  C:0102H         LINE#         57
+  C:010BH         LINE#         58
+  C:0121H         LINE#         59
+  C:012BH         LINE#         60
+  C:0141H         LINE#         61
+  C:0144H         LINE#         62
+  C:0159H         LINE#         63
+  C:015CH         LINE#         64
+  C:0163H         LINE#         65
+  C:0166H         LINE#         67
+  C:0168H         LINE#         68
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/21/2018  13:58:17  PAGE 4
+
+
+  -------         ENDPROC       MAIN
+  -------         PROC          RECEIVE
+  C:01F7H         LINE#         70
+  C:0204H         LINE#         71
+  C:020EH         LINE#         72
+  C:022CH         LINE#         73
+  C:022EH         LINE#         74
+  -------         ENDPROC       RECEIVE
+  -------         PROC          _WRITECOMMAND
+  D:0054H         SYMBOL        cmd
+  C:027BH         LINE#         75
+  C:027DH         LINE#         76
+  C:0283H         LINE#         77
+  C:0285H         LINE#         78
+  C:0287H         LINE#         79
+  C:0292H         LINE#         80
+  C:0299H         LINE#         81
+  C:02A0H         LINE#         82
+  C:02A4H         LINE#         83
+  C:02AFH         LINE#         84
+  -------         ENDPROC       _WRITECOMMAND
+  -------         PROC          LCD_INIT
+  C:02E1H         LINE#         87
+  C:02E1H         LINE#         88
+  C:02E4H         LINE#         89
+  C:02EAH         LINE#         90
+  C:02EFH         LINE#         91
+  C:02F4H         LINE#         92
+  C:02F9H         LINE#         93
+  C:02FEH         LINE#         94
+  -------         ENDPROC       LCD_INIT
+  -------         PROC          L?0039
+  -------         ENDPROC       L?0039
+  -------         PROC          _WRITECHAR
+  D:0057H         SYMBOL        c
+  C:0240H         LINE#         97
+  C:0242H         LINE#         98
+  C:0248H         LINE#         99
+  C:024AH         LINE#         100
+  C:024CH         LINE#         101
+  C:0257H         LINE#         102
+  C:025EH         LINE#         103
+  C:0265H         LINE#         104
+  C:0269H         LINE#         105
+  C:0274H         LINE#         106
+  -------         ENDPROC       _WRITECHAR
+  -------         PROC          L?0040
+  -------         ENDPROC       L?0040
+  -------         PROC          _WRITESTRING
+  D:0054H         SYMBOL        s
+  C:02BCH         LINE#         108
+  C:02C2H         LINE#         109
+  C:02CDH         LINE#         110
+  C:02DEH         LINE#         111
+  C:02E0H         LINE#         112
+  -------         ENDPROC       _WRITESTRING
+  -------         ENDMOD        GPS
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/21/2018  13:58:17  PAGE 5
+
+
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0365H         PUBLIC        _delay
+  C:0003H         PUBLIC        _delay_ms
+  C:0347H         PUBLIC        _delay_us
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        x
+  D:0002H         SYMBOL        y
+  -------         ENDDO         
+  C:0003H         LINE#         3
+  C:0003H         LINE#         5
+  C:000DH         LINE#         6
+  C:0022H         LINE#         7
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:0347H         LINE#         8
+  C:0347H         LINE#         10
+  C:0358H         LINE#         11
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        t
+  C:0365H         LINE#         12
+  C:0365H         LINE#         13
+  C:036FH         LINE#         14
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?CLDPTR
+  C:0303H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        STRLEN
+  C:0332H         PUBLIC        _STRLEN
+  -------         ENDMOD        STRLEN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_US?DELAY
+
+Program Size: data=89.0 xdata=0 code=880
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,4 @@
+".\Objects\TimeAndTemp.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\TimeAndTemp" 
+PRINT(".\Listings\TimeAndTemp.m51") RAMSIZE(256) 

@@ -1,0 +1,4 @@
+".\Objects\led7segments.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\led7segment" 
+PRINT(".\Listings\led7segment.m51") RAMSIZE(256) 

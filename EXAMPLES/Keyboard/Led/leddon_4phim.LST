@@ -1,0 +1,98 @@
+A51 MACRO ASSEMBLER  LEDDON_4PHIM                                                         05/26/2014 03:44:31 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN leddon_4phim.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE leddon_4phim.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000 759000            2     MOV P1,#00H
+0003 7401              3     MOV A,#00000001B
+0005                   4     KEY1:
+0005 308202            5         JNB P0.2,KEY10
+0008 800B              6             JMP KEY2
+000A                   7             KEY10:
+000A D282              8             SETB P0.2
+000C 1157              9             CALL DELAY
+000E 03               10             RR A
+000F F590             11             MOV P1,A
+0011 1157             12             CALL DELAY
+0013 80F0             13             JMP KEY1
+0015                  14     KEY2:
+0015 308402           15         JNB P0.4,KEY20
+0018 800B             16             JMP KEY3
+001A                  17             KEY20:
+001A D284             18             SETB P0.4
+001C 1157             19             CALL DELAY
+001E 23               20             RL A
+001F F590             21             MOV P1,A
+0021 1157             22             CALL DELAY
+0023 80F0             23             JMP KEY2
+0025                  24     KEY3:
+0025 308002           25         JNB P0.0,KEY30
+0028 8014             26             JMP KEY4
+002A                  27             KEY30:
+002A D280             28             SETB P0.0
+002C 3082DB           29             JNB P0.2,KEY10
+002F 3084E8           30             JNB P0.4,KEY20
+0032 30870E           31         JNB P0.7,KEY40
+0035 03               32             RR A
+0036 F590             33             MOV P1,A
+0038 1157             34             CALL DELAY
+003A 80EE             35             JMP KEY30
+003C 80E7             36             JMP KEY3
+003E                  37     KEY4:
+003E 308702           38         JNB P0.7,KEY40
+0041 80C2             39             JMP KEY1
+0043                  40             KEY40:
+0043 D287             41             SETB P0.7
+0045 3082C2           42             JNB P0.2,KEY10
+0048 3084CF           43             JNB P0.4,KEY20
+004B 3080DC           44         JNB P0.0,KEY30
+004E 23               45             RL A
+004F F590             46             MOV P1,A
+0051 1157             47             CALL DELAY
+0053 80EE             48             JMP KEY40
+0055 80E7             49             JMP KEY4
+0057                  50     DELAY:
+0057 A9C8             51             MOV R1,200
+0059                  52             LAP:
+0059 7AC8             53             MOV R2,#200
+005B                  54             LAP1:
+005B 00               55             NOP
+005C 00               56             NOP
+005D DAFC             57             DJNZ R2,LAP1
+005F D9F8             58             DJNZ R1,LAP
+A51 MACRO ASSEMBLER  LEDDON_4PHIM                                                         05/26/2014 03:44:31 PAGE     2
+
+0061 22               59             RET
+                      60     END
+A51 MACRO ASSEMBLER  LEDDON_4PHIM                                                         05/26/2014 03:44:31 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0057H   A   
+KEY1 . . . . . . .  C ADDR   0005H   A   
+KEY10. . . . . . .  C ADDR   000AH   A   
+KEY2 . . . . . . .  C ADDR   0015H   A   
+KEY20. . . . . . .  C ADDR   001AH   A   
+KEY3 . . . . . . .  C ADDR   0025H   A   
+KEY30. . . . . . .  C ADDR   002AH   A   
+KEY4 . . . . . . .  C ADDR   003EH   A   
+KEY40. . . . . . .  C ADDR   0043H   A   
+LAP. . . . . . . .  C ADDR   0059H   A   
+LAP1 . . . . . . .  C ADDR   005BH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,174 @@
+C51 COMPILER V9.02   ADC                                                                   02/06/2016 15:39:19 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN adc.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE adc.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /***************************************************************************************************
+   2                                             ExploreEmbedded  
+   3          ****************************************************************************************************
+   4           * File:   adc.c
+   5           * Version: 15.0
+   6           * Author: ExploreEmbedded
+   7           * Website: http://www.exploreembedded.com/wiki
+   8           * Description: Contains the library function for ADC conversion
+   9           
+  10          The libraries have been tested on ExploreEmbedded development boards. We strongly believe that the 
+  11          library works on any of development boards for respective controllers. However, ExploreEmbedded 
+  12          disclaims any kind of hardware failure resulting out of usage of libraries, directly or indirectly.
+  13          Files may be subject to change without prior notice. The revision history contains the information 
+  14          related to updates. 
+  15           
+  16           
+  17          GNU GENERAL PUBLIC LICENSE: 
+  18              This program is free software: you can redistribute it and/or modify
+  19              it under the terms of the GNU General Public License as published by
+  20              the Free Software Foundation, either version 3 of the License, or
+  21              (at your option) any later version.
+  22          
+  23              This program is distributed in the hope that it will be useful,
+  24              but WITHOUT ANY WARRANTY; without even the implied warranty of
+  25              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  26              GNU General Public License for more details.
+  27          
+  28              You should have received a copy of the GNU General Public License
+  29              along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  30           
+  31          Errors and omissions should be reported to codelibraries@exploreembedded.com
+  32           **************************************************************************************************/
+  33           
+  34           
+  35           
+  36          /***************************************************************************************************
+  37                                       Revision History
+  38          ****************************************************************************************************          
+             - 
+  39          15.0: Initial version 
+  40          ***************************************************************************************************/
+  41          
+  42          #include"adc.h"
+  43          #include"delay.h"
+  44          #include"stdutils.h"
+  45          
+  46          
+  47          
+  48          
+  49          
+  50          /***************************************************************************************************
+  51                                   void ADC_Init()
+  52          ****************************************************************************************************
+  53           * I/P Arguments: none.
+  54           * Return value : none
+C51 COMPILER V9.02   ADC                                                                   02/06/2016 15:39:19 PAGE 2   
+
+  55          
+  56           * description :This function initializes the ADC module.
+  57          ***************************************************************************************************/
+  58          void ADC_Init()
+  59          {
+  60   1                util_BitClear(adc_controlbus,adc_Start); 
+  61   1            util_BitClear(adc_controlbus,adc_ALE); 
+  62   1            util_BitClear(adc_controlbus,adc_OE); 
+  63   1            util_BitSet(adc_controlbus,adc_OE); 
+  64   1            adc_databus=0xff; 
+  65   1          /*  
+  66   1             adc_Start=0;                //Initialize all the control lines to zero.
+  67   1           adc_ALE=0;
+  68   1           adc_OE=0;
+  69   1           adc_EOC=1;                  //Configure the EOC pin as I/P
+  70   1           adc_databus=0xff;             //configure adc_databus as input
+  71   1           */
+  72   1           
+  73   1      }
+  74          
+  75          
+  76          
+  77          
+  78          /***************************************************************************************************
+  79                              uint16_t ADC_GetAdcValue(uint8_t var_adcChannel_u8);
+  80          ****************************************************************************************************
+  81           * I/P Arguments: uint8_t(channel number).
+  82           * Return value : uint16_t(16 bit ADC result)
+  83          
+  84           * description  :This function does the ADC conversion for the Selected Channel
+  85                           and returns the converted 16bit result.
+  86                   The adc value per bit depends on the resolution of the ADC. 
+  87                   For ADC0809(8-bit ADC)) the adc value per lsb will be 5/255=0.0196V.
+  88                   For AVR/PIC(10-bit adc) the adc value per lsb will be 5/1023=0048v
+  89          
+  90                        ___     ___     ___     ___     ___     ___     ___     ___     ___
+  91                   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+  92          Clock:   |___|   |___|   |___|   |___|   |___|   |___|   |___|   |___|   |___|   |__
+  93          
+  94          Address  ----------(Address A,B,C)--------------------------------------------------
+  95          (Channel number)                    ______
+  96                                             |      |
+  97          ALE:     __________________________|      |_________________________________________
+  98                                           _______
+  99                                                |       |
+ 100          Start;   _____________________________|       |_____________________________________
+ 101                 __________________________________________      ______________________
+ 102                                     |    |
+ 103          EOC:                           |________|
+ 104                                                               ______________
+ 105                                                                      |          |
+ 106          OE;     ________________________________________________________|        |____
+ 107          
+ 108          Data:   -----------------------------------------------------------(adc result)-----
+ 109          
+ 110          ***************************************************************************************************/
+ 111          uint16_t ADC_GetAdcValue(uint8_t var_adcChannel_u8)
+ 112          {
+ 113   1           uint16_t adc_result;
+ 114   1             /*   
+ 115   1             adc_A=((var_adcChannel_u8>>0) & 0x01);   //Selectthe channel
+ 116   1             adc_B=((var_adcChannel_u8>>1) & 0x01);   //for which the conversion needs to be done
+C51 COMPILER V9.02   ADC                                                                   02/06/2016 15:39:19 PAGE 3   
+
+ 117   1             adc_C=((var_adcChannel_u8>>2) & 0x01);
+ 118   1             */
+ 119   1            util_UpdateBit(adc_controlbus,adc_A,util_GetBitStatus(var_adcChannel_u8,0X00)); 
+ 120   1            util_UpdateBit(adc_controlbus,adc_B,util_GetBitStatus(var_adcChannel_u8,0X01)); 
+ 121   1          util_UpdateBit(adc_controlbus,adc_C,util_GetBitStatus(var_adcChannel_u8,0X02));
+ 122   1              
+ 123   1           
+ 124   1          util_BitSet(adc_controlbus,adc_ALE);        // Latch the address by making the ALE high.
+ 125   1          DELAY_us(50);
+ 126   1          util_BitSet(adc_controlbus,adc_Start);       //Start the conversion after latching the channel address
+ 127   1          DELAY_us(25);
+ 128   1      
+ 129   1          util_BitClear(adc_controlbus,adc_ALE);          //Pull ALE line to zero after starting the conversion.
+ 130   1          DELAY_us(50);
+ 131   1          util_BitClear(adc_controlbus,adc_Start);;       //Pull Start line to zero after starting the conversion.
+ 132   1      
+ 133   1          
+ 134   1           while(util_GetBitStatus(adc_controlbus,adc_EOC)==0);    // Wait till the ADC conversion is completed,
+ 135   1                                 // EOC will be pulled to HIGH by the hardware(ADC0809)
+ 136   1                                 // once conversion is completed.
+ 137   1      
+ 138   1           util_BitSet(adc_controlbus,adc_OE);          //Make the Output Enable high
+ 139   1                             //to bring the ADC data to port pins
+ 140   1           DELAY_us(25);
+ 141   1           adc_result=adc_databus;  //Read the ADC data from ADC bus
+ 142   1         util_BitClear(adc_controlbus,adc_OE);        //After reading the data, disable th ADC output line.
+ 143   1      
+ 144   1          return(adc_result) ;
+ 145   1      
+ 146   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    117    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

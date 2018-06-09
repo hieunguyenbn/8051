@@ -1,0 +1,55 @@
+C51 COMPILER V9.56.0.0   BUTTON_LED_7_SEG_2                                                11/04/2017 15:43:37 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE BUTTON_LED_7_SEG_2
+OBJECT MODULE PLACED IN .\Objects\button_led_7_seg_2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE button_led_7_seg_2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\button_led_7_seg_2.lst) TABS(5) OBJECT(.\Objects\button_led_7_seg_2.obj)
+
+line level    source
+
+   1          //MOI LAN NHAN NUT TANG 1 DON VI, HIEN THI SO DEM RA LED.
+   2          #include <reg52.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          sbit led = P0^0;
+   5          sbit button = P2^0;
+   6          sbit k1 = P3^0;
+   7          sbit k2 = P3^1;
+   8          
+   9          main() {
+  10   1           
+  11   1           unsigned char i, j, a[10] = {0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x10};
+  12   1           i = 0;
+  13   1           P1 = a[i];
+  14   1           while (1) {    
+  15   2                led = 1;
+  16   2                if (button == 0) {
+  17   3                     for (j = 0; j < 20; j++) delay_ms(2);
+  18   3                     if (button==0) {
+  19   4                          led = 0;
+  20   4                          i = i + 1;
+  21   4                          if (i == 100) i = 0;
+  22   4                          do {} while (button==0);
+  23   4                     }
+  24   3                }
+  25   2                P1 = a[i%10];
+  26   2                k1 = 0; delay_ms(1); k1 = 1;
+  27   2                P1 = a[i/10];
+  28   2                k2 = 0; delay_ms(1); k2 = 1;
+  29   2                
+  30   2           }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    122    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

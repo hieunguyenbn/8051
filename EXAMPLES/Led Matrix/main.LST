@@ -1,0 +1,144 @@
+C51 COMPILER V9.56.0.0   MAIN                                                              11/03/2017 10:40:22 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE TABS(5)
+
+line level    source
+
+   1          #include <at89x52.h>
+   2          #include <font.c>
+   3          
+   4          #define Hang P0
+   5          #define Cot  P1
+   6          
+   7          //unsigned char code chuA[16]={0xFF,0x83,0xF5,0xF6,0xF5,0x83,0xFF,0xFF,
+   8                                              //0xFF,0x80,0xFD,0xF3,0xFD,0x80,0xFF,0xFF};
+   9          unsigned char code chuA[5]={"Hello"};
+  10          
+  11          unsigned char code string[] = {"Day la chuong trinh Led Ma tran"};
+  12          unsigned char buffer[27];
+  13          char uart_data;
+  14          
+  15          void serial_IT() interrupt 4
+  16          {
+  17   1           if (RI) 
+  18   1           {                                  /* Khi nhan duoc du lieu */
+  19   2             RI = 0;                           /* Xoa co RI (RI de xac dinh du lieu da duoc truyen tu PC xuong?) */
+  20   2             uart_data = SBUF;           // Nhan du lieu do PC truyen xuong
+  21   2           }
+  22   1      }
+  23          
+  24          void send(char temp) 
+  25          { // Ham truen du lieu len may tinh
+  26   1           SBUF = temp;
+  27   1           while (TI==0);  //Co bao du lieu da truyen
+  28   1                TI = 0;
+  29   1      }
+  30          void delay(){
+  31   1           TH0=0xFB;
+  32   1           TL0=0x00;
+  33   1           TR0=1;
+  34   1           while(1){
+  35   2           if(TF0==1) break;
+  36   2           }
+  37   1           TR0=0;
+  38   1           TF0=0;
+  39   1      }
+  40          
+  41          void delay_ms(int t){
+  42   1           int i;
+  43   1           for(i=0;i<t;i++)
+  44   1           delay();
+  45   1      }
+  46          
+  47          void Display(unsigned char time) {
+  48   1      unsigned char i,j;
+  49   1      
+  50   1      for(i=0;i<time;i++)
+  51   1       for(j=0;j<25;j++)
+  52   1        {
+  53   2        if (j<8)     Cot = j;
+  54   2        else Cot = 0xFF;
+  55   2           Hang = buffer[j];
+C51 COMPILER V9.56.0.0   MAIN                                                              11/03/2017 10:40:22 PAGE 2   
+
+  56   2           delay();
+  57   2           Hang = 0xff;
+  58   2        }
+  59   1      
+  60   1      }
+  61          
+  62          void putstr(char *s)
+  63          {
+  64   1      while (*s)
+  65   1       {
+  66   2        send(*s);
+  67   2        s++;
+  68   2       }
+  69   1      
+  70   1      }
+  71          void main() 
+  72          {
+  73   1      unsigned char index;
+  74   1      unsigned char i,j,k;
+  75   1      // Khoi tao cho ngat RS232 nhan byte  ( Scon- Thanh ghi dieu khien bo UART)
+  76   1           SCON = 0x50;     /* UART che do 1 (8 bit), REN=1 */
+  77   1           TMOD = 0x21;     /* Timer 1 in mode 2, Timer 0 in mode 1 */
+  78   1           TH1  = 0xFD;      /* 9600 Bds at 11.059MHz */
+  79   1           TL1  = 0xFD;     /* 9600 Bds at 11.059MHz */
+  80   1           TR1 = 1;        /* Chay Timer1 */
+  81   1           IE  = 0x90;      /* Cho phep ngat toan cuc va ngat UART de xu ly du lieu den*/
+  82   1           TI = 0;RI = 0;
+  83   1      // Send String to PC
+  84   1      putstr(string);
+  85   1           send(13);
+  86   1           send(10);
+  87   1      
+  88   1      for(k=0;k<26;k++)
+  89   1                buffer[k] = 0xFF;
+  90   1      
+  91   1      // Copy to Buffer RAM
+  92   1      for(i=0;i<5;++i)
+  93   1      {
+  94   2       index = chuA[i]-32;
+  95   2       for(j=0;j<5;j++)
+  96   2       {
+  97   3           for(k=25;k>0;--k)
+  98   3                buffer[k] = buffer[k-1];
+  99   3                buffer[0] = font[index*5 + j];
+ 100   3       }
+ 101   2           for(k=25;k>0;--k)
+ 102   2                buffer[k] = buffer[k-1];
+ 103   2           buffer[0] = 0xFF; 
+ 104   2      }
+ 105   1      
+ 106   1      
+ 107   1      while(1)
+ 108   1      {
+ 109   2      Display(30);
+ 110   2      // Thuc hien dich chu
+ 111   2      for(i=25;i>0;--i)
+ 112   2       {
+ 113   3           buffer[i] = buffer[i-1];
+ 114   3       }
+ 115   2       buffer[0] = buffer[25];
+ 116   2      }
+ 117   1      }
+C51 COMPILER V9.56.0.0   MAIN                                                              11/03/2017 10:40:22 PAGE 3   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    282    ----
+   CONSTANT SIZE    =    517    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     28    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

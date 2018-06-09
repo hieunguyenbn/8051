@@ -1,0 +1,71 @@
+A51 MACRO ASSEMBLER  BAI3                                                                 05/18/2014 09:32:35 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN bai3.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE bai3.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000 020030            2     LJMP MAIN
+0030                   3     ORG 30H
+0030                   4     MAIN:
+0030 1134              5        CALL CT1
+0032 80FC              6        JMP MAIN
+                       7        ;----------------------------------------------------------
+0034 A800              8        CT1: MOV R0, 00H
+0036 2082FD            9                     JB P0.2,$
+0039 B80102           10                     CJNE R0,#01, UP
+003C 80F6             11                     JMP CT1
+                      12                     
+                      13             ;       JB P0.4, $
+                      14             ;       CALL DOWN
+                      15             ;       JB P0.0, $
+                      16             ;       call START
+                      17             ;       JB P0.0, $
+                      18             ;       call STOP
+003E                  19             UP:
+003E 7401             20                 mov a, #01h
+                      21                 
+0040 23               22                       RL a
+                      23                       
+0041 F590             24                       mov p1, a
+0043 1146             25                       call DELAY
+                      26     
+0045 22               27        RET
+                      28        ;----------------------------------------------------------
+0046                  29        DELAY:
+0046 7E00             30               MOV R6, #200h
+*** ____________________________________________^
+*** WARNING #A52 IN 30 (bai3.asm, LINE 30): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0048 7F00             31               HERE1: MOV R7, #200H
+*** ___________________________________________________^
+*** WARNING #A52 IN 31 (bai3.asm, LINE 31): VALUE HAS BEEN TRUNCATED TO 8 BITS
+004A                  32               HERE2:
+004A DFFE             33                             DJNZ R7, HERE2
+004C DEFA             34                             DJNZ R6, HERE1
+004E 22               35        RET
+                      36     END
+A51 MACRO ASSEMBLER  BAI3                                                                 05/18/2014 09:32:35 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CT1. . . . . . . .  C ADDR   0034H   A   
+DELAY. . . . . . .  C ADDR   0046H   A   
+HERE1. . . . . . .  C ADDR   0048H   A   
+HERE2. . . . . . .  C ADDR   004AH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+UP . . . . . . . .  C ADDR   003EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  2 WARNING(S), 0 ERROR(S)

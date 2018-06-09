@@ -1,0 +1,26 @@
+Pulse Width Measurement Example Program
+=======================================
+This example program shows how to compute the width of a pulse
+using timer0 in mode 1.  Port 3.2 is used as an external gate
+for the timer.  An interrupt is used to accumulate timer overflow.
+The width of each pulse is output to the serial port.
+
+
+To test this program...
+-----------------------
+1. Start the debugger.
+2. View the Serial window.
+3. View the Toolbox.
+4. Run the program.
+5. Click a pulse button to generate a pulse on P3.2.
+
+
+The width of the pulse generated displays in the serial window
+each time you repeat this process.
+
+
+Be sure to check the debug.ini file to see how the debugger
+buttons are created.  A signal function is used to generate
+pulses.
+
+

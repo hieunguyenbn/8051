@@ -1,0 +1,51 @@
+A51 MACRO ASSEMBLER  VD1                                                                  05/19/2014 21:11:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN vd1.OBJ
+ASSEMBLER INVOKED BY: F:\Keil 4\C51\BIN\A51.EXE vd1.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 00h
+0000                   2     main:
+0000 758901            3           MOV TMOD, #01H ;Timer 0,mode 1(16-bit timer mode)
+0003 758CFF            4           LOOP: MOV TH0, #HIGH(-250); high byte of -50,000
+0006 758A06            5           MOV TL0, #LOW(-250) ; low byte of -50,000
+0009 D28C              6           SETB TR0 ; start timer
+000B 308DFD            7           JNB TF0, $; wait for overflow
+000E C28C              8           CLR TR0 ; stop timer
+0010 C28D              9           CLR TF0 ; clear timer overflow flag
+0012 B290             10           CPL P1.0 ; toggle port bit
+0014 758CFF           11               MOV TH0, #HIGH(-125); high byte of -50,000
+0017 758A83           12           MOV TL0, #LOW(-125) ; low byte of -50,000
+001A D28C             13           SETB TR0 ; start timer
+001C 308DFD           14           JNB TF0, $; wait for overflow
+001F C28C             15           CLR TR0 ; stop timer
+0021 C28D             16           CLR TF0 ; clear timer overflow flag
+0023 B291             17               CPL P1.1
+0025 80DC             18           SJMP LOOP ; repeat
+                      19          
+                      20     end
+A51 MACRO ASSEMBLER  VD1                                                                  05/19/2014 21:11:44 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+LOOP . . . . . . .  C ADDR   0003H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

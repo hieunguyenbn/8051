@@ -1,0 +1,132 @@
+A51 MACRO ASSEMBLER  SENDER                                                               05/22/2017 20:23:54 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN sender.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE sender.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh truyen thong noi tiep 8051 bang UART va phan mem
+                       3     ; Code ben gui
+  00A0                 4     PIN_7SEG                        EQU             P2
+  0080                 5     SOFTPIN_7SEG            EQU     P0 
+  REG                  6     COUNTER                         EQU             R0
+  0092                 7     SERIAL_DATA_PIN         EQU             P1.2
+                       8     
+0000                   9     ORG                                     0H
+0000 020026           10     LJMP                            MAIN  
+0003                  11     ORG                                     0003H
+0003 02003B           12     LJMP                            ISR_BUTTON_PRESSED  
+0023                  13     ORG                                     0023H
+0023 020069           14     LJMP                            ISR_HARDWARE_SERIAL
+                      15     
+0026                  16     MAIN:  
+0026 7800             17     MOV                                     COUNTER,#0h ; Khoi tao bien dem Counter
+0028 75A881           18     MOV                                     IE,#10000001B
+002B D288             19     SETB                            TCON.0 ; Ngat 0 theo xung cao-xuong-thap
+002D 758920           20     MOV                                     TMOD,#20h ; Timer 1, che do 2 tu nap lai
+0030 758DF4           21     MOV                                     TH1, #0F4h ; Baud rate  = 2400  
+0033 759850           22     MOV                                     SCON,#50H ; Khung du lieu 8 bit, 1 Stop, cho phep R
+                             I
+0036 D28E             23     SETB                            TR1
+0038                  24     _loop_forever:
+0038 80FE             25     SJMP                            _loop_forever
+003A 22               26     RET
+                      27     
+003B                  28     ISR_BUTTON_PRESSED:
+003B 900500           29     MOV                                     DPTR,#LED_7SEG
+                      30     ; Gui du lieu qua cong noi tiep UART
+003E E8               31     MOV                                     A,COUNTER
+003F 93               32     MOVC                            A,@A+DPTR
+0040 F5A0             33     MOV                                     PIN_7SEG,A ; Dua ra LED
+                      34     ;SETB                           TR1
+0042 F599             35     MOV                                     SBUF,A ; Dua ra cong UART
+0044 3099FD           36     JNB                                     TI,$
+0047 C299             37     CLR                                     TI
+                      38     ; Gui du lieu noi tiep bang phan mem
+0049 E8               39     MOV                                     A,COUNTER
+004A 93               40     MOVC                            A,@A+DPTR
+004B F580             41     MOV                                     SOFTPIN_7SEG,A ; Dua ra LED
+004D 7908             42     MOV                                     R1,#8 
+004F C292             43     CLR                                     SERIAL_DATA_PIN ; Bit Start
+0051 00               44     NOP
+0052                  45     _send_bits:
+0052 13               46     RRC                                     A
+0053 4005             47     JC                                      _bit_1
+                      48     ; _bit_0:
+0055 C292             49     CLR                                     SERIAL_DATA_PIN
+0057 00               50     NOP
+0058 8004             51     JMP                                     _continue
+005A                  52     _bit_1:
+005A D292             53     SETB                            SERIAL_DATA_PIN
+005C 00               54     NOP
+005D 00               55     NOP
+005E                  56     _continue:
+005E D9F2             57     DJNZ                            R1,_send_bits
+A51 MACRO ASSEMBLER  SENDER                                                               05/22/2017 20:23:54 PAGE     2
+
+0060 D292             58     SETB                            SERIAL_DATA_PIN ; Stop 
+                      59     
+                      60     ; Tang bien dem Counter
+0062 08               61     INC                                     COUNTER ; Tang bien dem
+0063 B80A02           62     CJNE                            COUNTER,#10,_end_of_interrupt
+0066 7800             63     MOV                                     COUNTER,#0h ; Reset 
+0068                  64     _end_of_interrupt:
+0068 32               65     RETI
+                      66     
+0069                  67     ISR_HARDWARE_SERIAL:
+0069 209902           68     JB                                      TI,_trans
+006C 00               69     NOP ; Khong lam gi ca vi day khong phai ben nhan
+006D 32               70     RETI
+006E                  71     _trans:
+006E C299             72     CLR                                     TI
+0070 32               73     RETI
+                      74     
+0500                  75     ORG                                     500h
+0500 C0F9A4B0         76     LED_7SEG:                       DB              0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90
+                             H
+0504 999282F8                
+0508 8090                    
+                      77     
+                      78     END
+A51 MACRO ASSEMBLER  SENDER                                                               05/22/2017 20:23:54 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E   ATTRIBUTES
+
+COUNTER . . . . . .    REG    R0          
+IE. . . . . . . . .  D ADDR   00A8H   A   
+ISR_BUTTON_PRESSED.  C ADDR   003BH   A   
+ISR_HARDWARE_SERIAL  C ADDR   0069H   A   
+LED_7SEG. . . . . .  C ADDR   0500H   A   
+MAIN. . . . . . . .  C ADDR   0026H   A   
+P0. . . . . . . . .  D ADDR   0080H   A   
+P1. . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . .  D ADDR   00A0H   A   
+PIN_7SEG. . . . . .  D ADDR   00A0H   A   
+SBUF. . . . . . . .  D ADDR   0099H   A   
+SCON. . . . . . . .  D ADDR   0098H   A   
+SERIAL_DATA_PIN . .  B ADDR   0090H.2 A   
+SOFTPIN_7SEG. . . .  D ADDR   0080H   A   
+TCON. . . . . . . .  D ADDR   0088H   A   
+TH1 . . . . . . . .  D ADDR   008DH   A   
+TI. . . . . . . . .  B ADDR   0098H.1 A   
+TMOD. . . . . . . .  D ADDR   0089H   A   
+TR1 . . . . . . . .  B ADDR   0088H.6 A   
+_BIT_1. . . . . . .  C ADDR   005AH   A   
+_CONTINUE . . . . .  C ADDR   005EH   A   
+_END_OF_INTERRUPT .  C ADDR   0068H   A   
+_LOOP_FOREVER . . .  C ADDR   0038H   A   
+_SEND_BITS. . . . .  C ADDR   0052H   A   
+_TRANS. . . . . . .  C ADDR   006EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

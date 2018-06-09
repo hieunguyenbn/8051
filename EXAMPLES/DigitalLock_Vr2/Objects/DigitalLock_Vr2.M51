@@ -1,0 +1,716 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/27/2017  19:48:46  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE main.obj TO Objects\DigitalLock_Vr2 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?COPY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ISTPTR)
+
+
+LINK MAP OF MODULE:  Objects\DigitalLock_Vr2 (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0017H     UNIT         ?DT?_MFRC522_WRITE?MAIN
+            DATA    001FH     0016H     UNIT         ?DT?_MFRC522_AUTH?MAIN
+            DATA    0035H     0014H     UNIT         ?DT?_MFRC522_READCARDSERIAL?MAIN
+            DATA    0049H     0010H     UNIT         ?DT?_MFRC522_TOCARD?MAIN
+            DATA    0059H     0010H     UNIT         ?DT?MFRC522_ISCARD?MAIN
+            DATA    0069H     000FH     UNIT         ?DT?_MFRC522_SELECTTAG?MAIN
+            DATA    0078H     0008H     UNIT         ?DT?_MFRC522_CRC?MAIN
+            IDATA   0080H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     018FH     UNIT         ?C?LIB_CODE
+            CODE    0192H     0173H     UNIT         ?PR?_MFRC522_TOCARD?MAIN
+            CODE    0305H     007BH     UNIT         ?PR?_MFRC522_CRC?MAIN
+            CODE    0380H     007BH     UNIT         ?PR?_MFRC522_WRITE?MAIN
+            CODE    03FBH     007AH     UNIT         ?PR?_MFRC522_ANTICOLL?MAIN
+            CODE    0475H     0075H     UNIT         ?PR?_MFRC522_AUTH?MAIN
+            CODE    04EAH     0070H     UNIT         ?PR?_MFRC522_SELECTTAG?MAIN
+            CODE    055AH     0062H     UNIT         ?PR?_MFRC522_READ?MAIN
+            CODE    05BCH     005AH     UNIT         ?PR?_MFRC522_RD?MAIN
+            CODE    0616H     0047H     UNIT         ?PR?_MFRC522_REQUEST?MAIN
+            CODE    065DH     0046H     UNIT         ?PR?MFRC522_HALT?MAIN
+            CODE    06A3H     003BH     UNIT         ?PR?_MFRC522_WR?MAIN
+            CODE    06DEH     0037H     UNIT         ?PR?MFRC522_INIT?MAIN
+            CODE    0715H     002EH     UNIT         ?PR?_MFRC522_READCARDSERIAL?MAIN
+            CODE    0743H     0015H     UNIT         ?PR?_MFRC522_CLEAR_BIT?MAIN
+            CODE    0758H     0014H     UNIT         ?PR?_MFRC522_SET_BIT?MAIN
+            CODE    076CH     0014H     UNIT         ?PR?MFRC522_ISCARD?MAIN
+            CODE    0780H     0012H     UNIT         ?PR?MFRC522_RESET?MAIN
+            CODE    0792H     000EH     UNIT         ?PR?MFRC522_ANTENNAON?MAIN
+            CODE    07A0H     000CH     UNIT         ?C_C51STARTUP
+            CODE    07ACH     0007H     UNIT         ?PR?MFRC522_ANTENNAOFF?MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 2
+
+
+            CODE    07B3H     0002H     UNIT         ?PR?MAIN?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   Objects\DigitalLock_Vr2 (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+
+
+IGNORED SEGMENTS:
+   ?DT?_MFRC522_CLEAR_BIT?MAIN
+   ?DT?_MFRC522_SET_BIT?MAIN
+   ?DT?MFRC522_ANTENNAON?MAIN
+   ?DT?_MFRC522_REQUEST?MAIN
+   ?DT?MFRC522_HALT?MAIN
+   ?DT?_MFRC522_READ?MAIN
+   ?DT?_MFRC522_ANTICOLL?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  Objects\DigitalLock_Vr2 (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0715H         PUBLIC        _MFRC522_ReadCardSerial
+  C:07ACH         PUBLIC        MFRC522_AntennaOff
+  C:0743H         SYMBOL        _MFRC522_Clear_Bit
+  B:0090H.0       PUBLIC        P1_0
+  C:0616H         PUBLIC        _MFRC522_Request
+  B:0090H.1       PUBLIC        P1_1
+  B:0090H.2       PUBLIC        P1_2
+  B:0090H.3       PUBLIC        P1_3
+  B:0090H.4       PUBLIC        P1_4
+  C:055AH         PUBLIC        _MFRC522_Read
+  C:04EAH         PUBLIC        _MFRC522_SelectTag
+  C:07B3H         PUBLIC        main
+  C:0780H         PUBLIC        MFRC522_Reset
+  C:0792H         PUBLIC        MFRC522_AntennaOn
+  C:065DH         PUBLIC        MFRC522_Halt
+  C:0380H         PUBLIC        _MFRC522_Write
+  C:0475H         PUBLIC        _MFRC522_Auth
+  C:06DEH         PUBLIC        MFRC522_Init
+  C:03FBH         PUBLIC        _MFRC522_AntiColl
+  C:0758H         SYMBOL        _MFRC522_Set_Bit
+  C:05BCH         PUBLIC        _MFRC522_Rd
+  C:01ACH         PUBLIC        _MFRC522_ToCard
+  C:06A3H         PUBLIC        _MFRC522_Wr
+  C:030BH         PUBLIC        _MFRC522_CRC
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 3
+
+
+  C:076CH         PUBLIC        MFRC522_isCard
+  -------         PROC          _MFRC522_RD
+  D:0007H         SYMBOL        Address
+  -------         DO            
+  D:0002H         SYMBOL        i
+  D:0006H         SYMBOL        ucAddr
+  D:0004H         SYMBOL        ucResult
+  -------         ENDDO         
+  C:05BCH         LINE#         110
+  C:05BCH         LINE#         111
+  C:05BCH         LINE#         113
+  C:05BFH         LINE#         114
+  C:05C1H         LINE#         115
+  C:05C3H         LINE#         116
+  C:05CFH         LINE#         118
+  C:05D3H         LINE#         119
+  C:05D3H         LINE#         120
+  C:05DDH         LINE#         121
+  C:05DFH         LINE#         122
+  C:05E6H         LINE#         123
+  C:05E8H         LINE#         124
+  C:05F1H         LINE#         126
+  C:05F5H         LINE#         127
+  C:05F5H         LINE#         128
+  C:05F7H         LINE#         129
+  C:05FEH         LINE#         130
+  C:0604H         LINE#         131
+  C:0606H         LINE#         132
+  C:060FH         LINE#         135
+  C:0611H         LINE#         136
+  C:0613H         LINE#         137
+  C:0615H         LINE#         138
+  -------         ENDPROC       _MFRC522_RD
+  -------         PROC          _MFRC522_WR
+  D:0007H         SYMBOL        Address
+  D:0005H         SYMBOL        value
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0007H         SYMBOL        ucAddr
+  -------         ENDDO         
+  C:06A3H         LINE#         140
+  C:06A3H         LINE#         141
+  C:06A3H         LINE#         144
+  C:06A5H         LINE#         145
+  C:06A7H         LINE#         146
+  C:06ADH         LINE#         147
+  C:06AFH         LINE#         148
+  C:06AFH         LINE#         149
+  C:06B9H         LINE#         150
+  C:06BBH         LINE#         151
+  C:06BFH         LINE#         152
+  C:06C1H         LINE#         153
+  C:06C3H         LINE#         156
+  C:06C5H         LINE#         157
+  C:06C5H         LINE#         158
+  C:06CFH         LINE#         159
+  C:06D1H         LINE#         160
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 4
+
+
+  C:06D5H         LINE#         161
+  C:06D7H         LINE#         162
+  C:06D9H         LINE#         164
+  C:06DBH         LINE#         165
+  C:06DDH         LINE#         166
+  -------         ENDPROC       _MFRC522_WR
+  -------         PROC          _MFRC522_CLEAR_BIT
+  D:0001H         SYMBOL        addr
+  D:0000H         SYMBOL        mask
+  -------         DO            
+  D:0006H         SYMBOL        tmp
+  -------         ENDDO         
+  C:0743H         LINE#         167
+  C:0747H         LINE#         168
+  C:0749H         LINE#         169
+  C:074EH         LINE#         170
+  -------         ENDPROC       _MFRC522_CLEAR_BIT
+  -------         PROC          _MFRC522_SET_BIT
+  D:0001H         SYMBOL        addr
+  D:0000H         SYMBOL        mask
+  -------         DO            
+  D:0006H         SYMBOL        tmp
+  -------         ENDDO         
+  C:0758H         LINE#         172
+  C:075CH         LINE#         173
+  C:075EH         LINE#         174
+  C:0763H         LINE#         175
+  -------         ENDPROC       _MFRC522_SET_BIT
+  -------         PROC          MFRC522_RESET
+  C:0780H         LINE#         177
+  C:0780H         LINE#         178
+  C:0780H         LINE#         179
+  C:0782H         LINE#         180
+  C:0783H         LINE#         181
+  C:0785H         LINE#         182
+  C:0786H         LINE#         183
+  C:0788H         LINE#         184
+  C:0789H         LINE#         185
+  C:0790H         LINE#         186
+  C:0791H         LINE#         187
+  -------         ENDPROC       MFRC522_RESET
+  -------         PROC          MFRC522_ANTENNAON
+  -------         DO            
+  D:0000H         SYMBOL        stt
+  -------         ENDDO         
+  C:0792H         LINE#         188
+  C:0792H         LINE#         189
+  C:0792H         LINE#         191
+  C:0799H         LINE#         192
+  -------         ENDPROC       MFRC522_ANTENNAON
+  -------         PROC          MFRC522_ANTENNAOFF
+  C:07ACH         LINE#         197
+  C:07ACH         LINE#         198
+  C:07ACH         LINE#         199
+  -------         ENDPROC       MFRC522_ANTENNAOFF
+  -------         PROC          MFRC522_INIT
+  C:06DEH         LINE#         201
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 5
+
+
+  C:06DEH         LINE#         202
+  C:06DEH         LINE#         204
+  C:06E0H         LINE#         205
+  C:06E2H         LINE#         207
+  C:06E5H         LINE#         208
+  C:06ECH         LINE#         209
+  C:06F3H         LINE#         210
+  C:06FAH         LINE#         211
+  C:0701H         LINE#         212
+  C:0708H         LINE#         213
+  C:070FH         LINE#         218
+  C:0712H         LINE#         219
+  -------         ENDPROC       MFRC522_INIT
+  C:01A8H         SYMBOL        L?0113
+  -------         PROC          L?0112
+  -------         ENDPROC       L?0112
+  C:01A8H         SYMBOL        L?0113
+  -------         PROC          _MFRC522_TOCARD
+  D:0049H         SYMBOL        command
+  D:004AH         SYMBOL        sendData
+  D:004DH         SYMBOL        sendLen
+  D:004EH         SYMBOL        backData
+  D:0051H         SYMBOL        backLen
+  -------         DO            
+  D:0054H         SYMBOL        status
+  D:0055H         SYMBOL        irqEn
+  D:0056H         SYMBOL        waitIRq
+  D:0005H         SYMBOL        lastBits
+  D:0057H         SYMBOL        n
+  D:0058H         SYMBOL        i
+  -------         ENDDO         
+  C:01ACH         LINE#         221
+  C:01B4H         LINE#         226
+  C:01B4H         LINE#         227
+  C:01B7H         LINE#         228
+  C:01BAH         LINE#         229
+  C:01BCH         LINE#         234
+  C:01C6H         LINE#         235
+  C:01C6H         LINE#         236
+  C:01C6H         LINE#         237
+  C:01C6H         LINE#         238
+  C:01C9H         LINE#         239
+  C:01CCH         LINE#         240
+  C:01CEH         LINE#         241
+  C:01CEH         LINE#         242
+  C:01CEH         LINE#         243
+  C:01CEH         LINE#         244
+  C:01D1H         LINE#         245
+  C:01D4H         LINE#         246
+  C:01D4H         LINE#         247
+  C:01D4H         LINE#         248
+  C:01D4H         LINE#         249
+  C:01D4H         LINE#         250
+  C:01D4H         LINE#         251
+  C:01DEH         LINE#         252
+  C:01E5H         LINE#         253
+  C:01ECH         LINE#         254
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 6
+
+
+  C:01F3H         LINE#         259
+  C:01FDH         LINE#         260
+  C:01FDH         LINE#         261
+  C:0212H         LINE#         262
+  C:0216H         LINE#         264
+  C:021DH         LINE#         265
+  C:0222H         LINE#         266
+  C:0222H         LINE#         267
+  C:0229H         LINE#         268
+  C:0229H         LINE#         271
+  C:022CH         LINE#         273
+  C:022CH         LINE#         276
+  C:0233H         LINE#         277
+  C:0235H         LINE#         278
+  C:0235H         LINE#         279
+  C:0242H         LINE#         280
+  C:0249H         LINE#         281
+  C:0250H         LINE#         282
+  C:0250H         LINE#         283
+  C:025DH         LINE#         284
+  C:025DH         LINE#         285
+  C:025FH         LINE#         286
+  C:0266H         LINE#         287
+  C:0266H         LINE#         288
+  C:0269H         LINE#         289
+  C:0269H         LINE#         290
+  C:0272H         LINE#         291
+  C:0272H         LINE#         292
+  C:0279H         LINE#         293
+  C:0282H         LINE#         294
+  C:0284H         LINE#         295
+  C:0284H         LINE#         296
+  C:02A3H         LINE#         297
+  C:02A5H         LINE#         299
+  C:02A5H         LINE#         300
+  C:02B9H         LINE#         301
+  C:02B9H         LINE#         302
+  C:02BDH         LINE#         303
+  C:02BDH         LINE#         304
+  C:02C0H         LINE#         305
+  C:02C0H         LINE#         306
+  C:02C7H         LINE#         307
+  C:02C7H         LINE#         308
+  C:02CAH         LINE#         309
+  C:02CAH         LINE#         311
+  C:02D4H         LINE#         312
+  C:02D4H         LINE#         313
+  C:02E9H         LINE#         314
+  C:02EDH         LINE#         316
+  C:02FDH         LINE#         317
+  C:02FDH         LINE#         318
+  C:02FFH         LINE#         320
+  C:02FFH         LINE#         321
+  C:0302H         LINE#         322
+  C:0302H         LINE#         323
+  C:0302H         LINE#         326
+  C:0304H         LINE#         327
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 7
+
+
+  -------         ENDPROC       _MFRC522_TOCARD
+  -------         PROC          _MFRC522_REQUEST
+  D:0004H         SYMBOL        reqMode
+  D:0000H         SYMBOL        TagType
+  -------         DO            
+  D:0007H         SYMBOL        status
+  D:0003H         SYMBOL        backBits
+  -------         ENDDO         
+  C:0616H         LINE#         328
+  C:061EH         LINE#         329
+  C:061EH         LINE#         332
+  C:0625H         LINE#         333
+  C:062FH         LINE#         334
+  C:064FH         LINE#         335
+  C:065AH         LINE#         336
+  C:065AH         LINE#         337
+  C:065CH         LINE#         338
+  C:065CH         LINE#         339
+  C:065CH         LINE#         340
+  -------         ENDPROC       _MFRC522_REQUEST
+  -------         PROC          L?0114
+  -------         ENDPROC       L?0114
+  -------         PROC          _MFRC522_CRC
+  D:0078H         SYMBOL        dataIn
+  D:007BH         SYMBOL        length
+  D:007CH         SYMBOL        dataOut
+  -------         DO            
+  D:007FH         SYMBOL        i
+  D:0007H         SYMBOL        n
+  -------         ENDDO         
+  C:030BH         LINE#         341
+  C:0313H         LINE#         342
+  C:0313H         LINE#         344
+  C:031AH         LINE#         345
+  C:0321H         LINE#         348
+  C:032BH         LINE#         349
+  C:032BH         LINE#         350
+  C:0342H         LINE#         351
+  C:0346H         LINE#         353
+  C:034DH         LINE#         355
+  C:0350H         LINE#         358
+  C:0350H         LINE#         359
+  C:0355H         LINE#         360
+  C:0357H         LINE#         361
+  C:0357H         LINE#         362
+  C:035FH         LINE#         364
+  C:036EH         LINE#         365
+  -------         ENDPROC       _MFRC522_CRC
+  -------         PROC          _MFRC522_SELECTTAG
+  D:0069H         SYMBOL        serNum
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0007H         SYMBOL        status
+  D:006CH         SYMBOL        size
+  D:006DH         SYMBOL        recvBits
+  D:006FH         SYMBOL        buffer
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 8
+
+
+  C:04EAH         LINE#         367
+  C:04F0H         LINE#         368
+  C:04F0H         LINE#         377
+  C:04F3H         LINE#         378
+  C:04F6H         LINE#         380
+  C:04F8H         LINE#         381
+  C:04F8H         LINE#         382
+  C:0510H         LINE#         383
+  C:0514H         LINE#         385
+  C:0528H         LINE#         387
+  C:0544H         LINE#         388
+  C:054FH         LINE#         389
+  C:054FH         LINE#         390
+  C:0552H         LINE#         391
+  C:0554H         LINE#         393
+  C:0554H         LINE#         394
+  C:0557H         LINE#         395
+  C:0557H         LINE#         396
+  C:0559H         LINE#         397
+  -------         ENDPROC       _MFRC522_SELECTTAG
+  -------         PROC          MFRC522_HALT
+  -------         DO            
+  D:0000H         SYMBOL        unLen
+  D:0002H         SYMBOL        buff
+  -------         ENDDO         
+  C:065DH         LINE#         399
+  C:065DH         LINE#         400
+  C:065DH         LINE#         404
+  C:0660H         LINE#         405
+  C:0663H         LINE#         406
+  C:0675H         LINE#         407
+  C:067CH         LINE#         408
+  C:069CH         LINE#         409
+  -------         ENDPROC       MFRC522_HALT
+  -------         PROC          _MFRC522_AUTH
+  D:0007H         SYMBOL        authMode
+  D:0005H         SYMBOL        BlockAddr
+  D:0001H         SYMBOL        Sectorkey
+  D:0024H         SYMBOL        serNum
+  -------         DO            
+  D:0001H         SYMBOL        status
+  D:0027H         SYMBOL        recvBits
+  D:0007H         SYMBOL        i
+  D:0029H         SYMBOL        buff
+  -------         ENDDO         
+  C:0475H         LINE#         411
+  C:0475H         LINE#         415
+  C:0475H         LINE#         422
+  C:0477H         LINE#         423
+  C:0479H         LINE#         425
+  C:047BH         LINE#         426
+  C:047BH         LINE#         427
+  C:0491H         LINE#         428
+  C:0495H         LINE#         430
+  C:0497H         LINE#         431
+  C:0497H         LINE#         432
+  C:04B3H         LINE#         433
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 9
+
+
+  C:04B7H         LINE#         435
+  C:04D9H         LINE#         437
+  C:04E5H         LINE#         438
+  C:04E5H         LINE#         439
+  C:04E7H         LINE#         440
+  C:04E7H         LINE#         442
+  C:04E9H         LINE#         443
+  -------         ENDPROC       _MFRC522_AUTH
+  -------         PROC          _MFRC522_WRITE
+  D:0007H         SYMBOL        blockAddr
+  D:0008H         SYMBOL        writeData
+  -------         DO            
+  D:0007H         SYMBOL        status
+  D:000BH         SYMBOL        recvBits
+  D:0006H         SYMBOL        i
+  D:000DH         SYMBOL        buff
+  -------         ENDDO         
+  C:0380H         LINE#         444
+  C:0386H         LINE#         445
+  C:0386H         LINE#         451
+  C:0389H         LINE#         452
+  C:038BH         LINE#         454
+  C:0399H         LINE#         455
+  C:039FH         LINE#         456
+  C:03B2H         LINE#         457
+  C:03B2H         LINE#         458
+  C:03B4H         LINE#         459
+  C:03B4H         LINE#         460
+  C:03B7H         LINE#         461
+  C:03B7H         LINE#         462
+  C:03B8H         LINE#         463
+  C:03B8H         LINE#         464
+  C:03CDH         LINE#         465
+  C:03D1H         LINE#         467
+  C:03DFH         LINE#         468
+  C:03E5H         LINE#         469
+  C:03F8H         LINE#         470
+  C:03F8H         LINE#         471
+  C:03FAH         LINE#         472
+  C:03FAH         LINE#         473
+  C:03FAH         LINE#         474
+  C:03FAH         LINE#         475
+  -------         ENDPROC       _MFRC522_WRITE
+  -------         PROC          _MFRC522_READ
+  D:0007H         SYMBOL        blockAddr
+  D:0000H         SYMBOL        recvData
+  -------         DO            
+  D:0007H         SYMBOL        status
+  D:0003H         SYMBOL        unLen
+  -------         ENDDO         
+  C:055AH         LINE#         476
+  C:0560H         LINE#         477
+  C:0560H         LINE#         480
+  C:0565H         LINE#         481
+  C:0572H         LINE#         483
+  C:058EH         LINE#         485
+  C:05AEH         LINE#         486
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 10
+
+
+  C:05B9H         LINE#         487
+  C:05B9H         LINE#         488
+  C:05BBH         LINE#         489
+  C:05BBH         LINE#         490
+  C:05BBH         LINE#         491
+  -------         ENDPROC       _MFRC522_READ
+  -------         PROC          _MFRC522_ANTICOLL
+  D:0000H         SYMBOL        serNum
+  -------         DO            
+  D:0007H         SYMBOL        status
+  D:0006H         SYMBOL        i
+  D:0003H         SYMBOL        serNumCheck
+  D:0004H         SYMBOL        unLen
+  -------         ENDDO         
+  C:03FBH         LINE#         492
+  C:0401H         LINE#         493
+  C:0401H         LINE#         496
+  C:0404H         LINE#         498
+  C:040AH         LINE#         499
+  C:0415H         LINE#         500
+  C:0423H         LINE#         501
+  C:042AH         LINE#         502
+  C:044AH         LINE#         503
+  C:044DH         LINE#         504
+  C:044DH         LINE#         505
+  C:044EH         LINE#         506
+  C:044EH         LINE#         507
+  C:045EH         LINE#         508
+  C:0462H         LINE#         510
+  C:0472H         LINE#         511
+  C:0472H         LINE#         512
+  C:0474H         LINE#         513
+  C:0474H         LINE#         514
+  C:0474H         LINE#         515
+  C:0474H         LINE#         516
+  -------         ENDPROC       _MFRC522_ANTICOLL
+  -------         PROC          MFRC522_ISCARD
+  -------         DO            
+  D:0007H         SYMBOL        status
+  D:0059H         SYMBOL        id
+  -------         ENDDO         
+  C:076CH         LINE#         522
+  C:076CH         LINE#         523
+  C:076CH         LINE#         526
+  C:0777H         LINE#         527
+  C:077AH         LINE#         528
+  C:077AH         LINE#         529
+  C:077DH         LINE#         530
+  C:077DH         LINE#         532
+  C:077DH         LINE#         533
+  C:077FH         LINE#         534
+  C:077FH         LINE#         535
+  -------         ENDPROC       MFRC522_ISCARD
+  -------         PROC          _MFRC522_READCARDSERIAL
+  D:0035H         SYMBOL        id
+  -------         DO            
+  D:0038H         SYMBOL        status
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 11
+
+
+  D:0039H         SYMBOL        str
+  -------         ENDDO         
+  C:0715H         LINE#         536
+  C:071BH         LINE#         537
+  C:071BH         LINE#         540
+  C:0726H         LINE#         541
+  C:0739H         LINE#         542
+  C:073DH         LINE#         543
+  C:073DH         LINE#         544
+  C:0740H         LINE#         545
+  C:0740H         LINE#         547
+  C:0740H         LINE#         548
+  C:0742H         LINE#         549
+  C:0742H         LINE#         550
+  -------         ENDPROC       _MFRC522_READCARDSERIAL
+  -------         PROC          MAIN
+  C:07B3H         LINE#         5
+  C:07B3H         LINE#         6
+  C:07B3H         LINE#         7
+  C:07B3H         LINE#         8
+  C:07B3H         LINE#         10
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?COPY
+  C:00D3H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+  -------         MODULE        ?C?CLDPTR
+  C:00F9H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+  C:0112H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:013FH         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:0151H         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?ISTPTR
+  C:0173H         PUBLIC        ?C?ISTPTR
+  -------         ENDMOD        ?C?ISTPTR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MFRC522_INIT?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_MFRC522_SELECTTAG?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MFRC522_HALT?MAIN
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/27/2017  19:48:46  PAGE 12
+
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_MFRC522_AUTH?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_MFRC522_WRITE?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_MFRC522_READ?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MFRC522_ISCARD?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_MFRC522_READCARDSERIAL?MAIN
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?MFRC522_HALT?MAIN
+    LENGTH:  0006H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_MFRC522_ANTICOLL?MAIN
+    LENGTH:  0006H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_MFRC522_REQUEST?MAIN
+    LENGTH:  0005H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_MFRC522_READ?MAIN
+    LENGTH:  0005H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_MFRC522_CLEAR_BIT?MAIN
+    LENGTH:  0001H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?_MFRC522_SET_BIT?MAIN
+    LENGTH:  0001H
+
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: ?DT?MFRC522_ANTENNAON?MAIN
+    LENGTH:  0001H
+
+Program Size: data=154.0 xdata=0 code=1973
+LINK/LOCATE RUN COMPLETE.  8 WARNING(S),  7 ERROR(S)

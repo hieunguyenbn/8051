@@ -1,0 +1,93 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\HoangVu\Desktop\Keil Project\Projectcuoiky\Projectcuoiky_ds18b20_24c512.uvproj
+Project File Date:  01/23/2018
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1401
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1406
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1406
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1406
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1406
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1406
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling Code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?CODE
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_I2C_WRITE?CODE
+    CALLER1: ?PR?NGAT0?CODE
+    CALLER2: ?C_C51STARTUP
+Program Size: data=34.2 xdata=0 code=1401
+creating hex file from "Projectcuoiky_ds18b20_24c512"...
+"Projectcuoiky_ds18b20_24c512" - 0 Error(s), 2 Warning(s).

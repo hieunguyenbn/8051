@@ -1,0 +1,35 @@
+
+void ShiftLeft(char *s, char *s2) {
+		unsigned char j, i, c, n;
+		n = strlen(s)-1; j = 0;
+	loop:
+		while (j <= n) {
+			WriteCommand(0x80);
+			for (i = j; i <= n; i++) {
+					WriteChar(s[i]);//in n-i ky tu
+			}
+			WriteCommand(0xC0);
+			WriteString(s2);
+			delay_ms(500);
+			WriteCommand(0x01);
+			j++;
+			if (j > n) {
+				j = 0; c = 15;
+				while (c) {
+					WriteCommand(0x80+c);
+					for (i = 0; i <= j; i++) {
+						WriteChar(s[i]);
+					}
+					WriteCommand(0xC0);
+					WriteString(s2);
+					delay_ms(500);
+					WriteCommand(0x01);
+					c--; j++;
+				}
+				if (c == 0) {
+					j = 0;
+					goto loop;
+				}
+			}
+		}
+}

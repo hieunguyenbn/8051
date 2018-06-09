@@ -1,0 +1,61 @@
+C51 COMPILER V9.56.0.0   INTERRUPTTIMER2                                                   11/13/2017 21:07:01 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE INTERRUPTTIMER2
+OBJECT MODULE PLACED IN .\Objects\InterruptTimer2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE InterruptTimer2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Li
+                    -stings\InterruptTimer2.lst) TABS(5) OBJECT(.\Objects\InterruptTimer2.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "..\..\LIBRARY\delay.h"
+   3          sbit led = P0^0;
+   4          void delay(unsigned int t) {
+   5   1           while(t--);
+   6   1      }
+   7          unsigned int i;
+   8          main() {
+   9   1           TMOD = 0x10; // TIMER 1 CHE DO 1
+  10   1           //IE = 0x88; // CHO PHEP NGAT TIMER 1;
+  11   1           ET1 = 1;
+  12   1           EA = 1;
+  13   1           TR1 = 1;
+  14   1           while(1) {
+  15   2                P1 = 0;
+  16   2                delay(15000);
+  17   2                P1 = 0xFF;
+  18   2                delay(15000);
+  19   2           }
+  20   1      }
+  21          
+  22          void ngat(void) interrupt 3 { 
+  23   1           long a = 50000;
+  24   1           i++;
+  25   1           TH1 = 0xFC;
+  26   1           TL1 = 0x18; // DEM TU 64536 => 65536
+  27   1           TR1 = 1;
+  28   1           if (i >= 5000) {
+  29   2           i = 0;
+  30   2           led = 0;
+  31   2           delay_ms(5000);
+  32   2           led = 1;
+  33   2           }
+  34   1           
+  35   1      }
+  36               
+  37               
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    154    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

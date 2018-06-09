@@ -1,0 +1,75 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        10/26/2007  11:26:54  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE DemSanPham.obj TO DemSanPham RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  DemSanPham.obj (DEMSANPHAM)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  DemSanPham (DEMSANPHAM)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?DEMSANPHAM
+            IDATA   000CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0007H     UNIT         ?PR?TIMER_ISR?DEMSANPHAM
+                    000AH     0001H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0055H     UNIT         ?C?LIB_CODE
+            CODE    0063H     004BH     UNIT         ?PR?_CONVERT_BCD?DEMSANPHAM
+            CODE    00AEH     003DH     UNIT         ?PR?DISPLAY?DEMSANPHAM
+            CODE    00EBH     0019H     UNIT         ?PR?MAIN?DEMSANPHAM
+            CODE    0104H     0012H     UNIT         ?PR?_DELAY_US?DEMSANPHAM
+            CODE    0116H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0122H     000AH     UNIT         ?CO?DEMSANPHAM
+
+
+
+OVERLAY MAP OF MODULE:   DemSanPham (DEMSANPHAM)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?DEMSANPHAM
+
+?PR?MAIN?DEMSANPHAM
+  +--> ?PR?_CONVERT_BCD?DEMSANPHAM
+  +--> ?PR?DISPLAY?DEMSANPHAM
+
+?PR?DISPLAY?DEMSANPHAM
+  +--> ?CO?DEMSANPHAM
+  +--> ?PR?_DELAY_US?DEMSANPHAM
+
+
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      10/26/2007  11:26:54  PAGE 2
+
+
+SYMBOL TABLE OF MODULE:  DemSanPham (DEMSANPHAM)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?UIDIV
+  C:000EH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=13.0 xdata=0 code=299
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

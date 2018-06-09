@@ -1,0 +1,140 @@
+C51 COMPILER V9.56.0.0   GPS                                                               01/21/2018 13:58:16 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE GPS
+OBJECT MODULE PLACED IN .\Objects\gps.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE gps.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\gps.l
+                    -st) TABS(2) OBJECT(.\Objects\gps.obj)
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include <string.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          #include "..\..\LIBRARY\port.h"
+   5          
+   6          void LCD_init(); //khoi tao
+   7          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+   8          void WriteChar(char c); // Gui ky tu
+   9          void WriteString(char *s); //GUI CHUOI
+  10          void receive(void);
+  11          
+  12          char GLL[6] = "$GPGLL", latitude[15], longtitude[15], chuoi[35];
+  13          unsigned char j, k, h, dauphay = 0;
+  14          volatile char i;
+  15          
+  16          main() {
+  17   1          TMOD = 0x20; // Timer 1 mode 2
+  18   1          TH1 = 0xFD; // 9600 
+  19   1          SCON = 0x50; // Che do 1, cho phep nhan
+  20   1          IE=0x90; // Cho phep ngat truyen thong noi tiep
+  21   1          PS = 1; // Uu tien ngat noi tiep
+  22   1          TR1 = 1;
+  23   1          LCD_init();
+  24   1          WriteString("LOADING...");
+  25   1          while(1) {
+  26   2              if (i==34) {
+  27   3              //if(chuoi[i] == '\n') {  
+  28   3              EA = 0; 
+  29   3                for (j = 0; j < 34; j++) {
+  30   4                  if (chuoi[j] == ',') dauphay++;
+  31   4                  switch (dauphay) {
+  32   5                    case 1:
+  33   5                      latitude[k++] = chuoi[j+1];
+  34   5                      break;
+  35   5                    case 2:
+  36   5                      latitude[k] = chuoi[j];
+  37   5                      break;
+  38   5                    case 3:
+  39   5                      longtitude[h++] = chuoi[j+1];
+  40   5                      break;
+  41   5                    case 4:
+  42   5                      longtitude[h] = chuoi[j];
+  43   5                      break;
+  44   5                    default:
+  45   5                      break;
+  46   5                  }
+  47   4                } 
+  48   3                WriteCommand(0x01);
+  49   3                WriteCommand(0x80);//vi tri dau hang 1 LCD
+  50   3                WriteString("V: ");//WriteString(latitude)
+  51   3                for (k = 0; k <= 1; k++) WriteChar(latitude[k]);
+  52   3                WriteChar(0xDF); WriteChar(' '); //degree
+  53   3                for (k = 2; k <= 6; k++) WriteChar(latitude[k]);
+  54   3                WriteString("' ");//minute
+C51 COMPILER V9.56.0.0   GPS                                                               01/21/2018 13:58:16 PAGE 2   
+
+  55   3                k = strlen(latitude)-1; WriteChar(latitude[k]); // direction
+  56   3                WriteCommand(0xC0); // vi tri dau hang 2 LCD
+  57   3                WriteString("K: ");//WriteString(longtitude);
+  58   3                for (h = 0; h <= 2; h++) WriteChar(longtitude[h]);
+  59   3                WriteChar(0xDF); WriteChar(' '); //degree
+  60   3                for (h = 3; h <= 7; h++) WriteChar(longtitude[h]);
+  61   3                WriteString("' "); //minute
+  62   3                h = strlen(longtitude)-1; WriteChar(longtitude[h]); //direction
+  63   3                i = 0;//
+  64   3                delay_ms(500);
+  65   3              }
+  66   2              else
+  67   2                EA = 1; 
+  68   2          }
+  69   1      }
+  70          void receive(void) interrupt 4 {  
+  71   1          chuoi[i++] = SBUF;
+  72   1          if ((i < 6)&&(chuoi[i-1]!=GLL[i-1])) i = 0;
+  73   1          RI = 0;
+  74   1      }
+  75          void WriteCommand(unsigned char cmd) {
+  76   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+  77   1          RS = 0; // Gui/nhan lenh
+  78   1          RW = 0; // Gui
+  79   1          EN = 1; delay(20); EN = 0;
+  80   1          delay(150);
+  81   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+  82   1          RS = 0; RW = 0;
+  83   1          EN = 1; delay(20); EN = 0;
+  84   1          delay(150);
+  85   1      }
+  86          
+  87          void LCD_init() {
+  88   1          P2 = 0x00;
+  89   1          delay_ms(1);
+  90   1          WriteCommand(0x03);
+  91   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+  92   1          WriteCommand(0x28);        
+  93   1          WriteCommand(0x01);        // Clear 
+  94   1          WriteCommand(0x0C);
+  95   1      }
+  96              
+  97          void WriteChar(char c) {
+  98   1          P2 = (c & 0xF0);
+  99   1          RS = 1; // Gui/nhan du lieu
+ 100   1          RW = 0; // Gui
+ 101   1          EN = 1; delay(10); EN = 0;
+ 102   1          delay(100);
+ 103   1          P2 = ((c << 4) & 0xF0);
+ 104   1          RS = 1; RW = 0;
+ 105   1          EN = 1; delay(10); EN = 0;
+ 106   1          delay(100);
+ 107   1      }
+ 108          void WriteString(char *s) {
+ 109   1          while (*s) {
+ 110   2              WriteChar(*s++);
+ 111   2          }
+ 112   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    593    ----
+C51 COMPILER V9.56.0.0   GPS                                                               01/21/2018 13:58:16 PAGE 3   
+
+   CONSTANT SIZE    =     22    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     76       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

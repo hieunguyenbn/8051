@@ -1,0 +1,83 @@
+C51 COMPILER V9.56.0.0   LED_BUTTON                                                        11/03/2017 10:51:47 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LED_BUTTON
+OBJECT MODULE PLACED IN .\Objects\led_button.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE led_button.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\led_button.lst) TABS(5) OBJECT(.\Objects\led_button.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          sbit button = P3^0;
+   3          
+   4          void delay();
+   5          main() {
+   6   1      
+   7   1           unsigned char i, j;
+   8   1           TMOD = 0x01;
+   9   1           while(1) {
+  10   2                //if (button == 0) {
+  11   2                     P1 = 0xFF;
+  12   2                     for (i = 0; i < 20; i++) {
+  13   3                          delay();
+  14   3                          P1 = ~P1;
+  15   3                          //if (button == 0) break;
+  16   3                     }
+  17   2                     P1 = 0x55;
+  18   2                     for (i = 0; i < 20; i++) {
+  19   3                          delay();
+  20   3                          P1 = ~P1;
+  21   3                          //if (button == 0) break;
+  22   3                     }
+  23   2                     P1 = 0xF0;
+  24   2                     for (i = 0; i < 20; i++) {
+  25   3                          delay();
+  26   3                          P1 = ~P1;
+  27   3                          //if (button == 0) break;
+  28   3                     }
+  29   2                     P1 = 0xFF;
+  30   2                     for (j = 0; j < 8; j++) {
+  31   3                               P1 <<= 1;
+  32   3                               delay();
+  33   3                               //if (button == 0) break;
+  34   3                     }
+  35   2                     P1 = 0xFF;
+  36   2                     for (j = 0; j < 8; j++) {
+  37   3                               P1 >>= 1;
+  38   3                               delay();
+  39   3                               //if (button == 0) break;
+  40   3                     }
+  41   2      
+  42   2           
+  43   2                //}  
+  44   2           //   else P1 = 0;
+  45   2           }    
+  46   1      
+  47   1      }
+  48          void delay() {
+  49   1           unsigned int i;
+  50   1           for (i = 0; i < 200; i++) {
+  51   2           TL0 = 0x17; TH0 = 0xFC;
+  52   2           TR0 = 1;
+  53   2           while (!TF0);
+  54   2           TR0 = 0;  
+C51 COMPILER V9.56.0.0   LED_BUTTON                                                        11/03/2017 10:51:47 PAGE 2   
+
+  55   2           TF0 = 0;
+  56   2           }
+  57   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    146    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

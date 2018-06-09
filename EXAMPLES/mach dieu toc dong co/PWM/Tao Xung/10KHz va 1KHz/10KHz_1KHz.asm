@@ -1,0 +1,23 @@
+ORG 00H
+MAIN:
+   SETB P1.0
+   SETB P1.1
+   LAP:
+       MOV R0, #10
+	   HERE:
+	   CALL DELAY
+	   CPL P1.0
+	   DJNZ R0, HERE
+	   CPL P1.1
+   JMP LAP
+
+   DELAY:
+	  MOV TMOD, #01H
+	  MOV TH0, #HIGH(-50)
+	  MOV TL0, #LOW(-50)
+	  SETB TR0
+	  JNB TF0, $
+	  CLR TR0
+	  CLR TF0
+   RET
+END

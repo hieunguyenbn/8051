@@ -1,0 +1,269 @@
+000     INDF
+001     TMR0
+002     PCL
+003     STATUS
+004     FSR
+004-005 @READ_PROGRAM_MEMORY.P1
+004-005 @WRITE_PROGRAM_MEMORY.P2
+005     PORTA
+005.0   RA0
+005.1   RA1
+005.2   RA2
+005.3   RA3
+005.4   RA4
+005.5   RA5
+006.0   hang1
+006.0   RB0
+006     PORTB
+006.1   hang2
+006.1   RB1
+006.2   RB2
+006.2   hang3
+006.3   RB3
+006.3   hang4
+006.4   cot1
+006.4   RB4
+006.5   cot2
+006.5   RB5
+006.6   RB6
+006.6   cot3
+006.7   cot4
+006.7   RB7
+007.0   RC0
+007     PORTC
+007.1   RC1
+007.2   RC2
+007.3   RC3
+007.4   RC4
+007.5   RC5
+007.6   RC6
+007.7   RC7
+008     PORTD
+008.0   RD0
+008     PSP_DATA
+008.1   RD1
+008.2   RD2
+008.3   RD3
+008.4   RD4
+008.5   RD5
+008.6   RD6
+008.7   RD7
+009.0   RE0
+009     PORTE
+009.1   RE1
+009.2   RE2
+00A     PCLATH
+00B     INTCON
+00B.0   rbif
+00B.1   int0if
+00B.2   tmr0if
+00B.3   rbie
+00B.4   int0ie
+00B.5   tmr0ie
+00B.6   peie
+00B.7   gie
+00C.0   tmr1if
+00C     PIR1
+00C.1   tmr2if
+00C.2   ccp1if
+00C.3   sspif
+00C.4   txif
+00C.5   rcif
+00C.6   adif
+00C.7   pspif
+00D     PIR2
+00D.0   ccp2if
+00D.3   bclif
+00D.4   eeif
+00D.6   cmif
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+01F     ADCON0
+01F.3   CHS0
+01F.4   CHS1
+01F.5   CHS2
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029-02A kq
+02B-02C kq1
+02D-02E kq2
+02F-030 ok
+031-032 pt
+033-034 j
+035-043 tit2
+044-052 tit3
+053     i
+054     MAIN.@SCRATCH
+05C-05D RB_isr.kq
+05E-05F RB_isr.kq1
+060-061 RB_isr.kq2
+062-063 @MUL1616.P1
+062     RB_isr.@SCRATCH
+063     RB_isr.@SCRATCH
+064-065 @MUL1616.P1
+064-065 write_line2.kq
+064     RB_isr.@SCRATCH
+065     RB_isr.@SCRATCH
+066-067 write_line1.kq
+066     write_line2.@SCRATCH
+066     @MUL1616.@SCRATCH
+067     write_line2.@SCRATCH
+068     write_line1.pt
+069-06A @DIV1616.P1
+069     write_line1.@SCRATCH
+06A     LCD_PutChar.cX
+06A     write_line1.@SCRATCH
+06B     LCD_PutCmd.cX
+06B-06C @DIV1616.P1
+06C     LCD_SetData.cX
+06C     @delay_ms1.P1
+06D     @DIV1616.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     OPTION_REG
+081.0   ps0
+081.1   ps1
+081.2   ps2
+081.3   psa
+081.4   t0se
+081.5   t0cs
+081.6   intedg
+081.7   not_rbpu
+085     TRISA
+085.0   TRISA0
+085.1   TRISA1
+085.2   TRISA2
+085.3   TRISA3
+085.4   TRISA4
+085.5   TRISA5
+086     TRISB
+086.0   TRISB0
+086.1   TRISB1
+086.2   TRISB2
+086.3   TRISB3
+086.4   TRISB4
+086.5   TRISB5
+086.6   TRISB6
+086.7   TRISB7
+087.0   TRISC0
+087     TRISC
+087.1   TRISC1
+087.2   TRISC2
+087.3   TRISC3
+087.4   TRISC4
+087.5   TRISC5
+087.6   TRISC6
+087.7   TRISC7
+088.0   TRISD0
+088     TRISD
+088.1   TRISD1
+088.2   TRISD2
+088.3   TRISD3
+088.4   TRISD4
+088.5   TRISD5
+088.6   TRISD6
+088.7   TRISD7
+089.0   TRISE0
+089     TRISE
+089.1   TRISE1
+089.2   TRISE2
+08C     PIE1
+08C.0   tmr1ie
+08C.1   tmr2ie
+08C.2   ccp1ie
+08C.3   sspie
+08C.4   txie
+08C.5   rcie
+08C.6   adie
+08D     PIE2
+08D.4   eeie
+08D.6   cmie
+08D.7   osfie
+09C.6   C1OUT
+09C.7   C2OUT
+09F     ADSESL
+09F     ADRESH
+09F     ADCON1
+0FF     @INTERRUPT_AREA
+10C     EEDATA
+10D     @WRITE_PROGRAM_MEMORY.P1
+10D     @READ_PROGRAM_MEMORY.P2
+10D     EEADR
+10E     EEDATH
+10F     @READ_PROGRAM_MEMORY.P1
+10F     EEADRH
+10F     @WRITE_PROGRAM_MEMORY.P1
+17F     @INTERRUPT_AREA
+18C.0   rd
+18C     EECON1
+18C.1   wr
+18C.2   wren
+18C.3   wrerr
+18C.4   free
+18C.7   eepgd
+18D     EECON2
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+0085  @delay_ms1
+0800  LCD_Init
+00DA  LCD_PutChar
+00AA  LCD_PutCmd
+0099  LCD_PulseEnable
+0064  LCD_SetData
+0033  tit0
+0043  tit1
+0124  write_line1
+00B5  @DIV1616
+00E6  write_line2
+018C  RB_isr
+004F  @MUL1616
+0882  MAIN
+0882  @cinit
+
+Project Files:
+    may tinh don gian.c
+    ..\..\..\..\Program Files\PICC\devices\16f877a.h
+    ..\..\..\..\Program Files\PICC\drivers\def_877a.h
+    ..\..\..\..\Program Files\PICC\drivers\lcd_4bit.c
+    ..\..\..\..\Program Files\PICC\drivers\stddef.h
+    ..\..\..\..\Program Files\PICC\drivers\math.h
+
+Units:
+    C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      0
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.err
+    Ext Symbols: C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.esym
+    INHX8:       C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.hex
+    Symbols:     C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.sym
+    List:        C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.lst
+    Debug/COFF:  C:\Users\Tunninia\Desktop\tuyen_doan\may tinh don gian.cof
+    Call Tree:   may tinh don gian.tre
+    Statistics:  may tinh don gian.sta

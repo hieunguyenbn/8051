@@ -1,0 +1,64 @@
+C51 COMPILER V9.56.0.0   DELAY_TIMER                                                       10/15/2017 22:44:54 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DELAY_TIMER
+OBJECT MODULE PLACED IN .\Objects\delay_timer.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE delay_timer.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\delay_timer.lst) TABS(5) OBJECT(.\Objects\delay_timer.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          sbit button = P3^0;
+   3          void delay();
+   4          
+   5          main() {
+   6   1           TMOD = 0x01;//timer 0, mode 1-16bit
+   7   1           while(1) {
+   8   2                unsigned char i;
+   9   2                P1 = 0xFF;
+  10   2                P2 = 0xF0;
+  11   2                if (button == 1) {
+  12   3                for (i = 0; i < 8; i++) {
+  13   4                     delay();
+  14   4                     P1 <<= 1;
+  15   4                     delay();
+  16   4                }
+  17   3                }
+  18   2                else {
+  19   3                for (i = 0; i < 20; i++) {
+  20   4                     delay();
+  21   4                     P2 = ~P2;
+  22   4                     delay();
+  23   4                     if (button == 0) break;
+  24   4                }
+  25   3                }
+  26   2           }
+  27   1           
+  28   1      }
+  29          
+  30          void delay() {
+  31   1           unsigned int i;
+  32   1           for (i = 0; i < 200; i++) {
+  33   2           TL0 = 0x17;
+  34   2           TH0 = 0xfc;
+  35   2           TR0 = 1;
+  36   2           while(!TF0) {}
+  37   2           TR0 = 0;
+  38   2           TF0 = 0;
+  39   2           }
+  40   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     94    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

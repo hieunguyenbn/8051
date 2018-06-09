@@ -1,0 +1,115 @@
+C51 COMPILER V9.56.0.0   LCD_DC_2                                                          12/10/2017 13:17:22 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_DC_2
+OBJECT MODULE PLACED IN .\Objects\LCD_DC_2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_DC_2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -LCD_DC_2.lst) TABS(2) OBJECT(.\Objects\LCD_DC_2.obj)
+
+line level    source
+
+   1          // 1 HANG DICH, 1 HANG DUNG IM
+   2          #include <reg52.h>
+   3          #include <string.h>
+   4          
+   5          sbit RS = P0^5;
+   6          sbit RW = P0^6;
+   7          sbit EN = P0^7;
+   8          
+   9          void delay_ms(unsigned int t);
+  10          void WriteCommand(unsigned char cmd);
+  11          void init();
+  12          void WriteChar(char c);
+  13          void WriteString(char *s);
+  14          
+  15          volatile unsigned char i;
+  16          char s[] = "TIN VAT LY";
+  17          unsigned char k, n;
+  18          
+  19          int main() {
+  20   1        
+  21   1          IE = 0x81; IT0 = 1;
+  22   1          init();
+  23   1          n = strlen(s)-1;
+  24   1          while (1) {
+  25   2            if (i%2 == 0) {
+  26   3                delay_ms(20);
+  27   3                while (i%2 == 0) {
+  28   4                  WriteCommand(0xC3);
+  29   4                  WriteString(s);
+  30   4                }
+  31   3                if (i%2 != 0) {
+  32   4                  delay_ms(20);
+  33   4                  WriteCommand(0x01);
+  34   4                  while (i%2 != 0) {
+  35   5                    WriteCommand(0xC3);
+  36   5                    for (k = 0; k <= n; k++) {
+  37   6                      WriteChar(s[k]);
+  38   6                      delay_ms(100);
+  39   6                    }
+  40   5                    delay_ms(400);
+  41   5                    WriteCommand(0x01);
+  42   5                    delay_ms(10);
+  43   5                  }
+  44   4                }
+  45   3            }
+  46   2          }
+  47   1          return 0;
+  48   1      }
+  49          void ngat(void) interrupt 0 {
+  50   1            i++;
+  51   1      }
+  52              
+  53              
+  54          void WriteCommand(unsigned char cmd) {
+C51 COMPILER V9.56.0.0   LCD_DC_2                                                          12/10/2017 13:17:22 PAGE 2   
+
+  55   1          RS = 0;
+  56   1          RW = 0;
+  57   1          P2 = cmd;
+  58   1          EN = 0;
+  59   1          EN = 1;
+  60   1          delay_ms(2);
+  61   1      }
+  62          void init() {
+  63   1          WriteCommand(0x30);
+  64   1          delay_ms(5);
+  65   1          WriteCommand(0x30);
+  66   1          delay_ms(1);
+  67   1          WriteCommand(0x38);
+  68   1          WriteCommand(0x01);
+  69   1          WriteCommand(0x0C);
+  70   1      }
+  71          void WriteChar(char c) {
+  72   1          RS = 1;
+  73   1          RW = 0;
+  74   1          P2 = c;
+  75   1          EN = 0;
+  76   1          EN = 1;
+  77   1          delay_ms(1);
+  78   1      }
+  79          void WriteString(char *s) {
+  80   1          while (*s) {
+  81   2                WriteChar(*s++);
+  82   2          }
+  83   1      }
+  84          void delay_ms(unsigned int t) {
+  85   1        unsigned int x, y;
+  86   1        for (x = 0; x < t; x++)
+  87   1          for (y = 0; y < 123; y++);
+  88   1      }
+*** WARNING C294 IN LINE 47 OF LCD_DC_2.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    278    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

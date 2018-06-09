@@ -1,0 +1,3 @@
+".\Objects\SendNumber.obj" 
+TO ".\Objects\SendNumber" 
+PRINT(".\Listings\SendNumber.m51") RAMSIZE(256) 

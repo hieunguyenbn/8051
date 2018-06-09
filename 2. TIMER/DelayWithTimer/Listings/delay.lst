@@ -1,0 +1,40 @@
+C51 COMPILER V9.56.0.0   DELAY                                                             10/16/2017 08:46:12 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\delay.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\LIBRARY\delay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\delay.lst) TABS(5) OBJECT(.\Objects\delay.obj)
+
+line level    source
+
+   1          #include"delay.h"
+   2          void Delay() {
+   3   1           unsigned int i;
+   4   1           for (i = 0; i < 200; i++) {
+   5   2           TL0 = 0x17;
+*** ERROR C202 IN LINE 5 OF ..\LIBRARY\delay.c: 'TL0': undefined identifier
+   6   2           TH0 = 0xFC;
+*** ERROR C202 IN LINE 6 OF ..\LIBRARY\delay.c: 'TH0': undefined identifier
+   7   2           TR0 = 1;
+*** ERROR C202 IN LINE 7 OF ..\LIBRARY\delay.c: 'TR0': undefined identifier
+   8   2           while(!TF0);
+*** ERROR C202 IN LINE 8 OF ..\LIBRARY\delay.c: 'TF0': undefined identifier
+   9   2                TR0 = 0;
+*** ERROR C202 IN LINE 9 OF ..\LIBRARY\delay.c: 'TR0': undefined identifier
+  10   2                TF0 = 0;
+*** ERROR C202 IN LINE 10 OF ..\LIBRARY\delay.c: 'TF0': undefined identifier
+  11   2           }
+  12   1      }
+  13          /*void delay_ms(unsignedint t) {
+  14               unsigned x, y;
+  15               for (x = 0; x < t; x++)
+  16                    for (y = 0; y < 123; y++);
+  17          }
+  18          void delay() {
+  19               unsignedint i;
+  20               for (i = 0; i < 30000; i++);
+  21          }
+  22          */
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  6 ERROR(S)

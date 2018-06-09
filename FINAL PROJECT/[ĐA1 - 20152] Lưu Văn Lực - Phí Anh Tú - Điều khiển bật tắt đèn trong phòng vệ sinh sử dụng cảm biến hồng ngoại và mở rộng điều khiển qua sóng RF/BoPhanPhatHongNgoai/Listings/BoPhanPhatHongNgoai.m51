@@ -1,0 +1,91 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/28/2016  20:25:47  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\BoPhanPhatHongNgoai.obj TO .\Objects\BoPhanPhatHongNgoai PRINT (.\Listings\BoPhanP
+>> hatHongNgoai.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\BoPhanPhatHongNgoai.obj (BOPHANPHATHONGNGOAI)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\BoPhanPhatHongNgoai (BOPHANPHATHONGNGOAI)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     001AH     UNIT         ?PR?MAIN?BOPHANPHATHONGNGOAI
+            CODE    081AH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\BoPhanPhatHongNgoai (BOPHANPHATHONGNGOAI)
+
+
+SEGMENT                                DATA_GROUP 
+  +--> CALLED SEGMENT                START    LENGTH
+----------------------------------------------------
+?C_C51STARTUP                        -----    -----
+  +--> ?PR?MAIN?BOPHANPHATHONGNGOAI
+
+?PR?MAIN?BOPHANPHATHONGNGOAI         0008H    0002H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\BoPhanPhatHongNgoai (BOPHANPHATHONGNGOAI)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BOPHANPHATHONGNGOAI
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00CBH         PUBLIC        RCAP2H
+  D:00CAH         PUBLIC        RCAP2L
+  C:0800H         PUBLIC        main
+  D:00CDH         PUBLIC        TH2
+  D:00CCH         PUBLIC        TL2
+  B:00C8H.2       PUBLIC        TR2
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2016  20:25:47  PAGE 2
+
+
+  D:00C9H         PUBLIC        T2MOD
+  D:00C8H         PUBLIC        T2CON
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        nguoi
+  -------         ENDDO         
+  C:0800H         LINE#         8
+  C:0800H         LINE#         9
+  C:0800H         LINE#         10
+  C:0805H         LINE#         11
+  C:0807H         LINE#         12
+  C:080AH         LINE#         13
+  C:080DH         LINE#         14
+  C:0810H         LINE#         15
+  C:0813H         LINE#         16
+  C:0816H         LINE#         17
+  C:0818H         LINE#         18
+  C:0818H         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BOPHANPHATHONGNGOAI
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001AH BYTE ( 1%) *
+******************************************************************************
+
+Program Size: data=11.0 xdata=0 code=41
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

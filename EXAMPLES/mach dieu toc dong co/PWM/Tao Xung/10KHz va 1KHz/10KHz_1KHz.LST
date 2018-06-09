@@ -1,0 +1,56 @@
+A51 MACRO ASSEMBLER  10KHZ_1KHZ                                                           05/27/2014 21:17:05 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN 10KHz_1KHz.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 10KHz_1KHz.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000                   2     MAIN:
+0000 D290              3        SETB P1.0
+0002 D291              4        SETB P1.1
+0004                   5        LAP:
+0004 780A              6            MOV R0, #10
+0006                   7                HERE:
+0006 1110              8                CALL DELAY
+0008 B290              9                CPL P1.0
+000A D8FA             10                DJNZ R0, HERE
+000C B291             11                CPL P1.1
+000E 80F4             12        JMP LAP
+                      13     
+0010                  14        DELAY:
+0010 758901           15               MOV TMOD, #01H
+0013 758CFF           16               MOV TH0, #HIGH(-50)
+0016 758ACE           17               MOV TL0, #LOW(-50)
+0019 D28C             18               SETB TR0
+001B 308DFD           19               JNB TF0, $
+001E C28C             20               CLR TR0
+0020 C28D             21               CLR TF0
+0022 22               22        RET
+                      23     END
+A51 MACRO ASSEMBLER  10KHZ_1KHZ                                                           05/27/2014 21:17:05 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0010H   A   
+HERE . . . . . . .  C ADDR   0006H   A   
+LAP. . . . . . . .  C ADDR   0004H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,235 @@
+C51 COMPILER V9.52.0.0   DS1307                                                            08/16/2017 16:41:07 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DS1307
+OBJECT MODULE PLACED IN DS1307.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE DS1307.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "port.h"
+   3          #include "Soft_I2C.h"
+   4          #include "DS1307.h"
+   5          
+   6          /*-------------------------------------*-
+   7            Ds1307_Init
+   8            - Description
+   9              Allow Ds1307 run
+  10          -*-------------------------------------*/
+  11          void Ds1307_Init()
+  12          {
+  13   1        unsigned char tmp;
+  14   1        tmp = Ds1307_Read(0x00);
+  15   1        tmp &= 0x7F;
+  16   1        Ds1307_Write(0x00,tmp);   
+  17   1      }
+  18          
+  19          /*-------------------------------------*-
+  20            Ds1307_Write function
+  21            - Description
+  22              Write a byte into address
+  23            - Parameters:
+  24              add: Address
+  25              dat: Data
+  26          -*-------------------------------------*/
+  27          void Ds1307_Write(unsigned char add, unsigned char dat)
+  28          {
+  29   1        Soft_I2c_Start();
+  30   1        Soft_I2c_Write(0xD0);
+  31   1        Soft_I2c_Write(add); 
+  32   1        Soft_I2c_Write(dat); 
+  33   1        Soft_I2c_Stop();
+  34   1      }
+  35          
+  36          /*-------------------------------------*-
+  37            Ds1307_Read function
+  38            - Description
+  39              Read a byte at address
+  40            - Parameters
+  41              add - Address
+  42            - Return
+  43              1 byte at Address
+  44          -*-------------------------------------*/
+  45          unsigned char Ds1307_Read(unsigned char add)
+  46          {
+  47   1        unsigned char dat;
+  48   1        Soft_I2c_Start();
+  49   1        Soft_I2c_Write(0xD0); 
+  50   1        Soft_I2c_Write(add);
+  51   1        Soft_I2c_Start(); 
+  52   1        Soft_I2c_Write(0xD1); 
+  53   1        dat = Soft_I2c_Read(0);
+  54   1        Soft_I2c_Stop();
+  55   1        return dat;
+C51 COMPILER V9.52.0.0   DS1307                                                            08/16/2017 16:41:07 PAGE 2   
+
+  56   1      }
+  57          
+  58          /*-------------------------------------*-
+  59            Ds1307_Read_Time
+  60            - Description
+  61              Get hour, minute, second in BCD format 
+  62            - Paramaters
+  63                &hour   -  
+  64              &minute - 
+  65              &second -  
+  66              &mode - Mode 12/24h (12 or 24)
+  67            - return mode 24/12
+  68              0 - AM
+  69              1 - PM
+  70          -*-------------------------------------*/
+  71          bit Ds1307_Read_Time(unsigned char * hour, unsigned char * minute, 
+  72            unsigned char * second, unsigned char * mode)
+  73          {
+  74   1        unsigned char h_tmp, m_tmp, s_tmp;
+  75   1        bit am_pm;
+  76   1        Soft_I2c_Start();
+  77   1        Soft_I2c_Write(0xD0); 
+  78   1        Soft_I2c_Write(0x00);
+  79   1        Soft_I2c_Start(); 
+  80   1        Soft_I2c_Write(0xD1); 
+  81   1        s_tmp = Soft_I2c_Read(1);
+  82   1        m_tmp = Soft_I2c_Read(1);
+  83   1        h_tmp = Soft_I2c_Read(0);
+  84   1        Soft_I2c_Stop();
+  85   1      
+  86   1        s_tmp &= 0x7F;
+  87   1        *second = (s_tmp>>4)*10+(s_tmp&0x0F);
+  88   1        m_tmp &= 0x7F;
+  89   1        *minute = (m_tmp>>4)*10+(m_tmp&0x0F);
+  90   1      
+  91   1        if(h_tmp & 0x40)    // Mode 12h
+  92   1        {
+  93   2          *mode = 12;
+  94   2          if(h_tmp & 0x20)
+  95   2          {
+  96   3            am_pm = 1;    // PM
+  97   3          }
+  98   2          else
+  99   2          {
+ 100   3            am_pm = 0;
+ 101   3          }
+ 102   2          h_tmp &= 0x1F;
+ 103   2          *hour = (h_tmp>>4)*10+(h_tmp&0x0F);
+ 104   2        }
+ 105   1        else
+ 106   1        {
+ 107   2          *mode = 24;
+ 108   2          h_tmp &= 0x3F;
+ 109   2          *hour = (h_tmp>>4)*10+(h_tmp&0x0F);
+ 110   2          if(*hour<12)
+ 111   2          {
+ 112   3            am_pm = 0;    // AM
+ 113   3          }
+ 114   2          else
+ 115   2          {
+ 116   3            am_pm = 1;
+ 117   3          }
+C51 COMPILER V9.52.0.0   DS1307                                                            08/16/2017 16:41:07 PAGE 3   
+
+ 118   2        } 
+ 119   1        return am_pm;
+ 120   1      }
+ 121          
+ 122          /*------------------------------------------------------------------*-
+ 123              Ds1307_Write_Time
+ 124            ---------------------------------------
+ 125              - Description
+ 126                Write Hour, minute, second, mode, am/pm into Ds1307
+ 127              - Parameters
+ 128                hour, minute, second in decimal format
+ 129                mode: 12/14
+ 130                apm: 0 - AM, 1 - PM
+ 131          -*------------------------------------------------------------------*/
+ 132          void Ds1307_Write_Time(unsigned char hour, unsigned minute, 
+ 133            unsigned char second, unsigned char mode, bit apm)
+ 134          {
+ 135   1        second = ((second/10)<<4)|(second%10);
+ 136   1        minute = ((minute/10)<<4)|(minute%10);
+ 137   1        hour   = ((hour  /10)<<4)|(hour  %10);
+ 138   1        if(mode==12)
+ 139   1        {
+ 140   2          hour |= 0x40;
+ 141   2          if(apm)   // PM
+ 142   2          {
+ 143   3            hour |= 0x20;
+ 144   3          }
+ 145   2        }
+ 146   1        Soft_I2c_Start();
+ 147   1        Soft_I2c_Write(0xD0);
+ 148   1        Soft_I2c_Write(0x00); 
+ 149   1        Soft_I2c_Write(second); 
+ 150   1        Soft_I2c_Write(minute);
+ 151   1        Soft_I2c_Write(hour);
+ 152   1        Soft_I2c_Stop();
+ 153   1      }
+ 154          
+ 155          /*-------------------------------------*-
+ 156            Ds1307_Read_Time
+ 157            - Description
+ 158              Read day, date, month, year from Ds1307
+ 159            - Parameters
+ 160              &date, &day, &month, &year
+ 161            -   
+ 162          -*-------------------------------------*/
+ 163          void Ds1307_Read_Date(unsigned char * day, unsigned char * date, 
+ 164            unsigned char * month, unsigned char * year)
+ 165          {
+ 166   1        Soft_I2c_Start();
+ 167   1        Soft_I2c_Write(0xD0); 
+ 168   1        Soft_I2c_Write(0x03);
+ 169   1        Soft_I2c_Start(); 
+ 170   1        Soft_I2c_Write(0xD1); 
+ 171   1        *day  = Soft_I2c_Read(1);
+ 172   1        *date = Soft_I2c_Read(1);
+ 173   1        *month= Soft_I2c_Read(1);
+ 174   1        *year = Soft_I2c_Read(0);
+ 175   1        Soft_I2c_Stop();
+ 176   1        *day &= 0x07;
+ 177   1        *date &= 0x3F;
+ 178   1        *date = (*date>>4)*10 + (*date & 0x0F);
+ 179   1        *month &= 0x1F;
+C51 COMPILER V9.52.0.0   DS1307                                                            08/16/2017 16:41:07 PAGE 4   
+
+ 180   1        *month = (*month>>4)*10 + (*month & 0x0F);
+ 181   1        *year = (*year>>4)*10 + (*year & 0x0F); 
+ 182   1      }
+ 183          
+ 184          /*-------------------------------------*-
+ 185            Ds1307_Write_Date
+ 186            - Description
+ 187              Write day, date, month, year into Ds1307
+ 188            - Parameters
+ 189              day, date, month, year
+ 190          -*-------------------------------------*/
+ 191          void Ds1307_Write_Date(unsigned char day, unsigned char date, 
+ 192            unsigned char month, unsigned char year)
+ 193          {
+ 194   1        date  = ((date/10)<<4)  | (date%10);
+ 195   1        month   = ((month/10)<<4) | (month%10);
+ 196   1        year  = ((year/10)<<4)  | (year%10);
+ 197   1      
+ 198   1        Soft_I2c_Start();
+ 199   1        Soft_I2c_Write(0xD0);
+ 200   1        Soft_I2c_Write(0x03); 
+ 201   1        Soft_I2c_Write(day); 
+ 202   1        Soft_I2c_Write(date);
+ 203   1        Soft_I2c_Write(month);
+ 204   1        Soft_I2c_Write(year);
+ 205   1        Soft_I2c_Stop();
+ 206   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    749    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      40
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

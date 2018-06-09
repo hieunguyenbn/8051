@@ -1,0 +1,220 @@
+C51 COMPILER V9.56.0.0   GPS_TEST                                                          01/14/2018 08:08:20 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE GPS_TEST
+OBJECT MODULE PLACED IN .\Objects\GPS_test.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE GPS_test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -GPS_test.lst) TABS(2) OBJECT(.\Objects\GPS_test.obj)
+
+line level    source
+
+   1          /*
+   2              GPS Information extraction using 8051 
+   3              http://www.electronicwings.com
+   4          */
+   5          
+   6          #include<reg52.h>
+   7          #include<string.h>
+   8          #include<stdio.h>
+   9          #include<stdlib.h>
+  10          #include "LCD_20x4_H_file.h"
+  11          #include "USART_Interrupt.h"
+  12          
+  13          unsigned long int get_gpstime();
+  14          float get_latitude(unsigned char);
+  15          float get_longitude(unsigned char);
+  16          float get_altitude(unsigned char);
+  17          void convert_time_to_UTC(unsigned long int);
+  18          float convert_to_degrees(float raw);
+  19          
+  20          #define GGA_Buffer_Size 80
+  21          #define GGA_Pointers_Size 20
+  22          
+  23          char idata GGA_Buffer[GGA_Buffer_Size];              /* to store GGA string */
+  24          char idata GGA_CODE[3];
+  25          idata unsigned char GGA_Pointers[GGA_Pointers_Size]; /* to store instances of ',' */
+  26          char CommaCounter;
+  27          idata char Data_Buffer[15];
+  28          volatile unsigned int GGA_Index;
+  29          unsigned char IsItGGAString = 0;
+  30          
+  31          void main(void) {
+  32   1        unsigned long int Time;
+  33   1        float Latitude,Longitude,Altitude;
+  34   1        char GPS_Buffer[15];
+  35   1        LCD_Init();
+  36   1        UART_Init();
+  37   1        Ext_int_Init();                      /* enable interrupt */
+  38   1        
+  39   1        while (1){
+  40   2            memset(GPS_Buffer,0,15);
+  41   2            LCD_String_xy(1,0,"UTC Time: ");
+  42   2            Time = get_gpstime();            /* Extract Time */
+  43   2            convert_time_to_UTC(Time);       /* convert time to UTC */
+  44   2            LCD_String(Data_Buffer);
+  45   2            LCD_String("  ");
+  46   2          
+  47   2            LCD_String_xy(2,0,"Lat: ");
+  48   2            Latitude = get_latitude(GGA_Pointers[0]); /* Extract Latitude */
+  49   2            Latitude = convert_to_degrees(Latitude);  /* convert raw latitude in degree decimal*/
+  50   2            sprintf(GPS_Buffer,"%.05f",Latitude);     /* convert float value to string */
+  51   2            LCD_String(GPS_Buffer);                   /* display latitude in degree */
+  52   2            memset(GPS_Buffer,0,15);
+  53   2          
+  54   2            LCD_String_xy(3,0,"Long: ");
+C51 COMPILER V9.56.0.0   GPS_TEST                                                          01/14/2018 08:08:20 PAGE 2   
+
+  55   2            Longitude = get_longitude(GGA_Pointers[2]);/* Extract Latitude */
+  56   2            Longitude = convert_to_degrees(Longitude);/* convert raw longitude in degree decimal*/
+  57   2            sprintf(GPS_Buffer,"%.05f",Longitude);    /* convert float value to string */
+  58   2            LCD_String(GPS_Buffer);                   /* display latitude in degree */
+  59   2            memset(GPS_Buffer,0,15);
+  60   2            
+  61   2            LCD_String_xy(4,0,"Alt: ");
+  62   2            Altitude = get_altitude(GGA_Pointers[7]); /* Extract Latitude */
+  63   2            sprintf(GPS_Buffer,"%.2f",Altitude);      /* convert float value to string */
+  64   2            LCD_String(GPS_Buffer);                   /* display latitude in degree */
+  65   2      
+  66   2        
+  67   2        }
+  68   1      }
+  69          
+  70          unsigned long int get_gpstime(){
+  71   1        unsigned char index;
+  72   1        unsigned char Time_Buffer[15];
+  73   1        unsigned long int _Time;
+  74   1        
+  75   1        /* parse Time in GGA string stored in buffer */
+  76   1        for(index = 0;GGA_Buffer[index]!=','; index++){   
+  77   2          Time_Buffer[index] = GGA_Buffer[index];
+  78   2        }
+  79   1        _Time= atol(Time_Buffer);        /* convert string of Time to integer */
+  80   1        return _Time;                    /* return integer raw value of Time */        
+  81   1      }
+  82          
+  83          float get_latitude(char lat_pointer){
+  84   1        unsigned char lat_index = lat_pointer+1;  /* index pointing to the latitude */
+  85   1        unsigned char index = 0;
+  86   1        char Lat_Buffer[15];
+  87   1        float _latitude;
+  88   1      
+  89   1        /* parse Latitude in GGA string stored in buffer */
+  90   1        for(;GGA_Buffer[lat_index]!=',';lat_index++){
+  91   2          Lat_Buffer[index]= GGA_Buffer[lat_index];
+  92   2          index++;
+  93   2        }
+  94   1        _latitude = atof(Lat_Buffer);     /* convert string of latitude to float */
+  95   1        return _latitude;                 /* return float raw value of Latitude */
+  96   1      }
+  97          
+  98          float get_longitude(unsigned char long_pointer){
+  99   1        unsigned char long_index;
+ 100   1        unsigned char index = long_pointer+1;   /* index pointing to the longitude */
+ 101   1        char Long_Buffer[15];
+ 102   1        float _longitude;
+ 103   1        long_index=0;
+ 104   1        
+ 105   1        /* parse Longitude in GGA string stored in buffer */
+ 106   1        for( ; GGA_Buffer[index]!=','; index++){
+ 107   2          Long_Buffer[long_index]= GGA_Buffer[index];
+ 108   2          long_index++;
+ 109   2        }
+ 110   1        _longitude = atof(Long_Buffer);    /* convert string of longitude to float */
+ 111   1        return _longitude;                 /* return float raw value of Longitude */
+ 112   1      }
+ 113          
+ 114          float get_altitude(unsigned char alt_pointer){
+ 115   1        unsigned char alt_index;
+ 116   1        unsigned char index = alt_pointer+1;  /* index pointing to the altitude */
+C51 COMPILER V9.56.0.0   GPS_TEST                                                          01/14/2018 08:08:20 PAGE 3   
+
+ 117   1        char Alt_Buffer[12];
+ 118   1        float _Altitude;
+ 119   1        alt_index=0;
+ 120   1        
+ 121   1        /* parse Altitude in GGA string stored in buffer */
+ 122   1        for( ; GGA_Buffer[index]!=','; index++){
+ 123   2          Alt_Buffer[alt_index]= GGA_Buffer[index];
+ 124   2          alt_index++;
+ 125   2        }
+ 126   1          _Altitude = atof(Alt_Buffer);   /* convert string of altitude to float */ 
+ 127   1        return _Altitude;                 /* return float raw value of Altitude */
+ 128   1      }
+ 129          
+ 130          void convert_time_to_UTC(unsigned long int UTC_Time)
+ 131          {
+ 132   1        unsigned int hour, min, sec;
+ 133   1          
+ 134   1        hour = (UTC_Time / 10000);                  /* extract hour from integer */
+ 135   1        min = (UTC_Time % 10000) / 100;             /* extract minute from integer */
+ 136   1        sec = (UTC_Time % 10000) % 100;             /* extract second from integer*/
+ 137   1      
+ 138   1        sprintf(Data_Buffer, "%d:%d:%d", hour,min,sec); /* store UTC time in buffer */
+ 139   1        
+ 140   1      }
+ 141          
+ 142          float convert_to_degrees(float raw){
+ 143   1        
+ 144   1        double value;
+ 145   1        float decimal_value,temp;
+ 146   1        
+ 147   1        long int degrees;
+ 148   1        
+ 149   1        float position;
+ 150   1        value = raw;
+ 151   1        
+ 152   1        /* convert raw latitude/longitude into degree format */
+ 153   1        decimal_value = (value/100);
+ 154   1        degrees = (int)(decimal_value);
+ 155   1        temp = (decimal_value - (int)decimal_value)/0.6; 
+ 156   1        position = (float)degrees + temp;
+ 157   1        
+ 158   1        return position;  /* return float value in degrees */
+ 159   1      }
+ 160          
+ 161          void Serial_ISR() interrupt 4    
+ 162          {
+ 163   1        unsigned char received_char;
+ 164   1        if(RI){
+ 165   2            EA  = 0;              /* Disable global interrupt */
+ 166   2            received_char = SBUF; 
+ 167   2      
+ 168   2          if(received_char =='$'){                                                    /* check for '$' */
+ 169   3            GGA_Index = 0;
+ 170   3            IsItGGAString = 0;
+ 171   3            CommaCounter = 0;
+ 172   3          }
+ 173   2          else if(IsItGGAString == 1){                                             /* if true save GGA info. into 
+             -buffer */
+ 174   3            if(received_char == ',' ) GGA_Pointers[CommaCounter++] = GGA_Index;    /* store instances of ',' in buf
+             -fer */
+ 175   3            GGA_Buffer[GGA_Index++] = received_char;
+ 176   3          }
+C51 COMPILER V9.56.0.0   GPS_TEST                                                          01/14/2018 08:08:20 PAGE 4   
+
+ 177   2          else if(GGA_CODE[0] == 'G' && GGA_CODE[1] == 'G' && GGA_CODE[2] == 'A'){ /* check for GGA string */
+ 178   3            IsItGGAString = 1;
+ 179   3            GGA_CODE[0] = 0; GGA_CODE[1] = 0; GGA_CODE[2] = 0;
+ 180   3            
+ 181   3          }
+ 182   2          else{
+ 183   3            GGA_CODE[0] = GGA_CODE[1];  GGA_CODE[1] = GGA_CODE[2]; GGA_CODE[2] = received_char; 
+ 184   3          }
+ 185   2          RI = 0;               /* Clear RI flag */
+ 186   2          EA = 1;               /* enable interrupt */
+ 187   2        }
+ 188   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    832    ----
+   CONSTANT SIZE    =     53    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4     108
+   IDATA SIZE       =    118    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,4 @@
+".\Objects\L298.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\L298" 
+PRINT(".\Listings\L298.m51") RAMSIZE(256) 

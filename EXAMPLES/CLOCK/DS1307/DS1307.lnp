@@ -1,0 +1,6 @@
+"main.obj",
+"lcd.obj",
+"DS1307.obj",
+"Soft_I2C.obj" 
+TO "DS1307" 
+RAMSIZE(256) 

@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\code\Project VDK\Tao Xung\VD\taoxung.uvproj
+Project File Date:  05/19/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling vd1.asm...
+linking...
+Program Size: data=8.0 xdata=0 code=24
+creating hex file from "taoxung"...
+"taoxung" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+assembling vd1.asm...
+linking...
+Program Size: data=8.0 xdata=0 code=39
+creating hex file from "taoxung"...
+"taoxung" - 0 Error(s), 0 Warning(s).

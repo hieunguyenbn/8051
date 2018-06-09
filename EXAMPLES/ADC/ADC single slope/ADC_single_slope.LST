@@ -1,0 +1,85 @@
+A51 MACRO ASSEMBLER  ADC_SINGLE_SLOPE                                                     05/22/2017 10:20:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN ADC_single_slope.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE ADC_single_slope.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh thuc hien ADC (Analog to Digital Converter) dua tren nguyen ly "single slope
+                             " 
+                       3     ; Tham khao: 
+                       4     ; [1] Microprocessor Interfacing Techniques - Austin Lesea, Rodnay Zaks
+                       5     ; [2] http://www.hardwaresecrets.com/how-analog-to-digital-converter-adc-works/8/
+                       6     ; [3] Single-Slope Analog-to-Digital (A/D) Conversion -  Stephen Ledford, CSIC Product Engi
+                             neering
+  00B0                 7     SOC                     EQU                     P3.0
+  00B1                 8     EOC                     EQU                     P3.1
+  0080                 9     HEXA_OUTPUT EQU                 P0
+0000                  10     ORG                     0h
+0000 020003           11     LJMP            MAIN
+                      12     
+0003                  13     MAIN:
+0003 758903           14     MOV                     TMOD,#00000011B
+0006                  15     _loop:
+0006 758A00           16     MOV                     TL0,#0    
+0009 D2B0             17     SETB            SOC ; Bat dau chuyen doi
+000B C2B0             18     CLR                     SOC
+000D D28C             19     SETB            TR0 ; Khoi dong Timer 0
+000F 20B1FD           20     JB                      EOC,$
+0012 C28C             21     CLR                     TR0 ; Ket thuc Timer 0
+0014 858A80           22     MOV                     HEXA_OUTPUT,TL0
+                      23     
+                      24     ; Quy doi tu hexa ve so thap phan
+0017 E58A             25     MOV                             A,TL0
+0019 75F00A           26     MOV                             B,#10 ; Chia cho 10
+001C 84               27     DIV                             AB
+001D ADF0             28     MOV                             R5,B  ; Cat chu so hang don vi
+001F 75F00A           29     MOV                             B,#10
+0022 84               30     DIV                             AB
+0023 ACF0             31     MOV                             R4,B  ; Cat chu so hang chuc
+0025 75F00A           32     MOV                             B,#10
+0028 84               33     DIV                             AB
+0029 ABF0             34     MOV                             R3,B  ; Cat chu so hang tram
+                      35     
+                      36     ; Hien thi tren LED  
+002B EC               37     MOV                             A,R4 
+002C C4               38     SWAP                    A
+002D 2D               39     ADD                             A,R5 
+002E F5A0             40     MOV                             P2,A  ; Hien thi ca chu so hang chuc va don vi bang cong P2
+0030 EB               41     MOV                             A,R3 
+0031 F590             42     MOV                             P1,A ; Hien thi chu so hang tram   
+                      43     
+0033 80D1             44     JMP                     _loop
+0035 22               45     RET      
+                      46     
+                      47     END
+A51 MACRO ASSEMBLER  ADC_SINGLE_SLOPE                                                     05/22/2017 10:20:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+EOC. . . . . . . .  B ADDR   00B0H.1 A   
+HEXA_OUTPUT. . . .  D ADDR   0080H   A   
+MAIN . . . . . . .  C ADDR   0003H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+SOC. . . . . . . .  B ADDR   00B0H.0 A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+_LOOP. . . . . . .  C ADDR   0006H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

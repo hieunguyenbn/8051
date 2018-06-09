@@ -1,0 +1,478 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/28/2017  09:19:31  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE test1.obj TO test1
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  test1.obj (TEST1)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?LMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ULCMP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ULSHR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?LSHL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  test1 (TEST1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0013H     UNIT         ?DT?TEST1
+            DATA    001BH     0005H     UNIT         _DATA_GROUP_
+            BIT     0020H.0   0000H.2   UNIT         _BIT_GROUP_
+                    0020H.2   0000H.6                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0249H     UNIT         ?PR?GHI_DULIEU?TEST1
+            CODE    0257H     0139H     UNIT         ?PR?MAIN?TEST1
+            CODE    0390H     0103H     UNIT         ?PR?NGAT_GIAMA?TEST1
+            CODE    0493H     00FBH     UNIT         ?PR?_DOCDULIEU?TEST1
+            CODE    058EH     0098H     UNIT         ?C?LIB_CODE
+            CODE    0626H     008CH     UNIT         ?C_C51STARTUP
+            CODE    06B2H     0068H     UNIT         ?PR?GHEP_DULIEU?TEST1
+            CODE    071AH     0031H     UNIT         ?PR?TACH_DULIEU?TEST1
+            CODE    074BH     002AH     UNIT         ?PR?_I2C_WRITE?TEST1
+            CODE    0775H     002AH     UNIT         ?PR?I2C_READ?TEST1
+            CODE    079FH     0024H     UNIT         ?PR?NGATTIMER0?TEST1
+            CODE    07C3H     0020H     UNIT         ?PR?_DELAY_MS?TEST1
+            CODE    07E3H     0019H     UNIT         ?PR?_EEP_DOCDULIEU?TEST1
+            CODE    07FCH     0017H     UNIT         ?PR?_EEP_GHIDULIEU?TEST1
+            CODE    0813H     0012H     UNIT         ?PR?I2C_START?TEST1
+            CODE    0825H     000CH     UNIT         ?PR?IR_KHOITAO?TEST1
+            CODE    0831H     0007H     UNIT         ?PR?I2C_STOP?TEST1
+            CODE    0838H     0007H     UNIT         ?C_INITSEG
+
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 2
+
+
+OVERLAY MAP OF MODULE:   test1 (TEST1)
+
+
+SEGMENT                             BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT            START    LENGTH     START    LENGTH
+--------------------------------------------------------------------
+?C_C51STARTUP                    -----    -----      -----    -----
+  +--> ?PR?MAIN?TEST1
+  +--> ?C_INITSEG
+
+?PR?MAIN?TEST1                   -----    -----      -----    -----
+  +--> ?PR?IR_KHOITAO?TEST1
+  +--> ?PR?TACH_DULIEU?TEST1
+  +--> ?PR?GHI_DULIEU?TEST1
+  +--> ?PR?_DOCDULIEU?TEST1
+
+?PR?GHI_DULIEU?TEST1             -----    -----      -----    -----
+  +--> ?PR?_EEP_GHIDULIEU?TEST1
+
+?PR?_EEP_GHIDULIEU?TEST1         -----    -----      001BH    0005H
+  +--> ?PR?_I2C_WRITE?TEST1
+  +--> ?PR?I2C_STOP?TEST1
+  +--> ?PR?_DELAY_MS?TEST1
+
+?PR?_I2C_WRITE?TEST1             0020H.0  0000H.1    -----    -----
+  +--> ?PR?I2C_START?TEST1
+
+?PR?I2C_START?TEST1              -----    -----      -----    -----
+  +--> ?PR?_DELAY_MS?TEST1
+
+?PR?_DOCDULIEU?TEST1             -----    -----      001BH    0001H
+  +--> ?PR?_EEP_DOCDULIEU?TEST1
+  +--> ?PR?GHEP_DULIEU?TEST1
+
+?PR?_EEP_DOCDULIEU?TEST1         -----    -----      -----    -----
+  +--> ?PR?_I2C_WRITE?TEST1
+  +--> ?PR?I2C_START?TEST1
+  +--> ?PR?I2C_READ?TEST1
+  +--> ?PR?I2C_STOP?TEST1
+
+?PR?I2C_READ?TEST1               0020H.0  0000H.2    -----    -----
+
+
+
+SYMBOL TABLE OF MODULE:  test1 (TEST1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TEST1
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:07E3H         PUBLIC        _EEP_docdulieu
+  D:0008H         PUBLIC        IR_dodai
+  C:079FH         PUBLIC        ngattimer0
+  C:07FCH         PUBLIC        _EEP_ghidulieu
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 3
+
+
+  D:000AH         PUBLIC        giatri
+  B:00A8H.7       PUBLIC        EA
+  C:0390H         PUBLIC        ngat_giama
+  C:071AH         PUBLIC        tach_dulieu
+  B:0080H.0       PUBLIC        P0_0
+  B:0090H.0       PUBLIC        P1_0
+  B:00A0H.0       PUBLIC        P2_0
+  B:0090H.1       PUBLIC        P1_1
+  C:06B2H         PUBLIC        ghep_dulieu
+  B:00A0H.1       PUBLIC        P2_1
+  B:00A0H.2       PUBLIC        P2_2
+  B:00A0H.3       PUBLIC        P2_3
+  B:00A0H.4       PUBLIC        P2_4
+  B:00A0H.5       PUBLIC        P2_5
+  D:000EH         PUBLIC        g1
+  B:00A0H.6       PUBLIC        P2_6
+  D:000FH         PUBLIC        g2
+  B:00A0H.7       PUBLIC        P2_7
+  D:0010H         PUBLIC        g3
+  D:0011H         PUBLIC        g4
+  C:0775H         PUBLIC        I2C_Read
+  C:000EH         PUBLIC        ghi_dulieu
+  C:0257H         PUBLIC        main
+  C:0752H         PUBLIC        _I2C_Write
+  C:0813H         PUBLIC        I2C_Start
+  D:0089H         PUBLIC        TMOD
+  D:0012H         PUBLIC        doc
+  D:0013H         PUBLIC        ghi
+  C:0493H         PUBLIC        _docdulieu
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  D:008AH         PUBLIC        TL0
+  C:07C3H         PUBLIC        _delay_ms
+  B:0088H.4       PUBLIC        TR0
+  D:0014H         PUBLIC        trangthaiIR
+  D:0016H         PUBLIC        hoclenh
+  C:0831H         PUBLIC        I2C_STOP
+  D:0017H         PUBLIC        g
+  C:0825H         PUBLIC        IR_khoitao
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:07C3H         LINE#         42
+  C:07C3H         LINE#         43
+  C:07C3H         LINE#         45
+  C:07CDH         LINE#         46
+  C:07E2H         LINE#         47
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          I2C_START
+  C:0813H         LINE#         150
+  C:0813H         LINE#         151
+  C:0813H         LINE#         152
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 4
+
+
+  C:0815H         LINE#         153
+  C:0817H         LINE#         154
+  C:0819H         LINE#         155
+  C:0820H         LINE#         156
+  C:0822H         LINE#         157
+  C:0824H         LINE#         158
+  -------         ENDPROC       I2C_START
+  -------         PROC          I2C_STOP
+  C:0831H         LINE#         166
+  C:0831H         LINE#         167
+  C:0831H         LINE#         168
+  C:0833H         LINE#         169
+  C:0835H         LINE#         170
+  C:0837H         LINE#         171
+  -------         ENDPROC       I2C_STOP
+  -------         PROC          L?0103
+  -------         ENDPROC       L?0103
+  -------         PROC          _I2C_WRITE
+  D:0007H         SYMBOL        dat
+  -------         DO            
+  D:0006H         SYMBOL        i
+  B:0020H.0       SYMBOL        outbit
+  -------         ENDDO         
+  C:0752H         LINE#         182
+  C:0752H         LINE#         183
+  C:0752H         LINE#         187
+  C:0754H         LINE#         188
+  C:0754H         LINE#         189
+  C:0758H         LINE#         190
+  C:075CH         LINE#         191
+  C:0760H         LINE#         192
+  C:0762H         LINE#         193
+  C:0764H         LINE#         194
+  C:0768H         LINE#         195
+  C:076AH         LINE#         196
+  C:076CH         LINE#         197
+  C:0770H         LINE#         198
+  C:0772H         LINE#         199
+  C:0774H         LINE#         200
+  -------         ENDPROC       _I2C_WRITE
+  -------         PROC          I2C_READ
+  B:0020H.0       SYMBOL        ack
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0007H         SYMBOL        dat
+  B:0020H.1       SYMBOL        inbit
+  -------         ENDDO         
+  C:0775H         LINE#         220
+  C:0775H         LINE#         221
+  C:0775H         LINE#         224
+  C:0777H         LINE#         225
+  C:0779H         LINE#         226
+  C:0779H         LINE#         227
+  C:077BH         LINE#         228
+  C:077FH         LINE#         229
+  C:0783H         LINE#         230
+  C:0789H         LINE#         231
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 5
+
+
+  C:078BH         LINE#         232
+  C:078FH         LINE#         233
+  C:0796H         LINE#         234
+  C:0798H         LINE#         235
+  C:079AH         LINE#         236
+  C:079CH         LINE#         237
+  C:079EH         LINE#         238
+  C:079EH         LINE#         239
+  -------         ENDPROC       I2C_READ
+  -------         PROC          _EEP_DOCDULIEU
+  D:0001H         SYMBOL        diachi
+  -------         DO            
+  D:0007H         SYMBOL        dat
+  -------         ENDDO         
+  C:07E3H         LINE#         244
+  C:07E3H         LINE#         245
+  C:07E3H         LINE#         248
+  C:07E3H         LINE#         250
+  C:07E6H         LINE#         251
+  C:07EBH         LINE#         252
+  C:07EEH         LINE#         253
+  C:07F3H         LINE#         254
+  C:07F8H         LINE#         255
+  C:07FBH         LINE#         256
+  C:07FBH         LINE#         257
+  -------         ENDPROC       _EEP_DOCDULIEU
+  -------         PROC          _EEP_GHIDULIEU
+  D:0001H         SYMBOL        add
+  D:001CH         SYMBOL        Data
+  C:07FCH         LINE#         259
+  C:07FCH         LINE#         260
+  C:07FCH         LINE#         261
+  C:07FCH         LINE#         262
+  C:07FFH         LINE#         263
+  C:0804H         LINE#         264
+  C:0809H         LINE#         265
+  C:080CH         LINE#         266
+  -------         ENDPROC       _EEP_GHIDULIEU
+  -------         PROC          IR_KHOITAO
+  C:0825H         LINE#         271
+  C:0825H         LINE#         272
+  C:0825H         LINE#         273
+  C:0828H         LINE#         274
+  C:082AH         LINE#         275
+  C:082CH         LINE#         276
+  C:082EH         LINE#         277
+  C:0830H         LINE#         278
+  -------         ENDPROC       IR_KHOITAO
+  -------         PROC          TACH_DULIEU
+  C:071AH         LINE#         279
+  C:071AH         LINE#         280
+  C:071AH         LINE#         281
+  C:0729H         LINE#         282
+  C:0738H         LINE#         283
+  C:0747H         LINE#         284
+  C:074AH         LINE#         291
+  -------         ENDPROC       TACH_DULIEU
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 6
+
+
+  -------         PROC          GHEP_DULIEU
+  C:06B2H         LINE#         292
+  C:06B2H         LINE#         293
+  C:06B2H         LINE#         294
+  C:0719H         LINE#         299
+  -------         ENDPROC       GHEP_DULIEU
+  -------         PROC          GHI_DULIEU
+  C:000EH         LINE#         300
+  C:000EH         LINE#         301
+  C:000EH         LINE#         302
+  C:0014H         LINE#         303
+  C:0014H         LINE#         304
+  C:0057H         LINE#         305
+  C:0058H         LINE#         306
+  C:005EH         LINE#         307
+  C:005EH         LINE#         308
+  C:00A0H         LINE#         309
+  C:00A1H         LINE#         310
+  C:00A7H         LINE#         311
+  C:00A7H         LINE#         312
+  C:00E9H         LINE#         313
+  C:00EAH         LINE#         314
+  C:00F0H         LINE#         315
+  C:00F0H         LINE#         316
+  C:0132H         LINE#         317
+  C:0133H         LINE#         318
+  C:0139H         LINE#         319
+  C:0139H         LINE#         320
+  C:017BH         LINE#         321
+  C:017CH         LINE#         322
+  C:0182H         LINE#         323
+  C:0182H         LINE#         324
+  C:01C4H         LINE#         325
+  C:01C5H         LINE#         326
+  C:01CBH         LINE#         327
+  C:01CBH         LINE#         328
+  C:020DH         LINE#         329
+  C:020EH         LINE#         330
+  C:0214H         LINE#         331
+  C:0214H         LINE#         332
+  C:0256H         LINE#         333
+  C:0256H         LINE#         335
+  -------         ENDPROC       GHI_DULIEU
+  -------         PROC          _DOCDULIEU
+  D:001BH         SYMBOL        tb
+  C:0493H         LINE#         336
+  C:0495H         LINE#         337
+  C:0495H         LINE#         338
+  C:04B4H         LINE#         339
+  C:04D3H         LINE#         340
+  C:04F2H         LINE#         341
+  C:0510H         LINE#         342
+  C:052EH         LINE#         343
+  C:054CH         LINE#         344
+  C:056AH         LINE#         345
+  C:058BH         LINE#         346
+  -------         ENDPROC       _DOCDULIEU
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 7
+
+
+  -------         PROC          NGAT_GIAMA
+  C:0390H         LINE#         421
+  C:03A3H         LINE#         423
+  C:03A5H         LINE#         424
+  C:03BBH         LINE#         425
+  C:03BBH         LINE#         426
+  C:03BBH         LINE#         427
+  C:03BBH         LINE#         428
+  C:03C1H         LINE#         429
+  C:03CDH         LINE#         430
+  C:03D0H         LINE#         431
+  C:03D3H         LINE#         432
+  C:03D5H         LINE#         433
+  C:03D8H         LINE#         434
+  C:03D8H         LINE#         435
+  C:03D8H         LINE#         436
+  C:03D8H         LINE#         437
+  C:03E4H         LINE#         438
+  C:03FFH         LINE#         439
+  C:040AH         LINE#         440
+  C:040AH         LINE#         441
+  C:0410H         LINE#         442
+  C:0413H         LINE#         443
+  C:0416H         LINE#         444
+  C:0418H         LINE#         445
+  C:041AH         LINE#         446
+  C:0420H         LINE#         447
+  C:0422H         LINE#         448
+  C:0422H         LINE#         449
+  C:0422H         LINE#         450
+  C:0422H         LINE#         451
+  C:042EH         LINE#         452
+  C:0449H         LINE#         453
+  C:044CH         LINE#         454
+  C:044FH         LINE#         455
+  C:0451H         LINE#         456
+  C:0466H         LINE#         457
+  C:0471H         LINE#         458
+  C:0471H         LINE#         459
+  C:0482H         LINE#         460
+  C:0482H         LINE#         461
+  C:0482H         LINE#         462
+  C:0482H         LINE#         463
+  -------         ENDPROC       NGAT_GIAMA
+  -------         PROC          NGATTIMER0
+  C:079FH         LINE#         464
+  C:07A1H         LINE#         466
+  C:07A3H         LINE#         467
+  C:07B1H         LINE#         468
+  C:07B9H         LINE#         469
+  C:07B9H         LINE#         470
+  C:07BBH         LINE#         471
+  C:07C0H         LINE#         472
+  C:07C0H         LINE#         473
+  -------         ENDPROC       NGATTIMER0
+  -------         PROC          MAIN
+  C:0257H         LINE#         476
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/28/2017  09:19:31  PAGE 8
+
+
+  C:0257H         LINE#         477
+  C:0257H         LINE#         478
+  C:025AH         LINE#         479
+  C:025AH         LINE#         480
+  C:025AH         LINE#         481
+  C:0263H         LINE#         482
+  C:026BH         LINE#         483
+  C:026BH         LINE#         484
+  C:0270H         LINE#         485
+  C:0270H         LINE#         486
+  C:0276H         LINE#         487
+  C:0279H         LINE#         489
+  C:0279H         LINE#         490
+  C:027CH         LINE#         491
+  C:027CH         LINE#         492
+  C:0281H         LINE#         493
+  C:02A1H         LINE#         494
+  C:02C1H         LINE#         495
+  C:02E1H         LINE#         496
+  C:0300H         LINE#         497
+  C:031FH         LINE#         498
+  C:033EH         LINE#         499
+  C:035DH         LINE#         500
+  C:037AH         LINE#         501
+  C:0386H         LINE#         502
+  C:0386H         LINE#         503
+  C:0388H         LINE#         504
+  C:038DH         LINE#         505
+  C:038DH         LINE#         506
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TEST1
+
+  -------         MODULE        ?C?IMUL
+  C:058EH         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?LMUL
+  C:05A0H         PUBLIC        ?C?LMUL
+  -------         ENDMOD        ?C?LMUL
+
+  -------         MODULE        ?C?ULCMP
+  C:05EFH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+  -------         MODULE        ?C?ULSHR
+  C:0600H         PUBLIC        ?C?ULSHR
+  -------         ENDMOD        ?C?ULSHR
+
+  -------         MODULE        ?C?LSHL
+  C:0613H         PUBLIC        ?C?LSHL
+  -------         ENDMOD        ?C?LSHL
+
+Program Size: data=33.2 xdata=0 code=2106
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

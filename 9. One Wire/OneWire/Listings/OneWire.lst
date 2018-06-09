@@ -1,0 +1,60 @@
+C51 COMPILER V9.56.0.0   ONEWIRE                                                           01/07/2018 11:08:09 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ONEWIRE
+OBJECT MODULE PLACED IN .\Objects\OneWire.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE OneWire.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\O
+                    -neWire.lst) TABS(2) OBJECT(.\Objects\OneWire.obj)
+
+line level    source
+
+   1          //Do nhiet do su dung cam bien DS18B20
+   2          #include <reg52.h>
+   3          #include <stdio.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          #include "..\..\LIBRARY\lcd.h"
+*** WARNING C318 IN LINE 5 OF OneWire.c: can't open file '..\..\LIBRARY\lcd.h'
+   6          #include "..\..\LIBRARY\ds18b20.h"
+   7          
+   8          
+   9          void ReadTemperature(void);
+  10          unsigned char nhietdo;
+  11          
+  12          int main() {
+  13   1          LCD_init();
+*** WARNING C206 IN LINE 13 OF OneWire.c: 'LCD_init': missing function-prototype
+  14   1          while(1) {
+  15   2              WriteCommand(0x83);
+*** WARNING C206 IN LINE 15 OF OneWire.c: 'WriteCommand': missing function-prototype
+*** ERROR C267 IN LINE 15 OF OneWire.c: 'WriteCommand': requires ANSI-style prototype
+  16   2              WriteString("DO NHIET DO");
+  17   2              WriteCommand(0xC4);
+  18   2              ReadTemperature();
+  19   2              WriteString("Temp = ");
+  20   2              WriteChar((nhietdo/10)+48);
+  21   2              WriteChar((nhietdo%10)+48);
+  22   2          }
+  23   1        
+  24   1          return 0;
+  25   1      }
+  26          
+  27          void ReadTemperature(void) {
+  28   1          unsigned char a = 0;
+  29   1          unsigned char b = 0;
+  30   1          EA = 0;
+  31   1          if (!DS18B20_Reset()) {
+  32   2              DS18B20_WriteByte(0xCC);// Skip rom
+  33   2              DS18B20_WriteByte(0x44); // Lenh Convert T
+  34   2              delay(10);
+  35   2          }
+  36   1          if (!DS18B20_Reset()) {
+  37   2              DS18B20_WriteByte(0xCC);// Skip rom
+  38   2              DS18B20_WriteByte(0xBE); // Lenh doc nhiet do
+  39   2              delay(10);
+  40   2          }
+  41   1          a = DS18B20_ReadByte(); // doc nhiet do byte thap
+  42   1          b = DS18B20_ReadByte(); // doc nhiet do byte cao
+  43   1          nhietdo = (b*256+a)>>4; // luu gia tri nhiet do vao bien temp
+  44   1      }
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  1 ERROR(S)

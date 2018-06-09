@@ -1,0 +1,70 @@
+C51 COMPILER V9.56.0.0   RECEIVE2                                                          11/11/2017 10:58:08 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE RECEIVE2
+OBJECT MODULE PLACED IN .\Objects\Receive2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Receive2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -Receive2.lst) TABS(5) OBJECT(.\Objects\Receive2.obj)
+
+line level    source
+
+   1          // CHUYEN DOI KY TU THUONG NHAP TU BAN PHIM SANG KY TU HOA
+   2          #include <reg52.h>
+   3          #include <stdio.h>
+   4          void SendCharacter(unsigned char x);
+   5          void SendString(unsigned char *s);
+   6          unsigned char Receiver();
+   7          unsigned char c;
+   8          main() {
+   9   1           unsigned char i;
+  10   1           TMOD = 0x20; //timer 1 che do 2
+  11   1           TH1 = 0xFD; // 9600
+  12   1           SCON = 0x50; // UART Che do 1, REN = 1
+  13   1           TR1 = 1;
+  14   1      //   putchar('A');
+  15   1      //   printf("HELLO WORLD");
+  16   1           SendString("HELLO");
+  17   1           SendString("\r\n");
+  18   1           while (1) {
+  19   2                SendString("Nhap vao ky tu thuong: ");
+  20   2                i = Receiver(); //_getkey()
+  21   2                i = i - 32;
+  22   2                SendString("->");
+  23   2                SendCharacter(i);
+  24   2                SendCharacter(10);
+  25   2      //        SendString("\r\n");
+  26   2           }
+  27   1      }
+  28          
+  29          void SendCharacter(unsigned char x) {
+  30   1           SBUF = x;
+  31   1           while (TI == 0);
+  32   1           TI = 0;
+  33   1      }
+  34          void SendString(unsigned char *s) {
+  35   1           while (*s != 0) {
+  36   2                SendCharacter(*s++);
+  37   2           }
+  38   1      }
+  39          unsigned char Receiver() {
+  40   1           while (RI == 0);
+  41   1           c = SBUF;
+  42   1           RI = 0;
+  43   1           return c;
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    126    ----
+   CONSTANT SIZE    =     36    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.56.0.0   RECEIVE2                                                          11/11/2017 10:58:08 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,75 @@
+C51 COMPILER V9.56.0.0   COUNTER                                                           11/06/2017 12:57:41 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE COUNTER
+OBJECT MODULE PLACED IN .\Objects\counter.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE counter.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\c
+                    -ounter.lst) TABS(5) OBJECT(.\Objects\counter.obj)
+
+line level    source
+
+   1          // DUNG COUNTER DEM XUNG TU ben ngoai
+   2          #include <reg52.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          sbit button = P2^0;
+   5          sbit clock = P3^4;
+   6          sbit k1 = P3^6;
+   7          sbit k2 = P3^7;
+   8          main() {
+   9   1           unsigned char i=0, j=0, k, a[10] = {0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x10};
+  10   1           TMOD = 0x05;
+  11   1           TH0 = 0x00;
+  12   1           TL0 = 0x00;
+  13   1           clock = 1;
+  14   1           while(1) {
+  15   2                TR0 = 1;
+  16   2                loop:
+  17   2                do {
+  18   3                     loop2:
+  19   3                     while(button=1) {
+*** WARNING C276 IN LINE 19 OF counter.c: constant in condition expression
+  20   4                          i = TL0 + TH0;
+  21   4                          if (i == 100) {TL0=0; TH0=0;}
+  22   4                     
+  23   4                          P1 = a[i%10];
+  24   4                          k1 = 0; delay_ms(1); k1 = 1;
+  25   4                     
+  26   4                          P1 = a[i/10];
+  27   4                          k2 = 0; delay_ms(1); k2 = 1;
+  28   4                          if (button==0) { //reset neu nhan nut
+  29   5                               for (k = 0; k < 20; k++) {
+  30   6                                    delay_ms(1);
+  31   6                                    if (button==0) {
+  32   7                                         TL0=0; TH0=0;
+  33   7                                         do {} while (button==0);
+  34   7                                    }
+  35   6                               }
+  36   5                          }
+  37   4                     }
+  38   3                     j++;
+  39   3                     if (j==400) goto loop;
+  40   3                     
+  41   3                } while (TF0 == 0);
+  42   2                TF0=0;
+  43   2                
+  44   2           }
+  45   1      }
+*** WARNING C280 IN LINE 18 OF counter.c: 'loop2': unreferenced label
+  46          
+*** WARNING C294 IN LINE 38 OF counter.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    134    ----
+   CONSTANT SIZE    =     10    ----
+C51 COMPILER V9.56.0.0   COUNTER                                                           11/06/2017 12:57:41 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      13
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

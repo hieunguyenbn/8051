@@ -1,0 +1,77 @@
+C51 COMPILER V9.56.0.0   LCD4                                                              01/07/2018 11:08:10 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD4
+OBJECT MODULE PLACED IN .\Objects\lcd4.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\LIBRARY\lcd4.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\lcd4.lst) TABS(2) OBJECT(.\Objects\lcd4.obj)
+
+line level    source
+
+   1          #include "lcd.h"
+*** WARNING C318 IN LINE 1 OF ..\..\LIBRARY\lcd4.c: can't open file 'lcd.h'
+   2          #include "delay.h"
+   3          
+   4          void WriteCommand(unsigned char cmd) {
+   5   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+*** ERROR C202 IN LINE 5 OF ..\..\LIBRARY\lcd4.c: 'P2': undefined identifier
+   6   1          RS = 0; // Gui/nhan lenh
+*** ERROR C202 IN LINE 6 OF ..\..\LIBRARY\lcd4.c: 'RS': undefined identifier
+   7   1          RW = 0; // Gui
+*** ERROR C202 IN LINE 7 OF ..\..\LIBRARY\lcd4.c: 'RW': undefined identifier
+   8   1          EN = 1; delay(20); EN = 0;
+*** ERROR C202 IN LINE 8 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+*** ERROR C202 IN LINE 8 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+   9   1          delay(150);
+  10   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+*** ERROR C202 IN LINE 10 OF ..\..\LIBRARY\lcd4.c: 'P2': undefined identifier
+  11   1          RS = 0; RW = 0;
+*** ERROR C202 IN LINE 11 OF ..\..\LIBRARY\lcd4.c: 'RS': undefined identifier
+*** ERROR C202 IN LINE 11 OF ..\..\LIBRARY\lcd4.c: 'RW': undefined identifier
+  12   1          EN = 1; delay(20); EN = 0;
+*** ERROR C202 IN LINE 12 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+*** ERROR C202 IN LINE 12 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+  13   1          delay(150);
+  14   1      }
+  15          
+  16          void LCD_init() {
+  17   1          P2 = 0x00;
+*** ERROR C202 IN LINE 17 OF ..\..\LIBRARY\lcd4.c: 'P2': undefined identifier
+  18   1          delay_ms(1);
+  19   1          WriteCommand(0x03);
+  20   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+  21   1          WriteCommand(0x28);        // enable 5x7 mode for chars 
+  22   1          WriteCommand(0x01);        // Clear Display
+  23   1          WriteCommand(0x0C);
+  24   1      }
+  25              
+  26          void WriteChar(char c) {
+  27   1          P2 = (c & 0xF0);
+*** ERROR C202 IN LINE 27 OF ..\..\LIBRARY\lcd4.c: 'P2': undefined identifier
+  28   1          RS = 1; // Gui/nhan du lieu
+*** ERROR C202 IN LINE 28 OF ..\..\LIBRARY\lcd4.c: 'RS': undefined identifier
+  29   1          RW = 0; // Gui
+*** ERROR C202 IN LINE 29 OF ..\..\LIBRARY\lcd4.c: 'RW': undefined identifier
+  30   1          EN = 1; delay(10); EN = 0;
+*** ERROR C202 IN LINE 30 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+*** ERROR C202 IN LINE 30 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+  31   1          delay(100);
+  32   1          P2 = ((c << 4) & 0xF0);
+*** ERROR C202 IN LINE 32 OF ..\..\LIBRARY\lcd4.c: 'P2': undefined identifier
+  33   1          RS = 1; RW = 0;
+*** ERROR C202 IN LINE 33 OF ..\..\LIBRARY\lcd4.c: 'RS': undefined identifier
+*** ERROR C202 IN LINE 33 OF ..\..\LIBRARY\lcd4.c: 'RW': undefined identifier
+  34   1          EN = 1; delay(10); EN = 0;
+C51 COMPILER V9.56.0.0   LCD4                                                              01/07/2018 11:08:10 PAGE 2   
+
+*** ERROR C202 IN LINE 34 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+*** ERROR C202 IN LINE 34 OF ..\..\LIBRARY\lcd4.c: 'EN': undefined identifier
+  35   1          delay(100);
+  36   1      }
+  37          void WriteString(char *s) {
+  38   1          while (*s) {
+  39   2              WriteChar(*s++);
+  40   2          }
+  41   1      }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  21 ERROR(S)

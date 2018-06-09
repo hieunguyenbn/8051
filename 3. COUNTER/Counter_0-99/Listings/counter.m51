@@ -1,0 +1,147 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/06/2017  12:57:43  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\counter.obj, .\Objects\delay.obj TO .\Objects\counter PRINT (.\Listings\counter.m5
+>> 1) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\counter.obj (COUNTER)
+  .\Objects\delay.obj (DELAY)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?COPY)
+
+
+LINK MAP OF MODULE:  .\Objects\counter (COUNTER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000DH     UNIT         _DATA_GROUP_
+            IDATA   0015H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     00F6H     UNIT         ?C?LIB_CODE
+            CODE    00F9H     0086H     UNIT         ?PR?MAIN?COUNTER
+            CODE    017FH     0020H     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    019FH     000CH     UNIT         ?C_C51STARTUP
+            CODE    01ABH     000AH     UNIT         ?CO?COUNTER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\counter (COUNTER)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?COUNTER
+
+?PR?MAIN?COUNTER               0008H    000DH
+  +--> ?CO?COUNTER
+  +--> ?PR?_DELAY_MS?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\counter (COUNTER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        COUNTER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  12:57:43  PAGE 2
+
+
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  B:00B0H.4       PUBLIC        clock
+  D:00B8H         PUBLIC        IP
+  B:00B0H.6       PUBLIC        k1
+  B:00B0H.7       PUBLIC        k2
+  B:00A0H.0       PUBLIC        button
+  C:00F9H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:01ABH         SYMBOL        _?ix1000
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        i
+  D:0009H         SYMBOL        j
+  D:000AH         SYMBOL        k
+  D:000BH         SYMBOL        a
+  C:011BH         SYMBOL        loop
+  C:011BH         SYMBOL        loop2
+  -------         ENDDO         
+  C:00F9H         LINE#         8
+  C:00F9H         LINE#         9
+  C:010FH         LINE#         10
+  C:0112H         LINE#         11
+  C:0115H         LINE#         12
+  C:0117H         LINE#         13
+  C:0119H         LINE#         14
+  C:0119H         LINE#         15
+  C:011BH         LINE#         16
+  C:011BH         LINE#         17
+  C:011BH         LINE#         18
+  C:011BH         LINE#         19
+  C:011EH         LINE#         20
+  C:0124H         LINE#         21
+  C:012CH         LINE#         23
+  C:013AH         LINE#         24
+  C:0145H         LINE#         26
+  C:0151H         LINE#         27
+  C:015CH         LINE#         28
+  C:015FH         LINE#         29
+  C:0169H         LINE#         30
+  C:0170H         LINE#         31
+  C:0173H         LINE#         32
+  C:0178H         LINE#         33
+  C:017BH         LINE#         34
+  C:017BH         LINE#         35
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        COUNTER
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  12:57:43  PAGE 3
+
+
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:017FH         PUBLIC        _delay_ms
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        x
+  D:0002H         SYMBOL        y
+  -------         ENDDO         
+  C:017FH         LINE#         3
+  C:017FH         LINE#         5
+  C:0189H         LINE#         6
+  C:019EH         LINE#         7
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?COPY
+  C:00D3H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+Program Size: data=22.0 xdata=0 code=437
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

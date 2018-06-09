@@ -1,0 +1,176 @@
+C51 COMPILER V9.52.0.0   SOFT_I2C                                                          08/16/2017 16:41:07 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SOFT_I2C
+OBJECT MODULE PLACED IN Soft_I2C.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Soft_I2C.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "port.h"
+   3          #include "Soft_I2C.h"
+   4          #include "intrins.h"
+   5          
+   6          #ifdef  USE_SOFT_I2C_DELAY
+                #message "Soft I2C - USE_SOFT_I2C_DELAY"
+                #define Soft_I2c_Delay()  {_nop_();_nop_();_nop_();_nop_();_nop_();}
+              #else
+  10            #define Soft_I2c_Delay()
+  11          #endif
+  12          
+  13          /*-------------------------------------*-
+  14            Prototype for Local Function
+  15          -*-------------------------------------*/
+  16          bit Soft_I2c_Get_Ack();
+  17          void Soft_I2c_Ack();
+  18          void Soft_I2c_Nak();
+  19          
+  20          /*-------------------------------------*-
+  21            Soft_I2c_Init
+  22          -*-------------------------------------*/
+  23          void Soft_I2c_Init()
+  24          {
+  25   1        SOFT_I2C_SCL=1;
+  26   1        SOFT_I2C_SDA=1;
+  27   1      }
+  28          
+  29          /*-------------------------------------*-
+  30            Soft_I2c_Start
+  31          -*-------------------------------------*/
+  32          void Soft_I2c_Start()
+  33          {
+  34   1        SOFT_I2C_SCL = 1;
+  35   1        Soft_I2c_Delay();
+  36   1        SOFT_I2C_SDA = 0;
+  37   1        Soft_I2c_Delay();
+  38   1        SOFT_I2C_SCL = 0;
+  39   1      }
+  40          
+  41          /*-------------------------------------*-
+  42            Soft_I2c_Get_Ack - Local Function 
+  43            - return
+  44              0 - ACK
+  45              1 - NAK 
+  46          -*-------------------------------------*/
+  47          bit Soft_I2c_Get_Ack()
+  48          {
+  49   1        bit result;
+  50   1          SOFT_I2C_SDA = 1;
+  51   1        Soft_I2c_Delay();
+  52   1          SOFT_I2C_SCL = 1;
+  53   1        Soft_I2c_Delay();
+  54   1        result = SOFT_I2C_SDA;
+  55   1          SOFT_I2C_SCL = 0;
+C51 COMPILER V9.52.0.0   SOFT_I2C                                                          08/16/2017 16:41:07 PAGE 2   
+
+  56   1        return result;
+  57   1      }
+  58          
+  59          /*-------------------------------------*-
+  60            Soft_I2c_Write
+  61            - return
+  62              0: ACK - No Error
+  63              1: NAK - Error
+  64          -*-------------------------------------*/
+  65          bit Soft_I2c_Write(unsigned char dat)
+  66          {
+  67   1        unsigned char i;
+  68   1        for(i=0;i<8;i++)
+  69   1        {
+  70   2            SOFT_I2C_SDA = (bit)(dat&0x80); 
+  71   2            SOFT_I2C_SCL = 1;
+  72   2          Soft_I2c_Delay();
+  73   2          SOFT_I2C_SCL = 0;
+  74   2            dat<<=1;
+  75   2        }
+  76   1        return(Soft_I2c_Get_Ack());
+  77   1      }
+  78          
+  79          /*-------------------------------------*-
+  80            Soft_I2c_Ack - Local Function
+  81          -*-------------------------------------*/
+  82          void Soft_I2c_Ack()
+  83          {
+  84   1        SOFT_I2C_SDA = 0;
+  85   1        Soft_I2c_Delay();
+  86   1        SOFT_I2C_SCL = 1;
+  87   1        Soft_I2c_Delay();
+  88   1          SOFT_I2C_SCL = 0;
+  89   1      }
+  90          
+  91          /*-------------------------------------*-
+  92            I2C_Nak - Local Function  
+  93          -*-------------------------------------*/
+  94          void Soft_I2c_Nak()
+  95          {
+  96   1          SOFT_I2C_SDA = 1;
+  97   1        Soft_I2c_Delay();
+  98   1          SOFT_I2C_SCL = 1;
+  99   1        Soft_I2c_Delay();
+ 100   1          SOFT_I2C_SCL = 0;
+ 101   1      }
+ 102          
+ 103          /*-------------------------------------*-
+ 104            I2C_Read function
+ 105            - Tham so
+ 106              ack: 0 - Master tao NAK sau khi truyen
+ 107                 1 - Master tao ACK sau khi truyen
+ 108          -*-------------------------------------*/
+ 109          unsigned char Soft_I2c_Read(bit ack)
+ 110          {
+ 111   1          unsigned char i, dat=0;
+ 112   1          for(i=0;i<8;i++)
+ 113   1        {
+ 114   2            SOFT_I2C_SDA = 1;
+ 115   2          Soft_I2c_Delay();
+ 116   2            SOFT_I2C_SCL = 1;
+ 117   2          Soft_I2c_Delay();
+C51 COMPILER V9.52.0.0   SOFT_I2C                                                          08/16/2017 16:41:07 PAGE 3   
+
+ 118   2            dat <<= 1;
+ 119   2          if(SOFT_I2C_SDA)
+ 120   2          {
+ 121   3            dat |= 0x01;
+ 122   3          }
+ 123   2          SOFT_I2C_SCL = 0;
+ 124   2          }
+ 125   1        if(ack)
+ 126   1        {
+ 127   2          Soft_I2c_Ack();
+ 128   2        }
+ 129   1        else
+ 130   1        {
+ 131   2          Soft_I2c_Nak();
+ 132   2        }
+ 133   1          return dat;
+ 134   1      }
+ 135          
+ 136          /*-------------------------------------*-
+ 137            Soft_I2c_Stop function
+ 138          -*-------------------------------------*/
+ 139          void Soft_I2c_Stop()
+ 140          {   
+ 141   1        SOFT_I2C_SDA = 0;
+ 142   1        Soft_I2c_Delay();
+ 143   1        SOFT_I2C_SCL = 1;
+ 144   1        Soft_I2c_Delay();
+ 145   1        SOFT_I2C_SDA = 1;
+ 146   1      }
+ 147          /*------------------------------------------------------------------*-
+ 148            --- Ket thuc file ---------------------
+ 149          -*------------------------------------------------------------------*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    103    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

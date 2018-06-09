@@ -1,0 +1,674 @@
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE SOURCE
+OBJECT MODULE PLACED IN source.OBJ
+COMPILER INVOKED BY: C:\Keil4\C51\BIN\C51.EXE source.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <REG52.h>
+   2          #include<INTRINS.H>
+   3          //==========================================
+   4          //Cac chan dieu khien
+   5          #define   led_port   P0
+   6          #define   ic_counter   P2
+   7          #define   reg_sec      0x0
+   8          #define   reg_min      0x1
+   9          #define   reg_hour   0x2
+  10          #define   reg_day      0x3
+  11          #define   reg_date   0x4
+  12          #define   reg_month   0x5
+  13          #define   reg_year   0x6
+  14          sbit   scl      =   P1^0;
+  15          sbit   sda      =   P1^1;
+  16          sbit   ic_time   =   P2^4;
+  17          sbit   ic_date   =   P2^5;
+  18          sbit   menu   =   P3^0;
+  19          sbit   plus   =   P3^1;
+  20          sbit   minus   =   P3^2;
+  21          sbit   al_cancel   =   P3^3;
+  22          //==========================================
+  23          //Cac bien toan cuc dung trong chuong trinh
+  24          unsigned char led_code[13]={0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0xff,0xfe,0x00};
+  25          unsigned char led_buffer[15];
+  26          unsigned char scan_led,counter,var_menu;
+  27          long ngayam,thangam,ngayduong;
+  28          unsigned char sec,min,hour,day,date,month,year,date_1,month_1; //Date_1 la ngay am , month_1 thang am
+  29          bit   var_arlam;
+  30          //Quet led 7 doan dung timer 0
+  31          //Tan so quet khoang 25Hz moi led sang khoang  1000/(25*13)=3ms
+  32          void khoi_tao_timer0(void)
+  33          {   
+  34   1         EA=0;//cam ngat toan cuc
+  35   1         TMOD=0x2;//timer0 che do 8 bit tu dong nap lai
+  36   1         TL0=0x6;//Gia tri bat dau dem = 6 (tre 250us)
+  37   1         TH0=0x6;//gia tri TH   dc nap vao TL (che do 8 bit)   
+  38   1         ET0=1;//cho phep ngat timer0
+  39   1         EA=1;//cho phep ngat toan cuc
+  40   1         TR0=1;//Bat dau chay timer0
+  41   1      }
+  42          //quet 15 LED Sau 12 lan Timer0 ngat thi thay doi cac led sang
+  43          void quet_led(void)interrupt 1 //dia chi vecto ngat timer0
+  44          {   
+  45   1         //counter++;
+  46   1         if(++counter==12)//sau 12x250us=3ms thi thay doi hien thi led
+  47   1         {   
+  48   2            if(scan_led<=6)//chan enb cua IC_COUNTER =>0 khong  co led nao duoc hien thi
+  49   2            {               
+  50   3               ic_counter=scan_led;//hien thi cac led o hang 1 (gio, phut,giay,thu)
+  51   3               //chan enb cua IC_COUNTER =>0 khong  co led nao duoc hien thi
+  52   3               ic_time=1;//hien thi gio phut giay      
+  53   3            }else
+  54   2               {                        
+  55   3                  ic_counter=scan_led-7;// hien thi led hang 2 (ngay thang nam)(tru di so led da hien thi o hang
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 2   
+
+             - 1)         
+  56   3                  ic_date=1;//hien thi ngay thang nam 
+  57   3               }    // ic_counter=scan_led-0x7+0xf0 led thu 7 la led thu 0 cua hang 2
+  58   2            led_port=led_code[(led_buffer[scan_led])];
+  59   2            //scan_led++;
+  60   2            if(++scan_led>=15) //vuot qua 15 led thi tro ve ban dau
+  61   2            {
+  62   3               scan_led=0;
+  63   3            }
+  64   2         }
+  65   1         if(counter>=13)
+  66   1         {
+  67   2            counter=0;//dem lai tu dau
+  68   2         }      
+  69   1      }
+  70          //-----------***************Chuyen doi tu DEC sang BCD************-----------------
+  71          unsigned char dec_2_bcd(unsigned char value1)//chuyen doi tu he decima sang BCD
+  72          {       
+  73   1         return ((value1/10)<<4)|(value1%10 ); //((value1/10)*16+value1%10); 
+  74   1      }
+  75          //----------**************Chuyen doi tu BCD sang DEC**********---------------------
+  76          unsigned char bcd_2_dec(unsigned char value2)//chuyen doi tu he BCD sang DECIMA
+  77          {
+  78   1         return ((value2/16)*10+value2%16);
+  79   1      }
+  80          //--------***********tao thoi gian tre dung lenh _nop_();**********-------------
+  81          void delay(int time_delay)
+  82          {
+  83   1         unsigned int temp;
+  84   1         for(temp=0;temp<=time_delay;temp++)
+  85   1         {
+  86   2            _nop_();      
+  87   2         }
+  88   1      }
+  89          void delay_2(int time_delay)
+  90          {   
+  91   1         unsigned int temp,i;
+  92   1         for(i=0;i<time_delay;i++)
+  93   1         {
+  94   2            for(temp=0;temp<1000;temp++)
+  95   2            {
+  96   3               _nop_();
+  97   3            }
+  98   2         }
+  99   1      }
+ 100          //------******Khoi dong I2C******---------
+ 101          void i2c_start(void)
+ 102          {
+ 103   1         scl=1;
+ 104   1         sda=1;   
+ 105   1         _nop_();
+ 106   1         _nop_();
+ 107   1         sda=0;
+ 108   1         scl=0;
+ 109   1      }
+ 110          //-----******Ket thuc I2C*******---------
+ 111          void i2c_stop(void)
+ 112          {      
+ 113   1         sda=0;
+ 114   1         scl=1;
+ 115   1         _nop_();
+ 116   1         _nop_();
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 3   
+
+ 117   1         sda=1;
+ 118   1         scl=0;   
+ 119   1      }
+ 120          //-------*******Gui du lieu len duong I2C******------
+ 121          void write_i2c(unsigned char data_2_send)
+ 122          {
+ 123   1         unsigned char temp;   
+ 124   1         for(temp=0;temp<8;temp++)
+ 125   1         {
+ 126   2            sda=(data_2_send&0x80)? 1:0;  //dua bit du lieu ra chan SDA
+ 127   2            scl=1;                 //
+ 128   2            _nop_();
+ 129   2            _nop_();           //
+ 130   2            scl=0;
+ 131   2            data_2_send<<=1;            //bit co trong so lon hon dc truyen truoc
+ 132   2         }
+ 133   1         scl=1;                      //nhan bit ACK tu SLAVER
+ 134   1         _nop_();
+ 135   1         _nop_();
+ 136   1         scl=0;
+ 137   1      }
+ 138          //------------**********Doc di lieu tren duong I2C******---------
+ 139          unsigned char read_i2c(void)
+ 140          {
+ 141   1         unsigned char temp,i;   
+ 142   1         for(i=0;i<8;i++) // nhan vao 8 bit
+ 143   1         {
+ 144   2            scl=1;
+ 145   2            temp<<=1;
+ 146   2            temp=temp|sda;
+ 147   2            scl=0;
+ 148   2         }    
+ 149   1         sda=1;//gui bit ACK    
+ 150   1         scl=1;//master nhan/gui bit du lieu(sda) khi scl o muc cao
+ 151   1         _nop_();
+ 152   1         _nop_();
+ 153   1         scl=0;//du lieu(sda) thay doi khi scl muc thap*/
+ 154   1         return temp;//tra gia tri cho ham
+ 155   1      }
+ 156          //------*****Ghi du lieu len RTC qua duong I2C*****----------
+ 157          void write_rtc(char value,addr)
+ 158          {      
+ 159   1         i2c_start();//start i2c
+ 160   1         write_i2c(0xd0);//0xd0 la ID cua DS1307
+ 161   1         write_i2c(addr);
+ 162   1         write_i2c(value);
+ 163   1         i2c_stop();
+ 164   1      }
+ 165          //---------********Doc du lieu tu RTC qua duong I2C*****--------
+ 166          char read_rtc(char addr)
+ 167          {      
+ 168   1         unsigned char temp;
+ 169   1         i2c_start();
+ 170   1         write_i2c(0xd0);// 
+ 171   1         write_i2c(addr);   //bat dau doc du lieu tu thanh ghi co dia chi 0x0 
+ 172   1         i2c_start();
+ 173   1         write_i2c(0xd1); //0xd0 + 0x01 la ID cua ds107 va che do doc du lieu
+ 174   1         temp=read_i2c();//con tro dang tro toi dia chi 0x0 chua du lieu second      
+ 175   1         i2c_stop();//Stop I2C
+ 176   1         return temp;
+ 177   1      }
+ 178          //-----------***********Lay du lieu thoi gian tu cac thanh ghi trong RTC*******---------
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 4   
+
+ 179          void get_time()
+ 180          {
+ 181   1         //sec=read_rtc(reg_sec);
+ 182   1         min=read_rtc(reg_min);
+ 183   1         hour=read_rtc(reg_hour);
+ 184   1         day=read_rtc(reg_day);
+ 185   1         date=read_rtc(reg_date);
+ 186   1         month=read_rtc(reg_month);
+ 187   1         year=read_rtc(reg_year);
+ 188   1      }
+ 189          ///////---------------***********Ghi du lieu va bo dem****-----------                         
+ 190           void write_led_buffer(void)
+ 191          {   
+ 192   1            unsigned char temp;
+ 193   1                        
+ 194   1            //*******Hien thi phut**********      
+ 195   1            led_buffer[0]=min&0x0f;       //Lay 4 bit thap
+ 196   1            led_buffer[1]=(min&0x70)>>4; //lay 3 bit cao
+ 197   1            //*******Hien thi gio*************
+ 198   1            if((temp=(hour&0x30)>>4)==0)//khong hien thi so 0 o hang chuc
+ 199   1            {
+ 200   2               led_buffer[3]=0x0a;
+ 201   2            }else
+ 202   1             {
+ 203   2               led_buffer[3]=temp;//Lay 2 bit cao      
+ 204   2             }
+ 205   1            led_buffer[2]=(hour&0x0f);    //Lay 4 bit thap
+ 206   1            //Hien thi thu trong tuan
+ 207   1            led_buffer[4]=(day&0x7);
+ 208   1            //*******Hien thi ngay AL**********
+ 209   1            led_buffer[5]=date_1%10;
+ 210   1            if((temp=(date_1/10))==0)//khong hien thi so 0 o hang chuc
+ 211   1            {
+ 212   2               led_buffer[6]=0x0a;
+ 213   2            }else
+ 214   1             {
+ 215   2               led_buffer[6]=temp;
+ 216   2             }
+ 217   1            //*******Hien thi Thang AL*********
+ 218   1            led_buffer[7]=month_1%10;
+ 219   1            if((temp=(month_1/10))==0)//khong hien thi so 0 o hang chuc
+ 220   1            {
+ 221   2               led_buffer[8]=0x0a;
+ 222   2            }else
+ 223   1             {
+ 224   2               led_buffer[8]=temp;
+ 225   2             }      
+ 226   1            //******Hien thi nam***********
+ 227   1            led_buffer[9]=(year&0x70)>>4;
+ 228   1            led_buffer[10]=year&0x0f;
+ 229   1            //*********Hien thi thang************
+ 230   1            led_buffer[11]=month&0x0f;
+ 231   1            if(((month&0x30)>>4)==0)//khong hien thi so 0 o hang chuc
+ 232   1            {
+ 233   2               led_buffer[12]=0x0a;      
+ 234   2            }else
+ 235   1               {
+ 236   2                  led_buffer[12]=(month&0x30)>>4;
+ 237   2               }      
+ 238   1            //Hien thi Ngay duong lich
+ 239   1            led_buffer[13]=date&0x0f;
+ 240   1            if((temp=(date&0x30)>>4)==0)//khong hien thi so 0 o hang chuc
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 5   
+
+ 241   1            {
+ 242   2               led_buffer[14]=0x0a;      
+ 243   2            }else
+ 244   1               {
+ 245   2                  led_buffer[14]=temp;
+ 246   2               }               
+ 247   1            }
+ 248          //-----------------**********Cai dat che do cho RTC****------------------
+ 249          void setup_rtc(void)
+ 250          {
+ 251   1         unsigned char temp;
+ 252   1         /*i2c_start();
+ 253   1         write_i2c(0xd0);//che do ghi du lieu vao RTC    
+ 254   1         write_i2c(0x08);//thanh ghi control
+ 255   1         write_i2c(0x10);//xung ra 1Hz muc thap khi khong dc kich hoat
+ 256   1         i2c_stop();*/
+ 257   1         write_rtc(0x10,0x07);
+ 258   1         temp=read_rtc(0x02);
+ 259   1         write_rtc(0x02,temp&0x7f);
+ 260   1          
+ 261   1      }
+ 262          //-----------------**************Do phim**********----------------------
+ 263          void do_phim(void)
+ 264          {
+ 265   1         if(menu==0)//phim menu duoc an
+ 266   1         {
+ 267   2             delay_2(50);
+ 268   2            if(var_arlam==0)//Neu khong thuc hien chuc nang hen gio
+ 269   2            {   
+ 270   3            
+ 271   3               if(var_menu<=7)
+ 272   3               {
+ 273   4                  var_menu++;   //thuc hien menu tiep
+ 274   4               }else
+ 275   3                {
+ 276   4                   var_menu=1;//quay tro ve menu dau tien
+ 277   4                }
+ 278   3             }else
+ 279   2                 {
+ 280   3                  var_arlam=0;//hen gio xong
+ 281   3                }
+ 282   2            delay_2(50);
+ 283   2         }
+ 284   1         if(al_cancel==0)
+ 285   1         {         
+ 286   2            var_menu=0;
+ 287   2            var_arlam=1;         
+ 288   2            delay(10000);
+ 289   2         }
+ 290   1      }
+ 291          //-----------******Chinh Giay********---------
+ 292          void menu1(void)
+ 293          {             
+ 294   1            if((plus==0)||(minus==0))
+ 295   1            {        
+ 296   2               write_rtc(0x0,reg_sec);   //Reset GIAY
+ 297   2               delay_2(50);
+ 298   2            }
+ 299   1      }
+ 300          //----------*********Chinh PHUT*********------------
+ 301          void menu2(void)
+ 302          {
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 6   
+
+ 303   1         unsigned char temp;
+ 304   1         temp=bcd_2_dec(min);      
+ 305   1         if(plus==0)
+ 306   1         {            
+ 307   2            if(temp<59)
+ 308   2            {
+ 309   3               temp++;
+ 310   3            }else
+ 311   2               {
+ 312   3                  temp=0;
+ 313   3               }
+ 314   2            write_rtc(dec_2_bcd(temp),reg_min);
+ 315   2            delay_2(50);
+ 316   2         }
+ 317   1         if(minus==0)
+ 318   1         {            
+ 319   2            if(temp>0)
+ 320   2            {
+ 321   3               temp--;
+ 322   3            }else
+ 323   2               {
+ 324   3                  temp=59;
+ 325   3               }
+ 326   2            write_rtc(dec_2_bcd(temp),reg_min);
+ 327   2            delay_2(50);
+ 328   2         }   
+ 329   1      }
+ 330          //----------*********Chinh gio***********------------
+ 331          void menu3(void)
+ 332          {
+ 333   1         unsigned char temp;
+ 334   1         temp=bcd_2_dec(hour);   
+ 335   1         if(plus==0)
+ 336   1         {           
+ 337   2            if(temp>=23)
+ 338   2            {
+ 339   3               temp=0;
+ 340   3            }else
+ 341   2               {
+ 342   3                  temp++;
+ 343   3               }
+ 344   2             write_rtc(dec_2_bcd(temp),reg_hour);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 345   2            delay_2(50);
+ 346   2         }
+ 347   1         if(minus==0)
+ 348   1         {     
+ 349   2            if(temp<=0)
+ 350   2            {
+ 351   3               temp=23;
+ 352   3            }else
+ 353   2               {
+ 354   3                  temp--;
+ 355   3               }
+ 356   2            write_rtc(dec_2_bcd(temp),reg_hour);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 357   2            delay_2(50);
+ 358   2         }         
+ 359   1      }
+ 360          //----------------********Chinh Ngay Trong Tuan*******----------------------
+ 361          void menu4(void)
+ 362          {
+ 363   1         unsigned char temp;
+ 364   1         temp=bcd_2_dec(day);      
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 7   
+
+ 365   1         if(plus==0)
+ 366   1         {       
+ 367   2            if(temp>=7)
+ 368   2            {
+ 369   3               temp=1;
+ 370   3            }else
+ 371   2               {
+ 372   3                  temp++;
+ 373   3               }
+ 374   2            write_rtc(dec_2_bcd(temp),reg_day);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 375   2            delay_2(50);
+ 376   2         }
+ 377   1         if(minus==0)
+ 378   1         {         
+ 379   2            if(temp<=1)
+ 380   2            {
+ 381   3               temp=7;
+ 382   3            }else
+ 383   2               {
+ 384   3                  temp--;
+ 385   3               }
+ 386   2            write_rtc(dec_2_bcd(temp),reg_day);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 387   2            delay_2(50);
+ 388   2         }         
+ 389   1      }
+ 390          //-----------********Chinh Ngay********----------------
+ 391          void menu5()
+ 392          {
+ 393   1         unsigned char temp,temp1,temp2;
+ 394   1         temp=bcd_2_dec(date);   
+ 395   1         temp1=bcd_2_dec(month);
+ 396   1         temp2=bcd_2_dec(year);      
+ 397   1         if(plus==0)       //******An PLUS***----       
+ 398   1         {   
+ 399   2            if((temp1==4)||(temp1==6)||(temp1==9)||(temp1==11))//Cac thang co 30 ngay 
+ 400   2            {
+ 401   3               if(temp>=30)
+ 402   3               {
+ 403   4                  temp=1;
+ 404   4               }
+ 405   3            }else
+ 406   2               {
+ 407   3                  if(temp1==2)//thang 2
+ 408   3                  {
+ 409   4                     if(temp2%4==0)//nam nhuan
+ 410   4                     {
+ 411   5                        if(temp>=29)
+ 412   5                        {
+ 413   6                           temp=1;
+ 414   6                        }else
+ 415   5                           {
+ 416   6                              temp++;
+ 417   6                           }
+ 418   5                     }else       //nam thuong
+ 419   4                        {
+ 420   5                           if(temp>=28)
+ 421   5                           {
+ 422   6                              temp=1;
+ 423   6                           }else
+ 424   5                           {
+ 425   6                              temp++;
+ 426   6                           }
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 8   
+
+ 427   5                        }
+ 428   4                  }else   //cac thang co 31 ngay
+ 429   3                     {
+ 430   4                        if(temp>=31)
+ 431   4                        {
+ 432   5                           temp=1;
+ 433   5                        }else
+ 434   4                           {
+ 435   5                              temp++;
+ 436   5                           }   
+ 437   4                     }   
+ 438   3               }
+ 439   2            write_rtc(dec_2_bcd(temp),reg_date);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 440   2            delay_2(50);
+ 441   2         }
+ 442   1         if(minus==0)  //-********AN MINUS****--------      
+ 443   1         {   
+ 444   2            if(temp>2)
+ 445   2            {
+ 446   3               temp--;
+ 447   3            }else
+ 448   2               {
+ 449   3                  if((temp1==4)||(temp1==6)||(temp1==9)||(temp1==11))//Cac thang co 30 ngay 
+ 450   3                  {            
+ 451   4                        temp=30;               
+ 452   4                  }else
+ 453   3                     {
+ 454   4                        if(temp1==2)//thang 2
+ 455   4                        {
+ 456   5                           if(temp2%4==0)//nam nhuan
+ 457   5                           {
+ 458   6                              temp=29;
+ 459   6                           }else       //nam thuong
+ 460   5                              {
+ 461   6                                 temp=28;
+ 462   6                              }
+ 463   5                        }else   //cac thang co 31 ngay
+ 464   4                           {
+ 465   5                              temp=31;   
+ 466   5                           }      
+ 467   4                     }
+ 468   3                }
+ 469   2            write_rtc(dec_2_bcd(temp),reg_date);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 470   2            delay_2(50);
+ 471   2         }   
+ 472   1      }
+ 473          void menu6(void)//-------*********Chinh Thang-*******---------
+ 474          {   
+ 475   1         unsigned char temp;
+ 476   1         temp=bcd_2_dec(month);   
+ 477   1         if(plus==0)
+ 478   1         {        
+ 479   2            if(temp>=12)
+ 480   2            {
+ 481   3               temp=1;
+ 482   3            }else
+ 483   2               {
+ 484   3                  temp++;
+ 485   3               }
+ 486   2            write_rtc(dec_2_bcd(temp),reg_month);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 487   2            delay_2(50);
+ 488   2         }
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 9   
+
+ 489   1         if(minus==0)
+ 490   1         {         
+ 491   2            if(temp==0)
+ 492   2            {
+ 493   3               temp=12;
+ 494   3            }else
+ 495   2               {
+ 496   3                  temp--;
+ 497   3               }
+ 498   2            write_rtc(dec_2_bcd(temp),reg_month);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 499   2            delay_2(50);
+ 500   2         }      
+ 501   1      }
+ 502          //---------**********Chinh Nam**********--------------
+ 503          void menu7(void)
+ 504          {   unsigned char temp;
+ 505   1         temp=bcd_2_dec(year);   
+ 506   1         if(plus==0)
+ 507   1         {         
+ 508   2            if(temp>=50)//Chinh thoi gian tu nam 2011 den Nam 2050
+ 509   2            {
+ 510   3               temp=11;
+ 511   3            }else
+ 512   2               {
+ 513   3                  temp++;
+ 514   3               }
+ 515   2            write_rtc(dec_2_bcd(temp),reg_year);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 516   2            delay_2(50);
+ 517   2         }
+ 518   1         if(minus==0)
+ 519   1         {    
+ 520   2            if(temp<=11)
+ 521   2            {
+ 522   3               temp=50;
+ 523   3            }else
+ 524   2               {
+ 525   3                  temp--;
+ 526   3               }
+ 527   2            write_rtc(dec_2_bcd(temp),reg_year);//ghi du lieu BCD vao thanh ghi GiO cua RTC
+ 528   2            delay_2(50);
+ 529   2         }   
+ 530   1      }
+ 531          //-----------***********Thuc Hien MENU*********---------------
+ 532          void xu_ly_menu(void)
+ 533          {
+ 534   1         while(var_menu!=0)
+ 535   1         {
+ 536   2            get_time();
+ 537   2            write_led_buffer();
+ 538   2            switch(var_menu)
+ 539   2            {
+ 540   3               case   1: 
+ 541   3                  menu1();
+ 542   3                  break;
+ 543   3               case   2: 
+ 544   3                  menu2();
+ 545   3                  break;
+ 546   3               case   3: 
+ 547   3                  menu3();
+ 548   3                  break;
+ 549   3               case   4: 
+ 550   3                  menu4();
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 10  
+
+ 551   3                  break;
+ 552   3               case   5: 
+ 553   3                  menu5();
+ 554   3                  break;
+ 555   3               case   6: 
+ 556   3                  menu6();
+ 557   3                  break;
+ 558   3               case   7: 
+ 559   3                  menu7();
+ 560   3                  break;
+ 561   3            }
+ 562   2            do_phim();
+ 563   2         }
+ 564   1      }
+ 565          //-------********Dua du lieu ra bo nho dem LED******---------
+ 566          void start_system()
+ 567          {      
+ 568   1         var_menu=0;
+ 569   1         //var_arlam=0;      
+ 570   1      }
+ 571          //-- chuyen ngay duong sang ngay am------
+ 572          void da(int m,d)
+ 573          {   
+ 574   1         ngayduong=(m-1)*31+d;//so ngay duong so voi 1.1
+ 575   1         if ((m==3)|(m==4)) ngayduong=ngayduong-3;//do thang 2 co 28 ngay
+ 576   1         else 
+ 577   1             if ((m==5)|(m==6)) ngayduong=ngayduong-4;// thang 4 co 30 ngay
+ 578   1             else
+ 579   1            if ((m==7)|(m==8)|(m==9)) ngayduong=ngayduong-5;//thang 6 co 30 ngay
+ 580   1            else
+ 581   1                if ((m==10)|(m==11)) ngayduong=ngayduong-6;//thang 9 co 30 ngay
+ 582   1                else 
+ 583   1               if (m==12) ngayduong=ngayduong-7;// thang 11 co 30 ngay
+ 584   1         ngayam=ngayduong+26;//mung 1.1 la ngay 27.11
+ 585   1         thangam=11;
+ 586   1         if (ngayam>=30) 
+ 587   1         {
+ 588   2             ngayam=ngayam-29;
+ 589   2             thangam=12;
+ 590   2         }
+ 591   1         while (ngayam>=30)
+ 592   1         {
+ 593   2             if ((thangam==2)|(thangam==5)|(thangam==8)|(thangam==7)|(thangam==10))
+ 594   2             {
+ 595   3            if (ngayam==29) break;
+ 596   3            ngayam=ngayam-29;      
+ 597   3            thangam++;
+ 598   3            if (thangam==13) thangam=1;
+ 599   3             }
+ 600   2             else 
+ 601   2            if (ngayam==30) break;
+ 602   2            else
+ 603   2            {
+ 604   3            ngayam=ngayam-30;
+ 605   3            thangam++;
+ 606   3            if (thangam==13) thangam=1;
+ 607   3            }
+ 608   2         }   
+ 609   1      }
+ 610          //---------------**************Chuong trinh chinh**********----------------------
+ 611          void main(void)                           
+ 612          {         
+C51 COMPILER V9.02   SOURCE                                                                06/08/2011 09:26:18 PAGE 11  
+
+ 613   1         khoi_tao_timer0();   
+ 614   1         start_system();         
+ 615   1         setup_rtc(); 
+ 616   1         while(1)
+ 617   1         {             
+ 618   2            //Dat ngay Am lich o day 
+ 619   2            //////////
+ 620   2            get_time();      
+ 621   2            da(bcd_2_dec(month),bcd_2_dec(date));//dau vao la thang duong ngay duong dau ra la thangam ngayam hi
+             -en thi ngayam thangam
+ 622   2            date_1=thangam;
+ 623   2            month_1=ngayam;
+ 624   2           write_led_buffer();   
+ 625   2            do_phim();         
+ 626   2            xu_ly_menu();                     
+ 627   2         }                          
+ 628   1      }
+ 629          //-----------------**************Ket thuc chuong trinh********--------------------                
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1898    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     52       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

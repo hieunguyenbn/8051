@@ -1,0 +1,3 @@
+".\Objects\SendString.obj" 
+TO ".\Objects\SendString" 
+PRINT(".\Listings\SendString.m51") RAMSIZE(256) 

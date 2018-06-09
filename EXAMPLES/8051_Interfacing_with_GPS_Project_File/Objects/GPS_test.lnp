@@ -1,0 +1,6 @@
+".\Objects\GPS_test.obj",
+".\Objects\LCD_20x4_C_file.obj",
+".\Objects\USART_Interrupt.obj" 
+TO ".\Objects\GPS_test" 
+PRINT(".\Listings\GPS_test.m51") RAMSIZE(256) 
+CODE( 0X0000-0X1FFF )

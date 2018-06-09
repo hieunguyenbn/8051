@@ -1,0 +1,40 @@
+C51 COMPILER V9.56.0.0   INTERRUPT_1                                                       11/07/2017 08:27:24 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE INTERRUPT_1
+OBJECT MODULE PLACED IN .\Objects\interrupt_1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE interrupt_1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\interrupt_1.lst) TABS(5) OBJECT(.\Objects\interrupt_1.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          sbit led = P0^0;
+   3          main() {
+   4   1           led = 0xFF;
+   5   1           TMOD = 0x02; // Timer 0 che do 2
+   6   1           TH0 = 5;
+   7   1           TL0 = 5; // Nap TH0,
+   8   1           TF0 = 0; // xoa co tràn
+   9   1           ET0 = 1;
+  10   1           EA =1;
+  11   1           TR0 = 1; // khoi dong Timer 0
+  12   1           while(1) continue;
+  13   1      }
+  14          void T0_ISR() interrupt 1 {
+  15   1      led = !led;
+  16   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     24    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

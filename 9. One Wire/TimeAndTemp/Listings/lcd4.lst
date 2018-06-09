@@ -1,0 +1,66 @@
+C51 COMPILER V9.56.0.0   LCD4                                                              01/06/2018 00:21:17 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD4
+OBJECT MODULE PLACED IN .\Objects\lcd4.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\LIBRARY\lcd4.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\lcd4.lst) TABS(2) OBJECT(.\Objects\lcd4.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "lcd4.h"
+   3          #include "delay.h"
+   4          #include <port.h>
+   5          void WriteCommand(unsigned char cmd) {
+   6   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+   7   1          RS = 0; // Gui/nhan lenh
+   8   1          RW = 0; // Gui
+   9   1          EN = 1; delay(20); EN = 0;
+  10   1          delay(150);
+  11   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+  12   1          RS = 0; RW = 0;
+  13   1          EN = 1; delay(20); EN = 0;
+  14   1          delay(150);
+  15   1      }
+  16          
+  17          void LCD_init() {
+  18   1          P2 = 0x00;
+  19   1          delay_ms(1);
+  20   1          WriteCommand(0x03);
+  21   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+  22   1          WriteCommand(0x28);        
+  23   1          WriteCommand(0x01);        // Clear 
+  24   1          WriteCommand(0x0E);
+  25   1      }
+  26              
+  27          void WriteChar(char c) {
+  28   1          P2 = (c & 0xF0);
+  29   1          RS = 1; // Gui/nhan du lieu
+  30   1          RW = 0; // Gui
+  31   1          EN = 1; delay(10); EN = 0;
+  32   1          delay(100);
+  33   1          P2 = ((c << 4) & 0xF0);
+  34   1          RS = 1; RW = 0;
+  35   1          EN = 1; delay(10); EN = 0;
+  36   1          delay(100);
+  37   1      }
+  38          void WriteString(char *s) {
+  39   1          while (*s) {
+  40   2              WriteChar(*s++);
+  41   2          }
+  42   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    189    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

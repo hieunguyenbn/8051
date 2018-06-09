@@ -1,0 +1,484 @@
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE FILES_LAP_TRINH
+OBJECT MODULE PLACED IN Files lap trinh.OBJ
+COMPILER INVOKED BY: E:\LapTrinh\Keil\C51\BIN\C51.EXE Files lap trinh.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          #include<i2c.h>
+   4          #include<ds1307.h>
+   5          
+   6          sbit data_time=P2^4;
+   7          sbit data_date=P2^5;
+   8          sbit set=P1^2;
+   9          sbit up=P1^3;
+  10          sbit down=P1^4;
+  11          sbit clear=P1^5;
+  12          sbit sqw=P1^6;
+  13          
+  14          unsigned char hour, minute, second,day,date,month,year,control;
+  15          unsigned char code_led[12]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0xff,0x00};
+  16          unsigned char led_buffer[16];
+  17          unsigned char kt=0,a=0,d=0,scan_led,counter;
+  18          bit set0,set1,up1,up0,down0,down1;
+  19          //****************CAC CHUONG CHINH CON***********
+  20          void timer0(void)
+  21          {   
+  22   1              EA=0;//cam ngat toan cuc
+  23   1              TMOD=0x2;//timer0 che do 8 bit tu dong nap lai
+  24   1              TL0=0x6;//Gia tri bat dau dem = 6 (tre 250us)
+  25   1              TH0=0x6;//gia tri TH    dc nap vao TL (che do 8 bit)    
+  26   1              ET0=1;//cho phep ngat timer0
+  27   1              EA=1;//cho phep ngat toan cuc
+  28   1              TR0=1;//Bat dau chay timer0
+  29   1      }
+  30          //quet 13 LED Sau 12 lan Timer0 ngat thi thay doi cac led sang
+  31          void quet_led(void)interrupt 1 //dia chi vecto ngat timer0
+  32          {       
+  33   1              TR0=0;//dung chay Timer 
+  34   1              if(++counter==3)//sau 12x250us=3ms thi thay doi hien thi led
+  35   1              {       
+  36   2                      if(scan_led<=7)//chan enb cua P2 =>0 khong  co led nao duoc hien thi
+  37   2                      {       
+  38   3                              P2=scan_led;//hien thi cac led o hang 1 (gio, phut,giay,thu)
+  39   3                              //chan enb cua P2 =>0 khong  co led nao duoc hien thi
+  40   3                              P0=code_led[(led_buffer[scan_led])];
+  41   3                              data_time=1;//hien thi gio phut giay                                    
+  42   3                      }else
+  43   2                              {       
+  44   3                                      P2=scan_led-0x8;// hien thi led hang 2 (ngay thang nam)(tru di so led da hien thi o hang 1)                     
+  45   3                                      P0=code_led[(led_buffer[scan_led])];
+  46   3                                      data_date=1;//hien thi ngay thang nam                            
+  47   3                              }        // P2=scan_led-0x7+0xf0 led thu 7 la led thu 0 cua hang 2
+  48   2                      scan_led++;
+  49   2                      if(scan_led>=16) //vuot qua 13 led thi tro ve ban dau
+  50   2                      {
+  51   3                              scan_led=0;
+  52   3                      }
+  53   2                      counter=0;
+  54   2              }                       
+  55   1              TR0=1;//Chay TIMER0
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 2   
+
+  56   1      }
+  57          
+  58          void delays(int time_delay)
+  59          {       
+  60   1              unsigned int temp;
+  61   1              while(time_delay)
+  62   1              {
+  63   2                      temp=1000;
+  64   2                      while(temp)
+  65   2                      {
+  66   3                              temp--;
+  67   3                      }
+  68   2                      time_delay--;
+  69   2              }
+  70   1      }
+  71          
+  72          void writeds(){
+  73   1              rtc_write(0x00, second);
+  74   1              rtc_write(0x01, minute);
+  75   1              rtc_write(0x02, hour);
+  76   1              rtc_write(0x03, day);
+  77   1              rtc_write(0x04, date);
+  78   1              rtc_write(0x05, month);
+  79   1              rtc_write(0x06, year);
+  80   1      }
+  81          
+  82          void readds()
+  83          {
+  84   1              if(kt==0)
+  85   1              {
+  86   2                      if(a==1)
+  87   2                      {
+  88   3                              writeds();
+  89   3                              a=0;
+  90   3                      }
+  91   2                      second = rtc_read(0x00);
+  92   2                      minute = rtc_read(0x01);
+  93   2                      hour = rtc_read(0x02);
+  94   2                      day = rtc_read(0x03);
+  95   2                      date = rtc_read(0x04);
+  96   2                      month = rtc_read(0x05);
+  97   2                      year = rtc_read(0x06);
+  98   2              }
+  99   1      }
+ 100          
+ 101          void dislay()
+ 102          {               
+ 103   1                      unsigned char temp;
+ 104   1                              
+ 105   1                      //*******Hien thi gio*************
+ 106   1                      if((temp=(hour&0x30)>>4)==0)//khong hien thi so 0 o hang chuc
+ 107   1                      {
+ 108   2                              led_buffer[0]=0x0a;
+ 109   2                      }else
+ 110   1                       {
+ 111   2                              led_buffer[0]=temp;//Lay 2 bit cao              
+ 112   2                       }
+ 113   1                      led_buffer[1]=(hour&0x0f);       //Lay 4 bit thap               
+ 114   1                      //*******Hien thi phut**********
+ 115   1                      led_buffer[2]=(minute&0x70)>>4; //lay 3 bit cao
+ 116   1                      led_buffer[3]=minute&0x0f;               //Lay 4 bit thap
+ 117   1                      //*******Hien thi giay*********
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 3   
+
+ 118   1                      led_buffer[4]=(second&0x70)>>4;
+ 119   1                      led_buffer[5]=second&0x0f;
+ 120   1                      led_buffer[6]=0x0a;
+ 121   1                      led_buffer[7]=(day&0x7);
+ 122   1                      //*******Hien thi ngay**********
+ 123   1                      if((temp=(date&0x70)>>4)==0)//khong hien thi so 0 o hang chuc
+ 124   1                      {
+ 125   2                              led_buffer[8]=0x0a;
+ 126   2                      }else
+ 127   1                       {
+ 128   2                              led_buffer[8]=temp;
+ 129   2                       }
+ 130   1                      led_buffer[9]=date&0x0f;
+ 131   1                      //*********Hien thi thang************
+ 132   1                      if(((month&0x30)>>4)==0)//khong hien thi so 0 o hang chuc
+ 133   1                      {
+ 134   2                              led_buffer[10]=0x0a;            
+ 135   2                      }else
+ 136   1                              {
+ 137   2                                      led_buffer[10]=(month&0x30)>>4;
+ 138   2                              }
+ 139   1                      led_buffer[11]=month&0x0f;
+ 140   1                      //******Hien thi nam***********
+ 141   1                      led_buffer[12]=2;
+ 142   1                      led_buffer[13]=0;
+ 143   1                      led_buffer[14]=(year&0x70)>>4;
+ 144   1                      led_buffer[15]=year&0x0f;
+ 145   1               
+ 146   1      }
+ 147          void setup_rtc(void)
+ 148          {
+ 149   1                                      second=0x0;
+ 150   1                                      minute=0x0;
+ 151   1                                      hour=0x0;
+ 152   1                                      day=0x4;
+ 153   1                                      date=0x8;
+ 154   1                                      month=0x6;
+ 155   1                                      year=0x11;
+ 156   1                                      control=0x10;
+ 157   1              rtc_write(0x7, control);
+ 158   1              rtc_write(0x0, second);
+ 159   1              rtc_write(0x1, minute);
+ 160   1              rtc_write(0x2, hour);
+ 161   1              rtc_write(0x3, day);
+ 162   1              rtc_write(0x4, date);
+ 163   1              rtc_write(0x5, month);
+ 164   1              rtc_write(0x6, year);                                    
+ 165   1      }                                
+ 166          void ktphim()
+ 167          {
+ 168   1      set0=set1;set1=set;
+ 169   1      if((set0==1)&&(set1==0))
+ 170   1        {
+ 171   2              if(set==0)
+ 172   2              {
+ 173   3                      delays(50);
+ 174   3                      if((set==0)&&(clear==0))
+ 175   3                      {
+ 176   4                              delays(50);
+ 177   4                              setup_rtc();
+ 178   4                      }
+ 179   3              }
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 4   
+
+ 180   2         kt++;
+ 181   2         if(kt==8)kt=0; 
+ 182   2        }
+ 183   1      if(clear==0)kt=0;
+ 184   1      switch(kt)
+ 185   1       {
+ 186   2        case 0:break;
+ 187   2        case 1:
+ 188   2          {
+ 189   3            up0=up1;up1=up; a=1;d=1;
+ 190   3            if((up0==1)&&(up1==0))
+ 191   3             {
+ 192   4               hour++;
+ 193   4                        if(hour==24)hour=0;
+ 194   4             }
+ 195   3             down0=down1;down1=down;
+ 196   3             if((down0==1)&&(down1==0))
+ 197   3              {
+ 198   4                hour--;
+ 199   4                         if(hour==-1)hour=23;
+ 200   4              }
+ 201   3           break;
+ 202   3         }
+ 203   2        case 2:
+ 204   2          {
+ 205   3           up0=up1;up1=up; a=1;d=1;
+ 206   3           if((up0==1)&&(up1==0))
+ 207   3             {
+ 208   4               minute++;
+ 209   4                       if(minute==60)
+ 210   4                       minute=0;
+ 211   4             }
+ 212   3           down0=down1;down1=down;
+ 213   3           if((down0==1)&&(down1==0))
+ 214   3             {
+ 215   4               minute--;
+ 216   4                       if(minute==-1)
+ 217   4                       minute=59;
+ 218   4             }
+ 219   3            break;
+ 220   3          }
+ 221   2      
+ 222   2       case 3:
+ 223   2          {
+ 224   3           up0=up1;up1=up;a=1;d=1;
+ 225   3           if((up0==1)&&(up1==0))
+ 226   3            {
+ 227   4             second++;
+ 228   4                       if(second==60)
+ 229   4                       second=0;
+ 230   4            }
+ 231   3            down0=down1;down1=down;
+ 232   3           if((down0==1)&&(down1==0))
+ 233   3            {
+ 234   4            second--;
+ 235   4                if(second==-1)
+ 236   4                second=0;
+ 237   4            }
+ 238   3           break;
+ 239   3          }
+ 240   2      case 4:
+ 241   2          {
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 5   
+
+ 242   3            up0=up1;up1=up; a=1;d=1;
+ 243   3            if((up0==1)&&(up1==0))
+ 244   3             {
+ 245   4               day++;
+ 246   4                        if(day==8)day=1;
+ 247   4             }
+ 248   3             down0=down1;down1=down;
+ 249   3             if((down0==1)&&(down1==0))
+ 250   3              {
+ 251   4                day--;
+ 252   4                         if(day==0)
+ 253   4                         day=7;
+ 254   4              }
+ 255   3           break;
+ 256   3         }
+ 257   2      case 5:
+ 258   2          {
+ 259   3            
+ 260   3                up0=up1;up1=up; a=1;d=1;
+ 261   3            if((up0==1)&&(up1==0))
+ 262   3             {
+ 263   4                        date++;
+ 264   4                      if((month==4)||(month==6)||(month==9)||(month==11)){if(date==31)date=1;}
+ 265   4                              if((month==1)||(month==3)||(month==5)||(month==7)||(month==8)||(month==10)||(month==12)){if(date==32)da
+             -te=1;}
+ 266   4                              if((month==2)&&(year%4==0)){if(date==29)date=1;}
+ 267   4                              if((month==2)&&(year%4!=0)){if(date==30)date=1;}                                  
+ 268   4             }
+ 269   3             down0=down1;down1=down;
+ 270   3             if((down0==1)&&(down1==0))
+ 271   3              {
+ 272   4              date--;
+ 273   4                              if((month==4)||(month==6)||(month==9)||(month==11)){if(date==0)date=30;}
+ 274   4                              if((month==1)||(month==3)||(month==5)||(month==7)||(month==8)||(month==10)||(month==12)){if(date==0)dat
+             -e=31;}
+ 275   4                              if((month==2)&&(year%4==0)){if(date==0)date=28;}
+ 276   4                              if((month==2)&&(year%4!=0)){if(date==0)date=29;}
+ 277   4                       }
+ 278   3           break;
+ 279   3         }
+ 280   2      case 6:
+ 281   2          {
+ 282   3            up0=up1;up1=up; a=1;d=1;
+ 283   3            if((up0==1)&&(up1==0))
+ 284   3             {
+ 285   4               month++;
+ 286   4                        if(month==13)month=1;
+ 287   4             }
+ 288   3             down0=down1;down1=down;
+ 289   3             if((down0==1)&&(down1==0))
+ 290   3              {
+ 291   4                month--;
+ 292   4                         if(month==0)month=12;
+ 293   4              }
+ 294   3           break;
+ 295   3         }
+ 296   2      case 7:
+ 297   2          {
+ 298   3            up0=up1;up1=up; a=1;d=1;
+ 299   3            if((up0==1)&&(up1==0))
+ 300   3             {
+ 301   4               year++;
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 6   
+
+ 302   4                        if(year==100)year=0;
+ 303   4             }
+ 304   3             down0=down1;down1=down;
+ 305   3             if((down0==1)&&(down1==0))
+ 306   3              {
+ 307   4                      year--;
+ 308   4                              if(year==-1)year=99;
+ 309   4              }
+ 310   3           break;
+ 311   3         }
+ 312   2         }
+ 313   1      }
+ 314          void chinhgio(void)                                       
+ 315          {
+ 316   1                      if(kt==1)
+ 317   1                      {
+ 318   2                              if(sqw==1)
+ 319   2                              {
+ 320   3                                      led_buffer[0]=hour/10;
+ 321   3                                      led_buffer[1]=hour%10;
+ 322   3                              }else if(sqw==0)                
+ 323   2                                      {
+ 324   3                                              led_buffer[0]=10;
+ 325   3                                              led_buffer[1]=10;
+ 326   3                                      }
+ 327   2                       }
+ 328   1      
+ 329   1                      if(kt==2)
+ 330   1                      {
+ 331   2                              if(sqw==1)
+ 332   2                              {
+ 333   3                                      led_buffer[2]=minute/10;
+ 334   3                                      led_buffer[3]=minute%10;
+ 335   3                              }else if(sqw==0)                
+ 336   2                                      {
+ 337   3                                              led_buffer[2]=10;
+ 338   3                                              led_buffer[3]=10;
+ 339   3                                      }
+ 340   2                      }
+ 341   1                      if(kt==3)
+ 342   1                      {
+ 343   2                              if(sqw==1)
+ 344   2                              {
+ 345   3                                      led_buffer[4]=second/10;
+ 346   3                                      led_buffer[5]=second%10;
+ 347   3                              }else if(sqw==0)                
+ 348   2                                      {
+ 349   3                                              led_buffer[4]=10;
+ 350   3                                              led_buffer[5]=10;
+ 351   3                                      }
+ 352   2                      }                                                                                                          
+ 353   1                      if(kt==4)
+ 354   1                      {       
+ 355   2                              if(sqw==1)
+ 356   2                              {
+ 357   3                                      led_buffer[6]=10;
+ 358   3                                      led_buffer[7]=day%10;
+ 359   3                              }else if(sqw==0)                
+ 360   2                                      {
+ 361   3                                              led_buffer[6]=10;
+ 362   3                                              led_buffer[7]=10;
+ 363   3                                      }
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 7   
+
+ 364   2                      }
+ 365   1                      if(kt==5)
+ 366   1                      {
+ 367   2                              if(sqw==1)
+ 368   2                              {
+ 369   3                                      led_buffer[8]=date/10;
+ 370   3                                      led_buffer[9]=date%10;
+ 371   3                              }else if(sqw==0)                
+ 372   2                                      {
+ 373   3                                              led_buffer[8]=10;
+ 374   3                                              led_buffer[9]=10;
+ 375   3                                      }
+ 376   2                      }
+ 377   1                      if(kt==6)
+ 378   1                      {
+ 379   2                              if(sqw==1)
+ 380   2                              {
+ 381   3                                      led_buffer[10]=month/10;
+ 382   3                                      led_buffer[11]=month%10;
+ 383   3                              }else if(sqw==0)                
+ 384   2                                      {
+ 385   3                                              led_buffer[10]=10;
+ 386   3                                              led_buffer[11]=10;
+ 387   3                                      }
+ 388   2                      }
+ 389   1                      if(kt==7)
+ 390   1                      {               
+ 391   2                              if(sqw==1)
+ 392   2                              {
+ 393   3                                      led_buffer[12]=2;
+ 394   3                                      led_buffer[13]=0;
+ 395   3                                      led_buffer[14]=year/10;
+ 396   3                                      led_buffer[15]=year%10;
+ 397   3                              }else if(sqw==0)                
+ 398   2                                      {
+ 399   3                                              led_buffer[12]=10;
+ 400   3                                              led_buffer[13]=10;
+ 401   3                                              led_buffer[14]=10;
+ 402   3                                              led_buffer[15]=10;
+ 403   3                                      }       
+ 404   2                      }
+ 405   1      }
+ 406          void khoi_chay()
+ 407          {       
+ 408   1              P0=0x00;
+ 409   1              delays(100);
+ 410   1              led_buffer[0]=0xa;delays(5);
+ 411   1              led_buffer[1]=0xa;delays(5);
+ 412   1              led_buffer[2]=0xa;delays(5);
+ 413   1              led_buffer[3]=0xa;delays(5);
+ 414   1              led_buffer[4]=0xa;delays(5);
+ 415   1              led_buffer[5]=0xa;delays(5);
+ 416   1              led_buffer[6]=0xa;delays(5);
+ 417   1              led_buffer[7]=0xa;delays(5);
+ 418   1              led_buffer[8]=0xa;delays(5);
+ 419   1              led_buffer[9]=0xa;delays(5);
+ 420   1              led_buffer[10]=0xa;delays(5);
+ 421   1              led_buffer[11]=0xa;delays(5);
+ 422   1              led_buffer[12]=0xa;delays(5);
+ 423   1              led_buffer[13]=0xa;delays(5);
+ 424   1              led_buffer[14]=0xa;delays(5);
+ 425   1              led_buffer[15]=0xa;delays(5);           
+C51 COMPILER V9.01   FILES_LAP_TRINH                                                       05/31/2011 17:45:59 PAGE 8   
+
+ 426   1      }                                                                                                                                                
+ 427          void main()
+ 428          {       
+ 429   1              timer0();
+ 430   1              khoi_chay();
+ 431   1              while(1)
+ 432   1              {
+ 433   2                      ktphim();
+ 434   2                      readds();
+ 435   2                      if(d==0)
+ 436   2                      {
+ 437   3                              dislay();
+ 438   3                      }
+ 439   2                      if(d==1)
+ 440   2                      {
+ 441   3                              chinhgio();
+ 442   3                              d=0;                    
+ 443   3                      }
+ 444   2              }
+ 445   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1717    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     41    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      6    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

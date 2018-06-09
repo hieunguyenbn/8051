@@ -1,0 +1,92 @@
+C51 COMPILER V9.56.0.0   BUTTON_LED_7SEG                                                   11/11/2017 17:19:04 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE BUTTON_LED_7SEG
+OBJECT MODULE PLACED IN .\Objects\button_led_7seg.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE button_led_7seg.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Li
+                    -stings\button_led_7seg.lst) TABS(5) OBJECT(.\Objects\button_led_7seg.obj)
+
+line level    source
+
+   1          //LED 7 DOAN. BAM THI DUNG LAI, bam tiep thi lai chay // khong dunginterrupt
+   2          #include <reg52.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          sbit led = P0^0;
+   5          sbit button = P2^0;
+   6          sbit k1 = P2^6;
+   7          sbit k2 = P2^7;
+   8          
+   9          main() {
+  10   1           unsigned char i, k, l, a[10] = {0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x10};
+  11   1           unsigned int j, count;
+  12   1           count = 0;
+  13   1      
+  14   1           if (button == 1) {
+  15   2                while(count == 0) {
+  16   3                     if (button == 0 ) {
+  17   4                          delay_ms(20);
+  18   4                          if (button == 0) {
+  19   5                               delay_ms(100);
+  20   5                               count = 1;
+  21   5                               break;
+  22   5                               do {} while (button == 0);
+  23   5                          }
+  24   4                     } 
+  25   3                }
+  26   2           }
+  27   1           while(1) {
+  28   2                loop:
+  29   2                for (i = 0; i < 100; i++) {
+  30   3                     for (j = 0 ; j < 150; j++) {
+  31   4                          P1 = a[i%10];
+  32   4                          k1 = 0; delay_ms(1); k1 = 1;
+  33   4                          P1 = a[i/10];
+  34   4                          k2 = 0; delay_ms(1); k2 = 1;
+  35   4                          
+  36   4                          if (button==0) {
+  37   5                               for (k = 0; k < 20; k++) {
+  38   6                               delay_ms(1);
+  39   6                               if (button==0) {
+  40   7                                    led = 0;
+  41   7                                    do {} while (button == 0); 
+  42   7                                    while (1) {
+  43   8                                         P1 = a[i%10];
+  44   8                                         k1 = 0; delay_ms(1); k1 = 1;
+  45   8                                         P1 = a[i/10];
+  46   8                                         k2 = 0; delay_ms(1); k2 = 1;
+  47   8                                    if (button == 0) {
+  48   9                                         for (l = 0; l < 20; l++) {
+  49  10                                              delay_ms(1);
+  50  10                                              if (button==0) {
+  51  11                                                   led = 1;
+  52  11                                                   ++i;
+  53  11                                                   do {} while (button==0);
+  54  11                                                   goto loop;
+C51 COMPILER V9.56.0.0   BUTTON_LED_7SEG                                                   11/11/2017 17:19:04 PAGE 2   
+
+  55  11                                              
+  56  11                                              }
+  57  10                                         }
+  58   9                                    }
+  59   8                                    }
+  60   7                               }
+  61   6                               }
+  62   5                          }
+  63   4                     }
+  64   3                }
+  65   2           }
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    271    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      17
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

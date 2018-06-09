@@ -1,0 +1,12 @@
+>>> Warning 203 "may tinh don gian.c" Line 42(1,1): Condition always TRUE
+>>> Warning 203 "may tinh don gian.c" Line 63(1,1): Condition always TRUE
+>>> Warning 203 "may tinh don gian.c" Line 314(1,1): Condition always TRUE
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (LCD_SetData)
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (@delay_ms1)
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (LCD_PulseEnable)
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (LCD_PutCmd)
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (LCD_PutChar)
+>>> Warning 216 "may tinh don gian.c" Line 323(0,1): Interrupts disabled during call to prevent re-entrancy:  (write_line1)
+>>> Warning 202 "may tinh don gian.c" Line 27(7,11): Variable never used:   tit3
+      Memory usage:   ROM=29%      RAM=16% - 23%
+      0 Errors,  10 Warnings.

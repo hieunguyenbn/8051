@@ -1,0 +1,3 @@
+".\Objects\led_heart.obj" 
+TO ".\Objects\led_heart" 
+PRINT(".\Listings\led_heart.m51") RAMSIZE(256) 

@@ -1,0 +1,314 @@
+C51 COMPILER V9.02   MAIN                                                                  02/06/2016 15:39:20 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "uart.h"
+   2          #include  "rtc.h" 
+   3          #include  "i2c.h"
+   4          #include  "lcd.h"
+   5          #include "delay.h"
+   6          #include "keypad.h"
+   7          #include "eeprom.h"
+   8          #include "gpio.h"
+   9          #include "adc.h"
+  10          
+  11          void gpio_test(void);
+  12          void LCD_8bit_test(void);
+  13          void LCD_4bit_test(void);
+  14          void seg_test(void);
+  15          void rtc_test(void);
+  16          void adc_test(void);
+  17          void keypad_test(void);
+  18          void eeprom_test(void);
+  19          
+  20          
+  21          #define LedOn    0xFF
+  22          #define LedOff   0x00
+  23          #define SegOne   0x01
+  24          #define SegTwo   0x02
+  25          #define SegThree 0x04
+  26          #define SegFour  0x08
+  27          
+  28          
+  29          
+  30          
+  31          #define SegmentValue P2 //P2.0 is connected to segment 'a'
+  32          #define SegmentSlection P0 //P0.0 is selection line 'S1'
+  33          #define SegValueDirnReg P2
+  34          #define SegSelectDirnReg P0
+  35          
+  36          
+  37          
+  38          
+  39          char mm_option;
+  40          
+  41          /* start the main program */
+  42          int main()
+  43          {
+  44   1          UART_Init(9600);
+  45   1          UART_TxString("\n\rTest menu Utra x51 v2.0\r\n 1:GPIO Blink\r\n 2:LCD 8-bit \n\r 3:LCD 4-bit\n\r 4:7-S
+             -egment\n\r 5:RTC\n\r 6:EEPROM\n\r 7:ADC\n\r 8:Keypad \n\r Enter option:");
+  46   1          UART_TxString("\n\rReset the board after test is done");
+  47   1          mm_option = UART_RxChar();
+  48   1          while(1)
+  49   1          {
+  50   2              switch(mm_option)
+  51   2              {
+  52   3              case '1': gpio_test(); break;
+  53   3              case '2': LCD_8bit_test(); break;
+  54   3              case '3': LCD_4bit_test(); break;
+C51 COMPILER V9.02   MAIN                                                                  02/06/2016 15:39:20 PAGE 2   
+
+  55   3              case '4': seg_test(); break;
+  56   3              case '5': rtc_test(); break;
+  57   3              case '6': eeprom_test(); break; //eeprom
+  58   3              case '7': adc_test(); break;
+  59   3              case '8': keypad_test();break;
+  60   3              default:break;
+  61   3              }
+  62   2          }
+  63   1      }
+  64          
+  65          
+  66          /******************************************************GPIO TEST*************************************
+  67             Turns ON and OFF all the ports of the 8051 micrcontroller. With the help of this you can  
+  68           *****************************************************GPIO TEST**************************************/
+  69          
+  70          void gpio_test()
+  71          {   
+  72   1         unsigned int i,cnt=0x01;
+  73   1          UART_Printf("\n\rConnect any IO Pins to buzzer, relays, leds ");
+  74   1          UART_Printf("\n\rMake connections and hit 'k' to test ");
+  75   1          while(UART_RxChar()!='k');
+  76   1          
+  77   1          while(1)
+  78   1          {
+  79   2            for(i=0;i<2;i++)
+  80   2             {      
+  81   3                /* Turn On all the leds and wait for one second */
+  82   3                P0= P1 = P2 = P3 = 0xff;
+  83   3                DELAY_ms(100);
+  84   3                /* Turn off all the leds and wait for one second */
+  85   3                P0= P1 = P2 = P3 = 0x00;
+  86   3                DELAY_ms(100);
+  87   3             }
+  88   2            cnt=0x01;
+  89   2            for(i=0;i<8;i++)
+  90   2             {
+  91   3               /* Turn On all the leds and wait for one second */
+  92   3                P0= P1 = P2 = P3 = cnt;
+  93   3                DELAY_ms(100);
+  94   3                cnt = cnt<<1;
+  95   3             }
+  96   2             cnt = 0x80;
+  97   2             for(i=0;i<8;i++)
+  98   2             {
+  99   3               /* Turn On all the leds and wait for one second */
+ 100   3                P0= P1 = P2 = P3 = cnt;
+ 101   3                DELAY_ms(100);
+ 102   3                cnt = cnt>>1;
+ 103   3             }
+ 104   2          }
+ 105   1      }
+ 106          
+ 107          /******************************************************LCD TEST*************************************
+ 108                    On board LCD TEST in 8 bit mode.
+ 109           *****************************************************LCD TEST**************************************/
+ 110          
+ 111          void LCD_8bit_test()
+ 112          {     
+ 113   1          UART_TxString("\n\r LCD DataBus: P2 Control: RS-P0.0 RW-P0.1 EN-P0.2 ");
+ 114   1          UART_Printf("\n\r Make connections and hit 'k' to test ");
+ 115   1          while(UART_RxChar()!='k');
+ 116   1          LCD_SetUp(P0_0,P0_1,P0_2,P2_0,P2_1,P2_2,P2_3,P2_4,P2_5,P2_6,P2_7);
+C51 COMPILER V9.02   MAIN                                                                  02/06/2016 15:39:20 PAGE 3   
+
+ 117   1          LCD_Init(2,16);
+ 118   1          DELAY_ms(100);
+ 119   1          LCD_DisplayString("Explore Embedded");
+ 120   1          DELAY_ms(100);
+ 121   1          LCD_DisplayString("Lcd 8-bit Mode");
+ 122   1          while(1);
+ 123   1      }
+ 124          
+ 125          
+ 126          
+ 127          void LCD_4bit_test()
+ 128          {
+ 129   1          UART_TxString("\n\r LCD DataBus: P2 Msb bits(P2.4-P2.7) Control: RS-P0.0 RW-P0.1 EN-P0.2 ");
+ 130   1          UART_Printf("\n\r Make connections and hit 'k' to test ");
+ 131   1          while(UART_RxChar()!='k');
+ 132   1          LCD_SetUp(P0_0,P0_1,P0_2,P_NC,P_NC,P_NC,P_NC,P2_4,P2_5,P2_6,P2_7);
+ 133   1          LCD_Init(2,16);
+ 134   1          DELAY_ms(100);
+ 135   1          LCD_DisplayString("Explore Embedded");
+ 136   1          LCD_DisplayString("Lcd 4-bit Mode");
+ 137   1          while(1);
+ 138   1      }
+ 139          
+ 140          
+ 141          /*************************************************SEVEN SEGMENT*************************************
+ 142                  Displays numbers 1 2 3 4 on the on-board segments 
+ 143           *********************************************************TEST**************************************/
+ 144          
+ 145          void seg_test()
+ 146          {  
+ 147   1          unsigned char seg_code[]={0xf9,0xa4,0xb0,0x99};
+ 148   1          UART_TxString("\n\r Segment DataBus: P2 Seg select: S1->P0.0 S2->P0.1 S3->P0.2 S4->P0.3");
+ 149   1          UART_Printf("\n\rMake connections and hit 'k' to test! ");
+ 150   1          while(UART_RxChar()!='k');
+ 151   1          SegValueDirnReg = C_PortOutput_U8;
+ 152   1          SegSelectDirnReg = C_PortOutput_U8;
+ 153   1      
+ 154   1          while(1)
+ 155   1          {
+ 156   2              SegmentSlection=SegOne;
+ 157   2              SegmentValue = seg_code[0];
+ 158   2              DELAY_us(10);
+ 159   2              SegmentSlection=SegTwo;
+ 160   2              SegmentValue = seg_code[1];
+ 161   2              DELAY_us(10);
+ 162   2              SegmentSlection=SegThree;
+ 163   2              SegmentValue = seg_code[2];
+ 164   2              DELAY_us(10);
+ 165   2              SegmentSlection=SegFour;
+ 166   2              SegmentValue = seg_code[3];
+ 167   2              DELAY_us(10);
+ 168   2          }
+ 169   1      }
+ 170          
+ 171          /***************************************************RTC DS1307*************************************
+ 172                  Displays time on UART, reading from the RTC
+ 173           *********************************************************TEST**************************************/
+ 174          
+ 175          void rtc_test()
+ 176          {
+ 177   1          rtc_t rtc;
+ 178   1          UART_Printf("\n\rConnections SCL->P0.6 SDA->P0.7");
+C51 COMPILER V9.02   MAIN                                                                  02/06/2016 15:39:20 PAGE 4   
+
+ 179   1          UART_Printf("\n\r Make connections and hit 'k' to test! ");
+ 180   1          while(UART_RxChar()!='k');   
+ 181   1      
+ 182   1          RTC_Init();
+ 183   1          rtc.hour = 0x10; //  10:40:20 am
+ 184   1          rtc.min =  0x40;
+ 185   1          rtc.sec =  0x00;
+ 186   1      
+ 187   1          rtc.date = 0x01; //1st Jan 2016
+ 188   1          rtc.month = 0x01;
+ 189   1          rtc.year = 0x16;
+ 190   1          rtc.weekDay = 5; // Friday: 5th day of week considering monday as first day.
+ 191   1      
+ 192   1      
+ 193   1      
+ 194   1      
+ 195   1          /*##### Set the time and Date only once. Once the Time and Date is set, comment these lines
+ 196   1               and reflash the code. Else the time will be set every time the controller is reset*/
+ 197   1          RTC_SetDateTime(&rtc);  //  10:40:20 am, 1st Jan 2016
+ 198   1      
+ 199   1      
+ 200   1          /* Display the Time and Date continuously */
+ 201   1          while(1)
+ 202   1          {
+ 203   2              RTC_GetDateTime(&rtc);
+ 204   2              UART_Printf("\n\rtime:%2x:%2x:%2x  \nDate:%2x/%2x/%2x",(uint16_t)rtc.hour,(uint16_t)rtc.min,(uint1
+             -6_t)rtc.sec,(uint16_t)rtc.date,(uint16_t)rtc.month,(uint16_t)rtc.year);
+ 205   2          }
+ 206   1      }
+ 207          
+ 208          /***************************************************EEPROM*****************************************
+ 209                  Writes and Reads a character to and from EEPROM
+ 210           *****************************************************TEST*****************************************/
+ 211          void eeprom_test()
+ 212          {
+ 213   1          unsigned char eeprom_address=0x00, write_char = 'X', read_char;
+ 214   1      
+ 215   1          UART_Printf("\n\rConnections SCL->P0.6 SDA->P0.7");
+ 216   1          UART_Printf("\n\r Make connections and hit 'k' to test! ");
+ 217   1          while(UART_RxChar()!='k');   
+ 218   1      
+ 219   1        while(1)
+ 220   1        {
+ 221   2          UART_TxString("\n\rEeprom Write: \n");      //Print the message on UART
+ 222   2          UART_TxChar(write_char);               //Print the char to be written
+ 223   2          EEPROM_WriteByte(eeprom_address,write_char);  // Write the data at memoryLocation 0x00
+ 224   2      
+ 225   2          UART_TxString("  Eeprom Read: ");            //Print the message on UART
+ 226   2          read_char = EEPROM_ReadByte(eeprom_address);  // Read the data from memoryLocation 0x00
+ 227   2          UART_TxChar(read_char);
+ 228   2        }
+ 229   1      }
+ 230          
+ 231          /***************************************************ADC *****************************************
+ 232                  Reads and displays ADC data from on board sensors.
+ 233           *****************************************************TEST*****************************************/
+ 234          void adc_test()
+ 235          { 
+ 236   1          uint16_t temp,light,pot;
+ 237   1          UART_Printf("\n\rConnections: DataBus P2 Control: adc_A->P0.0 adc_B->P0.1 adc_C->P0.2 adc_ALE->P0.3 ad
+             -c_Start->P0.4 adc_EOC->P0.5 adc_OE->P0.6");
+ 238   1          UART_Printf("\n\rMake connections and hit 'k' to test!");
+C51 COMPILER V9.02   MAIN                                                                  02/06/2016 15:39:20 PAGE 5   
+
+ 239   1          while(UART_RxChar()!='k');
+ 240   1          ADC_Init();
+ 241   1      
+ 242   1          while(1)
+ 243   1          {
+ 244   2              temp = ADC_GetAdcValue(0);
+ 245   2              pot = ADC_GetAdcValue(1);
+ 246   2              light = ADC_GetAdcValue(2);
+ 247   2              UART_Printf("\n\rtemp:%3d pot:%3d light:%3d", temp,pot,light);
+ 248   2          }
+ 249   1      }
+ 250          
+ 251          
+ 252          /***************************************************KEYPAD *****************************************
+ 253                  Displays keys pressed on 4x4 keypad on the uart
+ 254           *****************************************************TEST*******************************************/
+ 255          void keypad_test()
+ 256          {
+ 257   1          uint8_t key;
+ 258   1          UART_Printf("\n\rConnections: Port 2");
+ 259   1          UART_Printf("\n\rMake connections and hit 'k' to test!");
+ 260   1          while(UART_RxChar()!='k');
+ 261   1          KEYPAD_Init();
+ 262   1          while(1)
+ 263   1          {
+ 264   2              key = KEYPAD_GetKey();
+ 265   2              UART_Printf("\n\r Key:%c",key);
+ 266   2          }
+ 267   1      }
+ 268          
+ 269          
+ 270          
+ 271          
+ 272          
+ 273          
+ 274          
+ 275          
+ 276          
+ 277          
+ 278          
+ 279          
+ 280          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    934    ----
+   CONSTANT SIZE    =    970    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1      25
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

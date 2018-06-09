@@ -1,0 +1,15 @@
+C51 COMPILER V9.56.0.0   UARTMODE1                                                         11/06/2017 20:36:50 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE UARTMODE1
+OBJECT MODULE PLACED IN .\Objects\UartMode1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\LIBRARY\UartMode1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\UartMode1.lst) TABS(5) OBJECT(.\Objects\UartMode1.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "UART.H";
+*** ERROR C141 IN LINE 2 OF ..\..\LIBRARY\UART.H: syntax error near ';'
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

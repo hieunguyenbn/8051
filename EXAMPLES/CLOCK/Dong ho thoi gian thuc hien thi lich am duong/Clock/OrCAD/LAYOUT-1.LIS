@@ -1,0 +1,24 @@
+AutoECO Report
+FILE-A: C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\LAYOUT.MAX
+FILE-B: C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\AAA.MNL
+If "*EOF*" immediately follows, no changes were made
+Adding package LED_7_DOAN_0
+Deleting U9.8 from net L10
+Deleting U2.8 from net L6
+Deleting U10.8 from net L11
+Deleting U17.8 from net L4
+Deleting U14.8 from net L13
+Deleting U16.8 from net L8
+Deleting U8.8 from net L5
+Deleting U12.8 from net L14
+Deleting U7.8 from net L3
+Deleting U13.8 from net L15
+Deleting U5.8 from net L1
+Deleting U6.8 from net L2
+Deleting U15.8 from net L12
+Deleting U4.8 from net L7
+Deleting U11.8 from net L9
+Adding R5.1 to net D01
+Adding U21.14 to net D 01
+*EOF*
+No errors found

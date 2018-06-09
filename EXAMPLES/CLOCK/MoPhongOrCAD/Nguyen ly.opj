@@ -1,0 +1,127 @@
+(ExpressProject "Nguyen ly"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\nguyen ly.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (Netlist_TAB "3")
+    (LAYOUT_Netlist_File "NGUYEN LY.MNL")
+    (LAYOUT_PCB_Footprint "{PCB Footprint}")
+    (TRUE)
+    (LAYOUT_Units "0")
+    (TRUE)
+    (TRUE)
+    (TRUE))
+  (Folder "Outputs"
+    (File ".\nguyen ly.mnl"
+      (Type "LAYOUT Netlist File")))
+  (Folder "Referenced Projects")
+  (LastUsedLibraryBrowseDirectory
+     "E:\Software\chuyen nganh\Thu vien OrCAD\thu vien orcad capture olb")
+  (PartMRUSelector
+    ("Led S"
+      (FullPartName "Led S.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("RESISTOR SIP 9"
+      (FullPartName "RESISTOR SIP 9.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\THU VIEN CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Battery 3v"
+      (FullPartName "Battery 3v.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\LIBRARY6.OLB")
+      (DeviceIndex "0"))
+    (DS1307
+      (FullPartName "DS1307.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MISC.OLB")
+      (DeviceIndex "0"))
+    (74HC138
+      (FullPartName "74HC138.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MUXDECODER.OLB")
+      (DeviceIndex "0"))
+    ("Jump 2"
+      (FullPartName "Jump 2.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("JACK DC"
+      (FullPartName "JACK DC.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    (7805
+      (FullPartName "7805.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\LIBRARY1 (6).OLB")
+      (DeviceIndex "0"))
+    ("Nut nhan 2"
+      (FullPartName "Nut nhan 2.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Tu hoa"
+      (FullPartName "Tu hoa.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Tu gom"
+      (FullPartName "Tu gom.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Thach anh"
+      (FullPartName "Thach anh.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("Led 7 doan"
+      (FullPartName "Led 7 doan.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    ("PNP ECB"
+      (FullPartName "PNP ECB.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\TRANSISTOR.OLB")
+      (DeviceIndex "0"))
+    ("Dien tro"
+      (FullPartName "Dien tro.Normal")
+      (LibraryName
+         "E:\SOFTWARE\CHUYEN NGANH\THU VIEN ORCAD\THU VIEN ORCAD CAPTURE OLB\VUONG_CAPTURE.OLB")
+      (DeviceIndex "0"))
+    (AT89C51
+      (FullPartName "AT89C51.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_10.5\TOOLS\CAPTURE\LIBRARY\MICROCONTROLLER.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" "F:\Dongho\OrCAD\nguyen ly.dsn")
+      (Path "Design Resources" "F:\Dongho\OrCAD\nguyen ly.dsn" "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources" "F:\Dongho\OrCAD\nguyen ly.dsn" "SCHEMATIC1"
+         "PAGE1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -30 0 200 0 423"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -30 50 1101 50 519")
+        (Scroll "0 69")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path "F:\DONGHO\ORCAD\NGUYEN LY.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (MPSSessionName "ADMIN"))

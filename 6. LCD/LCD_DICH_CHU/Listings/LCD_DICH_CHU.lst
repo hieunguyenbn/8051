@@ -1,0 +1,99 @@
+C51 COMPILER V9.56.0.0   LCD_DICH_CHU                                                      12/03/2017 22:54:12 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_DICH_CHU
+OBJECT MODULE PLACED IN .\Objects\LCD_DICH_CHU.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_DICH_CHU.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\LCD_DICH_CHU.lst) TABS(2) OBJECT(.\Objects\LCD_DICH_CHU.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          //#include "..\..\LIBRARY\delay.h"
+   3          
+   4          sbit RS = P0^5;
+   5          sbit RW = P0^6;
+   6          sbit EN = P0^7;
+   7          void delay_ms(unsigned int t) {
+   8   1        unsigned int x, y;
+   9   1        for (x = 0; x < t; x++)
+  10   1          for (y = 0; y < 123; y++);
+  11   1      }
+  12          void WriteCommand(unsigned char cmd);
+  13          void init();
+  14          void WriteChar(char c);
+  15          void WriteCharPosition(unsigned char row, unsigned char col, char c);
+  16          void WriteString(char *s);
+  17          void WriteStringPosition(unsigned char row, unsigned char col, char *s);
+  18          char chuoi[] = " TRUONG DAI HOC KHOA HOC TU NHIEN";
+  19          int main() {
+  20   1          delay_ms(10);
+  21   1          init();
+  22   1          WriteStringPosition(1,1,chuoi);
+  23   1              while (1) {
+  24   2                  WriteCommand(0x18); // dich trai
+  25   2                  delay_ms(500);
+  26   2              } 
+  27   1          return 0;
+  28   1      }
+  29          
+  30          void WriteCommand(unsigned char cmd) {
+  31   1          RS = 0;
+  32   1          RW = 0;
+  33   1          P2 = cmd;
+  34   1          EN = 0;
+  35   1          EN = 1;
+  36   1          delay_ms(2);
+  37   1      }
+  38          void init() {
+  39   1          WriteCommand(0x30);
+  40   1          delay_ms(5);
+  41   1          WriteCommand(0x30);
+  42   1          delay_ms(1);
+  43   1          WriteCommand(0x38);
+  44   1          WriteCommand(0x01);
+  45   1          WriteCommand(0x0C);
+  46   1          WriteCommand(0x06);
+  47   1      }
+  48          void WriteChar(char c) {
+  49   1          RS = 1;
+  50   1          RW = 0;
+  51   1          P2 = c;
+  52   1          EN = 0;
+  53   1          EN = 1;
+  54   1          delay_ms(1);
+C51 COMPILER V9.56.0.0   LCD_DICH_CHU                                                      12/03/2017 22:54:12 PAGE 2   
+
+  55   1      }
+  56          void WriteCharPosition(unsigned char row, unsigned char col, char c) {
+  57   1        unsigned char cmd;
+  58   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  59   1        WriteCommand(cmd);
+  60   1        WriteChar(c);
+  61   1      }
+  62          void WriteString(char *s) {
+  63   1          while (*s) {
+  64   2                WriteChar(*s++);
+  65   2          }
+  66   1      }
+  67          void WriteStringPosition(unsigned char row, unsigned char col, char *s) {
+  68   1        unsigned char cmd;
+  69   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  70   1        WriteCommand(cmd);
+  71   1        WriteString(s);
+  72   1      }
+*** WARNING C294 IN LINE 27 OF LCD_DICH_CHU.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    240    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     34       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

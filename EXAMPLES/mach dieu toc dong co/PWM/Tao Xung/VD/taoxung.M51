@@ -1,0 +1,66 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/19/2014  21:11:44  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+F:\KEIL 4\C51\BIN\BL51.EXE vd1.obj TO taoxung
+
+
+INPUT MODULES INCLUDED:
+  vd1.obj (VD1)
+
+
+LINK MAP OF MODULE:  taoxung (VD1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0027H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  taoxung (VD1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        VD1
+  C:0003H         SYMBOL        LOOP
+  C:0000H         SYMBOL        MAIN
+  D:0090H         SYMBOL        P1
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:0000H         LINE#         3
+  C:0003H         LINE#         4
+  C:0006H         LINE#         5
+  C:0009H         LINE#         6
+  C:000BH         LINE#         7
+  C:000EH         LINE#         8
+  C:0010H         LINE#         9
+  C:0012H         LINE#         10
+  C:0014H         LINE#         11
+  C:0017H         LINE#         12
+  C:001AH         LINE#         13
+  C:001CH         LINE#         14
+  C:001FH         LINE#         15
+  C:0021H         LINE#         16
+  C:0023H         LINE#         17
+  C:0025H         LINE#         18
+  -------         ENDMOD        VD1
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0027H BYTE ( 1%) *
+******************************************************************************
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/19/2014  21:11:44  PAGE 2
+
+
+Program Size: data=8.0 xdata=0 code=39
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

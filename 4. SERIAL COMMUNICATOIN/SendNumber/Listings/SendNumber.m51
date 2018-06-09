@@ -1,0 +1,206 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/06/2017  20:42:14  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\SendNumber.obj TO .\Objects\SendNumber PRINT (.\Listings\SendNumber.m51) RAMSIZE (
+>> 256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\SendNumber.obj (SENDNUMBER)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPADD)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULCMP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (STRLEN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+
+
+LINK MAP OF MODULE:  .\Objects\SendNumber (SENDNUMBER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     001DH     UNIT         _DATA_GROUP_
+            IDATA   0025H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     03C3H     UNIT         ?C?LIB_CODE
+            CODE    03C6H     00ABH     UNIT         ?PR?_SENDINTEGER?SENDNUMBER
+            CODE    0471H     006EH     UNIT         ?PR?_SENDREAL?SENDNUMBER
+            CODE    04DFH     002DH     UNIT         ?PR?MAIN?SENDNUMBER
+            CODE    050CH     0015H     UNIT         ?PR?_STRLEN?STRLEN
+            CODE    0521H     000CH     UNIT         ?C_C51STARTUP
+            CODE    052DH     0008H     UNIT         ?PR?_SEND?SENDNUMBER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\SendNumber (SENDNUMBER)
+
+
+SEGMENT                               DATA_GROUP 
+  +--> CALLED SEGMENT               START    LENGTH
+---------------------------------------------------
+?C_C51STARTUP                       -----    -----
+  +--> ?PR?MAIN?SENDNUMBER
+
+?PR?MAIN?SENDNUMBER                 -----    -----
+  +--> ?PR?_SENDINTEGER?SENDNUMBER
+  +--> ?PR?_SEND?SENDNUMBER
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  20:42:14  PAGE 2
+
+
+  +--> ?PR?_SENDREAL?SENDNUMBER
+
+?PR?_SENDINTEGER?SENDNUMBER         0014H    0011H
+  +--> ?PR?_STRLEN?STRLEN
+  +--> ?PR?_SEND?SENDNUMBER
+
+?PR?_SENDREAL?SENDNUMBER            0008H    000CH
+  +--> ?PR?_SENDINTEGER?SENDNUMBER
+  +--> ?PR?_SEND?SENDNUMBER
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\SendNumber (SENDNUMBER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SENDNUMBER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:03C6H         PUBLIC        _sendInteger
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0098H.1       PUBLIC        TI
+  C:04DFH         PUBLIC        main
+  C:052DH         PUBLIC        _send
+  D:0099H         PUBLIC        SBUF
+  C:0471H         PUBLIC        _sendReal
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008DH         PUBLIC        TH1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:04DFH         LINE#         7
+  C:04DFH         LINE#         8
+  C:04E2H         LINE#         9
+  C:04E5H         LINE#         10
+  C:04E8H         LINE#         11
+  C:04EAH         LINE#         12
+  C:04EAH         LINE#         13
+  C:04F5H         LINE#         14
+  C:04FAH         LINE#         15
+  C:0505H         LINE#         16
+  C:050AH         LINE#         17
+  -------         ENDPROC       MAIN
+  -------         PROC          _SEND
+  D:0007H         SYMBOL        x
+  C:052DH         LINE#         20
+  C:052DH         LINE#         21
+  C:052FH         LINE#         22
+  C:0532H         LINE#         23
+  C:0534H         LINE#         24
+  -------         ENDPROC       _SEND
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  20:42:14  PAGE 3
+
+
+  -------         PROC          _SENDINTEGER
+  D:0014H         SYMBOL        a
+  -------         DO            
+  D:0018H         SYMBOL        x
+  D:0023H         SYMBOL        i
+  -------         ENDDO         
+  C:03C6H         LINE#         26
+  C:03CEH         LINE#         27
+  C:03E4H         LINE#         30
+  C:03FCH         LINE#         31
+  C:0418H         LINE#         32
+  C:0431H         LINE#         33
+  C:043BH         LINE#         34
+  C:0442H         LINE#         35
+  C:0457H         LINE#         36
+  C:0461H         LINE#         37
+  C:046BH         LINE#         38
+  C:046BH         LINE#         39
+  C:0470H         LINE#         40
+  -------         ENDPROC       _SENDINTEGER
+  -------         PROC          _SENDREAL
+  D:0008H         SYMBOL        a
+  -------         DO            
+  D:000CH         SYMBOL        x
+  D:0010H         SYMBOL        y
+  -------         ENDDO         
+  C:0471H         LINE#         41
+  C:0479H         LINE#         42
+  C:0484H         LINE#         43
+  C:04B0H         LINE#         44
+  C:04BBH         LINE#         45
+  C:04CEH         LINE#         46
+  C:04D3H         LINE#         47
+  C:04DEH         LINE#         48
+  C:04DEH         LINE#         49
+  -------         ENDPROC       _SENDREAL
+  -------         ENDMOD        SENDNUMBER
+
+  -------         MODULE        ?C?FPADD
+  C:000AH         PUBLIC        ?C?FPADD
+  C:0006H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:00FBH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FCAST
+  C:020BH         PUBLIC        ?C?FCASTC
+  C:0206H         PUBLIC        ?C?FCASTI
+  C:0201H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:023FH         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  20:42:14  PAGE 4
+
+
+  -------         MODULE        ?C?ULDIV
+  C:02FCH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?LNEG
+  C:038EH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?ULCMP
+  C:039CH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+  -------         MODULE        STRLEN
+  C:050CH         PUBLIC        _STRLEN
+  -------         ENDMOD        STRLEN
+
+  -------         MODULE        ?C?CLDPTR
+  C:03ADH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+Program Size: data=38.0 xdata=0 code=1333
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

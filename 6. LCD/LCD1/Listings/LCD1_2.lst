@@ -1,0 +1,105 @@
+C51 COMPILER V9.56.0.0   LCD1_2                                                            11/20/2017 16:14:35 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD1_2
+OBJECT MODULE PLACED IN .\Objects\LCD1_2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD1_2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\LC
+                    -D1_2.lst) TABS(5) OBJECT(.\Objects\LCD1_2.obj)
+
+line level    source
+
+   1          
+   2          #include <reg52.h>
+   3          #include <string.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          
+   6          sbit RS = P1^5;
+   7          sbit RW = P1^6;
+   8          sbit EN = P1^7;
+   9          void init();
+  10          void WriteCommand(unsigned char cmd);
+  11          void WriteChar(char c);
+  12          void WriteString(char *c);
+  13          //void WriteNumber(unsigned long a);
+  14          volatile unsigned long i;
+  15          
+  16          int main(void) {
+  17   1      
+  18   1           EX0 = 1;
+  19   1           EA = 1;//IE = 0x81; //Ngat ngoai 0
+  20   1           IT0 = 1;
+  21   1           init();
+  22   1           WriteString("Count: ");
+  23   1           WriteCommand(0xC0); // xuong dong thu 2
+  24   1           while (i < 10) WriteChar(i+48);
+  25   1           return 0;
+  26   1      }
+  27          void ngat(void) interrupt 0 {
+  28   1           i++;
+  29   1      }
+  30          void init() {
+  31   1           WriteCommand(0x30);
+  32   1           delay_ms(5);
+  33   1           WriteCommand(0x30);
+  34   1           delay_ms(1);
+  35   1           WriteCommand(0x30); 
+  36   1           WriteCommand(0x38); //Hien thi 2 line
+  37   1           WriteCommand(0x01); //delete LCD
+  38   1           WriteCommand(0x0C);//Display and delete cursor  
+  39   1           WriteCommand(0x06); //AUTO increment cursor
+  40   1      }
+  41          void WriteCommand(unsigned char cmd) {
+  42   1           RW = 0; // Write
+  43   1           RS = 0; // Write instruction
+  44   1           P2 = cmd;
+  45   1           EN = 0; //Enable the instruction is sent to LCD
+  46   1           EN = 1;
+  47   1           if (cmd <= 0x02) delay_ms(2);
+  48   1           else delay_ms(1);
+  49   1      }
+  50          void WriteChar(char c) {
+  51   1           RW = 0;
+  52   1           RS = 1; // Write ata
+  53   1           P2 = c;
+  54   1           EN = 0;
+C51 COMPILER V9.56.0.0   LCD1_2                                                            11/20/2017 16:14:35 PAGE 2   
+
+  55   1           EN = 1;
+  56   1           delay_ms(1);
+  57   1      }
+  58          void WriteString(char *c) {
+  59   1           while (*c) {
+  60   2                WriteChar(*c++);
+  61   2           }
+  62   1      }
+  63          /*
+  64          void WriteNumber(unsigned nt a) {
+  65               if (a != 0) {
+  66                    unsignedchar x[6];
+  67                    intk;
+  68                    for (k = 0; a > 0; k++) {
+  69                         x[k] = (a%10) + 48;
+  70                         a = a/10;
+  71                    }
+  72                    x[k] = NULL;
+  73                    for (k = strlen(x)-1; k >= 0; k--) {
+  74                         WriteChar(x[k]);
+  75                    }
+  76               }
+  77               else WriteChar('0');
+  78          }*/
+  79                    
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    242    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

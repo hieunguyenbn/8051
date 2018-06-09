@@ -1,0 +1,102 @@
+C51 COMPILER V9.56.0.0   NUMBERFROMBUTTON                                                  11/11/2017 10:29:39 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE NUMBERFROMBUTTON
+OBJECT MODULE PLACED IN .\Objects\NumberFromButton.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE NumberFromButton.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\NumberFromButton.lst) TABS(5) OBJECT(.\Objects\NumberFromButton.obj)
+
+line level    source
+
+   1          // Get a number from up and down button, display on PC
+   2          #include <reg52.h>
+   3          #include <string.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          sbit led = P0^0;
+   6          sbit up = P2^0;
+   7          sbit down = P2^1;
+   8          sbit s1 = P2^6;
+   9          sbit s2 = P2^7;
+  10          void send(unsigned char x);
+  11          void sendInteger(unsigned long a);
+  12          void main () {
+  13   1           char i = 0, j, a[10] = {0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x10};
+  14   1           long n = 0;
+  15   1           TMOD = 0x20;
+  16   1           TH1 = 0xD0; //600
+  17   1           SCON = 0x50;
+  18   1           TR1 = 1;
+  19   1           while (1) {
+  20   2                if (up == 0) {
+  21   3                     for (j = 0; j < 20; j++) {
+  22   4                          delay_ms(1);
+  23   4                          if (up == 0) {
+  24   5                               led = 0;
+  25   5                               n++;
+  26   5                               sendInteger(n);
+  27   5                               send(10); delay_ms(1);
+  28   5                               i++;
+  29   5                               if (i == 100) i = 0;
+  30   5                               do {} while (up == 0);
+  31   5                          }
+  32   4                     }
+  33   3                }
+  34   2                if (down == 0) {
+  35   3                     for (j = 0; j < 20; j++) {
+  36   4                          delay_ms(1);
+  37   4                          if (down == 0) {
+  38   5                               led = 0;
+  39   5                               n--;
+  40   5                               if (n < 0) n++;
+  41   5                               sendInteger(n);
+  42   5                               send(10); delay_ms(1);
+  43   5                               i--;
+  44   5                               if (i < 0) i++;
+  45   5                               do {} while (down == 0);
+  46   5                          }
+  47   4                     }
+  48   3                }
+  49   2                led = 1;
+  50   2                P1 = a[i%10];
+  51   2                s1 = 0; delay_ms(1); s1 = 1;
+  52   2                P1 = a[i/10];
+  53   2                s2 = 0; delay_ms(1); s2 = 1;
+  54   2           }
+C51 COMPILER V9.56.0.0   NUMBERFROMBUTTON                                                  11/11/2017 10:29:39 PAGE 2   
+
+  55   1      }
+  56          void send(unsigned char x) {
+  57   1           SBUF = x;
+  58   1           while (TI == 0);
+  59   1           TI = 0;
+  60   1      }
+  61          void sendInteger(unsigned long a) {
+  62   1           if (a != 0) {
+  63   2                unsigned char x[11];
+  64   2                int i;
+  65   2                for (i = 0; a > 0; i++) {
+  66   3                     x[i] = (a%10) + 48; //tach chu so thanh ky tu
+  67   3                     a = a/10;
+  68   3                }
+  69   2                x[i] = '\0';
+  70   2                for (i = strlen(x); i >= 0; i--) {
+  71   3                     send(x[i]);
+  72   3                }
+  73   2           }
+  74   1           else send('0');
+  75   1      }
+  76          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    483    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      33
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

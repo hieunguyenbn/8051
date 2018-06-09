@@ -1,0 +1,105 @@
+C51 COMPILER V9.56.0.0   LCD_8                                                             12/04/2017 17:45:59 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_8
+OBJECT MODULE PLACED IN .\Objects\LCD_8.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_8.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\LCD
+                    -_8.lst) TABS(2) OBJECT(.\Objects\LCD_8.obj)
+
+line level    source
+
+   1          // LCD 8bit , hien thi tren ca 2 dong o vi tri bat ky (DDRAM)
+   2          #include <reg52.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          
+   5          sbit RS = P1^5;
+   6          sbit RW = P1^6;
+   7          sbit EN = P1^7;
+   8          
+   9          void init(); //khoi tao
+  10          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+  11          void WriteCharacter(char c); // Gui ky tu
+  12          void WriteCharPosition(unsigned char row, unsigned char col, char c); // xuat ky tu ra LCD tai vt hang row
+             -, cot col
+  13          void WriteString(char *s);
+  14          void WriteStringPosition(unsigned char row, unsigned char col, char *s); // xuat chuoi ra LCD tai vt hang 
+             -row cot col
+  15          
+  16          int main(void) {
+  17   1      
+  18   1        init();
+  19   1        WriteCommand(0x84);// Di chuyen con tro den vi tri 04 (COT 5)
+  20   1        WriteString("HELLO");
+  21   1        WriteCharPosition(1,15,'H'); // ky tu o dong 1 cot 15
+  22   1        //WriteCommand(0xC0); //DI CHUYEN CON TRO VAO DONG 2
+  23   1        WriteStringPosition(2,2,"NGUYEN SY HIEU - UNIVERSITY OF SCIENCE");
+  24   1        while (1) {
+  25   2          WriteCommand(0x18); // Dich sang trai
+  26   2          delay_ms(500);    
+  27   2          //WriteCommand(0x02); // con tro tro lai vtbd
+  28   2        }
+  29   1        return 0;
+  30   1      }
+  31          void WriteCommand(unsigned char cmd) {
+  32   1        RW = 0;
+  33   1        RS = 0;
+  34   1        P3 = cmd;
+  35   1        EN = 0;
+  36   1        EN = 1;
+  37   1        if (cmd <= 0x02) delay_ms(2);
+  38   1        else delay_ms(1);
+  39   1      }
+  40          void init() {
+  41   1        WriteCommand(0x30);
+  42   1        delay_ms(5);
+  43   1        WriteCommand(0x30);
+  44   1        delay_ms(1);
+  45   1        WriteCommand(0x30); 
+  46   1        WriteCommand(0x38); //Hien thi 2 line
+  47   1        WriteCommand(0x01); //delete LCD
+  48   1        WriteCommand(0x0C);//Display and delete cursor  
+  49   1        WriteCommand(0x06); //AUTO increment cursor
+  50   1      }
+  51          void WriteCharacter(char c) {
+  52   1        RW = 0;
+C51 COMPILER V9.56.0.0   LCD_8                                                             12/04/2017 17:45:59 PAGE 2   
+
+  53   1        RS = 1;
+  54   1        P3 = c;
+  55   1        EN = 0;
+  56   1        EN = 1;
+  57   1        delay_ms(1);
+  58   1      }
+  59          void WriteCharPosition(unsigned char row, unsigned char col, char c) {
+  60   1        unsigned char cmd;
+  61   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  62   1        WriteCommand(cmd);
+  63   1        WriteCharacter(c);
+  64   1      }
+  65          void WriteString(char *s) {
+  66   1        while (*s) {
+  67   2          WriteCharacter(*s++);
+  68   2        }
+  69   1      }
+  70          void WriteStringPosition(unsigned char row, unsigned char col, char *s) {
+  71   1        unsigned char cmd;
+  72   1        cmd = (row==1?0x80:0xC0) + col - 1;
+  73   1        WriteCommand(cmd);
+  74   1        WriteString(s);
+  75   1      }
+  76            
+*** WARNING C294 IN LINE 29 OF LCD_8.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    238    ----
+   CONSTANT SIZE    =     45    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

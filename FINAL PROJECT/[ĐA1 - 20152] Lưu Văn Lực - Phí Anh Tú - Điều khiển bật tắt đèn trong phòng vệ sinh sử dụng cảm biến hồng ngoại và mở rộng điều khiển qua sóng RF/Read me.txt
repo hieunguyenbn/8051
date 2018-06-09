@@ -1,0 +1,10 @@
+﻿Trong tập file rar bao gồm (có kèm theo CHÚ Ý)
+1. Bản Word Báo Cáo Đồ Án
+2. Bản Pdf Báo Cáo Đồ Án (giống Bản Word)
+3. Silde Báo Cáo Đồ Án
+4. Proteus mô phỏng. Chú ý: Do là Proteus 8.0 nên nếu ở phiên bản khác, đề nghị vẽ mô phỏng theo hình vẽ đi kèm
+5. uVision. Chú ý: Nếu không mở được, đề nghị tạo Project mới và copy Code trong file txt đi kèm
+6. File Altium 14
+----------------------------------------------------------------------------------------------------------------
+Mọi thắc mắc xin liên hệ qua mail:
+luuvan.luc1995@gmail.com

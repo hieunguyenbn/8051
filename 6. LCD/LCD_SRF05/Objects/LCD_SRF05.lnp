@@ -1,0 +1,4 @@
+".\Objects\delay.obj",
+".\Objects\LCD_SRF05_2.obj" 
+TO ".\Objects\LCD_SRF05" 
+PRINT(".\Listings\LCD_SRF05.m51") RAMSIZE(256) 

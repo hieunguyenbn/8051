@@ -1,0 +1,98 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/03/2017  10:52:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\led_heart.obj TO .\Objects\led_heart PRINT (.\Listings\led_heart.m51) RAMSIZE (256
+>> )
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\led_heart.obj (LED_HEART)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\led_heart (LED_HEART)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0023H     UNIT         ?PR?BLINK?LED_HEART
+            CODE    0026H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0032H     000BH     UNIT         ?PR?_DELAY?LED_HEART
+            CODE    003DH     0005H     UNIT         ?PR?MAIN?LED_HEART
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\led_heart (LED_HEART)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED_HEART
+
+?PR?MAIN?LED_HEART
+  +--> ?PR?BLINK?LED_HEART
+
+?PR?BLINK?LED_HEART
+  +--> ?PR?_DELAY?LED_HEART
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\led_heart (LED_HEART)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED_HEART
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/03/2017  10:52:48  PAGE 2
+
+
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0032H         PUBLIC        _delay
+  C:0003H         PUBLIC        blink
+  D:00B8H         PUBLIC        IP
+  C:003DH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        time
+  C:0032H         LINE#         3
+  C:0032H         LINE#         4
+  C:003CH         LINE#         5
+  -------         ENDPROC       _DELAY
+  -------         PROC          BLINK
+  C:0003H         LINE#         6
+  C:0003H         LINE#         7
+  C:000CH         LINE#         8
+  C:0013H         LINE#         9
+  C:001FH         LINE#         10
+  -------         ENDPROC       BLINK
+  -------         PROC          MAIN
+  C:003DH         LINE#         12
+  C:003DH         LINE#         13
+  C:003DH         LINE#         14
+  C:0040H         LINE#         15
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED_HEART
+
+Program Size: data=9.0 xdata=0 code=66
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

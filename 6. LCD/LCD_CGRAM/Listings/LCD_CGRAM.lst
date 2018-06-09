@@ -1,0 +1,82 @@
+C51 COMPILER V9.56.0.0   LCD_CGRAM                                                         12/04/2017 17:45:01 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_CGRAM
+OBJECT MODULE PLACED IN .\Objects\LCD_CGRAM.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_CGRAM.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\LCD_CGRAM.lst) TABS(2) OBJECT(.\Objects\LCD_CGRAM.obj)
+
+line level    source
+
+   1          //LCD WITH CGRAM
+   2          #include <reg52.h>
+   3          #include "..\..\LIBRARY\delay.h"
+   4          
+   5          sbit RS = P0^5;
+   6          sbit RW = P0^6;
+   7          sbit EN = P0^7;
+   8          
+   9          void init();
+  10          void WriteCommand(unsigned char cmd);
+  11          void WriteChar(char c);
+  12          void WriteCharPosition(unsigned char row, unsigned char col, char c);
+  13          
+  14          
+  15          int main(void) {
+  16   1          init();
+  17   1          while (1) {
+  18   2          WriteCharPosition(2,1,0x2A);
+  19   2          WriteCharPosition(2,16,0x2A);
+  20   2          }
+  21   1          return 0;
+  22   1      }
+  23          void WriteCommand(unsigned char cmd) {
+  24   1          RS = 0;
+  25   1          RW = 0;
+  26   1          P2 = cmd;
+  27   1          EN = 0;
+  28   1          EN = 1;
+  29   1          delay_ms(2);
+  30   1      }
+  31          void init() {
+  32   1          WriteCommand(0x30); // Hien thi 2 dong
+  33   1          delay_ms(5);
+  34   1          WriteCommand(0x30);
+  35   1          delay_ms(1);
+  36   1          WriteCommand(0x30);
+  37   1          WriteCommand(0x38); // Hien thi 2 dong
+  38   1          WriteCommand(0x01); // Clear
+  39   1          WriteCommand(0x0c); // Display and delete cursor
+  40   1          WriteCommand(0x06); // Auto increment cursor, shift to right
+  41   1      }
+  42          void WriteChar(char c) {
+  43   1          RS = 0;
+  44   1          RW = 1;
+  45   1          P2 = c;
+  46   1          EN = 0;
+  47   1          EN = 1;
+  48   1          delay_ms(1);
+  49   1      }
+  50          void WriteCharPosition(unsigned char row, unsigned char col, char c) {
+  51   1          unsigned char cmd;
+  52   1          cmd = (row==1?0x80:0xC0) + col - 1;
+  53   1          WriteCommand(cmd);
+  54   1          WriteChar(c);
+C51 COMPILER V9.56.0.0   LCD_CGRAM                                                         12/04/2017 17:45:01 PAGE 2   
+
+  55   1      }
+*** WARNING C294 IN LINE 21 OF LCD_CGRAM.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    129    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

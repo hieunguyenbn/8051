@@ -1,0 +1,75 @@
+C51 COMPILER V9.56.0.0   INTERRUPT_BUTTON                                                  11/18/2017 10:09:22 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE INTERRUPT_BUTTON
+OBJECT MODULE PLACED IN .\Objects\interrupt_button.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE interrupt_button.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\interrupt_button.lst) TABS(5) OBJECT(.\Objects\interrupt_button.obj)
+
+line level    source
+
+   1          //button leg 7 segments use External interrup
+   2          #include <reg52.h>
+   3          //volatile
+   4          void delay_ms(unsigned int t);
+   5          
+   6          sbit k1 = P2^6;
+   7          sbit k2 = P2^7;
+   8          
+   9          unsigned char i, k, z, a[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
+  10          volatile unsigned int j; //j = 0
+  11          
+  12          void BUTTON(void) interrupt 0 {
+  13   1           j++;
+  14   1      }
+  15          main() {
+  16   1           IE = 0x81; //EA = 1;EX0 = 1; Cho phep ngat ngoai 0
+  17   1           IT0 = 1;// Ngat theo suon
+  18   1           while(1) {
+  19   2                if(j%2) {
+  20   3                     while (j%2) {
+  21   4                     for (i = 0; i < 100; i++) {
+  22   5                          for (k = 0; k < 120; k++) {
+  23   6                               P1 = a[i%10];
+  24   6                               k1 = 0; delay_ms(1); k1 = 1;
+  25   6                               P1 = a[i/10];
+  26   6                               k2 = 0; delay_ms(1); k2 = 1;
+  27   6                          }    
+  28   5                          if (!(j%2)) {
+  29   6                               for (z = 0; z < 20; z++) {
+  30   7                                    delay_ms(1);
+  31   7                                    while(!(j%2)) {
+  32   8                                         P1 = a[i%10];
+  33   8                                         k1 = 0; delay_ms(1); k1 = 1;
+  34   8                                         P1 = a[i/10];
+  35   8                                         k2 = 0; delay_ms(1); k2 = 1;
+  36   8                                    }
+  37   7                                    do {} while (!(j%2));
+  38   7                               }
+  39   6                          }
+  40   5                     }
+  41   4                     }    
+  42   3                }
+  43   2           }
+  44   1      }
+  45          void delay_ms(unsigned int t) {
+  46   1           unsigned int x, y;
+  47   1           for (x = 0; x < t; x++)
+  48   1                for (y = 0; y < 123; y++);
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    187    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.56.0.0   INTERRUPT_BUTTON                                                  11/18/2017 10:09:22 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     15    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

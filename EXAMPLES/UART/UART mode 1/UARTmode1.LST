@@ -1,0 +1,71 @@
+C51 COMPILER V9.52.0.0   UARTMODE1                                                         08/16/2017 09:50:17 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UARTMODE1
+OBJECT MODULE PLACED IN UARTmode1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE UARTmode1.c OMF2 BROWSE DEBUG TABS(2)
+
+line level    source
+
+   1          #include "UARTmode1.h"
+   2          #include "main.h"
+   3          
+   4          //Ham khoi tao UART mode 1
+   5          void UART_Init()
+   6          {
+   7   1        //Khoi tao UART mode 1 toc do 2400 boud
+   8   1        SM0 = 0; SM1 = 1;   //UART mode 1
+   9   1        TMOD &= 0x0f;       //0010 xxxx - Timer 1 hoat dong o che do 8 bit tu dong nap lai
+  10   1        TMOD |= 0x20; 
+  11   1        TH1 = 0xf3;         //Chon toc do boud la 2400, tan so thach anh 12MHz
+  12   1        TR1 = 1;            //Timer 1 bat dau chay
+  13   1        TI = 1;             //San sang gui du lieu
+  14   1        REN = 1;            //Cho phep nhan du lieu
+  15   1      }
+  16          
+  17          //Ham ghi 1 ky tu
+  18          void UART_Write(unsigned char c)
+  19          {
+  20   1        while(!TI);       //Doi co TI len 1
+  21   1        TI = 0;           //Set lai co TI
+  22   1        SBUF = c;         //Gui di ky tu i
+  23   1      }
+  24          
+  25          //Ham ghi 1 chuoi text
+  26          void UART_Write_Text(unsigned char *str)
+  27          {
+  28   1        unsigned char i = 0;
+  29   1        while(str[i] != 0)      //Kiem tra ky tu Null
+  30   1        {
+  31   2          UART_Write(str[i]);
+  32   2          i++;
+  33   2        }
+  34   1      }
+  35          
+  36          //Ham doc 1 ky tu
+  37          char UART_Read()
+  38          {
+  39   1        while(!RI);       //Doi co RI len 1
+  40   1        RI = 0;           //Set lai co RI
+  41   1        return SBUF;
+  42   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     68    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+C51 COMPILER V9.52.0.0   UARTMODE1                                                         08/16/2017 09:50:17 PAGE 2   
+
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,3 @@
+".\Objects\LCD_DC_2.obj" 
+TO ".\Objects\LCD_DICH_CHU" 
+PRINT(".\Listings\LCD_DICH_CHU.m51") RAMSIZE(256) 

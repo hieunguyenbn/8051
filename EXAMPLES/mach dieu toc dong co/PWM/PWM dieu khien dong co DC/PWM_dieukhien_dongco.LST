@@ -1,0 +1,98 @@
+A51 MACRO ASSEMBLER  PWM_DIEUKHIEN_DONGCO                                                 05/23/2017 22:55:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN PWM_dieukhien_dongco.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE PWM_dieukhien_dongco.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh dieu khien dong co bang nguyen ly dieu che do rong xung (Pulse Width Modulat
+                             ion)
+  00A0                 3     PWM_PIN         EQU                     P2.0
+  00FF                 4     FULL_CYCLE      EQU                     255
+  0032                 5     T_ON            EQU                     50      ; Thoi gian xung cao ban dau
+  001E                 6     SPEED_INC   EQU                 30
+0000                   7     ORG                     000h
+0000 02001E            8     LJMP            MAIN
+0003                   9     ORG                     0003h
+0003 020033           10     LJMP            ISR_SPEEDUP
+000B                  11     ORG                     000Bh
+000B 020041           12     LJMP            ISR_FULLTIME
+0013                  13     ORG                     0013h
+0013 02003A           14     LJMP            ISR_SPEEDDOWN
+001B                  15     ORG                     001Bh
+001B 020046           16     LJMP            ISR_ONTIME
+001E                  17     MAIN:
+                      18     ; Timer 0 and 1 (timer 0 dem ca chu ky con timer 1 dem thoi gian xung cao)
+                      19     ; Enable INT0 and INT1
+001E 75A88F           20     MOV                     IE,#10001111b 
+0021 D288             21     SETB            IT0     ; Ngat cao-xuong-thap
+0023 D28A             22     SETB            IT1
+0025 758922           23     MOV                     TMOD,#22H ; Ca 2 Timer deu o che do 2
+0028 758C01           24     MOV                     TH0,#-FULL_CYCLE
+002B 758DCE           25     MOV                     TH1,#-T_ON
+002E D28C             26     SETB            TR0 ; Dummy start Timer 0 until TF0 = 1 which will call in the interrupt se
+                             rvices
+0030                  27     _do_nothing:
+0030 80FE             28     SJMP            _do_nothing
+0032 22               29     RET
+                      30     
+0033                  31     ISR_SPEEDUP:
+0033 E58D             32     MOV                     A,TH1
+0035 941E             33     SUBB            A,#SPEED_INC  
+                      34     
+0037 F58D             35     MOV                     TH1,A
+0039 32               36     RETI
+                      37     
+003A                  38     ISR_SPEEDDOWN:
+003A E58D             39     MOV                     A,TH1
+003C 241E             40     ADD                     A,#SPEED_INC
+003E F58D             41     MOV                     TH1,A
+0040 32               42     RETI
+                      43     
+0041                  44     ISR_FULLTIME: 
+0041 D2A0             45     SETB            PWM_PIN
+0043 D28E             46     SETB            TR1      
+0045 32               47     RETI
+                      48     
+0046                  49     ISR_ONTIME:     
+0046 C2A0             50     CLR                     PWM_PIN
+0048 C28E             51     CLR                     TR1
+004A 32               52     RETI
+                      53     
+                      54     END
+A51 MACRO ASSEMBLER  PWM_DIEUKHIEN_DONGCO                                                 05/23/2017 22:55:51 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+FULL_CYCLE . . . .  N NUMB   00FFH   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+ISR_FULLTIME . . .  C ADDR   0041H   A   
+ISR_ONTIME . . . .  C ADDR   0046H   A   
+ISR_SPEEDDOWN. . .  C ADDR   003AH   A   
+ISR_SPEEDUP. . . .  C ADDR   0033H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+MAIN . . . . . . .  C ADDR   001EH   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PWM_PIN. . . . . .  B ADDR   00A0H.0 A   
+SPEED_INC. . . . .  N NUMB   001EH   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+T_ON . . . . . . .  N NUMB   0032H   A   
+_DO_NOTHING. . . .  C ADDR   0030H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

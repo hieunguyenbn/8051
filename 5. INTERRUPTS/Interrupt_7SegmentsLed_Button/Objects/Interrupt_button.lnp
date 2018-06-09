@@ -1,0 +1,3 @@
+".\Objects\interrupt_button.obj" 
+TO ".\Objects\Interrupt_button" 
+PRINT(".\Listings\Interrupt_button.m51") RAMSIZE(256) 

@@ -1,0 +1,4 @@
+".\Objects\LCD_CGRAM_2.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\LCD_CGRAM" 
+PRINT(".\Listings\LCD_CGRAM.m51") RAMSIZE(256) 

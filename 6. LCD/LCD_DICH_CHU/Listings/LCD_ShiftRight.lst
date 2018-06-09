@@ -1,0 +1,141 @@
+C51 COMPILER V9.56.0.0   LCD_SHIFTRIGHT                                                    12/07/2017 13:35:03 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_SHIFTRIGHT
+OBJECT MODULE PLACED IN .\Objects\LCD_ShiftRight.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_ShiftRight.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Lis
+                    -tings\LCD_ShiftRight.lst) TABS(2) OBJECT(.\Objects\LCD_ShiftRight.obj)
+
+line level    source
+
+   1          // 1 HANG DICH, 1 HANG DUNG IM
+   2          #include <reg52.h>
+   3          #include <string.h>
+   4          
+   5          sbit RS = P0^5;
+   6          sbit RW = P0^6;
+   7          sbit EN = P0^7;
+   8          
+   9          void delay_ms(unsigned int t);
+  10          void WriteCommand(unsigned char cmd);
+  11          void init();
+  12          void WriteChar(char c);
+  13          void WriteString(char *s);
+  14          void ShiftRight(char *s, char *s2);
+  15          
+  16          char chuoi1[] = "VNU - HANOI UNIVERSITY OF SCIENCE";
+  17          char chuoi2[] = "PHYSICS FACULTY";
+  18          
+  19          int main() {
+  20   1        
+  21   1          init();
+  22   1      
+  23   1          WriteCommand(0xC1);
+  24   1          WriteString(chuoi2);
+  25   1        //while(1)
+  26   1          ShiftRight(chuoi1,chuoi2);
+  27   1        
+  28   1          return 0;
+  29   1      }
+  30          
+  31          void WriteCommand(unsigned char cmd) {
+  32   1          RS = 0;
+  33   1          RW = 0;
+  34   1          P2 = cmd;
+  35   1          EN = 0;
+  36   1          EN = 1;
+  37   1          delay_ms(2);
+  38   1      }
+  39          void init() {
+  40   1          WriteCommand(0x30);
+  41   1          delay_ms(5);
+  42   1          WriteCommand(0x30);
+  43   1          delay_ms(1);
+  44   1          WriteCommand(0x38);
+  45   1          WriteCommand(0x01);
+  46   1          WriteCommand(0x0C);
+  47   1        //  WriteCommand(0x06);
+  48   1      }
+  49          void WriteChar(char c) {
+  50   1          RS = 1;
+  51   1          RW = 0;
+  52   1          P2 = c;
+  53   1          EN = 0;
+  54   1          EN = 1;
+C51 COMPILER V9.56.0.0   LCD_SHIFTRIGHT                                                    12/07/2017 13:35:03 PAGE 2   
+
+  55   1          delay_ms(1);
+  56   1      }
+  57          
+  58          void WriteString(char *s) {
+  59   1          while (*s) {
+  60   2                WriteChar(*s++);
+  61   2          }
+  62   1      }
+  63          void ShiftRight(char *s, char *s2) {
+  64   1          unsigned char j, i, c, n;
+  65   1          n = strlen(s)-1; j = n; c = 0;
+  66   1          while (c <= 15) {
+  67   2              WriteCommand(0x80);
+  68   2              for (i = j; i <= n; i++) {
+  69   3                WriteChar(s[i]);
+  70   3              }
+  71   2              WriteCommand(0xC1);
+  72   2              WriteString(s2);
+  73   2              delay_ms(600);
+  74   2              WriteCommand(0x01);
+  75   2              WriteCommand(0xC1);
+  76   2              WriteString(s2);
+  77   2              c++; j--;
+  78   2          }
+  79   1          while (j > 0) {
+  80   2              WriteCommand(0x80);
+  81   2              for (i = j; i <= j+15; i++) {
+  82   3                  WriteChar(s[i]);
+  83   3              }
+  84   2              WriteCommand(0xC1);
+  85   2              WriteString(s2);
+  86   2              delay_ms(600);
+  87   2              WriteCommand(0x01);
+  88   2              WriteCommand(0xC1);
+  89   2              WriteString(s2);
+  90   2              j--;
+  91   2          }
+  92   1          c = 0; j = 15;
+  93   1          while (c <= 15) {
+  94   2            WriteCommand(0x80+c);
+  95   2            for (i = 0; i <= j; i++) {
+  96   3                WriteChar(s[i]);
+  97   3            }
+  98   2            WriteCommand(0xC1);
+  99   2            WriteString(s2);
+ 100   2            delay_ms(600);
+ 101   2            WriteCommand(0x01);
+ 102   2            WriteCommand(0xC1);
+ 103   2            WriteString(s2);
+ 104   2            j--; c++;
+ 105   2          }
+ 106   1          WriteCommand(0xC1);
+ 107   1          WriteString(s2);
+ 108   1      }
+ 109          void delay_ms(unsigned int t) {
+ 110   1        unsigned int x, y;
+ 111   1        for (x = 0; x < t; x++)
+ 112   1          for (y = 0; y < 123; y++);
+ 113   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.56.0.0   LCD_SHIFTRIGHT                                                    12/07/2017 13:35:03 PAGE 3   
+
+   CODE SIZE        =    435    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     50      13
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

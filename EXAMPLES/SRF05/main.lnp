@@ -1,0 +1,6 @@
+"main.obj",
+"lcd1602.obj",
+"delay.obj",
+"srf05.obj" 
+TO "main" 
+RAMSIZE(256) 

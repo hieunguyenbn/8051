@@ -1,0 +1,80 @@
+
+ROM used: 2366 (29%)
+          2398 (29%) including unused fragments
+
+          1 Average locations per line
+          4 Average locations per statement
+
+RAM used: 59 (16%) at main() level
+          84 (23%) worst case
+
+Stack used: 11 worst case (out of 2 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  322   309  53  may tinh don gian.c
+  308     0   0  ..\..\..\..\Program Files\PICC\devices\16f877a.h
+  186     0   0  ..\..\..\..\Program Files\PICC\drivers\def_877a.h
+   86    32   6  ..\..\..\..\Program Files\PICC\drivers\lcd_4bit.c
+   28     0   0  ..\..\..\..\Program Files\PICC\drivers\stddef.h
+  762   238  41  ..\..\..\..\Program Files\PICC\drivers\math.h
+----- -----
+ 1692   579 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   1   1             @delay_ms1
+1    130   5   0   245  1.4  LCD_Init
+0     12   1   1    65  1.2  LCD_PutChar
+0     11   0   1    90  1.4  LCD_PutCmd
+0     17   1   0    72  1.2  LCD_PulseEnable
+0     33   1   1   180  2.0  LCD_SetData
+0     16   1   0             @const354
+0     12   1   0             @const356
+0    104   4   5   699  8.7  write_line1
+0     37   2   5             @DIV1616
+0     62   3   4   320  6.5  write_line2
+0   1620  68  10 10544  8.0  RB_isr
+0     21   1   5             @MUL1616
+1    220   9   1   911  4.4  MAIN
+
+Program metrics:
+    Functions               9
+    Statements              579
+    Comments                339
+    Volume (V)              15808
+    Difficilty (D)          35.7
+    Effort to implement (E) 564880
+    Time to implement (T)   8 hours, 43 minutes
+    Est Delivered Bugs (B)  2
+    Cyclomatic Complexity   63
+    Maintainability (MI)    59
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00032    47  0  
+00033-007FF  1965  32  
+00800-00FFF   350  1698  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+
+THE FOLLOWING IS TEMPORARY FOR DIAGNOSTIC USE ONLY:
+
+    n1    n2    N1    N2   v(G)
+     0     1     0     0     0    @delay_ms1
+     3    25    28    23     0    LCD_Init
+     3    11     8     9     0    LCD_PutChar
+     3    12    12    11     0    LCD_PutCmd
+     3    11    10     9     0    LCD_PulseEnable
+     5    24    18    19     0    LCD_SetData
+     0     1     0     0     0    @const354
+     0     1     0     0     0    @const356
+    18    52    64    50     6    write_line1
+     0     1     0     0     0    @DIV1616
+    14    29    32    27     1    write_line2
+    16   492   683   490    56    RB_isr
+     0     1     0     0     0    @MUL1616
+     9    69    78    67     0    MAIN

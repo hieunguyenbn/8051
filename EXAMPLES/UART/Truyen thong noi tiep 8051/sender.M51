@@ -1,0 +1,106 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/22/2017  20:23:54  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE sender.obj TO sender
+
+
+INPUT MODULES INCLUDED:
+  sender.obj (SENDER)
+
+
+LINK MAP OF MODULE:  sender (SENDER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     050AH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  sender (SENDER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SENDER
+  D:00A8H         SYMBOL        IE
+  C:003BH         SYMBOL        ISR_BUTTON_PRESSED
+  C:0069H         SYMBOL        ISR_HARDWARE_SERIAL
+  C:0500H         SYMBOL        LED_7SEG
+  C:0026H         SYMBOL        MAIN
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00A0H         SYMBOL        PIN_7SEG
+  D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
+  B:0090H.2       SYMBOL        SERIAL_DATA_PIN
+  D:0080H         SYMBOL        SOFTPIN_7SEG
+  D:0088H         SYMBOL        TCON
+  D:008DH         SYMBOL        TH1
+  B:0098H.1       SYMBOL        TI
+  D:0089H         SYMBOL        TMOD
+  B:0088H.6       SYMBOL        TR1
+  C:005AH         SYMBOL        _BIT_1
+  C:005EH         SYMBOL        _CONTINUE
+  C:0068H         SYMBOL        _END_OF_INTERRUPT
+  C:0038H         SYMBOL        _LOOP_FOREVER
+  C:0052H         SYMBOL        _SEND_BITS
+  C:006EH         SYMBOL        _TRANS
+  C:0000H         LINE#         10
+  C:0003H         LINE#         12
+  C:0023H         LINE#         14
+  C:0026H         LINE#         17
+  C:0028H         LINE#         18
+  C:002BH         LINE#         19
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/22/2017  20:23:54  PAGE 2
+
+
+  C:002DH         LINE#         20
+  C:0030H         LINE#         21
+  C:0033H         LINE#         22
+  C:0036H         LINE#         23
+  C:0038H         LINE#         25
+  C:003AH         LINE#         26
+  C:003BH         LINE#         29
+  C:003EH         LINE#         31
+  C:003FH         LINE#         32
+  C:0040H         LINE#         33
+  C:0042H         LINE#         35
+  C:0044H         LINE#         36
+  C:0047H         LINE#         37
+  C:0049H         LINE#         39
+  C:004AH         LINE#         40
+  C:004BH         LINE#         41
+  C:004DH         LINE#         42
+  C:004FH         LINE#         43
+  C:0051H         LINE#         44
+  C:0052H         LINE#         46
+  C:0053H         LINE#         47
+  C:0055H         LINE#         49
+  C:0057H         LINE#         50
+  C:0058H         LINE#         51
+  C:005AH         LINE#         53
+  C:005CH         LINE#         54
+  C:005DH         LINE#         55
+  C:005EH         LINE#         57
+  C:0060H         LINE#         58
+  C:0062H         LINE#         61
+  C:0063H         LINE#         62
+  C:0066H         LINE#         63
+  C:0068H         LINE#         65
+  C:0069H         LINE#         68
+  C:006CH         LINE#         69
+  C:006DH         LINE#         70
+  C:006EH         LINE#         72
+  C:0070H         LINE#         73
+  -------         ENDMOD        SENDER
+
+Program Size: data=8.0 xdata=0 code=1290
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

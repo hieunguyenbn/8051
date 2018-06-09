@@ -1,0 +1,195 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/03/2017  10:52:59  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE 4_led7.obj TO led7 RAMSIZE (256) CODE (0X0000-0X1FFF)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  4_led7.obj (4_LED7)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SIDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  led7 (4_LED7)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?4_LED7
+            DATA    000EH     0001H     UNIT         _DATA_GROUP_
+                    000FH     0011H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?4_LED7
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008BH     UNIT         ?C?LIB_CODE
+            CODE    008EH     0053H     UNIT         ?PR?_CONVERT_BCD?4_LED7
+            CODE    00E1H     0048H     UNIT         ?PR?DISPLAY?4_LED7
+            CODE    0129H     0039H     UNIT         ?PR?MAIN?4_LED7
+            CODE    0162H     001AH     UNIT         ?PR?_DELAY?4_LED7
+            CODE    017CH     0018H     UNIT         ?PR?_DELAY_US?4_LED7
+            CODE    0194H     0011H     UNIT         ?CO?4_LED7
+            CODE    01A5H     0010H     UNIT         ?PR?DELAY_1MS?4_LED7
+            CODE    01B5H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   led7 (4_LED7)
+
+
+SEGMENT                           DATA_GROUP 
+  +--> CALLED SEGMENT           START    LENGTH
+-----------------------------------------------
+?C_C51STARTUP                   -----    -----
+  +--> ?PR?MAIN?4_LED7
+
+?PR?MAIN?4_LED7                 000EH    0001H
+  +--> ?PR?_CONVERT_BCD?4_LED7
+  +--> ?PR?DISPLAY?4_LED7
+
+?PR?DISPLAY?4_LED7              -----    -----
+  +--> ?CO?4_LED7
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/03/2017  10:52:59  PAGE 2
+
+
+  +--> ?PR?_DELAY_US?4_LED7
+
+
+
+SYMBOL TABLE OF MODULE:  led7 (4_LED7)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        4_LED7
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  C:01A5H         PUBLIC        delay_1ms
+  C:008EH         PUBLIC        _convert_bcd
+  C:0162H         PUBLIC        _delay
+  B:00B0H.0       PUBLIC        P3_0
+  B:00B0H.1       PUBLIC        P3_1
+  B:00B0H.2       PUBLIC        P3_2
+  B:00B0H.3       PUBLIC        P3_3
+  B:00B0H.7       PUBLIC        P3_7
+  B:0020H.0       PUBLIC        flag
+  C:0129H         PUBLIC        main
+  D:0008H         PUBLIC        count
+  B:0088H.7       PUBLIC        TF1
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  C:017CH         PUBLIC        _delay_us
+  D:000AH         PUBLIC        led1
+  D:000BH         PUBLIC        led2
+  D:000CH         PUBLIC        led3
+  D:000DH         PUBLIC        led4
+  C:00E1H         PUBLIC        display
+  -------         PROC          DELAY_1MS
+  C:01A5H         LINE#         15
+  C:01A5H         LINE#         16
+  C:01A8H         LINE#         17
+  C:01ABH         LINE#         18
+  C:01ADH         LINE#         19
+  C:01ADH         LINE#         20
+  C:01B0H         LINE#         22
+  C:01B2H         LINE#         23
+  C:01B4H         LINE#         24
+  -------         ENDPROC       DELAY_1MS
+  -------         PROC          _DELAY
+  D:0007H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:0162H         LINE#         25
+  C:0162H         LINE#         27
+  C:0171H         LINE#         28
+  C:017BH         LINE#         29
+  -------         ENDPROC       _DELAY
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        x
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/03/2017  10:52:59  PAGE 3
+
+
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:017CH         LINE#         31
+  C:017CH         LINE#         33
+  C:0193H         LINE#         34
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _CONVERT_BCD
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0002H         SYMBOL        temp2
+  -------         ENDDO         
+  C:008EH         LINE#         36
+  C:008EH         LINE#         37
+  C:008EH         LINE#         39
+  C:0092H         LINE#         40
+  C:009BH         LINE#         41
+  C:00AAH         LINE#         42
+  C:00B7H         LINE#         43
+  C:00C6H         LINE#         44
+  C:00D3H         LINE#         45
+  C:00E0H         LINE#         46
+  -------         ENDPROC       _CONVERT_BCD
+  -------         PROC          DISPLAY
+  -------         DO            
+  C:0194H         SYMBOL        maled7
+  -------         ENDDO         
+  C:00E1H         LINE#         49
+  C:00E1H         LINE#         50
+  C:00E1H         LINE#         54
+  C:00F9H         LINE#         55
+  C:010CH         LINE#         56
+  C:011AH         LINE#         57
+  C:0128H         LINE#         58
+  -------         ENDPROC       DISPLAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:000EH         SYMBOL        dem
+  -------         ENDDO         
+  C:0129H         LINE#         60
+  C:0129H         LINE#         61
+  C:0129H         LINE#         63
+  C:012CH         LINE#         64
+  C:012FH         LINE#         65
+  C:0134H         LINE#         66
+  C:013BH         LINE#         68
+  C:013BH         LINE#         69
+  C:013BH         LINE#         70
+  C:0142H         LINE#         71
+  C:0145H         LINE#         74
+  C:0152H         LINE#         75
+  C:0160H         LINE#         77
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        4_LED7
+
+  -------         MODULE        ?C?SIDIV
+  C:0003H         PUBLIC        ?C?SIDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/03/2017  10:52:59  PAGE 4
+
+
+  -------         ENDMOD        ?C?SIDIV
+
+  -------         MODULE        ?C?UIDIV
+  C:0039H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY?4_LED7
+
+Program Size: data=16.1 xdata=0 code=449
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

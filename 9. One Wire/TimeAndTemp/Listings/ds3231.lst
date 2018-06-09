@@ -1,0 +1,43 @@
+C51 COMPILER V9.56.0.0   DS3231                                                            01/06/2018 00:22:59 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DS3231
+OBJECT MODULE PLACED IN .\Objects\ds3231.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\LIBRARY\ds3231.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
+                    -(.\Listings\ds3231.lst) TABS(2) OBJECT(.\Objects\ds3231.obj)
+
+line level    source
+
+   1          #include "i2c.h"
+   2          #include "ds3231.h"
+   3          #include "delay.h"
+   4          #include <port.h>
+*** ERROR C202 IN LINE 5 OF port.h: 'P2': undefined identifier
+*** ERROR C202 IN LINE 6 OF port.h: 'P2': undefined identifier
+*** ERROR C202 IN LINE 7 OF port.h: 'P2': undefined identifier
+*** ERROR C202 IN LINE 10 OF port.h: 'P3': undefined identifier
+*** ERROR C202 IN LINE 11 OF port.h: 'P3': undefined identifier
+*** ERROR C202 IN LINE 15 OF port.h: 'P3': undefined identifier
+*** ERROR C202 IN LINE 18 OF port.h: 'P3': undefined identifier
+   5          void DS3231_write(unsigned char a,unsigned char d) {
+   6   1          d = ((d/10)<<4 | (d%10)); //  dec to BCD 
+   7   1          I2C_start();
+   8   1          I2C_write(0xD0); // Dia chi cua ds3231
+   9   1          I2C_write(a);
+  10   1          I2C_write(d);
+  11   1          I2C_stop();
+  12   1      }
+  13          unsigned char DS3231_read(unsigned char a) {
+  14   1          unsigned int d;
+  15   1          I2C_start();
+  16   1          I2C_write(0xD0); // DIA CHI CUA DS3231 la 0x68, dich trai 1 bit de gui bit R/W (0) => OxDO
+  17   1          I2C_write(a); // GUI DIA CHI CUA THANH GHI
+  18   1          I2C_start(); // KHOI DONG LAI
+  19   1          I2C_write(0xD1); // READ (R/W = 1)
+  20   1          d = I2C_read(0);
+  21   1          I2C_stop();
+  22   1          d = ((d>>4)*10 + (d&0x0F)); // Chuyen doi ma BCD sang dec
+  23   1          return d;
+  24   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  7 ERROR(S)

@@ -1,0 +1,52 @@
+C51 COMPILER V9.56.0.0   SENDSTRING                                                        11/11/2017 10:31:00 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SENDSTRING
+OBJECT MODULE PLACED IN .\Objects\SendString.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE SendString.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\SendString.lst) TABS(5) OBJECT(.\Objects\SendString.obj)
+
+line level    source
+
+   1          //Send a string to PC
+   2          #include <reg52.h>
+   3          //#include <string.h>
+   4          void sendCharacter(unsigned char a);
+   5          void sendString(unsigned char *s);
+   6          
+   7          main() {
+   8   1           TMOD = 0x20;
+   9   1           TH1 = 0xFD;
+  10   1           SCON = 0x50;
+  11   1           TR1 = 1;
+  12   1           while(1) {
+  13   2                sendString("NGUYEN SY HIEU\r\n");
+  14   2           }
+  15   1      }
+  16          
+  17          void sendCharacter(unsigned char a) {
+  18   1           SBUF = a;
+  19   1           while (TI==0);
+  20   1           TI = 0;   
+  21   1      }
+  22          void sendString(unsigned char *s) {
+  23   1           while (*s != 0) {
+  24   2                sendCharacter(*s++);
+  25   2           }
+  26   1           /* for (i = 0; i < strlen(s); i++) 
+  27   1                sendCharacter(s[i]); */
+  28   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     67    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

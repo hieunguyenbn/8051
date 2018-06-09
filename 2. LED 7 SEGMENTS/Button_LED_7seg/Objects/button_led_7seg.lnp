@@ -1,0 +1,4 @@
+".\Objects\delay.obj",
+".\Objects\button_led_7seg.obj" 
+TO ".\Objects\button_led_7seg" 
+PRINT(".\Listings\button_led_7seg.m51") RAMSIZE(256) 

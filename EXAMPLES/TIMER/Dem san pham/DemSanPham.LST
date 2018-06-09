@@ -1,0 +1,93 @@
+C51 COMPILER V8.02   DEMSANPHAM                                                            10/26/2007 11:26:53 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE DEMSANPHAM
+OBJECT MODULE PLACED IN DemSanPham.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE DemSanPham.c BROWSE
+
+line level    source
+
+   1          #include <at89x52.h>
+   2          
+   3          #define data_led7 P0
+   4          #define Aled1   P2_0
+   5          #define Aled2   P2_1
+   6          #define Aled3   P2_2
+   7          #define Aled4   P2_3
+   8          
+   9          #define key             P3_7
+  10          unsigned char led1,led2,led3,led4;
+  11          unsigned char code maled7[10] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+  12          
+  13          void timer_isr (void)  interrupt 1  using 1  
+  14          {
+  15   1              TH0 = 0xFE;  // reload timer 0 with 0FE0BH
+  16   1              TL0 = 0x0B;
+  17   1      }
+  18          
+  19          void delay_us(unsigned int x) {
+  20   1      unsigned int i;
+  21   1      for (i=0;i<x;i++) {}
+  22   1      }
+  23          
+  24          void convert_bcd(unsigned int temp2)
+  25          {
+  26   1              led4    = temp2 % 10;
+  27   1              temp2   = temp2 / 10;
+  28   1              led3    = temp2 % 10;
+  29   1              temp2   = temp2 / 10;
+  30   1              led2    = temp2 % 10;
+  31   1              led1    = temp2 / 10;
+  32   1      }
+  33          
+  34          //-----------HIEN THI LED--------------
+  35          void display()
+  36          {
+  37   1              data_led7 = maled7[4];  Aled1 = 0; delay_us(50); Aled1 = 1;
+  38   1              data_led7 = maled7[3];  Aled2 = 0; delay_us(50); Aled2 = 1;
+  39   1              data_led7 = maled7[2];  Aled3 = 0; delay_us(50); Aled3 = 1;
+  40   1              data_led7 = maled7[1];  Aled4 = 0; delay_us(50); Aled4 = 1;
+  41   1      }
+  42          
+  43          void main()
+  44          {
+  45   1      int San_pham;
+  46   1      
+  47   1      // Chèn ?oa.n kho+?i ta.o cho cho Timer vào ?ây
+  48   1      //  EA = 1;
+  49   1       // ET0 = 1;  // or IE |= 0x82;   /* set bit EA and Timer0 enable */ 
+  50   1      //  TMOD |= 0x01; /* timer 0 run 16 bit counter */
+  51   1      //  TH0 = 0xFE;TL0 = 0x0B;
+  52   1      //  TR0 = 1; //or TCON |= 0x10; /* run timer 0 */
+  53   1      
+  54   1      ////////////////////////////////
+  55   1      P1 = 0xff;
+C51 COMPILER V8.02   DEMSANPHAM                                                            10/26/2007 11:26:53 PAGE 2   
+
+  56   1      P2 = 0xff;
+  57   1      P0 = 0;
+  58   1      P3 = 0xff;
+  59   1      San_pham= 0;
+  60   1      convert_bcd(San_pham);
+  61   1      display();
+  62   1              while(1) 
+  63   1              {
+  64   2             // San_pham = 65535 - (TH0*255+TL0);
+  65   2      //              convert_bcd(200);
+  66   2                      display();
+  67   2              }
+  68   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    186    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,132 @@
+A51 MACRO ASSEMBLER  8051_THUNHAT                                                         05/23/2017 22:47:52 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN 8051_thunhat.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 8051_thunhat.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209, STT 22 = 16h)
+                       2     ; Chuong trinh thuc hien cong song song co doi thoai (handshaking)
+                       3     ; Code cho 8051 thu nhat
+                       4     ; Thuc hien: Gui du lieu cho 8051 thu hai khi bam phim
+  0000                 5     SRAM                            EQU                             0000h
+  4000                 6     ADC                                     EQU                             4000h
+  8016                 7     PortData                        EQU                             8016h
+  C016                 8     PortStatus                      EQU                             0C016h
+  REG                  9     Counter                         EQU                             R3
+  0090                10     PIN_7SEG                        EQU                             P1 ; tu P1.4 den P1.7
+  00B5                11     ACK_NOT                         EQU                             P3.5
+                      12     
+0000                  13     ORG                                     0H
+0000 020006           14     LJMP                            MAIN
+0003                  15     ORG                                     0003H
+0003 020019           16     LJMP                            ISR_BUTTON_PRESSED
+                      17     
+0006                  18     MAIN:
+0006 75A885           19     MOV                                     IE,#10000101B ; Cho phep ngat ngoai 0 va 1
+0009 D288             20     SETB                            TCON.0 ; Ngat ngoai 0 theo suon cao-xuong-thap
+                      21     ;SETB                           TCON.2 ; Ngat ngoai 1 theo suon cao-xuong-thap
+000B 7B00             22     MOV                                     Counter,#0h
+000D 740F             23     MOV                                     A,#00001111B
+000F F590             24     MOV                                     PIN_7SEG,A
+0011 7400             25     MOV                                     A,#0
+0013 7580FF           26     MOV                                     P0,#0FFh
+0016                  27     _loop_forever:
+0016 80FE             28     SJMP                            _loop_forever
+0018 22               29     RET
+                      30     
+0019                  31     ISR_BUTTON_PRESSED:     
+0019 EB               32     MOV                                     A,Counter
+001A FC               33     MOV                                     R4,A ; Luu tru gia tri cua Accumulator
+                      34     ; Xuat ra den LED
+001B C294             35     CLR                                     PIN_7SEG.4
+001D C295             36     CLR                                     PIN_7SEG.5
+001F C296             37     CLR                                     PIN_7SEG.6
+0021 C297             38     CLR                                     PIN_7SEG.7
+                      39     ;_bit0
+0023 C3               40     CLR                                     C
+0024 13               41     RRC                                     A
+0025 5002             42     JNC                                     _bit1
+0027 D294             43     SETB                            PIN_7SEG.4
+0029                  44     _bit1:
+0029 C3               45     CLR                                     C
+002A 13               46     RRC                                     A
+002B 5002             47     JNC                                     _bit2
+002D D295             48     SETB                            PIN_7SEG.5
+002F                  49     _bit2:
+002F C3               50     CLR                                     C
+0030 13               51     RRC                                     A
+0031 5002             52     JNC                                     _bit3
+0033 D296             53     SETB                            PIN_7SEG.6
+0035                  54     _bit3:
+0035 C3               55     CLR                                     C
+0036 13               56     RRC                                     A
+0037 5002             57     JNC                                     _perform_handshaking
+0039 D297             58     SETB                            PIN_7SEG.7
+A51 MACRO ASSEMBLER  8051_THUNHAT                                                         05/23/2017 22:47:52 PAGE     2
+
+003B                  59     _perform_handshaking:
+                      60     ; Xuat ra cong song song
+003B EC               61     MOV                                     A,R4 ; Khoi phuc gia tri cua Accumulator
+003C 908016           62     MOV                                     DPTR,#PortData
+003F A882             63     MOV                                     R0,DPL
+0041 8583A0           64     MOV                                     P2,DPH
+0044 F2               65     MOVX                            @R0,A
+0045 7580FF           66     MOV                                     P0,#0FFh
+0048 0B               67     INC                                     Counter
+0049 BB0A02           68     CJNE                            Counter,#10,_ket_thuc
+004C 7B00             69     MOV                                     Counter,#0 ; Reset Counter
+004E                  70     _ket_thuc:
+004E 32               71     RETI
+                      72     
+                      73     ; Tao thoi gian tre cho chuong trinh
+004F                  74     DELAY:
+004F 7EFF             75     MOV                             R6,#255
+0051                  76     _NOP:
+0051 7FFF             77     MOV                             R7,#255
+0053 DFFE             78     DJNZ                            R7,$
+0055 DEFA             79     DJNZ                            R6,_NOP
+0057 22               80     RET
+                      81     
+                      82     END
+A51 MACRO ASSEMBLER  8051_THUNHAT                                                         05/23/2017 22:47:52 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E               T Y P E  V A L U E   ATTRIBUTES
+
+ACK_NOT. . . . . . .  B ADDR   00B0H.5 A   
+ADC. . . . . . . . .  N NUMB   4000H   A   
+COUNTER. . . . . . .    REG    R3          
+DELAY. . . . . . . .  C ADDR   004FH   A   
+DPH. . . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . . .  D ADDR   0082H   A   
+IE . . . . . . . . .  D ADDR   00A8H   A   
+ISR_BUTTON_PRESSED .  C ADDR   0019H   A   
+MAIN . . . . . . . .  C ADDR   0006H   A   
+P0 . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . .  D ADDR   00B0H   A   
+PIN_7SEG . . . . . .  D ADDR   0090H   A   
+PORTDATA . . . . . .  N NUMB   8016H   A   
+PORTSTATUS . . . . .  N NUMB   C016H   A   
+SRAM . . . . . . . .  N NUMB   0000H   A   
+TCON . . . . . . . .  D ADDR   0088H   A   
+_BIT1. . . . . . . .  C ADDR   0029H   A   
+_BIT2. . . . . . . .  C ADDR   002FH   A   
+_BIT3. . . . . . . .  C ADDR   0035H   A   
+_KET_THUC. . . . . .  C ADDR   004EH   A   
+_LOOP_FOREVER. . . .  C ADDR   0016H   A   
+_NOP . . . . . . . .  C ADDR   0051H   A   
+_PERFORM_HANDSHAKING  C ADDR   003BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

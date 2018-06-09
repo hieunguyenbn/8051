@@ -1,0 +1,193 @@
+C51 COMPILER V9.52.0.0   GPS                                                               09/25/2014 18:07:52 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE GPS
+OBJECT MODULE PLACED IN gps.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE gps.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /* Basic program to show latitude and longitude on LCD extracted from GPGGA statement */
+   2           
+   3          #include<reg51.h>
+   4          #define port2 P2
+   5          sbit rs = P1^0;
+   6          sbit rw = P1^1;
+   7          sbit e = P1^2;
+   8          char info[70];
+   9          char test[6]={"$GPRMC"};
+  10          char comma_position[15];
+  11          unsigned int check=0,i;
+  12          unsigned char a;
+  13          
+  14          void receive_data();
+  15          void lcd_latitude();
+  16          void lcd_longitude();
+  17           
+  18          //DELAY FUNCTION
+  19          void delay(unsigned int msec)
+  20          {
+  21   1      int i,j ;
+  22   1      for(i=0;i<msec;i++)
+  23   1      for(j=0;j<1275;j++); 
+  24   1      }
+  25           
+  26          // LCD COMMAND SENDING FUNCTION
+  27          void lcd_cmd(unsigned char item)
+  28          {
+  29   1      port2 = item;
+  30   1      rs= 0;
+  31   1      rw=0;
+  32   1      e=1;
+  33   1      delay(1);
+  34   1      e=0;
+  35   1      return;
+  36   1      } 
+  37           
+  38          // LCD DATA SENDING FUNCTION
+  39          void lcd_data(unsigned char item)
+  40          {
+  41   1      port2 = item;
+  42   1      rs= 1;
+  43   1      rw=0;
+  44   1      e=1;
+  45   1      delay(1);
+  46   1      e=0;     
+  47   1      return;
+  48   1      }
+  49           
+  50           // LCD STRING SENDING FUNCTION 
+  51          void lcd_string(unsigned char *str)
+  52          {
+  53   1      int i=0;
+  54   1      while(str[i]!='\0')
+  55   1      {
+C51 COMPILER V9.52.0.0   GPS                                                               09/25/2014 18:07:52 PAGE 2   
+
+  56   2              lcd_data(str[i]);
+  57   2              i++;
+  58   2              delay(10);
+  59   2         }
+  60   1              return;
+  61   1      }
+  62           
+  63          // SERIAL PORT SETTING
+  64          void serial()
+  65          {
+  66   1      TMOD=0x20;      //MODE=2
+  67   1      TH1=0xfd;      // 9600 BAUD
+  68   1      SCON=0x50  ;    // SERIAL MODE 1 ,8- BIT DATA ,1 STOP BIT ,1 START BIT , RECEIVING ON
+  69   1      TR1=1;          //TIMER START
+  70   1      }
+  71           
+  72          void find_comma()
+  73          {
+  74   1      unsigned int i,count=0;
+  75   1      for(i=0;i<70;i++)
+  76   1      { 
+  77   2      if(info[i]==',')
+  78   2      {
+  79   3      comma_position[count++]=i;
+  80   3      }
+  81   2          }
+  82   1      }
+  83          void compare()
+  84          {  
+  85   1      IE=0x00;        //Interrupt disable 
+  86   1      find_comma();    //Function to detect position of comma in the string
+  87   1      lcd_latitude();   //Function to show Latitude
+  88   1      lcd_longitude(); //Function to show Longitude
+  89   1      check=0;
+  90   1      IE=0x90;    //Interrupt enable
+  91   1      }
+  92          void receive_data()      interrupt 4   
+  93          {
+  94   1      info[check++]=SBUF;   //Read SBUF
+  95   1      if(check<7)          //Condition to check the required data
+  96   1          {
+  97   2      if(info[check-1]!=test[check-1])
+  98   2      check=0;
+  99   2          }
+ 100   1      RI=0;
+ 101   1      }
+ 102          void lcd_shape()       //Function to create shape of degree
+ 103          {
+ 104   1      lcd_cmd(64);
+ 105   1      lcd_data(10);
+ 106   1      lcd_data(17);
+ 107   1      lcd_data(17);
+ 108   1      lcd_data(10);
+ 109   1      lcd_data(0);
+ 110   1      lcd_data(0);
+ 111   1      lcd_data(0);
+ 112   1      lcd_data(0);
+ 113   1      }
+ 114           
+ 115          void lcd_latitude()  //Function to display Latitude
+ 116          {
+ 117   1      unsigned int c2=comma_position[2]; //Position of second comma
+C51 COMPILER V9.52.0.0   GPS                                                               09/25/2014 18:07:52 PAGE 3   
+
+ 118   1      lcd_shape();  
+ 119   1      lcd_cmd(0x80);          //Move cursor to position 6 of line 1
+ 120   1      lcd_string("LAT ");  //Showing Latitude 
+ 121   1        
+ 122   1      lcd_data(info[c2+1]); 
+ 123   1      lcd_data(info[c2+2]); 
+ 124   1      lcd_data(0);          // TO display degree symbol 
+ 125   1        
+ 126   1      for(i=3;i<=9;i++)
+ 127   1      {
+ 128   2        lcd_data(info[c2+i]);
+ 129   2      }
+ 130   1      lcd_data(0x27); 
+ 131   1      lcd_data(info[c2+11]);
+ 132   1      } 
+ 133           
+ 134          void lcd_longitude()
+ 135          {
+ 136   1      unsigned int c4=comma_position[4];
+ 137   1      lcd_shape();    
+ 138   1      lcd_cmd(0xc0);
+ 139   1      lcd_string("LON"); //Showing Longitude
+ 140   1      
+ 141   1      lcd_data(info[c4+1]); 
+ 142   1      lcd_data(info[c4+2]); 
+ 143   1      lcd_data(0);          // TO display degree symbol 
+ 144   1      for(i=3;i<=10;i++)
+ 145   1      {
+ 146   2        lcd_data(info[c4+i]);
+ 147   2      }
+ 148   1      lcd_data(0x27);
+ 149   1      lcd_data(info[c4+12]);
+ 150   1      }
+ 151          void main()
+ 152          {
+ 153   1        
+ 154   1      serial();
+ 155   1      lcd_cmd(0x38);         //2 LINE, 5X7 MATRIX
+ 156   1      lcd_cmd(0x0c);         //DISPLAY ON, CURSOR BLINKING
+ 157   1      lcd_string("GPS SYSTEM");  //Showing Latitude 
+ 158   1      IE=0x90;
+ 159   1      while(1)
+ 160   1      {
+ 161   2      if(check==69)
+ 162   2      compare();
+ 163   2      }
+ 164   1      }
+ 165           
+ 166           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    527    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     96       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

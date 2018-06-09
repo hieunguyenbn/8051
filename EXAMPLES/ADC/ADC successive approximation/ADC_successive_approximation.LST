@@ -1,0 +1,161 @@
+A51 MACRO ASSEMBLER  ADC_SUCCESSIVE_APPROXIMATION                                         05/22/2017 13:03:20 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN ADC_successive_approximation.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE ADC_successive_approximation.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh thuc hien ADC (Analog to Digital Converter) dua tren nguyen ly xap xi lien t
+                             iep
+                       3     ; (successive approximation)
+                       4     ; Bo phan SAR (Successive Approximation Register) duoc thuc hien bang phan cung
+                       5     ; Tham khao: 
+                       6     ; [1] Microprocessor Interfacing Techniques - Austin Lesea, Rodnay Zaks
+                       7     ; [2] ADC0808 datasheet
+                       8     
+  00A7                 9     CLOCK                                   EQU             P2.7
+  0090                10     ADC_OUTPUT_PORT                 EQU             P1
+                      11     ; Cac che do cua LCD
+  0000                12     LCD_CMD_WR                              EQU     0
+  0001                13     LCD_DATA_WR                             EQU             1
+  0002                14     LCD_BUSY_RD                             EQU             2
+  0003                15     LCD_DATA_RD                             EQU             3 
+                      16     
+0000                  17     ORG                             0h
+0000 020006           18     LJMP                    MAIN
+0003                  19     ORG                             0003h
+0003 02001B           20     LJMP                    ADC_COMPLETED ; Ket thuc chuyen doi 
+                      21     
+0006                  22     MAIN:
+0006 7590FF           23     MOV                             ADC_OUTPUT_PORT,#0FFh
+0009 75A881           24     MOV                             IE,#10000001b ; Su dung ngat 0
+000C D288             25     SETB                    TCON.0 ; Ngat theo xung cao-xuong-thap
+000E 7438             26     MOV                             A,#038h ; Khoi tao LCD 
+0010 1158             27     ACALL                   COMNWRT
+0012                  28     _loop_forever:
+0012 C2A7             29     CLR                             CLOCK
+0014 1164             30     ACALL                   DELAY
+0016 D2A7             31     SETB                    CLOCK
+0018 80F8             32     SJMP                    _loop_forever
+                      33     
+001A 22               34     RET
+                      35     
+                      36     ;-------------------------------
+                      37     ; Trinh phuc vu xu ly ngat 0 khi ket thuc qua trinh chuyen doi ADC
+                      38     ; Hien thi ket qua ra LCD       
+001B                  39     ADC_COMPLETED:
+001B B2B0             40     CPL                             P3.0
+001D 7401             41     MOV                             A,#1h  ; Xoa man hinh hien thi
+001F 1158             42     ACALL                   COMNWRT
+0021 740E             43     MOV                             A,#0Eh ; Bat hien thi, nhap nhay con tro
+0023 1158             44     ACALL                   COMNWRT
+0025 E590             45     MOV                             A,ADC_OUTPUT_PORT ; Doc du lieu tu ADC
+0027 B40008           46     CJNE                    A,#0,_convert_number_for_display
+002A 7D00             47     MOV                             R5,#0
+002C 7C00             48     MOV                             R4,#0
+002E 7B00             49     MOV                             R3,#0
+0030 8012             50     JMP                             _display_on_LCD
+0032                  51     _convert_number_for_display:
+0032 75F00A           52     MOV                             B,#10 ; Chia cho 10
+0035 84               53     DIV                             AB
+0036 ADF0             54     MOV                             R5,B  ; Cat so thap
+0038 75F00A           55     MOV                             B,#10
+003B 84               56     DIV                             AB
+003C ACF0             57     MOV                             R4,B  ; Cat so tiep theo
+A51 MACRO ASSEMBLER  ADC_SUCCESSIVE_APPROXIMATION                                         05/22/2017 13:03:20 PAGE     2
+
+003E 75F00A           58     MOV                             B,#10
+0041 84               59     DIV                             AB
+0042 ABF0             60     MOV                             R3,B  ; Cat so cuoi cung   
+0044                  61     _display_on_LCD:
+0044 900500           62     MOV                             DPTR,#LCD_VAL
+0047 EB               63     MOV                             A,R3
+0048 93               64     MOVC                    A,@A+DPTR ; Hien thi chu so hang tram
+0049 115E             65     ACALL                   DATAWRT           
+                      66     
+004B EC               67     MOV                             A,R4
+004C 93               68     MOVC                    A,@A+DPTR ; Hien thi chu so hang chuc
+004D 115E             69     ACALL                   DATAWRT
+004F 1164             70     ACALL                   DELAY
+                      71     
+0051 ED               72     MOV                             A,R5
+0052 93               73     MOVC                    A,@A+DPTR ; Hien thi chu so hang don vi
+0053 115E             74     ACALL                   DATAWRT
+0055 1164             75     ACALL                   DELAY 
+0057 32               76     RETI
+                      77     ;-------------------------------
+                      78     
+                      79     ;-------------------------------
+                      80     ; Chuong trinh con gui lenh toi LCD
+0058                  81      COMNWRT:
+0058 7800             82     MOV                             R0,#LCD_CMD_WR
+005A F2               83     MOVX                    @R0,A
+005B 1164             84     ACALL                   DELAY
+005D 22               85     RET
+                      86     ;-------------------------------
+                      87     
+                      88     ;-------------------------------
+                      89     ; Chuong trinh con gui 1 byte du lieu toi LCD
+005E                  90     DATAWRT:
+005E 7801             91     MOV                             R0,#LCD_DATA_WR
+0060 F2               92     MOVX                    @R0,A
+0061 1164             93     ACALL                   DELAY
+0063 22               94     RET
+                      95     ;-------------------------------
+                      96     
+                      97     ;-------------------------------
+                      98     ; Chuong trinh con tao tre
+0064                  99     DELAY:
+0064 7EFF            100     MOV                     R6,#255
+0066                 101     _NOP:
+0066 7FFF            102     MOV                     R7,#255
+0068 DFFE            103     DJNZ                    R7,$
+006A DEFA            104     DJNZ                    R6,_NOP
+006C 22              105     RET
+                     106     ;-------------------------------
+                     107     
+0500                 108     ORG                     500h
+0500 30313233        109     LCD_VAL:        DB              "0","1","2","3","4","5","6","7","8","9"
+0504 34353637                
+0508 3839                    
+                     110     
+                     111     END
+A51 MACRO ASSEMBLER  ADC_SUCCESSIVE_APPROXIMATION                                         05/22/2017 13:03:20 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                      T Y P E  V A L U E   ATTRIBUTES
+
+ADC_COMPLETED . . . . . . .  C ADDR   001BH   A   
+ADC_OUTPUT_PORT . . . . . .  D ADDR   0090H   A   
+B . . . . . . . . . . . . .  D ADDR   00F0H   A   
+CLOCK . . . . . . . . . . .  B ADDR   00A0H.7 A   
+COMNWRT . . . . . . . . . .  C ADDR   0058H   A   
+DATAWRT . . . . . . . . . .  C ADDR   005EH   A   
+DELAY . . . . . . . . . . .  C ADDR   0064H   A   
+IE. . . . . . . . . . . . .  D ADDR   00A8H   A   
+LCD_BUSY_RD . . . . . . . .  N NUMB   0002H   A   
+LCD_CMD_WR. . . . . . . . .  N NUMB   0000H   A   
+LCD_DATA_RD . . . . . . . .  N NUMB   0003H   A   
+LCD_DATA_WR . . . . . . . .  N NUMB   0001H   A   
+LCD_VAL . . . . . . . . . .  C ADDR   0500H   A   
+MAIN. . . . . . . . . . . .  C ADDR   0006H   A   
+P1. . . . . . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . . . . . .  D ADDR   00A0H   A   
+P3. . . . . . . . . . . . .  D ADDR   00B0H   A   
+TCON. . . . . . . . . . . .  D ADDR   0088H   A   
+_CONVERT_NUMBER_FOR_DISPLAY  C ADDR   0032H   A   
+_DISPLAY_ON_LCD . . . . . .  C ADDR   0044H   A   
+_LOOP_FOREVER . . . . . . .  C ADDR   0012H   A   
+_NOP. . . . . . . . . . . .  C ADDR   0066H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

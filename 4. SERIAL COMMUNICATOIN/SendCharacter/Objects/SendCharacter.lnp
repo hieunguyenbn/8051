@@ -1,0 +1,3 @@
+".\Objects\SendCharacter.obj" 
+TO ".\Objects\SendCharacter" 
+PRINT(".\Listings\SendCharacter.m51") RAMSIZE(256) 

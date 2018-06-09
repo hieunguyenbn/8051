@@ -1,0 +1,63 @@
+C51 COMPILER V9.56.0.0   DELAY_TIMER2                                                      10/15/2017 23:15:53 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DELAY_TIMER2
+OBJECT MODULE PLACED IN .\Objects\delay_timer2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE delay_timer2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\delay_timer2.lst) TABS(5) OBJECT(.\Objects\delay_timer2.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          sbit button = P3^0;
+   3          
+   4          void delay(void);
+   5          
+   6          main() {
+   7   1           unsigned char i, j, a[8] = {0xE7,0xDB,0xBD,0x7E,0x7E,0xBD,0xDB,0xE7};
+   8   1           TMOD = 0x20;//timer1, mode2-8bit
+   9   1           TL1 = 0xFE;
+  10   1           TH1 = 0x00;
+  11   1           loop:;
+  12   1           while(1) {
+  13   2                
+  14   2                if (button == 1) 
+  15   2                for (i = 0; i < 8; i++) {
+  16   3                     P1 = a[i];
+  17   3                     delay();
+  18   3                     if (button == 0) break;
+  19   3                }
+  20   2                else
+  21   2                for (j = 0; j < 10; j++){
+  22   3                     for (i = 0; i < 8; i++) {
+  23   4                          P2 = a[i];
+  24   4                          delay();
+  25   4                          if (button == 0) goto loop;
+  26   4                     }
+  27   3                }
+  28   2           }
+  29   1      }
+  30          void delay(void) {
+  31   1           unsigned int i;
+  32   1      
+  33   1           for (i = 0; i < 800; i++) {
+  34   2           TR1 = 1;
+  35   2           while(!TF1){}
+  36   2           TR1 = 0;
+  37   2           TF1 = 0;
+  38   2           }
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    125    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

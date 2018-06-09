@@ -1,0 +1,4 @@
+".\Objects\counter.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\counter" 
+PRINT(".\Listings\counter.m51") RAMSIZE(256) 

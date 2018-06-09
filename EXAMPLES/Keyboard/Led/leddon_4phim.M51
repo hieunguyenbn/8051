@@ -1,0 +1,98 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/26/2014  03:44:31  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE leddon_4phim.obj TO leddon_4phim
+
+
+INPUT MODULES INCLUDED:
+  leddon_4phim.obj (LEDDON_4PHIM)
+
+
+LINK MAP OF MODULE:  leddon_4phim (LEDDON_4PHIM)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0062H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  leddon_4phim (LEDDON_4PHIM)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LEDDON_4PHIM
+  C:0057H         SYMBOL        DELAY
+  C:0005H         SYMBOL        KEY1
+  C:000AH         SYMBOL        KEY10
+  C:0015H         SYMBOL        KEY2
+  C:001AH         SYMBOL        KEY20
+  C:0025H         SYMBOL        KEY3
+  C:002AH         SYMBOL        KEY30
+  C:003EH         SYMBOL        KEY4
+  C:0043H         SYMBOL        KEY40
+  C:0059H         SYMBOL        LAP
+  C:005BH         SYMBOL        LAP1
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  C:0000H         LINE#         2
+  C:0003H         LINE#         3
+  C:0005H         LINE#         5
+  C:0008H         LINE#         6
+  C:000AH         LINE#         8
+  C:000CH         LINE#         9
+  C:000EH         LINE#         10
+  C:000FH         LINE#         11
+  C:0011H         LINE#         12
+  C:0013H         LINE#         13
+  C:0015H         LINE#         15
+  C:0018H         LINE#         16
+  C:001AH         LINE#         18
+  C:001CH         LINE#         19
+  C:001EH         LINE#         20
+  C:001FH         LINE#         21
+  C:0021H         LINE#         22
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/26/2014  03:44:31  PAGE 2
+
+
+  C:0023H         LINE#         23
+  C:0025H         LINE#         25
+  C:0028H         LINE#         26
+  C:002AH         LINE#         28
+  C:002CH         LINE#         29
+  C:002FH         LINE#         30
+  C:0032H         LINE#         31
+  C:0035H         LINE#         32
+  C:0036H         LINE#         33
+  C:0038H         LINE#         34
+  C:003AH         LINE#         35
+  C:003CH         LINE#         36
+  C:003EH         LINE#         38
+  C:0041H         LINE#         39
+  C:0043H         LINE#         41
+  C:0045H         LINE#         42
+  C:0048H         LINE#         43
+  C:004BH         LINE#         44
+  C:004EH         LINE#         45
+  C:004FH         LINE#         46
+  C:0051H         LINE#         47
+  C:0053H         LINE#         48
+  C:0055H         LINE#         49
+  C:0057H         LINE#         51
+  C:0059H         LINE#         53
+  C:005BH         LINE#         55
+  C:005CH         LINE#         56
+  C:005DH         LINE#         57
+  C:005FH         LINE#         58
+  C:0061H         LINE#         59
+  -------         ENDMOD        LEDDON_4PHIM
+
+Program Size: data=8.0 xdata=0 code=98
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

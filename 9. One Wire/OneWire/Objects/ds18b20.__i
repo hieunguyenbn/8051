@@ -1,0 +1,1 @@
+"..\..\LIBRARY\ds18b20.c" OPTIMIZE (8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ds18b20.lst) TABS (2) OBJECT(.\Objects\ds18b20.obj)

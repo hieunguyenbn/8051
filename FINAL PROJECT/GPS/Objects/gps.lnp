@@ -1,0 +1,4 @@
+".\Objects\gps.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\gps" 
+PRINT(".\Listings\gps.m51") RAMSIZE(256) 

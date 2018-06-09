@@ -1,0 +1,108 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/23/2017  22:47:56  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 8051_thuhai.obj TO 8051_thuhai
+
+
+INPUT MODULES INCLUDED:
+  8051_thuhai.obj (8051_THUHAI)
+
+
+LINK MAP OF MODULE:  8051_thuhai (8051_THUHAI)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     006DH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  8051_thuhai (8051_THUHAI)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        8051_THUHAI
+  B:00B0H.5       SYMBOL        ACK_NOT
+  N:4000H         SYMBOL        ADC
+  B:00B0H.0       SYMBOL        ADC_READ
+  D:0090H         SYMBOL        DATAX
+  C:0064H         SYMBOL        DELAY
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  D:00A8H         SYMBOL        IE
+  C:002DH         SYMBOL        ISR_END_OF_CONVERSION
+  C:0043H         SYMBOL        ISR_OUTPUT_BUFFER_FULL
+  C:0016H         SYMBOL        MAIN
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00B0H         SYMBOL        P3
+  D:0090H         SYMBOL        PIN_7SEG
+  N:8016H         SYMBOL        PORTDATA
+  N:C016H         SYMBOL        PORTSTATUS
+  N:0000H         SYMBOL        SRAM
+  D:0088H         SYMBOL        TCON
+  C:002AH         SYMBOL        _LOOP_FOREVER
+  C:0066H         SYMBOL        _NOP
+  C:0061H         SYMBOL        _OUTPUT_TO_LED
+  C:0052H         SYMBOL        _XDATA_BIT1
+  C:0057H         SYMBOL        _XDATA_BIT2
+  C:005CH         SYMBOL        _XDATA_BIT3
+  C:0000H         LINE#         17
+  C:0003H         LINE#         19
+  C:0013H         LINE#         21
+  C:0016H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/23/2017  22:47:56  PAGE 2
+
+
+  C:0019H         LINE#         25
+  C:001BH         LINE#         26
+  C:001DH         LINE#         27
+  C:001FH         LINE#         28
+  C:0021H         LINE#         29
+  C:0023H         LINE#         30
+  C:0025H         LINE#         31
+  C:0028H         LINE#         32
+  C:002AH         LINE#         34
+  C:002CH         LINE#         35
+  C:002DH         LINE#         38
+  C:0030H         LINE#         40
+  C:0033H         LINE#         41
+  C:0035H         LINE#         42
+  C:0038H         LINE#         43
+  C:0039H         LINE#         46
+  C:003CH         LINE#         47
+  C:003EH         LINE#         48
+  C:0041H         LINE#         49
+  C:0042H         LINE#         50
+  C:0043H         LINE#         53
+  C:0045H         LINE#         55
+  C:0047H         LINE#         56
+  C:0049H         LINE#         57
+  C:004BH         LINE#         58
+  C:004DH         LINE#         60
+  C:0050H         LINE#         61
+  C:0052H         LINE#         63
+  C:0055H         LINE#         64
+  C:0057H         LINE#         66
+  C:005AH         LINE#         67
+  C:005CH         LINE#         69
+  C:005FH         LINE#         70
+  C:0061H         LINE#         72
+  C:0063H         LINE#         73
+  C:0064H         LINE#         77
+  C:0066H         LINE#         79
+  C:0068H         LINE#         80
+  C:006AH         LINE#         81
+  C:006CH         LINE#         82
+  -------         ENDMOD        8051_THUHAI
+
+Program Size: data=8.0 xdata=0 code=109
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

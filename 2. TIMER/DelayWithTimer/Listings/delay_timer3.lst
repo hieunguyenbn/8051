@@ -1,0 +1,77 @@
+C51 COMPILER V9.56.0.0   DELAY_TIMER3                                                      10/16/2017 08:47:44 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DELAY_TIMER3
+OBJECT MODULE PLACED IN .\Objects\delay_timer3.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE delay_timer3.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\delay_timer3.lst) TABS(5) OBJECT(.\Objects\delay_timer3.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          
+   3          sbit button = P3^0;
+   4          void Delay() {
+   5   1           unsigned int i;
+   6   1           for (i = 0; i < 200; i++) {
+   7   2           TL0 = 0x17;
+   8   2           TH0 = 0xFC;
+   9   2           TR0 = 1;
+  10   2           while(!TF0);
+  11   2                TR0 = 0;
+  12   2                TF0 = 0;
+  13   2           }
+  14   1      }
+  15          //void delay();
+  16          main() {
+  17   1           unsigned char i, j;
+  18   1           TMOD = 0x01;
+  19   1           
+  20   1           /*TMOD = 0x02;//timer0-mode2-8bit
+  21   1           TL0 = 0xFE;
+  22   1           TH0 = 0x00;*/
+  23   1      
+  24   1           while(1) {
+  25   2           do {
+  26   3                P1 = 0xFF;
+  27   3                for (j = 1; j <= 8; j++) {
+  28   4                          Delay();
+  29   4                          P1 >>= 1;
+  30   4                          //if (button == 0) goto loop;
+  31   4                     }
+  32   3           }while(button==1);
+  33   2           //loop:;
+  34   2           P2 = 0xFF;
+  35   2           for (i = 0; i < 20; i++) {
+  36   3                     Delay();
+  37   3                     P2 = ~P2;
+  38   3                if (button == 0) break;
+  39   3           }
+  40   2           }         
+  41   1      }
+  42          
+  43          /*void delay() {
+  44               unsignedint i;
+  45               for (i = 0; i < 800; i++) {
+  46                    TR0 = 1;
+  47                    while(!TF0);
+  48                    TR0 = 0;
+  49                    TF0 = 0;
+  50               }
+  51          }*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.56.0.0   DELAY_TIMER3                                                      10/16/2017 08:47:44 PAGE 2   
+
+   CODE SIZE        =     77    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

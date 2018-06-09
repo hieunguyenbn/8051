@@ -1,0 +1,100 @@
+A51 MACRO ASSEMBLER  MOTOR_H                                                              06/01/2016 22:06:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN motor_H.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE motor_H.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; dung mach cau H dieu khien dong co
+0000                   2     ORG 00H
+0000 020030            3     LJMP MAIN
+0030                   4     ORG 30H
+0030                   5     MAIN:
+0030 C2B6              6                     CLR P3.6
+0032 C2B7              7                     CLR P3.7
+0034 113C              8             CALL THUAN
+0036 1147              9             CALL DUNG
+0038 1152             10             CALL NGUOC
+003A 80F4             11             JMP MAIN
+                      12     ;------------------------------------------------------------------------------------------
+                             ---------------------------------------------------
+003C                  13         THUAN:
+003C D2B6             14                     SETB P3.6
+003E C2B7             15                     CLR P3.7
+0040 7D03             16                     MOV R5, #3
+0042                  17                 DELAY3S:
+0042 115D             18                             CALL DELAY1S
+0044 DDFC             19                             DJNZ R5, DELAY3S
+0046 22               20             RET
+                      21     ;------------------------------------------------------------------------------------------
+                             ----------------------------------------------------
+0047                  22             DUNG:
+0047 D2B6             23                SETB P3.6
+0049 D2B7             24                SETB P3.7
+004B 7D02             25                MOV R5, #2
+004D                  26                DELAY5S:
+004D 115D             27                             CALL DELAY1S
+004F DDFC             28                             DJNZ R5, DELAY5S                        
+0051 22               29             RET
+                      30     ;------------------------------------------------------------------------------------------
+                             -----------------------------------------------------
+0052                  31             NGUOC:
+0052 D2B7             32                     SETB P3.7
+0054 C2B6             33                     CLR P3.6
+0056 7D04             34                     MOV R5, #4
+0058                  35                     DELAY4S:
+0058 115D             36                             CALL DELAY1S
+005A DDFC             37                             DJNZ R5, DELAY4S
+005C 22               38             RET
+                      39     ;------------------------------------------------------------------------------------------
+                             ---------------------------------------------------
+005D                  40             DELAY1S:
+005D 758901           41                MOV TMOD, #01
+0060 7F14             42                MOV R7, #20
+0062                  43                TRE1S:
+0062 758CB0           44                        MOV TH0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 44 (motor_H.asm, LINE 44): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0065 758AB0           45                        MOV TL0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 45 (motor_H.asm, LINE 45): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0068 D28C             46                        SETB TR0
+006A 308DFD           47                        JNB TF0, $
+006D C28C             48                        CLR TR0
+006F C28D             49                        CLR TF0
+0071 DFEF             50                        DJNZ R7, TRE1S
+A51 MACRO ASSEMBLER  MOTOR_H                                                              06/01/2016 22:06:34 PAGE     2
+
+0073 22               51             RET
+                      52     END
+A51 MACRO ASSEMBLER  MOTOR_H                                                              06/01/2016 22:06:34 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY1S. . . . . .  C ADDR   005DH   A   
+DELAY3S. . . . . .  C ADDR   0042H   A   
+DELAY4S. . . . . .  C ADDR   0058H   A   
+DELAY5S. . . . . .  C ADDR   004DH   A   
+DUNG . . . . . . .  C ADDR   0047H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+NGUOC. . . . . . .  C ADDR   0052H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+THUAN. . . . . . .  C ADDR   003CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TRE1S. . . . . . .  C ADDR   0062H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  2 WARNING(S), 0 ERROR(S)

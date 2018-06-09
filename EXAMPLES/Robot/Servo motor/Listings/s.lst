@@ -1,0 +1,78 @@
+C51 COMPILER V9.56.0.0   S                                                                 12/23/2017 21:16:28 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE S
+OBJECT MODULE PLACED IN .\Objects\s.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE s.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\s.lst) 
+                    -TABS(2) OBJECT(.\Objects\s.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          
+   3          sbit L293D_A = P2^0;         //Positive of motor
+   4          sbit L293D_B = P2^1;         //Negative of motor
+   5          sbit L293D_E = P2^2;         //Enable of L293D
+   6           
+   7          // Function Prototypes
+   8          void rotate_f(void);         //Forward run funtion
+   9          void rotate_b(void);         //Backward run function
+  10          void breaks(void);         //Motor stop function
+  11          void delay(void);           //Some delay
+  12           
+  13          void main()
+  14          {
+  15   1        while (1) {               //Infinite loop
+  16   2          rotate_f();       //Run forward
+  17   2          delay();             //Some delay
+  18   2          breaks();           //Stop
+  19   2          delay();             //Some delay
+  20   2          rotate_b();       //Run Backwards
+  21   2          delay();             //Some delay
+  22   2          breaks();           //Stop
+  23   2          delay();             //Some delay
+  24   2        }                       //Do this infinitely
+  25   1      }
+  26           
+  27          void rotate_f()
+  28          {
+  29   1        L293D_A = 1;             //Make positive of motor 1
+  30   1        L293D_B = 0;             //Make negative of motor 0
+  31   1      }
+  32           
+  33          void rotate_b()
+  34          {
+  35   1        L293D_A = 0;             //Make positive of motor 0
+  36   1        L293D_B = 1;             //Make negative of motor 1
+  37   1      }
+  38           
+  39          void breaks()
+  40          {
+  41   1        L293D_A = 0;             //Make positive of motor 0
+  42   1        L293D_B = 0;             //Make negative of motor 0
+  43   1      }
+  44           
+  45          //Some delay...
+  46          void delay()
+  47          {
+  48   1        unsigned char i,j,k;
+  49   1        for(i=0;i<0x20;i++)
+  50   1          for(j=0;j<255;j++)
+  51   1              for(k=0;k<255;k++);
+  52   1      }
+
+
+C51 COMPILER V9.56.0.0   S                                                                 12/23/2017 21:16:28 PAGE 2   
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

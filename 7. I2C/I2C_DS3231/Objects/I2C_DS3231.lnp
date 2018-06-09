@@ -1,0 +1,4 @@
+".\Objects\delay.obj",
+".\Objects\I2C_DS3231_3.obj" 
+TO ".\Objects\I2C_DS3231" 
+PRINT(".\Listings\I2C_DS3231.m51") RAMSIZE(256) 

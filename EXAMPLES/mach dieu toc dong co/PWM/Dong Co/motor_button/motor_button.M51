@@ -1,0 +1,112 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/05/2014  20:30:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE motor_button.obj TO motor_button
+
+
+INPUT MODULES INCLUDED:
+  motor_button.obj (MOTOR_BUTTON)
+
+
+LINK MAP OF MODULE:  motor_button (MOTOR_BUTTON)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     009CH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  motor_button (MOTOR_BUTTON)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MOTOR_BUTTON
+  C:0085H         SYMBOL        DELAY
+  C:006BH         SYMBOL        DOWN
+  C:0062H         SYMBOL        DUNG
+  C:0048H         SYMBOL        HERE
+  C:0053H         SYMBOL        HERE1
+  C:005DH         SYMBOL        HERE2
+  C:0071H         SYMBOL        HERE3
+  C:007BH         SYMBOL        HERE4
+  C:0030H         SYMBOL        MAIN
+  D:0080H         SYMBOL        P0
+  D:00B0H         SYMBOL        P3
+  C:0042H         SYMBOL        START
+  C:0080H         SYMBOL        STOP
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:008AH         SYMBOL        TRE1S
+  C:004DH         SYMBOL        UP
+  C:0000H         LINE#         2
+  C:0030H         LINE#         5
+  C:0032H         LINE#         6
+  C:0034H         LINE#         7
+  C:0037H         LINE#         8
+  C:003AH         LINE#         9
+  C:003DH         LINE#         10
+  C:0040H         LINE#         11
+  C:0042H         LINE#         14
+  C:0044H         LINE#         15
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/05/2014  20:30:25  PAGE 2
+
+
+  C:0046H         LINE#         16
+  C:0048H         LINE#         18
+  C:004AH         LINE#         19
+  C:004CH         LINE#         20
+  C:004DH         LINE#         23
+  C:004FH         LINE#         24
+  C:0051H         LINE#         25
+  C:0053H         LINE#         27
+  C:0055H         LINE#         28
+  C:0057H         LINE#         29
+  C:0059H         LINE#         30
+  C:005BH         LINE#         31
+  C:005DH         LINE#         33
+  C:005FH         LINE#         34
+  C:0061H         LINE#         37
+  C:0062H         LINE#         41
+  C:0064H         LINE#         42
+  C:0066H         LINE#         43
+  C:0068H         LINE#         44
+  C:006AH         LINE#         46
+  C:006BH         LINE#         49
+  C:006DH         LINE#         50
+  C:006FH         LINE#         51
+  C:0071H         LINE#         53
+  C:0073H         LINE#         54
+  C:0075H         LINE#         55
+  C:0077H         LINE#         56
+  C:0079H         LINE#         57
+  C:007BH         LINE#         59
+  C:007DH         LINE#         60
+  C:007FH         LINE#         61
+  C:0080H         LINE#         64
+  C:0082H         LINE#         65
+  C:0084H         LINE#         66
+  C:0085H         LINE#         69
+  C:0088H         LINE#         70
+  C:008AH         LINE#         72
+  C:008DH         LINE#         73
+  C:0090H         LINE#         74
+  C:0092H         LINE#         75
+  C:0095H         LINE#         76
+  C:0097H         LINE#         77
+  C:0099H         LINE#         78
+  C:009BH         LINE#         79
+  -------         ENDMOD        MOTOR_BUTTON
+
+Program Size: data=8.0 xdata=0 code=156
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

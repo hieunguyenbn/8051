@@ -1,0 +1,136 @@
+A51 MACRO ASSEMBLER  MOTOR_BUTTON                                                         05/25/2014 22:43:27 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN motor_button.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE motor_button.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000 020030            2     LJMP MAIN
+0030                   3     ORG 30H
+0030                   4     MAIN:
+0030 C2B6              5             CLR P3.6
+0032 C2B7              6             CLR P3.7
+0034 30800B            7             JNB P0.0, START
+0037 308213            8             JNB P0.2, UP
+003A 30842E            9             JNB P0.4, DOWN
+003D 308740           10             JNB P0.7, STOP
+0040 80EE             11             JMP MAIN
+                      12     ;------------------------------------------------------------------------------------------
+                             ---------------------------------------------------
+0042                  13             START:
+0042 D2B6             14                     SETB P3.6
+0044 C2B7             15                     CLR P3.7
+0046 7E64             16                     MOV R6, #100
+0048                  17             HERE:
+0048 1185             18                     CALL DELAY
+004A DEFC             19                     DJNZ R6, HERE
+004C 22               20             RET
+                      21     ;------------------------------------------------------------------------------------------
+                             ---------------------------------------
+004D                  22         UP:
+004D D2B6             23                     SETB P3.6
+004F C2B7             24                     CLR P3.7
+0051 7E2C             25                     MOV R6, #300
+*** __________________________________________________^
+*** WARNING #A52 IN 25 (motor_button.asm, LINE 25): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0053                  26             HERE1:
+0053 1185             27                     CALL DELAY
+0055 DEFC             28                     DJNZ R6, HERE1
+0057 B2B6             29                 CPL P3.6
+0059 B2B7             30                     CPL P3.7
+005B 7F2C             31                     MOV R7, #300
+*** __________________________________________________^
+*** WARNING #A52 IN 31 (motor_button.asm, LINE 31): VALUE HAS BEEN TRUNCATED TO 8 BITS
+005D                  32             HERE2:
+005D 1185             33                     CALL DELAY
+005F DFFC             34                     DJNZ R7, HERE2
+                      35     
+                      36                             
+0061 22               37             RET
+                      38     ;----------------------------------------------------------------------------------------------------------------------------------------------
+                      39             
+0062                  40             DUNG:
+0062 C2B6             41                CLR P3.6
+0064 C2B7             42                CLR P3.7
+0066 7D05             43                MOV R5, #5
+0068 1185             44                             CALL DELAY
+                      45                             
+006A 22               46             RET
+                      47     ;-----------------------------------------------------------------------------------------------------------------------------------------------
+006B                  48             DOWN:
+006B D2B7             49                     SETB P3.7
+006D C2B6             50                     CLR P3.6
+006F 7EC8             51                     MOV R6, #200
+0071                  52             HERE3:
+A51 MACRO ASSEMBLER  MOTOR_BUTTON                                                         05/25/2014 22:43:27 PAGE     2
+
+0071 1185             53                     CALL DELAY
+0073 DEFC             54                     DJNZ R6, HERE3
+0075 B2B7             55                     CPL P3.7
+0077 B2B6             56                     CPL P3.6
+0079 7FC8             57             MOV R7, #200
+007B                  58             HERE4:
+007B 1185             59                     CALL DELAY
+007D DFFC             60                     DJNZ R7, HERE4
+007F 22               61             RET
+                      62     ;---------------------------------------------------------------------------------------------------------------------------------------------
+0080                  63             STOP:
+0080 C2B6             64                CLR P3.6
+0082 D2B7             65                SETB P3.7
+0084 22               66             RET
+                      67     ;--------------------------------------------------------------------------------------------------------------------------------
+0085                  68             DELAY:
+0085 758901           69                MOV TMOD, #01
+0088 7D14             70                MOV R5, #20
+008A                  71                TRE1S:
+008A 758CB0           72                        MOV TH0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 72 (motor_button.asm, LINE 72): VALUE HAS BEEN TRUNCATED TO 8 BITS
+008D 758AB0           73                        MOV TL0, #(-50000)
+*** ______________________________________________________^
+*** WARNING #A52 IN 73 (motor_button.asm, LINE 73): VALUE HAS BEEN TRUNCATED TO 8 BITS
+0090 D28C             74                        SETB TR0
+0092 308DFD           75                        JNB TF0, $
+0095 C28C             76                        CLR TR0
+0097 C28D             77                        CLR TF0
+0099 DDEF             78                        DJNZ R5, TRE1S
+009B 22               79             RET
+                      80     
+                      81     END
+A51 MACRO ASSEMBLER  MOTOR_BUTTON                                                         05/25/2014 22:43:27 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0085H   A   
+DOWN . . . . . . .  C ADDR   006BH   A   
+DUNG . . . . . . .  C ADDR   0062H   A   
+HERE . . . . . . .  C ADDR   0048H   A   
+HERE1. . . . . . .  C ADDR   0053H   A   
+HERE2. . . . . . .  C ADDR   005DH   A   
+HERE3. . . . . . .  C ADDR   0071H   A   
+HERE4. . . . . . .  C ADDR   007BH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+START. . . . . . .  C ADDR   0042H   A   
+STOP . . . . . . .  C ADDR   0080H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TRE1S. . . . . . .  C ADDR   008AH   A   
+UP . . . . . . . .  C ADDR   004DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  4 WARNING(S), 0 ERROR(S)

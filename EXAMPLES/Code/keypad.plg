@@ -1,0 +1,24 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Saeed\Desktop\8051 Keypad Interfacing Code\Code\keypad.uvproj
+Project File Date:  05/31/2012
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RETURN?CODE
+Program Size: data=10.0 xdata=0 code=436
+"keypad" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling code.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RETURN?CODE
+Program Size: data=10.0 xdata=0 code=436
+creating hex file from "keypad"...
+"keypad" - 0 Error(s), 1 Warning(s).

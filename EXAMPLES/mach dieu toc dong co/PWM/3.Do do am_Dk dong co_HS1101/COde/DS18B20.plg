@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+E:\10.Project\Do nhiet do DS18B20\DS18B20.uv2
+Project File Date:  08/01/2012
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_POSITION?DO_NHIET_DO_BANG_DS18B20
+Program Size: data=43.1 xdata=0 code=1196
+creating hex file from "DS18B20"...
+"DS18B20" - 0 Error(s), 1 Warning(s).

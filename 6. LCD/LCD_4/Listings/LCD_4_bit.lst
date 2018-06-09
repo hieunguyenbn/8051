@@ -1,0 +1,118 @@
+C51 COMPILER V9.56.0.0   LCD_4_BIT                                                         12/13/2017 21:08:44 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_4_BIT
+OBJECT MODULE PLACED IN .\Objects\LCD_4_bit.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_4_bit.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\LCD_4_bit.lst) TABS(2) OBJECT(.\Objects\LCD_4_bit.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          /* Configure the data bus and Control bus as per the hardware connection 
+   3             Databus is connected to P2.4:P2.7 and control bus P2.0:P2.2*/
+   4          #define LcdDataBus  P2
+   5          
+   6          sbit LCD_RS = P2^0;
+   7          sbit LCD_RW = P2^1;
+   8          sbit LCD_EN = P2^2;
+   9          
+  10          
+  11          /* local function to generate delay */
+  12          void delay(unsigned int t)
+  13          {
+  14   1          while(t--);
+  15   1      }
+  16          
+  17          
+  18          
+  19          /* Function to send the command to LCD. 
+  20             As it is 4bit mode, a byte of data is sent in two 4-bit nibbles */
+  21          void Lcd_CmdWrite(char cmd) {
+  22   1          LcdDataBus = (cmd & 0xF0);     //Send higher nibble
+  23   1          LCD_RS = 0;   // Send LOW pulse on RS pin for selecting Command register
+  24   1          LCD_RW = 0;   // Send LOW pulse on RW pin for Write operation
+  25   1          LCD_EN = 1;   // Generate a High-to-low pulse on EN pin
+  26   1          delay(1000);
+  27   1          LCD_EN = 0;
+  28   1          delay(10000);
+  29   1          LcdDataBus = ((cmd<<4) & 0xF0); //Send Lower nibble
+  30   1          LCD_RS = 0;   // Send LOW pulse on RS pin for selecting Command register
+  31   1          LCD_RW = 0;   // Send LOW pulse on RW pin for Write operation
+  32   1          LCD_EN = 1;   // Generate a High-to-low pulse on EN pin
+  33   1          delay(1000);
+  34   1          LCD_EN = 0; 
+  35   1          delay(10000);
+  36   1      }
+  37          
+  38          
+  39          /* Function to send the Data to LCD. 
+  40             As it is 4bit mode, a byte of data is sent in two 4-bit nibbles */
+  41          void Lcd_DataWrite(char dat) {
+  42   1          LcdDataBus = (dat & 0xF0);      //Send higher nibble
+  43   1          LCD_RS = 1;   // Send HIGH pulse on RS pin for selecting data register
+  44   1          LCD_RW = 0;   // Send LOW pulse on RW pin for Write operation
+  45   1          LCD_EN = 1;   // Generate a High-to-low pulse on EN pin
+  46   1          delay(1000);
+  47   1          LCD_EN = 0;
+  48   1          delay(10000);
+  49   1          LcdDataBus = ((dat<<4) & 0xF0);  //Send Lower nibble
+  50   1          LCD_RS = 1;    // Send HIGH pulse on RS pin for selecting data register
+  51   1          LCD_RW = 0;    // Send LOW pulse on RW pin for Write operation
+  52   1          LCD_EN = 1;    // Generate a High-to-low pulse on EN pin
+  53   1          delay(1000);
+  54   1          LCD_EN = 0; 
+C51 COMPILER V9.56.0.0   LCD_4_BIT                                                         12/13/2017 21:08:44 PAGE 2   
+
+  55   1          delay(10000);
+  56   1      }
+  57          
+  58          
+  59          
+  60          int main()
+  61          {
+  62   1          char i,a[]={"Good morning!"};
+  63   1      
+  64   1          LcdDataBus = 0x00;  // Configure all the LCD pins as output
+  65   1      
+  66   1      
+  67   1          Lcd_CmdWrite(0x02);        // Initialize Lcd in 4-bit mode
+  68   1          Lcd_CmdWrite(0x28);        // enable 5x7 mode for chars 
+  69   1          Lcd_CmdWrite(0x0E);        // Display OFF, Cursor ON
+  70   1          Lcd_CmdWrite(0x01);        // Clear Display
+  71   1          Lcd_CmdWrite(0x80);        // Move the cursor to beginning of first line
+  72   1      
+  73   1      
+  74   1          Lcd_DataWrite('H');
+  75   1          Lcd_DataWrite('e');
+  76   1          Lcd_DataWrite('l');
+  77   1          Lcd_DataWrite('l');
+  78   1          Lcd_DataWrite('o');
+  79   1          Lcd_DataWrite(' ');
+  80   1          Lcd_DataWrite('H');
+  81   1          Lcd_DataWrite('I');
+  82   1          Lcd_DataWrite('E');
+  83   1          Lcd_DataWrite('U');
+  84   1      
+  85   1          Lcd_CmdWrite(0xC0);        //Go to Next line and display Good Morning
+  86   1         
+  87   1          for(i=0; a[i]!=0; i++) {
+  88   2              Lcd_DataWrite(a[i]);
+  89   2          }
+  90   1      
+  91   1          while(1);
+  92   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    215    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

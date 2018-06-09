@@ -1,0 +1,136 @@
+C51 COMPILER V9.56.0.0   LCD_SRF05                                                         12/03/2017 20:32:15 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_SRF05
+OBJECT MODULE PLACED IN .\Objects\LCD_SRF05.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_SRF05.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\LCD_SRF05.lst) TABS(2) OBJECT(.\Objects\LCD_SRF05.obj)
+
+line level    source
+
+   1          // DO KC SU DUNG CAM BIEN SIEU AM SRF05, HIEN THI LEN LCD
+   2          
+   3          #include <reg52.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          #include <stdio.h>
+   6          
+   7          sbit RS = P0^5;
+   8          sbit RW = P0^6;
+   9          sbit EN = P0^7;
+  10          sbit TRIGGER = P3^5;
+  11          sbit ECHO = P3^2;
+  12          
+  13          void WriteCommand(unsigned char cmd);
+  14          void LCD_init();
+  15          void WriteChar(char c);
+  16          void WriteString(char *s);
+  17          void WriteStringPosition(unsigned char row, unsigned char col, char *s);
+  18          void StartRange();
+  19          void SRF05_Init(void);
+  20          
+  21          char chuoi2[16];
+  22          volatile float range, temp1;
+  23          unsigned char range_ok;
+  24          unsigned int distance;
+  25          
+  26          main() {
+  27   1        
+  28   1          LCD_init();
+  29   1          SRF05_Init();
+  30   1          while (1) {
+  31   2            WriteStringPosition(1,2,"DO KHOANG CACH");
+  32   2            StartRange();
+  33   2            if(range_ok){
+  34   3              sprintf(chuoi2,"DISTANCE = %f",range);
+  35   3              WriteStringPosition(2,1,chuoi2);
+  36   3            }
+  37   2          }
+  38   1      }
+  39          void StartRange() {
+  40   1        TRIGGER = 1;
+  41   1        delay_ms(12);              // Phai tao 1 xung len co do lon it nhat 10ms
+  42   1        ECHO = 1;                      // set chan ECHO la cong vao
+  43   1        delay_us(1);
+  44   1        TRIGGER = 0;               // Bat dau phep do.
+  45   1        while(!(ECHO));            // Doi cho den khi chan ECHO duoc keo len cao
+  46   1        //TR0=1;                     // Cho phep timer 0 hoat dong
+  47   1        TR0 = IT0 = EX0 = EA = 1;            // cho phep ngat toan cuc
+  48   1      }
+  49          
+  50          
+  51          void SRF05_Init(void) {
+  52   1        TRIGGER = 0;
+  53   1        TMOD = 0x01;   //timer 0 che do 1 (16bit)
+  54   1        TR0 = 1;
+C51 COMPILER V9.56.0.0   LCD_SRF05                                                         12/03/2017 20:32:15 PAGE 2   
+
+  55   1        IT0 = 1;       //ngat ngoai 0 che do ngat theo suong
+  56   1        IT1 = 1;
+  57   1        EX0 = 1;          //cho phep ngat ngoai 0
+  58   1        EX1 = 1;
+  59   1        EA = 1;          // cho phep ngat toan cuc
+  60   1        range_ok = 0;
+  61   1      }
+  62          
+  63          //ngat ngoai 0
+  64          void ngatngoai0(void)interrupt 0 {
+  65   1        distance = TH0;
+  66   1        distance <<= 8;
+  67   1        distance |= TL0;
+  68   1        range = (float)distance*12;
+  69   1        temp1=((58*11.0592));//temp1= 641;
+  70   1        range = range/(temp1);
+  71   1        TR0 = 0; IT0 = 0; EX0 = 0;                    // Ngung timer
+  72   1        TL0 =  0; TH0 = 0;                        // Xoa du lieu trong thanh ghi Timer 0                 
+  73   1        range_ok = 1;
+  74   1      }   
+  75          
+  76          void WriteCommand(unsigned char cmd) {
+  77   1          RS = 0; RW = 0;
+  78   1          P2 = cmd;
+  79   1          EN = 0; EN = 1;
+  80   1          delay_ms(2);
+  81   1      }
+  82          void LCD_init() {
+  83   1          WriteCommand(0x30);
+  84   1          delay_ms(5);
+  85   1          WriteCommand(0x30);
+  86   1          delay_ms(1);
+  87   1          WriteCommand(0x38);
+  88   1          WriteCommand(0x01);
+  89   1          WriteCommand(0x0C);
+  90   1      }
+  91          void WriteChar(char c) {
+  92   1          RS = 1; RW = 0;
+  93   1          P2 = c;
+  94   1          EN = 0; EN = 1;
+  95   1          delay_ms(1);
+  96   1      }
+  97          
+  98          void WriteString(char *s) {
+  99   1          while (*s) {
+ 100   2                WriteChar(*s++);
+ 101   2          }
+ 102   1      }
+ 103          void WriteStringPosition(unsigned char row, unsigned char col, char *s) {
+ 104   1        unsigned char cmd;
+ 105   1        cmd = (row==1?0x80:0xC0) + col - 1;
+ 106   1        WriteCommand(cmd);
+ 107   1        WriteString(s);
+ 108   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    424    ----
+   CONSTANT SIZE    =     29    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     27       6
+C51 COMPILER V9.56.0.0   LCD_SRF05                                                         12/03/2017 20:32:15 PAGE 3   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

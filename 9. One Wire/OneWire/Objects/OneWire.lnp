@@ -1,0 +1,4 @@
+".\Objects\OneWire.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\OneWire" 
+PRINT(".\Listings\OneWire.m51") RAMSIZE(256) 

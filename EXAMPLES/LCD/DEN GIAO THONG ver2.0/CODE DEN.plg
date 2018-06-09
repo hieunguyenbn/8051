@@ -1,0 +1,450 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\GIANG DAY\LAM MO HINH DAY HOC\MO HINH SAT HACH LAI XE\code den giao thong\DEN GIAO THONG ver2.0\CODE DEN.uvproj
+Project File Date:  05/15/2017
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CAI_LCD?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3139
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?HIEN_THICAI?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3139
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?HIEN_THICAI?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3033
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3036
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3052
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3060
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3062
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3064
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3063
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3142
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3275
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3276
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3276
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3276
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3372
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3380
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3392
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3300
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3303
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3300
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3276
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3276
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3277
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3269
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3280
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3269
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3271
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3271
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3286
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3284
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3285
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3285
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3273
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3272
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.1 xdata=0 code=3272
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+CODE DEN.C(103): error C141: syntax error near '{'
+CODE DEN.C(104): error C231: 'P1': redefinition
+CODE DEN.C(104): error C247: non-address/-constant initializer
+CODE DEN.C(104): error C231: 'P1': redefinition
+CODE DEN.C(105): error C231: 'P0_2': redefinition
+CODE DEN.C(105): error C247: non-address/-constant initializer
+CODE DEN.C(105): error C231: 'P0_2': redefinition
+CODE DEN.C(106): error C231: 'P0_1': redefinition
+CODE DEN.C(106): error C247: non-address/-constant initializer
+CODE DEN.C(106): error C231: 'P0_1': redefinition
+CODE DEN.C(106): error C141: syntax error near '300'
+CODE DEN.C(106): error C231: '_delayms': redefinition
+CODE DEN.C(107): error C279: 'P0_1': multiple initialization
+CODE DEN.C(107): error C231: 'P0_1': redefinition
+CODE DEN.C(107): error C247: non-address/-constant initializer
+CODE DEN.C(107): error C231: 'P0_1': redefinition
+CODE DEN.C(107): error C141: syntax error near '300'
+CODE DEN.C(107): error C231: '_delayms': redefinition
+CODE DEN.C(108): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.2 xdata=0 code=3348
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+CODE DEN.C(202): error C141: syntax error near '&&'
+CODE DEN.C(202): error C141: syntax error near '{'
+Target not created
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=98.2 xdata=0 code=3327
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=99.1 xdata=0 code=3332
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=99.1 xdata=0 code=3332
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling CODE DEN.C...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=99.1 xdata=0 code=3338
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYS?CODE_DEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_CLEAR?CODE_DEN
+Program Size: data=99.1 xdata=0 code=3338
+creating hex file from "CODE DEN"...
+"CODE DEN" - 0 Error(s), 2 Warning(s).

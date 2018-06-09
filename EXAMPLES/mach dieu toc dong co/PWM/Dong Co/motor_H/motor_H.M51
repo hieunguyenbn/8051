@@ -1,0 +1,88 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/01/2016  22:06:34  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE motor_H.obj TO motor_H
+
+
+INPUT MODULES INCLUDED:
+  motor_H.obj (MOTOR_H)
+
+
+LINK MAP OF MODULE:  motor_H (MOTOR_H)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0074H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  motor_H (MOTOR_H)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MOTOR_H
+  C:005DH         SYMBOL        DELAY1S
+  C:0042H         SYMBOL        DELAY3S
+  C:0058H         SYMBOL        DELAY4S
+  C:004DH         SYMBOL        DELAY5S
+  C:0047H         SYMBOL        DUNG
+  C:0030H         SYMBOL        MAIN
+  C:0052H         SYMBOL        NGUOC
+  D:00B0H         SYMBOL        P3
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  C:003CH         SYMBOL        THUAN
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:0062H         SYMBOL        TRE1S
+  C:0000H         LINE#         3
+  C:0030H         LINE#         6
+  C:0032H         LINE#         7
+  C:0034H         LINE#         8
+  C:0036H         LINE#         9
+  C:0038H         LINE#         10
+  C:003AH         LINE#         11
+  C:003CH         LINE#         14
+  C:003EH         LINE#         15
+  C:0040H         LINE#         16
+  C:0042H         LINE#         18
+  C:0044H         LINE#         19
+  C:0046H         LINE#         20
+  C:0047H         LINE#         23
+  C:0049H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/01/2016  22:06:34  PAGE 2
+
+
+  C:004BH         LINE#         25
+  C:004DH         LINE#         27
+  C:004FH         LINE#         28
+  C:0051H         LINE#         29
+  C:0052H         LINE#         32
+  C:0054H         LINE#         33
+  C:0056H         LINE#         34
+  C:0058H         LINE#         36
+  C:005AH         LINE#         37
+  C:005CH         LINE#         38
+  C:005DH         LINE#         41
+  C:0060H         LINE#         42
+  C:0062H         LINE#         44
+  C:0065H         LINE#         45
+  C:0068H         LINE#         46
+  C:006AH         LINE#         47
+  C:006DH         LINE#         48
+  C:006FH         LINE#         49
+  C:0071H         LINE#         50
+  C:0073H         LINE#         51
+  -------         ENDMOD        MOTOR_H
+
+Program Size: data=8.0 xdata=0 code=116
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

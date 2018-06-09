@@ -1,0 +1,99 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/06/2017  08:22:57  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\SendCharacter.obj TO .\Objects\SendCharacter PRINT (.\Listings\SendCharacter.m51) 
+>> RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\SendCharacter.obj (SENDCHARACTER)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\SendCharacter (SENDCHARACTER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0026H     UNIT         ?PR?MAIN?SENDCHARACTER
+            CODE    0029H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0035H     0008H     UNIT         ?PR?_SEND?SENDCHARACTER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\SendCharacter (SENDCHARACTER)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?SENDCHARACTER
+
+?PR?MAIN?SENDCHARACTER
+  +--> ?PR?_SEND?SENDCHARACTER
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\SendCharacter (SENDCHARACTER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SENDCHARACTER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0098H.1       PUBLIC        TI
+  C:0003H         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/06/2017  08:22:57  PAGE 2
+
+
+  C:0035H         PUBLIC        _send
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008DH         PUBLIC        TH1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:0003H         LINE#         6
+  C:0003H         LINE#         8
+  C:0006H         LINE#         9
+  C:0009H         LINE#         10
+  C:000CH         LINE#         11
+  C:000EH         LINE#         12
+  C:000EH         LINE#         13
+  C:0013H         LINE#         14
+  C:0018H         LINE#         15
+  C:001DH         LINE#         16
+  C:0022H         LINE#         17
+  C:0027H         LINE#         18
+  -------         ENDPROC       MAIN
+  -------         PROC          _SEND
+  D:0007H         SYMBOL        x
+  C:0035H         LINE#         20
+  C:0035H         LINE#         21
+  C:0037H         LINE#         22
+  C:003AH         LINE#         23
+  C:003CH         LINE#         24
+  -------         ENDPROC       _SEND
+  -------         ENDMOD        SENDCHARACTER
+
+Program Size: data=9.0 xdata=0 code=61
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

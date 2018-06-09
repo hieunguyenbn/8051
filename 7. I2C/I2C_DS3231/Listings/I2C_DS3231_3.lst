@@ -1,0 +1,308 @@
+C51 COMPILER V9.56.0.0   I2C_DS3231_3                                                      12/28/2017 14:45:33 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE I2C_DS3231_3
+OBJECT MODULE PLACED IN .\Objects\I2C_DS3231_3.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE I2C_DS3231_3.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\I2C_DS3231_3.lst) TABS(2) OBJECT(.\Objects\I2C_DS3231_3.obj)
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include <stdio.h>
+   3          #include <string.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          
+   6          sbit mode = P3^4;
+   7          sbit RS = P2^0;
+   8          sbit RW = P2^1;
+   9          sbit EN = P2^2;
+  10          
+  11          sbit SCL = P3^0;
+  12          sbit SDA = P3^1;
+  13          
+  14          void LCD_init(); //khoi tao
+  15          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+  16          void WriteChar(char c); // Gui ky tu
+  17          void WriteString(char *s); //GUI CHUOI
+  18          void delay(unsigned int t);
+  19          
+  20          void I2C_start();
+  21          void I2C_stop();
+  22          void I2C_write(unsigned char d);
+  23          unsigned char I2C_read(bit ack);
+  24          
+  25          unsigned char DS3231_read(unsigned char a);
+  26          void DS3231_write(unsigned char a,unsigned char d);
+  27          
+  28          unsigned char Time[15], D[15];
+  29          volatile char i;
+  30          char sec, min, hour, date, month, year, c, check;
+  31          
+  32          main() {
+  33   1          
+  34   1          SCL = 1;
+  35   1          delay(2);
+  36   1          SDA = 1;
+  37   1          LCD_init();
+  38   1          IE = 0x85; //NGAT NGOAI 
+  39   1          IT0 = 1; IT1 = 1; // NGAT THEO SUON
+  40   1        //  DS3231_write(0x0E,0x04);
+  41   1          
+  42   1          while (1) {
+  43   2              if (!(mode)) {
+  44   3                  delay_ms(2);
+  45   3                  c = 1;
+  46   3                  check = 1;
+  47   3              }
+  48   2              while (check) {
+  49   3              
+  50   3              if (c == 1) {
+  51   4                    i = hour;
+  52   4                    delay_ms(100);
+  53   4                    hour = i;
+  54   4                    if (hour < 0) hour = 23;
+C51 COMPILER V9.56.0.0   I2C_DS3231_3                                                      12/28/2017 14:45:33 PAGE 2   
+
+  55   4                    if (hour > 23) hour = 0;
+  56   4                    DS3231_write(0x02,hour);
+  57   4                    WriteCommand(0x86);
+  58   4                    WriteChar(hour/10+48);
+  59   4                    WriteChar(hour%10+48);
+  60   4                    WriteCommand(0x88);
+  61   4                    WriteChar(':');
+  62   4                    WriteCommand(0x87);
+  63   4              }
+  64   3              else if (c == 2) {
+  65   4                    i = min;
+  66   4                    delay_ms(100);
+  67   4                    min = i;
+  68   4                    if (min < 0) min = 59;
+  69   4                    if (min > 59) min = 0;
+  70   4                    DS3231_write(0x01,min);
+  71   4                    WriteCommand(0x89);
+  72   4                    WriteChar(min/10+48);
+  73   4                    WriteChar(min%10+48);
+  74   4                    WriteCommand(0x8B);
+  75   4                    WriteChar(':');
+  76   4                    WriteCommand(0x8A);
+  77   4              }
+  78   3              else if (c == 3) {
+  79   4                    i = sec;
+  80   4                    delay_ms(100);
+  81   4                    sec = i;
+  82   4                    if (sec < 0) sec = 59;
+  83   4                    if (sec > 59) sec = 0;
+  84   4                    DS3231_write(0x00,sec);
+  85   4                    WriteCommand(0x8C);
+  86   4                    WriteChar(sec/10+48);
+  87   4                    WriteChar(sec%10+48);
+  88   4                    WriteCommand(0x8D);
+  89   4              }
+  90   3              else if (c == 4) {      
+  91   4                    i = date;
+  92   4                    delay_ms(100);
+  93   4                    date = i;
+  94   4                    if (date < 0) date = 31;
+  95   4                    if (date > 31) date = 0;
+  96   4                    DS3231_write(0x04,date);
+  97   4                    WriteCommand(0xC6);
+  98   4                    WriteChar(date/10+48);
+  99   4                    WriteChar(date%10+48);
+ 100   4                    WriteCommand(0xC8);
+ 101   4                    WriteChar('/');
+ 102   4                    WriteCommand(0xC7);
+ 103   4              }
+ 104   3              else if (c == 5) {
+ 105   4                    i = month;
+ 106   4                    delay_ms(100);
+ 107   4                    month = i;
+ 108   4                    if (month < 0) month = 12;
+ 109   4                    if (month > 12) month = 0;
+ 110   4                    DS3231_write(0x05,month);
+ 111   4                    WriteCommand(0xC9);
+ 112   4                    WriteChar(month/10+48);
+ 113   4                    WriteChar(month%10+48);
+ 114   4                    WriteCommand(0xCB);
+ 115   4                    WriteChar('/');
+ 116   4                    WriteCommand(0xCA);
+C51 COMPILER V9.56.0.0   I2C_DS3231_3                                                      12/28/2017 14:45:33 PAGE 3   
+
+ 117   4                }
+ 118   3              else if (c == 6) {
+ 119   4                    i = year;
+ 120   4                    delay_ms(100);
+ 121   4                    year = i;
+ 122   4                    if (year < 0) year = 99;
+ 123   4                    if (year > 99) year = 0;
+ 124   4                    DS3231_write(0x06,year);
+ 125   4                    WriteCommand(0xCC);
+ 126   4                    WriteChar(year/10+48);
+ 127   4                    WriteChar(year%10+48);
+ 128   4                    WriteCommand(0xCD);
+ 129   4                }
+ 130   3              else {
+ 131   4                check = 0;
+ 132   4                delay_ms(400);
+ 133   4                WriteCommand(0x01);
+ 134   4              }
+ 135   3              if (!(mode)) {
+ 136   4                  delay_ms(2);
+ 137   4                  c++;
+ 138   4              }
+ 139   3            }
+ 140   2                hour = DS3231_read(0x02);
+ 141   2                min = DS3231_read(0x01);
+ 142   2                sec = DS3231_read(0x00);
+ 143   2                WriteCommand(0x80);
+ 144   2                WriteString("Time");
+ 145   2                WriteCommand(0x86);
+ 146   2                sprintf(Time,"%bu:%bu:%bu ", hour, min, sec);
+ 147   2                WriteString(Time);
+ 148   2                date = DS3231_read(0x04);
+ 149   2                month = DS3231_read(0x05);
+ 150   2                year = DS3231_read(0x06);
+ 151   2                WriteCommand(0xC0);
+ 152   2                WriteString("Date");
+ 153   2                WriteCommand(0xC6);
+ 154   2                sprintf(D,"%bu/%bu/%bu ", date, month, year);
+ 155   2                WriteString(D);
+ 156   2          } 
+ 157   1        
+ 158   1      }
+ 159          void tang(void) interrupt 0 {
+ 160   1          i++;
+ 161   1          delay_us(1000);
+ 162   1      }
+ 163          void giam(void) interrupt 2 {
+ 164   1          i--;
+ 165   1          delay_us(1000);
+ 166   1      }
+ 167          
+ 168          void DS3231_write(unsigned char a,unsigned char d) {
+ 169   1          d = ((d/10)<<4 | (d%10)); //  dec to BCD 
+ 170   1          I2C_start();
+ 171   1          I2C_write(0xD0); // Dia chi cua ds3231
+ 172   1          I2C_write(a);
+ 173   1          I2C_write(d);
+ 174   1          I2C_stop();
+ 175   1      }
+ 176          unsigned char DS3231_read(unsigned char a) {
+ 177   1          unsigned int d;
+ 178   1          I2C_start();
+C51 COMPILER V9.56.0.0   I2C_DS3231_3                                                      12/28/2017 14:45:33 PAGE 4   
+
+ 179   1          I2C_write(0xD0); // DIA CHI CUA DS3231 la 0x68, dich trai 1 bit de gui bit R/W (0) => OxDO
+ 180   1          I2C_write(a); // GUI DIA CHI CUA THANH GHI
+ 181   1          I2C_start(); // KHOI DONG LAI
+ 182   1          I2C_write(0xD1); // READ (R/W = 1)
+ 183   1          d = I2C_read(0);
+ 184   1          I2C_stop();
+ 185   1          d = ((d>>4)*10 + (d&0x0F)); // Chuyen doi ma BCD sang dec
+ 186   1          return d;
+ 187   1      }
+ 188          void I2C_start() {
+ 189   1          SDA = 1;
+ 190   1          SCL = 1;
+ 191   1          delay(2);
+ 192   1          SDA = 0;
+ 193   1          delay(2);
+ 194   1          SCL = 0;
+ 195   1          delay(2);
+ 196   1      }
+ 197          void I2C_stop() {
+ 198   1          SDA = 0;
+ 199   1          SCL = 1;
+ 200   1          delay(2);
+ 201   1          SDA = 1;
+ 202   1          delay(2);
+ 203   1          SCL = 0;
+ 204   1          delay(2);
+ 205   1      }
+ 206          void I2C_write(unsigned char d) {
+ 207   1          unsigned char i;
+ 208   1          for (i = 0; i < 8; i++) {
+ 209   2              SDA =  (d & 0x80)?1:0;
+ 210   2              SCL = 1;
+ 211   2              delay(2);
+ 212   2              SCL = 0;
+ 213   2              d <<= 1;
+ 214   2          }
+ 215   1          SCL = 1; // clock cho ACK
+ 216   1          SCL = 0;
+ 217   1      }
+ 218          unsigned char I2C_read(bit ack) {
+ 219   1          unsigned char i, d = 0;
+ 220   1          SDA = 1;
+ 221   1          for (i = 0; i < 8; i++) {
+ 222   2              SCL = 1;
+ 223   2              d <<= 1;
+ 224   2              d |= SDA;
+ 225   2              SCL = 0;
+ 226   2              delay(2);
+ 227   2          }
+ 228   1          SDA = (ack)?0:1;
+ 229   1          SCL = 1; // clock cho ack;
+ 230   1          delay(2);
+ 231   1          SCL = 0;
+ 232   1          return d;
+ 233   1      }
+ 234          
+ 235          void WriteCommand(unsigned char cmd) {
+ 236   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+ 237   1          RS = 0; // Gui/nhan lenh
+ 238   1          RW = 0; // Gui
+ 239   1          EN = 1; delay(20); EN = 0;
+ 240   1          delay(150);
+C51 COMPILER V9.56.0.0   I2C_DS3231_3                                                      12/28/2017 14:45:33 PAGE 5   
+
+ 241   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+ 242   1          RS = 0; RW = 0;
+ 243   1          EN = 1; delay(20); EN = 0;
+ 244   1          delay(150);
+ 245   1      }
+ 246          
+ 247          void LCD_init() {
+ 248   1          P2 = 0x00;
+ 249   1          delay_ms(1);
+ 250   1          WriteCommand(0x03);
+ 251   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+ 252   1          WriteCommand(0x28);        
+ 253   1          WriteCommand(0x01);        // Clear 
+ 254   1          WriteCommand(0x0E);
+ 255   1      }
+ 256              
+ 257          void WriteChar(char c) {
+ 258   1          P2 = (c & 0xF0);
+ 259   1          RS = 1; // Gui/nhan du lieu
+ 260   1          RW = 0; // Gui
+ 261   1          EN = 1; delay(10); EN = 0;
+ 262   1          delay(100);
+ 263   1          P2 = ((c << 4) & 0xF0);
+ 264   1          RS = 1; RW = 0;
+ 265   1          EN = 1; delay(10); EN = 0;
+ 266   1          delay(100);
+ 267   1      }
+ 268          void WriteString(char *s) {
+ 269   1          while (*s) {
+ 270   2              WriteChar(*s++);
+ 271   2          }
+ 272   1      }
+ 273          
+ 274          void delay(unsigned int t) {
+ 275   1          while(t--);
+ 276   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1328    ----
+   CONSTANT SIZE    =     36    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     39      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

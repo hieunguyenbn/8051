@@ -1,0 +1,70 @@
+C51 COMPILER V9.52.0.0   SRF05                                                             09/12/2014 11:04:44 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SRF05
+OBJECT MODULE PLACED IN srf05.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE srf05\srf05.c BROWSE DEBUG OBJECTEXTEND PRINT(.\srf05.lst) TABS(2) OBJEC
+                    -T(srf05.obj)
+
+line level    source
+
+   1          #include "srf05.h"
+   2          uint8_t range_ok;
+   3          uint16_t distance;
+   4          float range,temp1;
+   5           void  StartRange()
+   6          {
+   7   1        TRIGGER=1;
+   8   1        delay_ms(12);              // Phai tao 1 xung len co do lon it nhat 10ms
+   9   1        ECHO=1;                      // set chan ECHO la cong vao
+  10   1        delay_us(1);
+  11   1        TRIGGER=0;               // Bat dau phep do.
+  12   1        while(!(ECHO));            // Doi cho den khi chan ECHO duoc keo len cao
+  13   1        //TR0=1;                     // Cho phep timer 0 hoat dong
+  14   1        TR0=IT0=EX0=EA=1;            // cho phep ngat toan cuc
+  15   1      }
+  16          
+  17          
+  18          void SRF05_Init(void)
+  19          {
+  20   1        TRIGGER=0;
+  21   1        TMOD=0x01;   //timer 0 che do 1 (16bit) cuc GATE mo
+  22   1        TR0=1;
+  23   1        IT0=1;       //ngat ngoai 0 che do falling
+  24   1        IT1=1;
+  25   1        EX0=1;          //cho phep ngat ngoai 0
+  26   1        EX1=1;
+  27   1        EA=1;          // cho phep ngat toan cuc
+  28   1        range_ok=0;
+  29   1      }
+  30          
+  31          //ngat ngoai 0
+  32          void ngatngoai0(void)interrupt 0
+  33          {
+  34   1        distance=TH0;
+  35   1        distance<<=8;
+  36   1        distance|=TL0;
+  37   1        range=(float)distance*12;
+  38   1        temp1=((58*11.0592));
+  39   1        //temp1= 641;
+  40   1        range=range/(temp1);
+  41   1        TR0=IT0=EX0= 0;                   // Ngung timer
+  42   1        TL0=TH0=0;                        // Xoa du lieu trong thanh ghi Timer 0                 
+  43   1        range_ok=1;
+  44   1      }   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    200    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.52.0.0   SRF05                                                             09/12/2014 11:04:44 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

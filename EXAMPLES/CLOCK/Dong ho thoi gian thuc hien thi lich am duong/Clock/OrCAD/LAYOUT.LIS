@@ -1,0 +1,188 @@
+AutoECO Report
+FILE-A: C:\ORCAD\ORCAD_10.5\TOOLS\LAYOUT_PLUS\DATA\_DEFAULT.TCH
+FILE-B: C:\USERS\DUONG THANH HOANG\DESKTOP\CLOCK\AAA.MNL
+If "*EOF*" immediately follows, no changes were made
+Adding package A1015
+Adding package THACH_ANH
+Adding package LED_7_DOAN
+Adding package BATTERY_3V
+Adding package NUT_NHAN_2
+Adding package DIEN_TRO
+Adding package 7805_0
+Adding package TU_GOM
+Adding package TU_HOA
+Adding package LED_S
+Adding package 74HC138_1
+Adding package DS1307_1
+Adding package AT89C52_0
+Adding package RESISTOR_SIP_9_0
+Adding package JACK_DC
+Adding component Q4
+Found library footprint with same name as part A1015
+Adding component Y2
+Found library footprint with same name as part THACH_ANH
+Adding component U2
+Found footprint LED 7SEG - SINGLE - 2 from PRT file for part LED_7_DOAN, comp U2
+Adding component U20
+Found footprint BATTERY_DE_NHUA from PRT file for part BATTERY_3V, comp U20
+Adding component SW4
+Found footprint BUTTON 4 PIN_SQR from PRT file for part NUT_NHAN_2, comp SW4
+Adding component R9
+Found footprint R_1/4W from PRT file for part DIEN_TRO, comp R9
+Adding component R18
+Adding component R21
+Adding component R7
+Adding component U17
+Adding component SW5
+Adding component R22
+Adding component U6
+Adding component U13
+Adding component U3
+Found footprint 78_XX CO TAN NHIET from PRT file for part 7805_0, comp U3
+Adding component R1
+Adding component C7
+Found footprint C33P from PRT file for part TU_GOM, comp C7
+Adding component SW6
+Adding component U16
+Adding component Q7
+Adding component R19
+Adding component U4
+Adding component Q11
+Adding component C3
+Found footprint TU10/16 from PRT file for part TU_HOA, comp C3
+Adding component R10
+Adding component C1
+Adding component R4
+Adding component U15
+Adding component R14
+Adding component U8
+Adding component D2
+Found footprint LED_5MM from PRT file for part LED_S, comp D2
+Adding component C2
+Adding component U11
+Adding component Q8
+Adding component Q3
+Adding component C5
+Adding component U18
+Adding component Q12
+Adding component R11
+Adding component R6
+Adding component SW1
+Adding component R15
+Adding component U14
+Adding component U19
+Adding component Q9
+Adding component Y1
+Adding component U7
+Adding component Q13
+Adding component R12
+Adding component U5
+Adding component Q5
+Adding component U9
+Adding component C4
+Adding component R16
+Adding component R8
+Adding component Q10
+Adding component U12
+Adding component U1
+Found footprint DIP 40 from PRT file for part AT89C52_0, comp U1
+Adding component R2
+Found footprint RESISTOR ARRAY 9 PIN from PRT file for part RESISTOR_SIP_9_0, comp R2
+Adding component Q14
+Adding component R13
+Adding component Q2
+Adding component Q16
+Adding component R17
+Adding component R5
+Adding component D1
+Adding component R3
+Adding component SW2
+Found library footprint with same name as part JACK_DC
+Adding component U21
+Adding component Q1
+Adding component C6
+Adding component SW3
+Adding component Q6
+Adding component U10
+Adding component Q15
+Adding component R20
+Adding net CANCEL
+Adding net MENU
+Adding net DOWN
+Adding net UP
+Adding net N051150
+Adding net N052530
+Adding net N052070
+Adding net X1
+Adding net N051610
+Adding net X2
+Adding net N052990
+Adding net RS
+Adding net N44812
+Adding net A
+Adding net B
+Adding net C
+Adding net G
+Adding net E
+Adding net D
+Adding net F
+Adding net DATE
+Adding net SCAN0
+Adding net SCAN2
+Adding net SCAN1
+Adding net TIME
+Adding net SQW
+Adding net SDA
+Adding net SCL
+Adding net T1
+Adding net T2
+Adding net VCC
+Adding net GND
+Adding net N00652
+Adding net YEAR 0
+Adding net MON 0
+Adding net YEAR 1
+Adding net MON 1
+Adding net HOUR 0
+Adding net DAY
+Adding net MON 01
+Adding net MIN 0
+Adding net MON 00
+Adding net MIN 1
+Adding net HOUR 1
+Adding net N004640
+Adding net N023901
+Adding net OUT
+Adding net N038080
+Adding net L10
+Adding net L6
+Adding net L11
+Adding net L4
+Adding net N039490
+Adding net L13
+Adding net D01
+Adding net L8
+Adding net L5
+Adding net L14
+Adding net D 01
+Adding net L3
+Adding net D 11
+Adding net L15
+Adding net L1
+Adding net N040970
+Adding net L2
+Adding net L12
+Adding net L7
+Adding net L9
+Adding net D 10
+Adding net D 00
+Adding net N042520
+Adding net N047120
+Adding net N047580
+Adding net N045740
+Adding net N046660
+Adding net N046200
+Adding net VBAT
+Deleting net DEFAULT
+*EOF*
+No errors found

@@ -1,0 +1,52 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/16/2017 09:50:17 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c OMF2 BROWSE DEBUG TABS(2)
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "UARTmode1.h"
+   3          #include "stdio.h"
+   4          
+   5          /*****************************************************************************
+   6          #include "stdio.h"
+   7          
+   8          putchar() <=> UART_Write()
+   9          getkey() //Wait 1 symbol sent to UART Gate and read it ( similar UART_Read() )
+  10          printf() <=> UART_Write_Text()
+  11          *****************************************************************************/
+  12          
+  13          void main()
+  14          {
+  15   1        UART_Init();
+  16   1        UART_Write_Text("Hello World!!!");      //In ra man hinh dong chu Hello World
+  17   1        
+  18   1        while(1)
+  19   1        {
+  20   2          printf("Nhap vao lan 1\n");           //In ra man hinh
+  21   2          P1 = getkey();                        //Doc ky tu nhap vao va truyen ma ASCII toi port 1
+  22   2          printf("Nhap vao lan 2\n");           //In ra man hinh
+  23   2          P1 = UART_Read();                     //Doc ky tu nhap vao va truyen ma ASCII toi port 1
+  24   2        }
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     42    ----
+   CONSTANT SIZE    =     47    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

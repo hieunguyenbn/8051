@@ -1,0 +1,60 @@
+C51 COMPILER V9.56.0.0   L298_                                                             12/17/2017 23:56:26 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE L298_
+OBJECT MODULE PLACED IN .\Objects\L298_.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE L298_.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\L29
+                    -8_.lst) TABS(2) OBJECT(.\Objects\L298_.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          
+   3          void delay(void);
+   4          
+   5          sbit motor_pin_1 = P1^0;
+   6          sbit motor_pin_2 = P1^1;
+   7          
+   8          void main()
+   9          {
+  10   1        do
+  11   1        {
+  12   2          motor_pin_1 = 1;
+  13   2          motor_pin_2 = 0; //Rotates Motor Anit Clockwise
+  14   2          delay();
+  15   2          motor_pin_1 = 1;
+  16   2          motor_pin_2 = 1; //Stops Motor
+  17   2          delay();
+  18   2          motor_pin_1 = 0;
+  19   2          motor_pin_2 = 1; //Rotates Motor Clockwise
+  20   2          delay();
+  21   2          motor_pin_1 = 0;
+  22   2          motor_pin_2 = 0; //Stops Motor
+  23   2          delay();
+  24   2        }while(1);
+  25   1      }
+  26          
+  27          void delay()
+  28          {
+  29   1        int i,j;
+  30   1        for(i=0;i<1000;i++)
+  31   1        {
+  32   2          for(j=0;j<1000;j++)
+  33   2          {
+  34   3          }
+  35   2        }
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     59    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

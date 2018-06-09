@@ -1,0 +1,136 @@
+C51 COMPILER V9.56.0.0   LCD_CGRAM_2                                                       12/28/2017 14:56:06 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_CGRAM_2
+OBJECT MODULE PLACED IN .\Objects\LCD_CGRAM_2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_CGRAM_2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\LCD_CGRAM_2.lst) TABS(2) OBJECT(.\Objects\LCD_CGRAM_2.obj)
+
+line level    source
+
+   1          /*  
+   2             LCD16x2 8bit 8051 custom character
+   3          */
+   4          #include<reg52.h>
+   5          #include "..\..\LIBRARY\delay.h"
+   6          //fr lcd_data_port=0x90;  /* P1 port asdata port */
+   7          sbit RS = P2^0;
+   8          sbit RW = P2^1;
+   9          sbit EN = P2^2;
+  10          
+  11          void LCD_init(); //khoi tao
+  12          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+  13          void WriteChar(char c); // Gui ky tu
+  14          void WriteString(char *s);
+  15          void LCD_Custom_Char (unsigned char loc, unsigned char *msg);
+  16          void delay(unsigned int t) {
+  17   1          while(t--);
+  18   1      }
+  19          
+  20          
+  21          void main()
+  22          {
+  23   1        char i;
+  24   1        /* Custom char set for alphanumeric LCD Module */
+  25   1        unsigned char Character1[8] = { 0x00, 0x0A, 0x15, 0x11, 0x0A, 0x04, 0x00, 0x00 };
+  26   1        unsigned char Character2[8] = { 0x04, 0x1F, 0x11, 0x11, 0x1F, 0x1F, 0x1F, 0x1F };
+  27   1        unsigned char Character3[8] = { 0x04, 0x0E, 0x0E, 0x0E, 0x1F, 0x00, 0x04, 0x00 };
+  28   1        unsigned char Character4[8] = { 0x01, 0x03, 0x07, 0x1F, 0x1F, 0x07, 0x03, 0x01 };
+  29   1        unsigned char Character5[8] = { 0x01, 0x03, 0x05, 0x09, 0x09, 0x0B, 0x1B, 0x18 };
+  30   1        unsigned char Character6[8] = { 0x0A, 0x0A, 0x1F, 0x11, 0x11, 0x0E, 0x04, 0x04 };
+  31   1        unsigned char Character7[8] = { 0x00, 0x00, 0x0A, 0x00, 0x04, 0x11, 0x0E, 0x00 };
+  32   1        unsigned char Character8[8] = { 0x00, 0x0A, 0x1F, 0x1F, 0x0E, 0x04, 0x00, 0x00 };
+  33   1      
+  34   1        LCD_init();
+  35   1        
+  36   1        
+  37   1        LCD_Custom_Char(0, Character1);  /* Build Character1 at position 0 */ 
+  38   1        LCD_Custom_Char(1, Character2);  /* Build Character2 at position 1 */ 
+  39   1        LCD_Custom_Char(2, Character3);  /* Build Character3 at position 2 */ 
+  40   1        LCD_Custom_Char(3, Character4);  /* Build Character4 at position 3 */ 
+  41   1        LCD_Custom_Char(4, Character5);  /* Build Character5 at position 4 */ 
+  42   1        LCD_Custom_Char(5, Character6);  /* Build Character6 at position 5 */ 
+  43   1        LCD_Custom_Char(6, Character7);  /* Build Character6 at position 6 */ 
+  44   1        LCD_Custom_Char(7, Character8);  /* Build Character6 at position 7 */ 
+  45   1      
+  46   1      
+  47   1        while (1) {
+  48   2        WriteCommand(0x80);   /* Cursor at home position */
+  49   2        WriteString("Custom char LCD");     
+  50   2        WriteCommand(0xC0);
+  51   2        for(i=0;i<8;i++)  /* Function will send data 1 to 8 to lcd */
+  52   2          {
+  53   3            WriteChar(i);
+  54   3            WriteChar(' '); /* Space between each custom char */
+C51 COMPILER V9.56.0.0   LCD_CGRAM_2                                                       12/28/2017 14:56:06 PAGE 2   
+
+  55   3          }
+  56   2        WriteCommand(0x18);
+  57   2          delay_ms(300);
+  58   2        }
+  59   1      
+  60   1      }
+  61          void LCD_Custom_Char (unsigned char loc, unsigned char *msg) {
+  62   1        unsigned char i;
+  63   1        if(loc<8)
+  64   1        {
+  65   2        /* Command 0x40 and onwards forces the device to point CGRAM address */
+  66   2        WriteCommand (0x40 + (loc*8));
+  67   2        for(i=0;i<8;i++)  /* Write 8 byte for generation of 1 character */
+  68   2          WriteChar(msg[i]);      
+  69   2          }   
+  70   1      }
+  71          void WriteCommand(unsigned char cmd) {
+  72   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+  73   1          RS = 0; // Gui/nhan lenh
+  74   1          RW = 0; // Gui
+  75   1          EN = 1; delay(20); EN = 0;
+  76   1          delay(150);
+  77   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+  78   1          RS = 0; RW = 0;
+  79   1          EN = 1; delay(20); EN = 0;
+  80   1          delay(150);
+  81   1      }
+  82          
+  83          void LCD_init() {
+  84   1          P2 = 0x00;
+  85   1          delay_ms(1);
+  86   1          WriteCommand(0x03);
+  87   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+  88   1          WriteCommand(0x28);        // enable 5x7 mode for chars 
+  89   1          WriteCommand(0x01);        // Clear Display
+  90   1          WriteCommand(0x0C);
+  91   1      }
+  92              
+  93          void WriteChar(char c) {
+  94   1          P2 = (c & 0xF0);
+  95   1          RS = 1; // Gui/nhan du lieu
+  96   1          RW = 0; // Gui
+  97   1          EN = 1; delay(10); EN = 0;
+  98   1          delay(100);
+  99   1          P2 = ((c << 4) & 0xF0);
+ 100   1          RS = 1; RW = 0;
+ 101   1          EN = 1; delay(10); EN = 0;
+ 102   1          delay(100);
+ 103   1      }
+ 104          void WriteString(char *s) {
+ 105   1          while (*s) {
+ 106   2              WriteChar(*s++);
+ 107   2          }
+ 108   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    537    ----
+   CONSTANT SIZE    =     80    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      72
+C51 COMPILER V9.56.0.0   LCD_CGRAM_2                                                       12/28/2017 14:56:06 PAGE 3   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

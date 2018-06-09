@@ -1,0 +1,262 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/18/2017  16:14:50  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\robot.obj, .\Objects\delay.obj TO .\Objects\robot PRINT (.\Listings\robot.m51) RAM
+>> SIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\robot.obj (ROBOT)
+  .\Objects\delay.obj (DELAY)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPCMP)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+
+
+LINK MAP OF MODULE:  .\Objects\robot (ROBOT)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?ROBOT
+            DATA    000EH     0002H     UNIT         _DATA_GROUP_
+            IDATA   0010H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     01AFH     UNIT         ?C?LIB_CODE
+            CODE    01B5H     0127H     UNIT         ?PR?MAIN?ROBOT
+            CODE    02DCH     0071H     UNIT         ?PR?NGATNGOAI0?ROBOT
+            CODE    034DH     0020H     UNIT         ?PR?STARTRANGE?ROBOT
+            CODE    036DH     0020H     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    038DH     0020H     UNIT         ?PR?_DELAY_US?DELAY
+            CODE    03ADH     000EH     UNIT         ?PR?SRF05_INIT?ROBOT
+            CODE    03BBH     000CH     UNIT         ?C_C51STARTUP
+            CODE    03C7H     000BH     UNIT         ?PR?_DELAY?ROBOT
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\robot (ROBOT)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?ROBOT
+
+?PR?MAIN?ROBOT                 000EH    0002H
+  +--> ?PR?SRF05_INIT?ROBOT
+  +--> ?PR?STARTRANGE?ROBOT
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/18/2017  16:14:50  PAGE 2
+
+
+  +--> ?PR?_DELAY?ROBOT
+  +--> ?PR?_DELAY_MS?DELAY
+
+?PR?STARTRANGE?ROBOT           -----    -----
+  +--> ?PR?_DELAY_MS?DELAY
+  +--> ?PR?_DELAY_US?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\robot (ROBOT)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ROBOT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:034DH         PUBLIC        StartRange
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  B:0080H.0       PUBLIC        in1
+  B:0080H.1       PUBLIC        in2
+  B:00A0H.3       PUBLIC        in3
+  B:00A0H.4       PUBLIC        in4
+  D:00A8H         PUBLIC        IE
+  C:03C7H         PUBLIC        _delay
+  B:00B0H.5       PUBLIC        TRIGGER
+  D:00B8H         PUBLIC        IP
+  B:00B0H.2       PUBLIC        ECHO
+  C:01B5H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:03ADH         PUBLIC        SRF05_Init
+  D:008CH         PUBLIC        TH0
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  D:0008H         PUBLIC        distance
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:000AH         PUBLIC        d
+  D:00C8H         PUBLIC        T2CON
+  C:02DCH         PUBLIC        ngatngoai0
+  D:00D0H         PUBLIC        PSW
+  B:00B0H.7       PUBLIC        M1
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        t
+  C:03C7H         LINE#         6
+  C:03C7H         LINE#         7
+  C:03D1H         LINE#         8
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:000EH         SYMBOL        i
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/18/2017  16:14:50  PAGE 3
+
+
+  C:01B5H         LINE#         20
+  C:01B5H         LINE#         21
+  C:01BAH         LINE#         22
+  C:01BDH         LINE#         23
+  C:01BDH         LINE#         24
+  C:01C0H         LINE#         25
+  C:01D4H         LINE#         27
+  C:01E8H         LINE#         28
+  C:01EAH         LINE#         29
+  C:01F1H         LINE#         30
+  C:01F3H         LINE#         31
+  C:01FAH         LINE#         32
+  C:01FEH         LINE#         33
+  C:0202H         LINE#         34
+  C:0209H         LINE#         35
+  C:021DH         LINE#         36
+  C:0221H         LINE#         37
+  C:0225H         LINE#         38
+  C:0239H         LINE#         39
+  C:023DH         LINE#         40
+  C:0241H         LINE#         41
+  C:0246H         LINE#         42
+  C:0248H         LINE#         43
+  C:024FH         LINE#         44
+  C:0251H         LINE#         45
+  C:0258H         LINE#         46
+  C:0269H         LINE#         47
+  C:027DH         LINE#         48
+  C:0281H         LINE#         49
+  C:0281H         LINE#         50
+  C:0281H         LINE#         51
+  C:0283H         LINE#         52
+  C:0283H         LINE#         53
+  C:0288H         LINE#         54
+  C:028AH         LINE#         55
+  C:0291H         LINE#         56
+  C:0293H         LINE#         57
+  C:029AH         LINE#         58
+  C:02ABH         LINE#         59
+  C:02BFH         LINE#         60
+  C:02C3H         LINE#         61
+  C:02C7H         LINE#         62
+  C:02CEH         LINE#         63
+  C:02D1H         LINE#         64
+  C:02D1H         LINE#         65
+  C:02D5H         LINE#         66
+  C:02D9H         LINE#         67
+  C:02D9H         LINE#         68
+  C:02D9H         LINE#         69
+  -------         ENDPROC       MAIN
+  -------         PROC          STARTRANGE
+  C:034DH         LINE#         77
+  C:034DH         LINE#         78
+  C:034FH         LINE#         79
+  C:0356H         LINE#         80
+  C:0358H         LINE#         81
+  C:035FH         LINE#         82
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/18/2017  16:14:50  PAGE 4
+
+
+  C:0361H         LINE#         83
+  C:0364H         LINE#         84
+  C:036CH         LINE#         85
+  -------         ENDPROC       STARTRANGE
+  -------         PROC          SRF05_INIT
+  C:03ADH         LINE#         88
+  C:03ADH         LINE#         89
+  C:03AFH         LINE#         90
+  C:03B2H         LINE#         91
+  C:03B8H         LINE#         92
+  C:03BAH         LINE#         93
+  -------         ENDPROC       SRF05_INIT
+  -------         PROC          NGATNGOAI0
+  C:02DCH         LINE#         95
+  C:02F9H         LINE#         96
+  C:0300H         LINE#         97
+  C:0307H         LINE#         98
+  C:030DH         LINE#         99
+  C:0326H         LINE#         100
+  C:032CH         LINE#         101
+  C:0332H         LINE#         102
+  -------         ENDPROC       NGATNGOAI0
+  -------         ENDMOD        ROBOT
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:036DH         PUBLIC        _delay_ms
+  C:038DH         PUBLIC        _delay_us
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        x
+  D:0002H         SYMBOL        y
+  -------         ENDDO         
+  C:036DH         LINE#         3
+  C:036DH         LINE#         5
+  C:0377H         LINE#         6
+  C:038CH         LINE#         7
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        Time
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:038DH         LINE#         8
+  C:038DH         LINE#         9
+  C:038DH         LINE#         11
+  C:0397H         LINE#         12
+  C:03A5H         LINE#         13
+  C:03ACH         LINE#         14
+  -------         ENDPROC       _DELAY_US
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?FPDIV
+  C:0009H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/18/2017  16:14:50  PAGE 5
+
+
+
+  -------         MODULE        ?C?FPCMP
+  C:00A8H         PUBLIC        ?C?FPCMP
+  C:00A6H         PUBLIC        ?C?FPCMP3
+  -------         ENDMOD        ?C?FPCMP
+
+  -------         MODULE        ?C?FCAST
+  C:0129H         PUBLIC        ?C?FCASTC
+  C:0124H         PUBLIC        ?C?FCASTI
+  C:011FH         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?LNEG
+  C:01A7H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+Program Size: data=17.0 xdata=0 code=978
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

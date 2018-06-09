@@ -1,0 +1,315 @@
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 1   
+
+
+C51 COMPILER V7.00 Beta 6, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN Main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Main.c BROWSE DEBUG OBJECTEXTEND CODE SYMBOLS
+
+stmt level    source
+
+   1          /*---------------------------------------------------------
+   2          ---------------------------------------------------------*/
+   3          #include <reg52.h>
+   4          #include <stdio.h>
+   5          
+   6          /*---------------------------------------------------------
+   7          Timer 0 Overflow Interrupt
+   8          ---------------------------------------------------------*/
+   9          unsigned int T0_ISR_count = 0;
+  10          
+  11          void T0_ISR (void) interrupt 1
+  12          {
+  13   1      T0_ISR_count++;
+  14   1      TF0 = 0;                        // Reset the interrupt request
+  15   1      }
+  16          
+  17          
+  18          /*---------------------------------------------------------
+  19          MAIN C function
+  20          ---------------------------------------------------------*/
+  21          void main (void)
+  22          {
+  23   1      /*--------------------------------------
+  24   1      Set serial port for 9600 baud at
+  25   1      11.0592 MHz.  Note that we use Timer 1
+  26   1      for the baud rate generator.
+  27   1      --------------------------------------*/
+  28   1      SCON  = 0x50;
+  29   1      TMOD |= 0x20;
+  30   1      TH1   = 0xFA;
+  31   1      TR1   = 1;
+  32   1      TI    = 1;
+  33   1      PCON |= 0x80;
+  34   1      
+  35   1      printf ("\nPulse Width Example Program\n\n");
+  36   1      
+  37   1      /*--------------------------------------
+  38   1      Enable interrupts for timer 0.
+  39   1      --------------------------------------*/
+  40   1      ET0 = 1;
+  41   1      EA = 1;
+  42   1      
+  43   1      /*--------------------------------------
+  44   1      Set Timer0 for 16-bit interval timer
+  45   1      mode.
+  46   1      --------------------------------------*/
+  47   1      TMOD = (TMOD & 0xF0) | 0x09;
+  48   1      
+  49   1      while (1)
+  50   1        {
+  51   2      /*--------------------------------------
+  52   2      Clear the timer overflow counter and
+  53   2      the timer low and high registers.  Then,
+  54   2      start the timer.
+  55   2      --------------------------------------*/
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 2   
+
+  56   2        T0_ISR_count = 0;
+  57   2        TH0 = 0;
+  58   2        TL0 = 0;
+  59   2      
+  60   2        TR0 = 1;
+  61   2      
+  62   2        printf ("\nStart a pulse.\n");
+  63   2      
+  64   2      /*--------------------------------------
+  65   2      Wait for the pulse to start.
+  66   2      Then, wait for the pulse to end.
+  67   2      --------------------------------------*/
+  68   2        while (!INT0);
+  69   2        while (INT0);
+  70   2      
+  71   2      /*--------------------------------------
+  72   2      Compute the width of the pulse -- one
+  73   2      clock cycle is 1us for a standard 8051
+  74   2      and display it.
+  75   2      --------------------------------------*/
+  76   2        printf ("The width pulse is: %ld uSec\n",
+  77   2                (unsigned long)((TH0 << 8) | TL0 | ((unsigned long)T0_ISR_count << 16)));
+  78   2        }
+  79   1      }
+  80          
+  81          /*---------------------------------------------------------
+  82          ---------------------------------------------------------*/
+  83          
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION T0_ISR (BEGIN)
+0000 C0E0              PUSH    ACC
+                                           ; SOURCE LINE # 11
+                                           ; SOURCE LINE # 13
+0002 0500        R     INC     T0_ISR_count+01H
+0004 E500        R     MOV     A,T0_ISR_count+01H
+0006 7002              JNZ     ?C0009
+0008 0500        R     INC     T0_ISR_count
+000A         ?C0009:
+                                           ; SOURCE LINE # 14
+000A C28D              CLR     TF0
+                                           ; SOURCE LINE # 15
+000C D0E0              POP     ACC
+000E 32                RETI    
+             ; FUNCTION T0_ISR (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 21
+                                           ; SOURCE LINE # 22
+                                           ; SOURCE LINE # 28
+0000 759850            MOV     SCON,#050H
+                                           ; SOURCE LINE # 29
+0003 438920            ORL     TMOD,#020H
+                                           ; SOURCE LINE # 30
+0006 758DFA            MOV     TH1,#0FAH
+                                           ; SOURCE LINE # 31
+0009 D28E              SETB    TR1
+                                           ; SOURCE LINE # 32
+000B D299              SETB    TI
+                                           ; SOURCE LINE # 33
+000D 438780            ORL     PCON,#080H
+                                           ; SOURCE LINE # 35
+0010 7BFF              MOV     R3,#0FFH
+0012 7A00        R     MOV     R2,#HIGH ?SC_0
+0014 7900        R     MOV     R1,#LOW ?SC_0
+0016 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 40
+0019 D2A9              SETB    ET0
+                                           ; SOURCE LINE # 41
+001B D2AF              SETB    EA
+                                           ; SOURCE LINE # 47
+001D E589              MOV     A,TMOD
+001F 54F0              ANL     A,#0F0H
+0021 4409              ORL     A,#09H
+0023 F589              MOV     TMOD,A
+0025         ?C0002:
+                                           ; SOURCE LINE # 49
+                                           ; SOURCE LINE # 50
+                                           ; SOURCE LINE # 56
+0025 E4                CLR     A
+0026 F500        R     MOV     T0_ISR_count,A
+0028 F500        R     MOV     T0_ISR_count+01H,A
+                                           ; SOURCE LINE # 57
+002A F58C              MOV     TH0,A
+                                           ; SOURCE LINE # 58
+002C F58A              MOV     TL0,A
+                                           ; SOURCE LINE # 60
+002E D28C              SETB    TR0
+                                           ; SOURCE LINE # 62
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 4   
+
+0030 7BFF              MOV     R3,#0FFH
+0032 7A00        R     MOV     R2,#HIGH ?SC_31
+0034 7900        R     MOV     R1,#LOW ?SC_31
+0036 120000      E     LCALL   _printf
+0039         ?C0004:
+                                           ; SOURCE LINE # 68
+0039 30B2FD            JNB     INT0,?C0004
+003C         ?C0006:
+                                           ; SOURCE LINE # 69
+003C 20B2FD            JB      INT0,?C0006
+003F         ?C0007:
+                                           ; SOURCE LINE # 77
+003F AF8C              MOV     R7,TH0
+0041 EF                MOV     A,R7
+0042 FE                MOV     R6,A
+0043 AD8A              MOV     R5,TL0
+0045 ED                MOV     A,R5
+0046 FF                MOV     R7,A
+0047 E4                CLR     A
+0048 FC                MOV     R4,A
+0049 FD                MOV     R5,A
+004A C004              PUSH    AR4
+004C C005              PUSH    AR5
+004E C006              PUSH    AR6
+0050 C007              PUSH    AR7
+0052 AE00        R     MOV     R6,T0_ISR_count
+0054 AF00        R     MOV     R7,T0_ISR_count+01H
+0056 7810              MOV     R0,#010H
+0058 120000      E     LCALL   ?C?LSHL
+005B A804              MOV     R0,AR4
+005D A905              MOV     R1,AR5
+005F AA06              MOV     R2,AR6
+0061 AB07              MOV     R3,AR7
+0063 D007              POP     AR7
+0065 D006              POP     AR6
+0067 D005              POP     AR5
+0069 D004              POP     AR4
+006B EB                MOV     A,R3
+006C 4F                ORL     A,R7
+006D F500        E     MOV     ?_printf?BYTE+06H,A
+006F EA                MOV     A,R2
+0070 4E                ORL     A,R6
+0071 F500        E     MOV     ?_printf?BYTE+05H,A
+0073 E9                MOV     A,R1
+0074 4D                ORL     A,R5
+0075 F500        E     MOV     ?_printf?BYTE+04H,A
+0077 E8                MOV     A,R0
+0078 4C                ORL     A,R4
+0079 F500        E     MOV     ?_printf?BYTE+03H,A
+007B 7BFF              MOV     R3,#0FFH
+007D 7A00        R     MOV     R2,#HIGH ?SC_48
+007F 7900        R     MOV     R1,#LOW ?SC_48
+0081 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 78
+0084 809F              SJMP    ?C0002
+             ; FUNCTION main (END)
+
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 5   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+size_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+IP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+main . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+C_T2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+T0_ISR . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+C51 COMPILER V7.00 Beta 6  MAIN                                                            06/18/2002 13:18:24 PAGE 6   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+T0_ISR_count . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    0000H  2
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+_printf. . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    149    ----
+   CONSTANT SIZE    =     78    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

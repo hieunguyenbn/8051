@@ -1,0 +1,57 @@
+A51 MACRO ASSEMBLER  2KHZ_500HZ                                                           05/27/2014 04:05:56 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN 2Khz_500Hz.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 2Khz_500Hz.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                             ORG 00H
+0000                   2     MAIN:
+0000 D292              3                     SETB P1.2
+0002 D293              4                     SETB P1.3
+0004                   5             LAP:
+0004 1118              6                     CALL DELAY250
+0006 B293              7                     CPL P1.3
+0008 1118              8                     CALL DELAY250
+000A B293              9                     CPL P1.3
+000C 1118             10                     CALL DELAY250
+000E B293             11                     CPL P1.3
+0010 1118             12                     CALL DELAY250
+0012 B293             13                     CPL P1.3
+0014 B292             14             CPL P1.2
+0016 80EC             15        JMP LAP
+0018                  16        DELAY250:
+0018 758901           17                MOV TMOD, #01H
+001B 758CFF           18                MOV TH0, #HIGH(-250)
+001E 758A06           19                MOV TL0, #LOW(-250)
+0021 D28C             20                SETB TR0
+0023 308DFD           21                JNB TF0, $
+0026 C28C             22                     CLR TR0
+0028 C28D             23                     CLR TF0
+002A 22               24             RET 
+                      25     END
+A51 MACRO ASSEMBLER  2KHZ_500HZ                                                           05/27/2014 04:05:56 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY250 . . . . .  C ADDR   0018H   A   
+LAP. . . . . . . .  C ADDR   0004H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

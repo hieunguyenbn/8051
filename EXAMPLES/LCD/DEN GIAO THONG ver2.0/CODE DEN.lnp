@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"CODE DEN.obj" 
+TO "CODE DEN" 
+RAMSIZE(256) 

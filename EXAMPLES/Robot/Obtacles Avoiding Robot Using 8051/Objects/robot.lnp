@@ -1,0 +1,4 @@
+".\Objects\robot.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\robot" 
+PRINT(".\Listings\robot.m51") RAMSIZE(256) 

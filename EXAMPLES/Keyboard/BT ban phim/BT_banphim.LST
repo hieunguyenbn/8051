@@ -1,0 +1,266 @@
+A51 MACRO ASSEMBLER  BT_BANPHIM                                                           05/18/2017 22:44:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN BT_banphim.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE BT_banphim.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209) 
+                       2     ; Chuong trinh ban phim hien thi 0-Fh tren LED 7 thanh 
+                       3     ; ket hop thanh ghi dich 74HC595 va Encoder de tiet kiem so chan cho 8051
+  00A4                 4     Q0                              EQU             P2.4
+  00A5                 5     Q1                              EQU             P2.5
+  00B2                 6     INT0_PIN                EQU             P3.2
+  00A2                 7     ST_CP                   EQU             P2.2
+  00A1                 8     SH_CP                   EQU             P2.1
+  00A0                 9     DS_PIN                  EQU             P2.0  
+                      10     
+0000                  11     ORG     0000h
+0000 2100             12     JMP     Start
+0003                  13     ORG             0003H
+0003 020112           14     LJMP    INT0_ISR 
+                      15     
+0100                  16     ORG     0100h
+0100                  17     Start:  
+                      18     
+0100 D2AF             19                     SETB    EA ; Cho phep su dung ngat
+0102 D2A8             20                     SETB    EX0 ; Ngat ngoai INT0                   
+                      21                     
+0104 758920           22                     MOV             TMOD, #20H
+0107 758DB0           23                     MOV             TH1, #0B0H        
+010A 759000           24                     MOV             P1, #0
+010D 7900             25                     MOV             R1, #0          ; COUNT
+010F E4               26                     CLR             A
+0110                  27                     _loop_forever:
+0110 80FE             28                     SJMP    _loop_forever
+                      29                     
+                      30     ;-------------------------------
+                      31     ; Trinh phuc vu xu ly ngat 0 khi co phim an
+                      32     ; Su dung ky thuat quet (scanning technique) dieu khien bang ngat
+                      33     ; Tham khao: Microprocessor Interfacing Techniques - Austin Lesea, Rodnay Zaks
+0112                  34     INT0_ISR:
+0112 31F3             35                     CALL    DELAY           
+0114 30B203           36                     JNB             INT0_PIN, _after_check_jump
+0117 0201D1           37                     LJMP    EXIT ; ket thuc ngat
+011A                  38                     _after_check_jump:
+                      39                     ; Muc dich la gui 1110 -> 1101 -> 1011 -> 0111
+                      40                     ; Dau tien gui 1110
+011A D2A0             41                     SETB    DS_PIN ; Gui 1
+011C D2A1             42                     SETB    SH_CP
+011E C2A1             43                     CLR     SH_CP ; Xung cao-xuong-thap de gui 1 bit toi 74HC595
+                      44     
+0120 D2A0             45                     SETB    DS_PIN ; Gui 1
+0122 D2A1             46                     SETB    SH_CP
+0124 C2A1             47                     CLR     SH_CP
+                      48     
+0126 D2A0             49                     SETB    DS_PIN ; Gui 1
+0128 D2A1             50                     SETB    SH_CP
+012A C2A1             51                     CLR     SH_CP
+                      52     
+012C C2A0             53                     CLR     DS_PIN ; Gui 0
+012E D2A1             54                     SETB    SH_CP
+0130 C2A1             55                     CLR     SH_CP
+                      56     
+0132 D2A2             57                     SETB    ST_CP
+0134 C2A2             58                     CLR     ST_CP ; Dua xung cao-xuong-thap toi chan ST_CP de chot dau ra cho 7
+A51 MACRO ASSEMBLER  BT_BANPHIM                                                           05/18/2017 22:44:25 PAGE     2
+
+                             4HC595
+                      59                     ; Su dung 1 mach Encoder de tiet kiem chan cho 8051     
+                      60                     ; Do vay trong code can phai giai ma
+0136 900500           61                     MOV             DPTR, #Decoder 
+0139 7400             62                     MOV             A,#0
+013B 7900             63                     MOV             R1,#0
+                      64                     ; _bit0_row0:
+013D 30A402           65                     JNB             Q0,_bit1_row0
+0140 2401             66                     ADD             A,#00000001B
+0142                  67                     _bit1_row0:
+0142 30A502           68                     JNB             Q1,_after_row0
+0145 2402             69                     ADD             A,#00000010B
+0147                  70                     _after_row0:
+0147 93               71                     MOVC    A,@A+DPTR                               
+0148 20B203           72                     JB              P3.2, _after_jump0
+014B 0201B4           73                     LJMP    ROW0
+014E                  74                     _after_jump0: 
+014E D2A0             75                     SETB    DS_PIN ; Tu 1110 -> 1101 chi can dich bit va gui 1
+0150 D2A1             76                     SETB    SH_CP
+0152 C2A1             77                     CLR     SH_CP
+0154 D2A2             78                     SETB    ST_CP
+0156 C2A2             79                     CLR     ST_CP  
+                      80                     
+0158 7400             81                     MOV             A,#0            
+015A 7904             82                     MOV             R1, #4
+015C 900500           83                     MOV             DPTR, #Decoder  
+015F                  84                     _bit0_row1:
+015F 30A402           85                     JNB             Q0,_bit1_row1
+0162 2401             86                     ADD             A,#00000001B
+0164                  87                     _bit1_row1:
+0164 30A502           88                     JNB             Q1,_after_row1
+0167 2402             89                     ADD             A,#00000010B
+0169                  90                     _after_row1:
+0169 93               91                     MOVC    A,@A+DPTR               
+016A 20B203           92                     JB              P3.2, _after_jump1
+016D 0201BA           93                     LJMP    ROW1
+0170                  94                     _after_jump1:   
+0170 D2A0             95                     SETB    DS_PIN ; Tu 1101 -> 1011 chi can dich bit va gui 1
+0172 D2A1             96                     SETB    SH_CP
+0174 C2A1             97                     CLR     SH_CP
+0176 D2A2             98                     SETB    ST_CP
+0178 C2A2             99                     CLR     ST_CP
+017A 7400            100                     MOV             A,#0
+017C 7908            101                     MOV             R1, #8
+017E 900500          102                     MOV             DPTR,#Decoder           
+0181                 103                      _bit0_row2:
+0181 30A402          104                     JNB             Q0,_bit1_row2
+0184 2401            105                     ADD             A,#00000001B
+0186                 106                     _bit1_row2:
+0186 30A502          107                     JNB             Q1,_after_row2
+0189 2402            108                     ADD             A,#00000010B
+018B                 109                     _after_row2:
+018B 93              110                     MOVC    A,@A+DPTR       
+018C 20B203          111                     JB              P3.2, _after_jump2
+018F 0201C0          112                     LJMP    ROW2
+0192                 113                     _after_jump2:  
+0192 D2A0            114                     SETB    DS_PIN ; Tu 1011 -> 0111 chi can dich bit va gui 1
+0194 D2A1            115                     SETB    SH_CP
+0196 C2A1            116                     CLR     SH_CP
+0198 D2A2            117                     SETB    ST_CP
+019A C2A2            118                     CLR     ST_CP   
+                     119                             
+019C 7400            120                     MOV             A,#0
+019E 790C            121                     MOV             R1, #12
+01A0 900500          122                     MOV             DPTR, #Decoder
+01A3                 123                      _bit0_row3:
+A51 MACRO ASSEMBLER  BT_BANPHIM                                                           05/18/2017 22:44:25 PAGE     3
+
+01A3 30A402          124                     JNB             Q0,_bit1_row3
+01A6 2401            125                     ADD             A,#00000001B
+01A8                 126                     _bit1_row3:
+01A8 30A502          127                     JNB             Q1,_after_row3
+01AB 2402            128                     ADD             A,#00000010B
+01AD                 129                     _after_row3:
+01AD 93              130                     MOVC    A,@A+DPTR
+                     131                     ;JNB            P3.2, ROW3
+01AE 20B203          132                     JB              P3.2,_after_jump3
+01B1 0201C6          133                     LJMP    ROW3
+01B4                 134                     _after_jump3:   
+01B4                 135     ROW0:           
+01B4 33              136                     RLC             A
+01B5 5015            137                     JNC             MATCH
+01B7 09              138                     INC             R1
+01B8 80FA            139                     SJMP    ROW0
+01BA                 140     ROW1:
+01BA 33              141                     RLC             A
+01BB 500F            142                     JNC             MATCH
+01BD 09              143                     INC             R1
+01BE 80FA            144                     SJMP    ROW1
+01C0                 145     ROW2:
+01C0 33              146                     RLC             A
+01C1 5009            147                     JNC             MATCH
+01C3 09              148                     INC             R1
+01C4 80FA            149                     SJMP    ROW2    
+01C6                 150     ROW3:
+01C6 33              151                     RLC             A
+01C7 5003            152                     JNC             MATCH
+01C9 09              153                     INC             R1
+01CA 80FA            154                     SJMP    ROW3
+01CC                 155     MATCH:
+01CC 7400            156                     MOV             A, #0
+01CE E9              157                     MOV             A, R1
+01CF F590            158                     MOV             P1, A
+01D1                 159     EXIT: 
+01D1 7900            160                     MOV             R1, #0 ; Reset COUNT
+01D3 75A0F0          161                     MOV             P2, #0F0H
+                     162                     ; Khoi tao lai gia tri ban dau: 0000
+01D6 C2A0            163                     CLR     DS_PIN ; Gui 0
+01D8 D2A1            164                     SETB    SH_CP
+01DA C2A1            165                     CLR     SH_CP 
+                     166     
+01DC C2A0            167                     CLR     DS_PIN ; Gui 0
+01DE D2A1            168                     SETB    SH_CP
+01E0 C2A1            169                     CLR     SH_CP
+                     170     
+01E2 C2A0            171                     CLR     DS_PIN ; Gui 0
+01E4 D2A1            172                     SETB    SH_CP
+01E6 C2A1            173                     CLR     SH_CP
+                     174     
+01E8 C2A0            175                     CLR     DS_PIN ; Gui 0
+01EA D2A1            176                     SETB    SH_CP
+01EC C2A1            177                     CLR     SH_CP
+                     178     
+01EE D2A2            179                     SETB    ST_CP
+01F0 C2A2            180                     CLR     ST_CP ; Dua xung cao-xuong-thap toi chan ST_CP de chot dau ra cho 7
+                             4HC595       
+01F2 32              181                     RETI
+                     182     ;-------------------------------
+                     183     ; DELAY: Tao tre cho chuong trinh
+01F3                 184     DELAY:
+01F3 D28E            185                     SETB    TR1
+01F5 308FFD          186                     JNB             TF1, $
+01F8 C28F            187                     CLR             TF1
+01FA C28E            188                     CLR             TR1
+A51 MACRO ASSEMBLER  BT_BANPHIM                                                           05/18/2017 22:44:25 PAGE     4
+
+01FC 22              189                     RET
+                     190     
+0500                 191     ORG             500h
+0500 EFDFBF7F        192     Decoder:                        DB              11101111B,11011111B, 10111111B, 01111111B  
+                     193           END
+A51 MACRO ASSEMBLER  BT_BANPHIM                                                           05/18/2017 22:44:25 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DECODER. . . . . .  C ADDR   0500H   A   
+DELAY. . . . . . .  C ADDR   01F3H   A   
+DS_PIN . . . . . .  B ADDR   00A0H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EXIT . . . . . . .  C ADDR   01D1H   A   
+INT0_ISR . . . . .  C ADDR   0112H   A   
+INT0_PIN . . . . .  B ADDR   00B0H.2 A   
+MATCH. . . . . . .  C ADDR   01CCH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+Q0 . . . . . . . .  B ADDR   00A0H.4 A   
+Q1 . . . . . . . .  B ADDR   00A0H.5 A   
+ROW0 . . . . . . .  C ADDR   01B4H   A   
+ROW1 . . . . . . .  C ADDR   01BAH   A   
+ROW2 . . . . . . .  C ADDR   01C0H   A   
+ROW3 . . . . . . .  C ADDR   01C6H   A   
+SH_CP. . . . . . .  B ADDR   00A0H.1 A   
+START. . . . . . .  C ADDR   0100H   A   
+ST_CP. . . . . . .  B ADDR   00A0H.2 A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+_AFTER_CHECK_JUMP.  C ADDR   011AH   A   
+_AFTER_JUMP0 . . .  C ADDR   014EH   A   
+_AFTER_JUMP1 . . .  C ADDR   0170H   A   
+_AFTER_JUMP2 . . .  C ADDR   0192H   A   
+_AFTER_JUMP3 . . .  C ADDR   01B4H   A   
+_AFTER_ROW0. . . .  C ADDR   0147H   A   
+_AFTER_ROW1. . . .  C ADDR   0169H   A   
+_AFTER_ROW2. . . .  C ADDR   018BH   A   
+_AFTER_ROW3. . . .  C ADDR   01ADH   A   
+_BIT0_ROW1 . . . .  C ADDR   015FH   A   
+_BIT0_ROW2 . . . .  C ADDR   0181H   A   
+_BIT0_ROW3 . . . .  C ADDR   01A3H   A   
+_BIT1_ROW0 . . . .  C ADDR   0142H   A   
+_BIT1_ROW1 . . . .  C ADDR   0164H   A   
+_BIT1_ROW2 . . . .  C ADDR   0186H   A   
+_BIT1_ROW3 . . . .  C ADDR   01A8H   A   
+_LOOP_FOREVER. . .  C ADDR   0110H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,76 @@
+C51 COMPILER V9.56.0.0   SENDNUMBER                                                        11/06/2017 20:42:12 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SENDNUMBER
+OBJECT MODULE PLACED IN .\Objects\SendNumber.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE SendNumber.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\SendNumber.lst) TABS(5) OBJECT(.\Objects\SendNumber.obj)
+
+line level    source
+
+   1          //send a number
+   2          #include <reg52.h>
+   3          #include <string.h>
+   4          void send(unsigned char x);
+   5          void sendInteger(unsigned long a);
+   6          void sendReal(float a);
+   7          main() {
+   8   1           TMOD = 0x20;
+   9   1           TH1 = 0xFA;
+  10   1           SCON = 0x50;
+  11   1           TR1 = 1;
+  12   1           while (1) {
+  13   2                sendInteger(91);
+  14   2                send(10);
+  15   2                sendReal(123.12);
+  16   2                send(10);
+  17   2           }
+  18   1      }
+  19          
+  20          void send(unsigned char x) {
+  21   1           SBUF = x;
+  22   1           while (TI == 0);
+  23   1           TI = 0;
+  24   1      }
+  25          
+  26          void sendInteger(unsigned long a) {
+  27   1           if (a != 0) {
+  28   2                unsigned char x[11];
+  29   2                int i;
+  30   2                for (i = 0; a > 0; i++) {
+  31   3                     x[i] = (a%10) + 48; //tach chu so thanh ky tu
+  32   3                     a = a/10;
+  33   3                }
+  34   2                x[i] = NULL;
+*** WARNING C260 IN LINE 34 OF SendNumber.c: '=': pointer truncation
+  35   2                for (i = strlen(x); i >= 0; i--) {
+  36   3                     send(x[i]);
+  37   3                }
+  38   2           }
+  39   1           else send('0');
+  40   1      }
+  41          void sendReal(float a) {
+  42   1           unsigned long x = a/1; //tach phan nguyen
+  43   1           unsigned long y = (a - x)*100; // tach phan thap phan
+  44   1           sendInteger(x);
+  45   1           if (y != 0) {
+  46   2                send('.');
+  47   2                sendInteger(y);
+  48   2           }
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    334    ----
+C51 COMPILER V9.56.0.0   SENDNUMBER                                                        11/06/2017 20:42:12 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      29
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

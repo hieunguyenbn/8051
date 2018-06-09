@@ -1,0 +1,118 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/23/2017  23:05:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC_counter.obj TO ADC_counter
+
+
+INPUT MODULES INCLUDED:
+  ADC_counter.obj (ADC_COUNTER)
+
+
+LINK MAP OF MODULE:  ADC_counter (ADC_COUNTER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     050AH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  ADC_counter (ADC_COUNTER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC_COUNTER
+  C:001BH         SYMBOL        ADC_COMPLETED
+  D:0090H         SYMBOL        ADC_OUTPUT_PORT
+  D:00F0H         SYMBOL        B
+  B:00A0H.0       SYMBOL        CLOCK
+  C:0058H         SYMBOL        COMNWRT
+  C:005EH         SYMBOL        DATAWRT
+  C:0064H         SYMBOL        DELAY
+  D:00A8H         SYMBOL        IE
+  N:0002H         SYMBOL        LCD_BUSY_RD
+  N:0000H         SYMBOL        LCD_CMD_WR
+  N:0003H         SYMBOL        LCD_DATA_RD
+  N:0001H         SYMBOL        LCD_DATA_WR
+  C:0500H         SYMBOL        LCD_VAL
+  C:0006H         SYMBOL        MAIN
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00B0H         SYMBOL        P3
+  D:0088H         SYMBOL        TCON
+  C:0032H         SYMBOL        _CONVERT_NUMBER_FOR_DISPLAY
+  C:0044H         SYMBOL        _DISPLAY_ON_LCD
+  C:0014H         SYMBOL        _LOOP_FOREVER
+  C:0066H         SYMBOL        _NOP
+  C:0000H         LINE#         23
+  C:0003H         LINE#         25
+  C:0006H         LINE#         28
+  C:0008H         LINE#         29
+  C:000BH         LINE#         30
+  C:000EH         LINE#         31
+  C:0010H         LINE#         32
+  C:0012H         LINE#         33
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/23/2017  23:05:00  PAGE 2
+
+
+  C:0014H         LINE#         35
+  C:0016H         LINE#         36
+  C:0018H         LINE#         37
+  C:001AH         LINE#         38
+  C:001BH         LINE#         44
+  C:001DH         LINE#         45
+  C:001FH         LINE#         46
+  C:0021H         LINE#         47
+  C:0023H         LINE#         48
+  C:0025H         LINE#         49
+  C:0027H         LINE#         50
+  C:002AH         LINE#         51
+  C:002CH         LINE#         52
+  C:002EH         LINE#         53
+  C:0030H         LINE#         54
+  C:0032H         LINE#         56
+  C:0035H         LINE#         57
+  C:0036H         LINE#         58
+  C:0038H         LINE#         59
+  C:003BH         LINE#         60
+  C:003CH         LINE#         61
+  C:003EH         LINE#         62
+  C:0041H         LINE#         63
+  C:0042H         LINE#         64
+  C:0044H         LINE#         66
+  C:0047H         LINE#         67
+  C:0048H         LINE#         68
+  C:0049H         LINE#         69
+  C:004BH         LINE#         71
+  C:004CH         LINE#         72
+  C:004DH         LINE#         73
+  C:004FH         LINE#         74
+  C:0051H         LINE#         76
+  C:0052H         LINE#         77
+  C:0053H         LINE#         78
+  C:0055H         LINE#         79
+  C:0057H         LINE#         80
+  C:0058H         LINE#         86
+  C:005AH         LINE#         87
+  C:005BH         LINE#         88
+  C:005DH         LINE#         89
+  C:005EH         LINE#         95
+  C:0060H         LINE#         96
+  C:0061H         LINE#         97
+  C:0063H         LINE#         98
+  C:0064H         LINE#         104
+  C:0066H         LINE#         106
+  C:0068H         LINE#         107
+  C:006AH         LINE#         108
+  C:006CH         LINE#         109
+  -------         ENDMOD        ADC_COUNTER
+
+Program Size: data=8.0 xdata=0 code=1290
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

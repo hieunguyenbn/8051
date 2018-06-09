@@ -1,0 +1,294 @@
+C51 COMPILER V9.01   CODE_DEN                                                              07/06/2017 15:34:37 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE CODE_DEN
+OBJECT MODULE PLACED IN CODE DEN.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE CODE DEN.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include <delay.h>
+   3          #include <lcd4b_new.h>
+   4          #include <stdio.h>
+   5          // Khai bao cac nut an
+   6          #define up              P3_0
+   7          #define down    P3_1
+   8          #define set     P3_2
+   9          // Khai bao cac den giao thong
+  10          #define x1              P0_0
+  11          #define v1              P0_1
+  12          #define d1              P0_2
+  13          
+  14          #define x2              P0_3
+  15          #define v2              P0_4
+  16          #define d2              P0_5
+  17          
+  18          #define dulieu  P1
+  19          #define quet1   P3_4
+  20          #define quet2   P3_5
+  21          #define quet3   P3_6
+  22          #define quet4   P3_7
+  23          
+  24          // Khai bao cac bien
+  25          unsigned int t,k=0,i;
+  26          signed int demx, demd, demv;
+  27          signed int dem1, dem, demc;
+  28          unsigned int ch1,dv1,ch,dv;
+  29          unsigned int smode=0,t;
+  30          char str[16];
+  31          char chedo=0;
+  32          unsigned int maso[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; // ma cua am chung
+  33          
+  34          // chuong trinh phuc vu ngat
+  35          void ngattimer1() interrupt 3   // ngat timer1
+  36          {
+  37   1      // 1khz: 1/1.000x 20/12 = 1.667s = 1667us = 1,6ms (  thach anh 20MHZ)
+  38   1      // ton=toff=833 nhap -833 vao may tinh duoc TH=0XFC, TL=0XBF
+  39   1      if(k==0)
+  40   1      {
+  41   2          TR1=0;
+  42   2              TH1=0xFC;
+  43   2              TL1=0xBF;
+  44   2              t++;
+  45   2              if(t>1800)                      // gia tri t de tinh sai so 1s, tao xung 1ms neu dung t=1000
+  46   2                      {
+  47   3                              demc++; dem1--; dem--;  P3_3=~P3_3;                                     
+  48   3                              t=0;               
+  49   3                      }       
+  50   2              if(demc==0)
+  51   2              {
+  52   3                      d1=0;x1=0;v1=0;d2=0;x2=0;v2=0;
+  53   3                      dem=dem1=0;
+  54   3              }
+  55   2              if(demc>0&&demc<=demx)  
+C51 COMPILER V9.01   CODE_DEN                                                              07/06/2017 15:34:37 PAGE 2   
+
+  56   2              {
+  57   3                      d1=1;x1=0;v1=0;d2=0;x2=1;v2=0; 
+  58   3                      if(demc==1){dem1=demd;dem=demx;}
+  59   3                                                      
+  60   3              }
+  61   2              if(demc>demx&&demc<=demd)       
+  62   2              {
+  63   3                      d1=1;x1=0;v1=0;d2=0;x2=0;v2=1;
+  64   3                      if(demc==demx+1){dem=demv;}
+  65   3              }
+  66   2              if(demc>demd&&demc<=(demx+demd)) 
+  67   2              {       
+  68   3                      d1=0;x1=1;v1=0;d2=1;x2=0;v2=0;
+  69   3                      if(demc==demd+1){dem=demd;dem1=demx;}
+  70   3              }
+  71   2              if(demc>(demx+demd)&&demc<=(demx+demd+demv)) 
+  72   2              {
+  73   3                      d1=0;x1=0;v1=1;d2=1;x2=0;v2=0;
+  74   3                      if(demc==demx+demd+1)dem1=demv;
+  75   3                      
+  76   3              }
+  77   2              if(demc>demx+demd+demv)demc=1;  
+  78   2              TR1=1;
+  79   2      }
+  80   1      }
+  81          void khai_bao_ngat()
+  82          {
+  83   1              EA=1;                                           //cho phep ngat toan cuc
+  84   1              ET1=1;                                          // cho phep ngat timer0
+  85   1              TMOD=0x10;                                      // che do timer0 8 bit, timer1 16 bit   
+  86   1              TH1=0xFE;                                       // nap gia tri cho thanh ghi TH1
+  87   1              TL1=0x0C;                                       // nap gia tri cho thanh ghi TL1        
+  88   1              TR1=1;
+  89   1      }
+  90          void cai_giatridau()
+  91          {
+  92   1              demd=15;demx=12;demv=demd-demx; 
+  93   1      }
+  94          void hien_thicai()
+  95          {
+  96   1      
+  97   1              dulieu=quet1=quet2=quet3=quet4=0;
+  98   1              d1=d2=x1=x2=0;
+  99   1              v1=v2=1;delayms(100);   
+ 100   1              v1=v2=0;delayms(100);   
+ 101   1      }
+ 102          void vang_chop()
+ 103          {
+ 104   1              dulieu=quet1=quet2=quet3=quet4=0;
+ 105   1              d1=d2=x1=x2=0;
+ 106   1              v1=v2=1;delayms(300);   
+ 107   1              v1=v2=0;delayms(300);
+ 108   1      }
+ 109          void hienthi_7seg()
+ 110          {
+ 111   1      
+ 112   1              ch1=dem/10;
+ 113   1              dv1=dem%10; 
+ 114   1      
+ 115   1              ch=dem1/10;
+ 116   1              dv=dem1%10;   
+ 117   1      
+C51 COMPILER V9.01   CODE_DEN                                                              07/06/2017 15:34:37 PAGE 3   
+
+ 118   1              dulieu=0;quet1=0;quet2=0;quet3=0;quet4=0;         // ban dau tat het led
+ 119   1              delayus(1);      
+ 120   1              dulieu=maso[ch1];         // dao toan bo gia tri tu 0-->1 hoac tu 1-->0
+ 121   1              quet1=1;quet2=0;quet3=0;quet4=0;
+ 122   1              delayus(20);    
+ 123   1      
+ 124   1              dulieu=0;quet1=0;quet2=0;quet3=0;quet4=0;
+ 125   1              delayus(1);      
+ 126   1              dulieu=maso[dv1];         // dao toan bo gia tri tu 0-->1 hoac tu 1-->0
+ 127   1              quet1=0;quet2=1;quet3=0;quet4=0;
+ 128   1              delayus(20);    
+ 129   1      
+ 130   1              dulieu=0;quet1=0;quet2=0;quet3=0;quet4=0;
+ 131   1              delayus(1);      
+ 132   1              dulieu=maso[ch];          // dao toan bo gia tri tu 0-->1 hoac tu 1-->0
+ 133   1              quet1=0;quet2=0;quet3=1;quet4=0;
+ 134   1              delayus(20);
+ 135   1                  
+ 136   1              dulieu=0;quet1=0;quet2=0;quet3=0;quet4=0;
+ 137   1              delayus(1);      
+ 138   1              dulieu=maso[dv];          // dao toan bo gia tri tu 0-->1 hoac tu 1-->0
+ 139   1              quet1=0;quet2=0;quet3=0;quet4=1;
+ 140   1              delayus(20); 
+ 141   1       
+ 142   1      }
+ 143          void cai_lcd()
+ 144          {
+ 145   1              switch(smode)
+ 146   1              {
+ 147   2               case 1:
+ 148   2                      {
+ 149   3                      LCD_Gotoxy(1,1);
+ 150   3                      LCD_Puts("SET RED LIGHT    ");
+ 151   3                      LCD_Gotoxy(2,1);
+ 152   3                      LCD_Puts("RED:");
+ 153   3                      LCD_Gotoxy(2,5);
+ 154   3                      sprintf(str,"%u               ",demd);
+ 155   3                      LCD_Puts(str); break;
+ 156   3                      }
+ 157   2              case 2:
+ 158   2              {
+ 159   3                      LCD_Gotoxy(1,1);
+ 160   3                      LCD_Puts("SET GREEN LIGHT ");
+ 161   3                      LCD_Gotoxy(2,1);
+ 162   3                      LCD_Puts("GREEN:");
+ 163   3                      LCD_Gotoxy(2,7); 
+ 164   3                      sprintf(str,"%u         ",demx);
+ 165   3                      LCD_Puts(str);break; 
+ 166   3              }
+ 167   2              case 3:
+ 168   2              {
+ 169   3                              LCD_Gotoxy(1,1);
+ 170   3                              LCD_Puts("SET TIMER: RUN    ");
+ 171   3                              LCD_Gotoxy(2,1);
+ 172   3                              LCD_Puts("RED:");                 
+ 173   3                              LCD_Gotoxy(2,5);
+ 174   3                              sprintf(str,"%u ",demd);
+ 175   3                              LCD_Puts(str);
+ 176   3              
+ 177   3                              LCD_Gotoxy(2,8);
+ 178   3                              LCD_Puts("GRE:");
+ 179   3                              LCD_Gotoxy(2,12);
+C51 COMPILER V9.01   CODE_DEN                                                              07/06/2017 15:34:37 PAGE 4   
+
+ 180   3                              sprintf(str,"%u ",demx);
+ 181   3                              LCD_Puts(str); break;
+ 182   3              }
+ 183   2              }
+ 184   1      }
+ 185          void giatri_dau_lcd()
+ 186          {
+ 187   1              
+ 188   1                      LCD_Gotoxy(2,1);
+ 189   1                      LCD_Puts("RED:");
+ 190   1                      LCD_Gotoxy(2,5);
+ 191   1                      sprintf(str,"%u ",demd);
+ 192   1                      LCD_Puts(str);
+ 193   1      
+ 194   1                      LCD_Gotoxy(2,8);
+ 195   1                      LCD_Puts("GRE:");
+ 196   1                      LCD_Gotoxy(2,12);
+ 197   1                      sprintf(str,"%u ",demx);
+ 198   1                      LCD_Puts(str); 
+ 199   1      }
+ 200          void cai_giatri()
+ 201          {
+ 202   1              if((up==0)&&(down==0)){chedo=1;}
+ 203   1      
+ 204   1              if(chedo==1){k=1;vang_chop();}
+ 205   1      
+ 206   1              if(set==0){chedo=0;while(!set);smode++;}
+ 207   1              if(smode>3) smode=0;
+ 208   1              if(smode!=0) 
+ 209   1                      {       
+ 210   2                              k=1;
+ 211   2                              cai_lcd();              
+ 212   2                              hien_thicai();
+ 213   2                              P2_3=1;
+ 214   2                              
+ 215   2                      }
+ 216   1                       else 
+ 217   1                      {
+ 218   2                               k=0;
+ 219   2                               hienthi_7seg();
+ 220   2                               P2_3=0;                         
+ 221   2                      }
+ 222   1      
+ 223   1              if(smode==1)
+ 224   1                      {
+ 225   2                              if(up==0)       {demd++;}
+ 226   2                              if(down==0)     {demd--;}
+ 227   2                              if(demd>99)     demd=10;
+ 228   2                              if(demd<10) demd=99;
+ 229   2              
+ 230   2                      }
+ 231   1              if(smode==2)
+ 232   1                      {
+ 233   2                              if(up==0)       {demx++;}
+ 234   2                              if(down==0)     {demx--;}
+ 235   2                              if(demx>demd-3)         demx=7;
+ 236   2                              if(demx<7)      demx=demd-3;
+ 237   2              
+ 238   2                      }
+ 239   1              if(smode==3)
+ 240   1                      {
+ 241   2                              demv=demd-demx;
+C51 COMPILER V9.01   CODE_DEN                                                              07/06/2017 15:34:37 PAGE 5   
+
+ 242   2                              dem=demd;dem1=demx;
+ 243   2                              demc=0;  t=0;   
+ 244   2                              delayms(1000);smode=smode+1;    
+ 245   2                      }         
+ 246   1      }
+ 247          
+ 248          void main()
+ 249          {               
+ 250   1              khai_bao_ngat();
+ 251   1              cai_giatridau();
+ 252   1              LCD_Init();
+ 253   1              LCD_Gotoxy(1,1);
+ 254   1              LCD_Puts("SET TIMER: RUN  ");
+ 255   1              giatri_dau_lcd();
+ 256   1              P0=0;
+ 257   1              P2_3=0;
+ 258   1              while(1)
+ 259   1              {       
+ 260   2                      cai_giatri();
+ 261   2                                                
+ 262   2              }
+ 263   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1834    ----
+   CONSTANT SIZE    =    122    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     65       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

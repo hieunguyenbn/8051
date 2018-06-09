@@ -1,0 +1,40 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.a*; *.src)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Target 1), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,5,2,0,1,26,0,<.\Abstract.txt><Abstract.txt> { 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,233,255,255,255,11,0,0,0,17,0,0,0,110,2,0,0,212,1,0,0 }
+OPTFFF 1,2,1,0,0,0,0,0,<.\Main.c><Main.c> 
+
+ExtF <.\Abstract.txt> 1,26,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,233,255,255,255,11,0,0,0,17,0,0,0,110,2,0,0,212,1,0,0 }
+
+TARGOPT 1, (Target 1)
+ CLK51=12000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,1,0,1,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(Add on databooks)<DATASHTS\ADDBOOKS.PDF>
+  OPTBL 1,(MCS 51 Instruction Set)<DATASHTS\INTEL\ISM51.PDF>
+  OPTDL (S8051.DLL)()(DP51.DLL)(-p52)(S8051.DLL)()(TP51.DLL)(-p52)
+  OPTDBG 141,0,()()()()(.\debug.ini)()()()()() ()()()()
+  OPTKEY 0,(DLGDP51)((98=-1,-1,-1,-1,0)(82=983,146,1181,247,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=1033,44,1231,145,0)(99=-1,-1,-1,-1,0)(91=1033,144,1233,405,0)(92=165,117,365,378,0)(93=-1,-1,-1,-1,0))
+  OPTMM 1,0,(x:0xe000)
+  OPTDF 0x8092
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

@@ -1,0 +1,54 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              09/12/2014 11:04:44 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "main.h"
+   2          extern uint8_t range_ok;
+   3          extern float range;
+   4          unsigned char str[16];
+   5          
+   6          void main(void)
+   7          {
+   8   1        SRF05_Init();
+   9   1        lcd1602_init ();
+  10   1        lcd1602_gotoxy(1,0);
+  11   1        lcd1602_puts("MINH HA GROUP");
+  12   1        lcd1602_gotoxy(0,1);
+  13   1        lcd1602_puts("banlinhkien.vn");
+  14   1        delay_ms(2000);
+  15   1        lcd1602_clear();
+  16   1        lcd1602_gotoxy(1,0);
+  17   1        lcd1602_puts("DO KHOANG CACH");
+  18   1        lcd1602_gotoxy(14,1);
+  19   1        lcd1602_puts("Cm");
+  20   1        while(1)
+  21   1        {
+  22   2          StartRange();
+  23   2          if(range_ok)
+  24   2          {
+  25   3            sprintf(str, "K/Cach: %.1f ", range);
+  26   3            lcd1602_gotoxy(0,1);
+  27   3            lcd1602_puts(str);
+  28   3            delay_ms(800);
+  29   3          }
+  30   2        }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    142    ----
+   CONSTANT SIZE    =     61    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

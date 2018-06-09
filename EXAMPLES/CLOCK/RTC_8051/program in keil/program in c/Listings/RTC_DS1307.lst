@@ -1,0 +1,189 @@
+C51 COMPILER V9.53.0.0   RTC_DS1307                                                        08/09/2017 15:45:05 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE RTC_DS1307
+OBJECT MODULE PLACED IN .\Objects\RTC_DS1307.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE RTC_DS1307.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\RTC_DS1307.lst) TABS(2) OBJECT(.\Objects\RTC_DS1307.obj)
+
+line level    source
+
+   1          #include<reg52.h> 
+   2          #include "LCD8bit.h"
+*** WARNING C280 IN LINE 28 OF delay.h: 'i': unreferenced local variable
+   3          #include "I2C.h"
+   4          #include "delay.h"
+   5          
+   6           
+   7          int i;
+   8          unsigned char sec[2],min[2],hour[2],dow=0,dom[2],month[2],year[2];
+   9          unsigned int a[7];
+  10          typedef enum { false, true } bool; 
+  11           
+  12          
+  13           
+  14          
+  15           
+  16          int Dec_To_BCD(int dec){
+  17   1            return( (dec/10*16) + (dec%10) );
+  18   1          }
+  19              
+  20          
+  21          
+  22          
+  23          void readAllReg()
+  24              {
+  25   1      I2CStart(); 
+  26   1      I2CSend(0xD0);  
+  27   1      I2CSend(0x00);  
+  28   1      I2CStart(); 
+  29   1      I2CSend(0xD1);
+  30   1      for (i = 0; i < 8; i++) {
+  31   2      
+  32   2        a[i] = I2CRead();
+  33   2       
+  34   2        if(i == 7)
+  35   2          I2CNak();
+  36   2        else
+  37   2          I2CAck();
+  38   2      }
+  39   1      I2CStop();  
+  40   1            
+  41   1          }
+  42              
+  43          void setTime(int Sec, int Min, int Hour,int Dow, int Dom, int Month, int Year)
+  44          {
+  45   1      
+  46   1      
+  47   1      I2CStart(); 
+  48   1      I2CSend(0xD0);  
+  49   1      I2CSend(0x00);  
+  50   1      I2CSend(Dec_To_BCD(Sec)&0x7f);
+  51   1      I2CSend(Dec_To_BCD(Min)&0x7f);
+  52   1      I2CSend(Dec_To_BCD(Hour)&0x3f);
+  53   1      I2CSend(Dec_To_BCD(Dow)&0x07);
+C51 COMPILER V9.53.0.0   RTC_DS1307                                                        08/09/2017 15:45:05 PAGE 2   
+
+  54   1      I2CSend(Dec_To_BCD(Dom)&0x3f);
+  55   1      I2CSend(Dec_To_BCD(Month)&0x1f);
+  56   1      I2CSend(Dec_To_BCD(Year)&0xff);
+  57   1      I2CStop();
+  58   1      
+  59   1      
+  60   1      
+  61   1      } 
+  62          
+  63          int readSecReg()
+  64          {
+  65   1      
+  66   1      I2CStart(); 
+  67   1      I2CSend(0xD0);  
+  68   1      I2CSend(0x00);  
+  69   1      I2CStart(); 
+  70   1      I2CSend(0xD1);
+  71   1      a[0] = I2CRead();
+  72   1      I2CNak();
+  73   1      I2CStop();
+  74   1      return(a[0]);
+  75   1      } 
+  76          
+  77          void displayTime()
+  78          {
+  79   1      int SEC=0;
+  80   1      int AM_PM=0;  
+  81   1        
+  82   1        Cmd(0x01);
+  83   1        Cmd(0x80);
+  84   1        readAllReg();
+  85   1      
+  86   1      a[0]=(a[0]&0x0f)+(((a[0]>>4)&0x07)*10);
+  87   1      sec[0]=(a[0]/10)+48;sec[1]=(a[0]%10)+48;
+  88   1      a[1]=(a[1]&0x0f)+(((a[1]>>4)&0x07)*10);
+  89   1      min[0]=a[1]/10+48;min[1]=a[1]%10+48;
+  90   1      a[2]=((a[2]&0x0f))+(((a[2]>>4)&0x03)*10);
+  91   1      if(a[2]>12){
+  92   2      AM_PM=a[2]-12;  
+  93   2      hour[0]=AM_PM/10+48;hour[1]=AM_PM%10+48;}
+  94   1      else{
+  95   2      hour[0]=a[2]/10+48;hour[1]=a[2]%10+48;}
+  96   1      a[3]=(a[3]&0x07);dow=a[3];
+  97   1      a[4]=(a[4]&0x0f)+(((a[4]>>4)&0x03)*10);
+  98   1      dom[0]=a[4]/10+48;dom[1]=a[4]%10+48;
+  99   1      a[5]=(a[5]&0x0f)+(((a[5]>>4)&0x01)*10);
+ 100   1      month[0]=a[5]/10+48;month[1]=a[5]%10+48;
+ 101   1      a[6]=(a[6]&0x0f)+(((a[6]>>4)&0x0f)*10);
+ 102   1      year[0]=a[6]/10+48;year[1]=a[6]%10+48;
+ 103   1      
+ 104   1      
+ 105   1      Data(hour[0]);Data(hour[1]);Data(':');
+ 106   1      Data(min[0]);Data(min[1]);Data(':');
+ 107   1      Data(sec[0]);Data(sec[1]);Data(' ');
+ 108   1      if(a[2]<12) Disp("AM"); else Disp("PM");
+ 109   1      
+ 110   1      Cmd(0xc0);
+ 111   1      Data(dom[0]);Data(dom[1]);Data('/');
+ 112   1      Data(month[0]);Data(month[1]);Data('/');
+ 113   1      Data(year[0]);Data(year[1]);Data(' ');
+ 114   1      switch(dow)
+ 115   1            {
+C51 COMPILER V9.53.0.0   RTC_DS1307                                                        08/09/2017 15:45:05 PAGE 3   
+
+ 116   2            case 1:Disp("Sunday");break;
+ 117   2            case 2:Disp("Monday");break;
+ 118   2            case 3:Disp("Tuesday");break;
+ 119   2            case 4:Disp("Wednesday");break;
+ 120   2            case 5:Disp("Thursday");break;
+ 121   2            case 6:Disp("Friday");break;
+ 122   2            case 7:Disp("Saturday");break;    
+ 123   2            }
+ 124   1          
+ 125   1      while(a[0]<59)
+ 126   1      {
+ 127   2        setCursor(6,0);
+ 128   2        readSecReg();
+ 129   2        a[0]=(a[0]&0x0f)+(((a[0]>>4)&0x07)*10);
+ 130   2        sec[0]=(a[0]/10)+48;sec[1]=(a[0]%10)+48;
+ 131   2        if(SEC!=a[0]){
+ 132   3        Data(sec[0]);Data(sec[1]);SEC=a[0];}
+ 133   2        Delay_ms(100);  
+ 134   2      }
+ 135   1      Delay_ms(1000); 
+ 136   1      
+ 137   1      
+ 138   1        
+ 139   1      }
+ 140          
+ 141          
+ 142          
+ 143          
+ 144          
+ 145          void main()
+ 146          {
+ 147   1        initializeLCD();
+ 148   1      
+ 149   1      setTime(55,59,11,3,18,7,17); 
+ 150   1      while(1)
+ 151   1      {
+ 152   2        
+ 153   2      
+ 154   2      displayTime();
+ 155   2      
+ 156   2      
+ 157   2      } 
+ 158   1        
+ 159   1        
+ 160   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1666    ----
+   CONSTANT SIZE    =     63    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     29      30
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

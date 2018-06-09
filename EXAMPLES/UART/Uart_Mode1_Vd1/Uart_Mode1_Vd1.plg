@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\ThanhDang\Homework\KeilC8051Tut\Uart_Mode1_TaoThuVien\Uart_Mode1_Vd1\Uart_Mode1_Vd1.uvproj
+Project File Date:  10/27/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+compiling Delay.c...
+compiling UartMode1.c...
+linking...
+Program Size: data=13.0 xdata=0 const=0 code=218
+creating hex file from "Uart_Mode1_Vd1"...
+"Uart_Mode1_Vd1" - 0 Error(s), 0 Warning(s).

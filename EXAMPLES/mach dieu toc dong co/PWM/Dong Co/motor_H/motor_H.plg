@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Engineer\Code\C++\Vi Xu Ly_Vi Dieu Khien\Dong Co\motor_H\motor_H.uvproj
+Project File Date:  05/25/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling motor_H.asm...
+motor_H.asm(45): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+motor_H.asm(46): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+linking...
+Program Size: data=8.0 xdata=0 code=116
+creating hex file from "motor_H"...
+"motor_H" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+assembling motor_H.asm...
+motor_H.asm(45): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+motor_H.asm(46): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+linking...
+Program Size: data=8.0 xdata=0 code=116
+creating hex file from "motor_H"...
+"motor_H" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+assembling motor_H.asm...
+motor_H.asm(44): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+motor_H.asm(45): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+linking...
+Program Size: data=8.0 xdata=0 code=116
+creating hex file from "motor_H"...
+"motor_H" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+assembling motor_H.asm...
+motor_H.asm(44): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+motor_H.asm(45): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+linking...
+Program Size: data=8.0 xdata=0 code=116
+creating hex file from "motor_H"...
+"motor_H" - 0 Error(s), 2 Warning(s).

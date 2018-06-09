@@ -1,0 +1,136 @@
+A51 MACRO ASSEMBLER  KEYPAD                                                               05/29/2017 19:13:33 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN KeyPad.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE KeyPad.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh ban phim su dung ki thuat dao day (line reversal technique)
+                       3     ; Tham khao: 
+                       4     ; [1] Microprocessor Interfacing Techniques - Austin Lesea, Rodnay Zaks
+  00B4                 5     CONTROL                 EQU                     P3.4
+                       6     
+0000                   7     ORG                     0000h
+0000 2100              8     JMP                     Start
+0003                   9     ORG                             0003H
+0003 020119           10     LJMP                    INT0_ISR
+                      11     
+0100                  12     ORG                     0100h
+0100                  13     Start:  
+0100 D2AF             14                     SETB    EA                      ; Enable Interrupt
+0102 D2A8             15                     SETB    EX0                     ; Enable INT0   
+0104 D288             16                     SETB    IT0                     ; INT0 NGAT THEO SUON XUONG             
+                      17                     
+0106 758920           18                     MOV             TMOD, #20H
+0109 758DB0           19                     MOV             TH1, #0B0H
+                      20                     
+010C C2A0             21                     CLR             P2.0
+010E C2A1             22                     CLR             P2.1
+0110 C2A2             23                     CLR             P2.2
+0112 C2A3             24                     CLR             P2.3
+0114 7590FF           25                     MOV             P1, #0FFh ; Ban dau den LED hien thi so 0                  
+                                                     
+0117 80FE             26                     SJMP    $ 
+                      27                     
+                      28     ;-------------------------------
+0119                  29     INT0_ISR:
+0119 B2B5             30                     CPL             P3.5
+011B 315A             31                     CALL    DELAY
+                      32                             
+                      33     ; Thuc hien dao day ban phim (line reversal)
+011D E5A0             34                     MOV             A,P2
+011F C2B4             35                     CLR             CONTROL ; Dao day
+0121 F5A0             36                     MOV             P2,A
+0123 D2A0             37                     SETB    P2.0
+0125 D2A1             38                     SETB    P2.1
+0127 D2A2             39                     SETB    P2.2
+0129 D2A3             40                     SETB    P2.3
+012B E5A0             41                     MOV             A,P2 ; Doc thong tin cua phim bam (hang + cot)
+                      42     ; Hien thi ket qua
+                      43                     ;MOV            P1,A
+012D 7800             44                     MOV             R0,#0 ; R0: Chi so hang
+012F 7900             45                     MOV             R1,#0 ; R1: Chi so cot
+0131 C3               46                     CLR             C
+0132 7A00             47                     MOV             R2,#0 ; R2: Bien dem
+0134 FB               48                     MOV             R3,A  
+0135                  49     _tim_chi_so_hang:
+0135 13               50                     RRC             A
+0136 5004             51                     JNC             _ket_thuc_tim_chi_so_hang
+0138 0A               52                     INC             R2
+0139 C3               53                     CLR             C
+013A 80F9             54                     JMP             _tim_chi_so_hang
+013C                  55     _ket_thuc_tim_chi_so_hang:
+013C EA               56                     MOV             A,R2            
+013D F8               57                     MOV             R0,A ; R0 luu tru chi so hang
+A51 MACRO ASSEMBLER  KEYPAD                                                               05/29/2017 19:13:33 PAGE     2
+
+013E EB               58                     MOV             A,R3 ; Lay lai ket qua truoc cua A
+013F C4               59                     SWAP    A ; Chi xet vi tri cot
+0140 7A00             60                     MOV             R2,#0
+0142                  61     _tim_chi_so_cot:
+0142 13               62                     RRC             A
+0143 5004             63                     JNC             _ket_thuc_tim_chi_so_cot
+0145 0A               64                     INC             R2
+0146 C3               65                     CLR             C
+0147 80F9             66                     JMP             _tim_chi_so_cot
+0149                  67     _ket_thuc_tim_chi_so_cot:
+0149 EA               68                     MOV             A,R2
+014A F9               69                     MOV             R1,A ; R1 luu tru chi so cot
+                      70                     ; Quy doi thong tin ve hang va cot thanh ket qua dau ra
+014B E8               71                     MOV             A,R0
+014C 75F004           72                     MOV             B,#4
+014F A4               73                     MUL             AB
+0150 29               74                     ADD             A,R1                      
+                      75     
+0151 F590             76                     MOV             P1,A ; Xuat ra LED                      
+                      77     ; Thiet lap lai trang thai ban dau
+0153 D2B4             78                     SETB    CONTROL
+0155 74F0             79                     MOV             A,#11110000B
+0157 F5A0             80                     MOV             P2,A    
+0159                  81     EXIT:           
+0159 32               82                     RETI
+                      83     
+015A                  84     DELAY:
+015A D28E             85                     SETB    TR1
+015C 308FFD           86                     JNB             TF1, $
+015F C28F             87                     CLR             TF1
+0161 C28E             88                     CLR             TR1
+0163 22               89                     RET
+                      90     END
+A51 MACRO ASSEMBLER  KEYPAD                                                               05/29/2017 19:13:33 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                    T Y P E  V A L U E   ATTRIBUTES
+
+B . . . . . . . . . . . .  D ADDR   00F0H   A   
+CONTROL . . . . . . . . .  B ADDR   00B0H.4 A   
+DELAY . . . . . . . . . .  C ADDR   015AH   A   
+EA. . . . . . . . . . . .  B ADDR   00A8H.7 A   
+EX0 . . . . . . . . . . .  B ADDR   00A8H.0 A   
+EXIT. . . . . . . . . . .  C ADDR   0159H   A   
+INT0_ISR. . . . . . . . .  C ADDR   0119H   A   
+IT0 . . . . . . . . . . .  B ADDR   0088H.0 A   
+P1. . . . . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . . . . .  D ADDR   00A0H   A   
+P3. . . . . . . . . . . .  D ADDR   00B0H   A   
+START . . . . . . . . . .  C ADDR   0100H   A   
+TF1 . . . . . . . . . . .  B ADDR   0088H.7 A   
+TH1 . . . . . . . . . . .  D ADDR   008DH   A   
+TMOD. . . . . . . . . . .  D ADDR   0089H   A   
+TR1 . . . . . . . . . . .  B ADDR   0088H.6 A   
+_KET_THUC_TIM_CHI_SO_COT.  C ADDR   0149H   A   
+_KET_THUC_TIM_CHI_SO_HANG  C ADDR   013CH   A   
+_TIM_CHI_SO_COT . . . . .  C ADDR   0142H   A   
+_TIM_CHI_SO_HANG. . . . .  C ADDR   0135H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

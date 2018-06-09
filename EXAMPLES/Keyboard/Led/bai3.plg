@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\code\Project VDK\LED\dang2-bai3\leddon_4phim.uvproj
+Project File Date:  05/18/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling leddon_4phim.asm...
+leddon_4phim.asm(30): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+leddon_4phim.asm(31): warning A52: VALUE HAS BEEN TRUNCATED TO 8 BITS
+linking...
+Program Size: data=8.0 xdata=0 code=79
+creating hex file from "leddon_4phim"...
+"leddon_4phim" - 0 Error(s), 2 Warning(s).

@@ -1,0 +1,368 @@
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE TIMEANDTEMP
+OBJECT MODULE PLACED IN .\Objects\TimeAndTemp.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE TimeAndTemp.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\TimeAndTemp.lst) TABS(2) OBJECT(.\Objects\TimeAndTemp.obj)
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include <stdio.h>
+   3          #include <string.h>
+   4          #include "..\..\LIBRARY\delay.h"
+   5          #include "..\..\LIBRARY\port.h"
+   6          
+   7          void LCD_init(); //khoi tao
+   8          void WriteCommand(unsigned char cmd); // Gui lenh cho LCD
+   9          void WriteChar(char c); // Gui ky tu
+  10          void WriteString(char *s); //GUI CHUOI
+  11          
+  12          void I2C_start();
+  13          void I2C_stop();
+  14          void I2C_write(unsigned char d);
+  15          unsigned char I2C_read(bit ack);
+  16          unsigned char DS3231_read(unsigned char a);
+  17          void DS3231_write(unsigned char a,unsigned char d);
+  18          void DS18B20_WriteBit(char c);
+  19          void DS18B20_WriteByte(char c);
+  20          unsigned char DS18B20_ReadBit(void);
+  21          unsigned char DS18B20_ReadByte(void); 
+  22          unsigned char DS18B20_Reset(void);
+  23          void ReadTemperature(void);
+  24          unsigned char temperature;
+  25          unsigned char Time[15], D[15], Temp[4];
+  26          volatile char i;
+  27          char sec, min, hour, date, month, year, c, check;
+  28          
+  29          main() {
+  30   1          
+  31   1          SCL = 1;
+  32   1          delay(2);
+  33   1          SDA = 1;
+  34   1          LCD_init();
+  35   1          IE = 0x85; //NGAT NGOAI 
+  36   1          IT0 = 1; IT1 = 1; // NGAT THEO SUON
+  37   1        //  DS3231_write(0x0E,0x04);
+  38   1          
+  39   1          while (1) {
+  40   2              if (!(mode)) {
+  41   3                  delay_ms(2);
+  42   3                  c = 1;
+  43   3                  check = 1;
+  44   3                  EA = 1;
+  45   3              }
+  46   2              while (check) {
+  47   3              if (c == 1) {
+  48   4                    i = hour;
+  49   4                    delay_ms(100);
+  50   4                    hour = i;
+  51   4                    if (hour < 0) hour = 23;
+  52   4                    if (hour > 23) hour = 0;
+  53   4                    DS3231_write(0x02,hour);
+  54   4                    WriteCommand(0x86);
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 2   
+
+  55   4                    WriteChar(hour/10+48);
+  56   4                    WriteChar(hour%10+48);
+  57   4                    WriteCommand(0x88);
+  58   4                    WriteChar(':');
+  59   4                    WriteCommand(0x87);
+  60   4              }
+  61   3              else if (c == 2) {
+  62   4                    i = min;
+  63   4                    delay_ms(100);
+  64   4                    min = i;
+  65   4                    if (min < 0) min = 59;
+  66   4                    if (min > 59) min = 0;
+  67   4                    DS3231_write(0x01,min);
+  68   4                    WriteCommand(0x89);
+  69   4                    WriteChar(min/10+48);
+  70   4                    WriteChar(min%10+48);
+  71   4                    WriteCommand(0x8B);
+  72   4                    WriteChar(':');
+  73   4                    WriteCommand(0x8A);
+  74   4              }
+  75   3              else if (c == 3) {
+  76   4                    i = sec;
+  77   4                    delay_ms(100);
+  78   4                    sec = i;
+  79   4                    if (sec < 0) sec = 59;
+  80   4                    if (sec > 59) sec = 0;
+  81   4                    DS3231_write(0x00,sec);
+  82   4                    WriteCommand(0x8C);
+  83   4                    WriteChar(sec/10+48);
+  84   4                    WriteChar(sec%10+48);
+  85   4                    WriteCommand(0x8D);
+  86   4              }
+  87   3              else if (c == 4) {      
+  88   4                    i = date;
+  89   4                    delay_ms(100);
+  90   4                    date = i;
+  91   4                    if (date < 0) date = 31;
+  92   4                    if (date > 31) date = 0;
+  93   4                    DS3231_write(0x04,date);
+  94   4                    WriteCommand(0xC6);
+  95   4                    WriteChar(date/10+48);
+  96   4                    WriteChar(date%10+48);
+  97   4                    WriteCommand(0xC8);
+  98   4                    WriteChar('/');
+  99   4                    WriteCommand(0xC7);
+ 100   4              }
+ 101   3              else if (c == 5) {
+ 102   4                    i = month;
+ 103   4                    delay_ms(100);
+ 104   4                    month = i;
+ 105   4                    if (month < 0) month = 12;
+ 106   4                    if (month > 12) month = 0;
+ 107   4                    DS3231_write(0x05,month);
+ 108   4                    WriteCommand(0xC9);
+ 109   4                    WriteChar(month/10+48);
+ 110   4                    WriteChar(month%10+48);
+ 111   4                    WriteCommand(0xCB);
+ 112   4                    WriteChar('/');
+ 113   4                    WriteCommand(0xCA);
+ 114   4                }
+ 115   3              else if (c == 6) {
+ 116   4                    i = year;
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 3   
+
+ 117   4                    delay_ms(100);
+ 118   4                    year = i;
+ 119   4                    if (year < 0) year = 99;
+ 120   4                    if (year > 99) year = 0;
+ 121   4                    DS3231_write(0x06,year);
+ 122   4                    WriteCommand(0xCC);
+ 123   4                    WriteChar(year/10+48);
+ 124   4                    WriteChar(year%10+48);
+ 125   4                    WriteCommand(0xCD);
+ 126   4                }
+ 127   3              else {
+ 128   4                check = 0;
+ 129   4                delay_ms(400);
+ 130   4                WriteCommand(0x01);
+ 131   4              }
+ 132   3              if (!(mode)) {
+ 133   4                  delay_ms(2);
+ 134   4                  c++;
+ 135   4              }
+ 136   3            }
+ 137   2                WriteCommand(0x80);
+ 138   2                ReadTemperature();
+ 139   2      //          WriteChar((temperature/10)+48);
+ 140   2      //          WriteChar((temperature%10)+48);
+ 141   2                sprintf(Temp,"%bu ^C", temperature); 
+ 142   2                WriteString(Temp);
+ 143   2                hour = DS3231_read(0x02);
+ 144   2                min = DS3231_read(0x01);
+ 145   2                sec = DS3231_read(0x00);
+ 146   2                WriteCommand(0x86);
+ 147   2                sprintf(Time,"%bu:%bu:%bu ", hour, min, sec);
+ 148   2                WriteString(Time);
+ 149   2                date = DS3231_read(0x04);
+ 150   2                month = DS3231_read(0x05);
+ 151   2                year = DS3231_read(0x06);
+ 152   2                WriteCommand(0xC0);
+ 153   2                WriteString("Date");
+ 154   2                WriteCommand(0xC6);
+ 155   2                sprintf(D,"%bu/%bu/%bu ", date, month, year);
+ 156   2                WriteString(D);
+ 157   2          } 
+ 158   1        
+ 159   1      }
+ 160          unsigned char DS18B20_Reset(void) {
+ 161   1          unsigned char presence;
+ 162   1          DQ = 1;
+ 163   1          DQ = 0; // keo xuong
+ 164   1          delay_us(29); // delay (480-24)/16=28.5 do thoi gian goi ham 24us, ham nay tre trong 16us
+ 165   1          DQ = 1; // keo len
+ 166   1          delay_us(3); // delay (70-24)/16 = 2.875 // cho tin hieu presence
+ 167   1          presence = DQ;
+ 168   1          delay(25); // delay (410-24)/16 = 24.125; // ket thuc timeslot
+ 169   1          return presence; // Neu presence = 0 thi OK chip slave tra loi, =1 thi NOT OK;
+ 170   1      }
+ 171          void DS18B20_WriteBit(char c) {
+ 172   1          DQ = 0; // keo xuong muc 0 de khoi dong timeslot
+ 173   1          if (c == 1) DQ = 1; // Neu write 1
+ 174   1          delay_us(5); // delay 104 us luu gia tri cua timeslot
+ 175   1          DQ = 1;
+ 176   1      }
+ 177          void DS18B20_WriteByte(char c) {
+ 178   1          unsigned char i;
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 4   
+
+ 179   1          unsigned char temp;
+ 180   1          for (i = 0; i < 8; i++) {
+ 181   2              temp = c >> i; // lan luot viet tung bit
+ 182   2              temp &= 0x01; // luu bit thap nhat vao bien temp
+ 183   2              DS18B20_WriteBit(temp); // viet bit do len bus
+ 184   2          }
+ 185   1          delay_us(5);
+ 186   1      }
+ 187          unsigned char DS18B20_ReadBit(void) {
+ 188   1          unsigned char i;
+ 189   1          DQ = 0;
+ 190   1          DQ = 1;
+ 191   1          for (i = 0; i < 3; i++); // delay 15us
+ 192   1          return (DQ);
+ 193   1      }
+ 194          unsigned char DS18B20_ReadByte(void) {
+ 195   1          unsigned char i;
+ 196   1          unsigned char value = 0;
+ 197   1          for (i = 0; i < 8; i++) {
+ 198   2              if (DS18B20_ReadBit()) value |= 0x01 << i; // dich trai doc lan luot tung bit
+ 199   2              delay_us(6);
+ 200   2          }
+ 201   1          return value;
+ 202   1      }
+ 203          void ReadTemperature(void) {
+ 204   1          unsigned char a = 0;
+ 205   1          unsigned char b = 0;
+ 206   1          EA = 0;
+ 207   1          if (!DS18B20_Reset()) {
+ 208   2              DS18B20_WriteByte(0xCC);// Skip rom
+ 209   2              DS18B20_WriteByte(0x44); // Lenh Convert T
+ 210   2              delay(10);
+ 211   2          }
+ 212   1          if (!DS18B20_Reset()) {
+ 213   2              DS18B20_WriteByte(0xCC);// Skip rom
+ 214   2              DS18B20_WriteByte(0xBE); // Lenh doc nhiet do
+ 215   2              delay(10);
+ 216   2          }
+ 217   1          a = DS18B20_ReadByte(); // doc nhiet do byte thap
+ 218   1          b = DS18B20_ReadByte(); // doc nhiet do byte cao
+ 219   1          temperature = (b*256+a)>>4; // luu gia tri nhiet do vao bien temp
+ 220   1      }
+ 221          void tang(void) interrupt 0 {
+ 222   1          i++;
+ 223   1          delay_us(1000);
+ 224   1      }
+ 225          void giam(void) interrupt 2 {
+ 226   1          i--;
+ 227   1          delay_us(1000);
+ 228   1      }
+ 229          
+ 230          void DS3231_write(unsigned char a,unsigned char d) {
+ 231   1          d = ((d/10)<<4 | (d%10)); //  dec to BCD 
+ 232   1          I2C_start();
+ 233   1          I2C_write(0xD0); // Dia chi cua ds3231
+ 234   1          I2C_write(a);
+ 235   1          I2C_write(d);
+ 236   1          I2C_stop();
+ 237   1      }
+ 238          unsigned char DS3231_read(unsigned char a) {
+ 239   1          unsigned int d;
+ 240   1          I2C_start();
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 5   
+
+ 241   1          I2C_write(0xD0); // DIA CHI CUA DS3231 la 0x68, dich trai 1 bit de gui bit R/W (0) => OxDO
+ 242   1          I2C_write(a); // GUI DIA CHI CUA THANH GHI
+ 243   1          I2C_start(); // KHOI DONG LAI
+ 244   1          I2C_write(0xD1); // READ (R/W = 1)
+ 245   1          d = I2C_read(0);
+ 246   1          I2C_stop();
+ 247   1          d = ((d>>4)*10 + (d&0x0F)); // Chuyen doi ma BCD sang dec
+ 248   1          return d;
+ 249   1      }
+ 250          void I2C_start() {
+ 251   1          SDA = 1;
+ 252   1          SCL = 1;
+ 253   1          delay(2);
+ 254   1          SDA = 0;
+ 255   1          delay(2);
+ 256   1          SCL = 0;
+ 257   1          delay(2);
+ 258   1      }
+ 259          void I2C_stop() {
+ 260   1          SDA = 0;
+ 261   1          SCL = 1;
+ 262   1          delay(2);
+ 263   1          SDA = 1;
+ 264   1          delay(2);
+ 265   1          SCL = 0;
+ 266   1          delay(2);
+ 267   1      }
+ 268          void I2C_write(unsigned char d) {
+ 269   1          unsigned char i;
+ 270   1          for (i = 0; i < 8; i++) {
+ 271   2              SDA =  (d & 0x80)?1:0;
+ 272   2              SCL = 1;
+ 273   2              delay(2);
+ 274   2              SCL = 0;
+ 275   2              d <<= 1;
+ 276   2          }
+ 277   1          SCL = 1; // clock cho ACK
+ 278   1          SCL = 0;
+ 279   1      }
+ 280          unsigned char I2C_read(bit ack) {
+ 281   1          unsigned char i, d = 0;
+ 282   1          SDA = 1;
+ 283   1          for (i = 0; i < 8; i++) {
+ 284   2              SCL = 1;
+ 285   2              d <<= 1;
+ 286   2              d |= SDA;
+ 287   2              SCL = 0;
+ 288   2              delay(2);
+ 289   2          }
+ 290   1          SDA = (ack)?0:1;
+ 291   1          SCL = 1; // clock cho ack;
+ 292   1          delay(2);
+ 293   1          SCL = 0;
+ 294   1          return d;
+ 295   1      }
+ 296          
+ 297          void WriteCommand(unsigned char cmd) {
+ 298   1          P2 = (cmd & 0xF0); // gui 4 bit cao truoc
+ 299   1          RS = 0; // Gui/nhan lenh
+ 300   1          RW = 0; // Gui
+ 301   1          EN = 1; delay(20); EN = 0;
+ 302   1          delay(150);
+C51 COMPILER V9.56.0.0   TIMEANDTEMP                                                       01/07/2018 10:12:38 PAGE 6   
+
+ 303   1          P2 = ((cmd << 4) & 0xF0); // gui 4 bit thap
+ 304   1          RS = 0; RW = 0;
+ 305   1          EN = 1; delay(20); EN = 0;
+ 306   1          delay(150);
+ 307   1      }
+ 308          
+ 309          void LCD_init() {
+ 310   1          P2 = 0x00;
+ 311   1          delay_ms(1);
+ 312   1          WriteCommand(0x03);
+ 313   1          WriteCommand(0x02);        // Initialize Lcd in 4-bit mode
+ 314   1          WriteCommand(0x28);        
+ 315   1          WriteCommand(0x01);        // Clear 
+ 316   1          WriteCommand(0x0E);
+ 317   1      }
+ 318              
+ 319          void WriteChar(char c) {
+ 320   1          P2 = (c & 0xF0);
+ 321   1          RS = 1; // Gui/nhan du lieu
+ 322   1          RW = 0; // Gui
+ 323   1          EN = 1; delay(10); EN = 0;
+ 324   1          delay(100);
+ 325   1          P2 = ((c << 4) & 0xF0);
+ 326   1          RS = 1; RW = 0;
+ 327   1          EN = 1; delay(10); EN = 0;
+ 328   1          delay(100);
+ 329   1      }
+ 330          void WriteString(char *s) {
+ 331   1          while (*s) {
+ 332   2              WriteChar(*s++);
+ 333   2          }
+ 334   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1626    ----
+   CONSTANT SIZE    =     38    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     44      22
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

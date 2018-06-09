@@ -1,0 +1,5 @@
+/*thuat toán là: các bien kq1 là so hang 1, kq2 là so hang 2 , kq la ket qua
+cuoi cung,ok la bien kiem tra, ok=1 ngung nhap so, ok=0 tiep tuc doi nhap du lieu
+vi du khi can nhap 23+ 45 thi bam 1 phim 2 luc nay kq1=kq1*10+2=2 vi kq1 khoi tao =0
+ok=0 vi con nhap 3 sau do nhap 3 thi kq1=kq1*10+3=23, an tiep phim + thi ok=1 
+ket thuc nhap so hang dau tien, tiep theo nhap so kq2 tuong tu.. */
