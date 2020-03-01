@@ -1,0 +1,46 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              07/31/2017 15:31:53 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //Khoa hoc giao tiep 8051 voi Kit 8051 V2
+   2          //Huong dan lap trinh vi dieu khien AT89S52 giao tiep relay
+   3          
+   4          #include <main.h>
+   5          
+   6          //Nhan nut K1 dong relay
+   7          //Nhan nut K2 ngat relay
+   8          
+   9          void main()
+  10          {
+  11   1        relay = 0;
+  12   1        while(1)
+  13   1        {
+  14   2          if(K1 == 0)
+  15   2          {
+  16   3            relay = 1;
+  17   3          }
+  18   2          if(K2 == 0)
+  19   2          {
+  20   3            relay = 0;
+  21   3          }
+  22   2        }
+  23   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     14    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
