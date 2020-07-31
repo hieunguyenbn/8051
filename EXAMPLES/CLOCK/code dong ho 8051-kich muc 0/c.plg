@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Hoc tap\Dropbox_vdnguyen88\Dropbox\Dien tu\MACH\00-LED\Led clock\Mach dong ho - chipkool\Edit_kich0\c.uvproj
+Project File Date:  06/07/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling clock 8051.c...
+linking...
+Program Size: data=44.1 xdata=0 code=2685
+creating hex file from "c"...
+"c" - 0 Error(s), 0 Warning(s).

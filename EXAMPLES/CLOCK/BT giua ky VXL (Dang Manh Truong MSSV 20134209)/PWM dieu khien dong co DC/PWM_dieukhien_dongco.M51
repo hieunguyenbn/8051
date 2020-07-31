@@ -1,0 +1,85 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/23/2017  22:55:52  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE PWM_dieukhien_dongco.obj TO PWM_dieukhien_dongco
+
+
+INPUT MODULES INCLUDED:
+  PWM_dieukhien_dongco.obj (PWM_DIEUKHIEN_DONGCO)
+
+
+LINK MAP OF MODULE:  PWM_dieukhien_dongco (PWM_DIEUKHIEN_DONGCO)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     004BH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  PWM_dieukhien_dongco (PWM_DIEUKHIEN_DONGCO)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PWM_DIEUKHIEN_DONGCO
+  N:00FFH         SYMBOL        FULL_CYCLE
+  D:00A8H         SYMBOL        IE
+  C:0041H         SYMBOL        ISR_FULLTIME
+  C:0046H         SYMBOL        ISR_ONTIME
+  C:003AH         SYMBOL        ISR_SPEEDDOWN
+  C:0033H         SYMBOL        ISR_SPEEDUP
+  B:0088H.0       SYMBOL        IT0
+  B:0088H.2       SYMBOL        IT1
+  C:001EH         SYMBOL        MAIN
+  D:00A0H         SYMBOL        P2
+  B:00A0H.0       SYMBOL        PWM_PIN
+  N:001EH         SYMBOL        SPEED_INC
+  D:008CH         SYMBOL        TH0
+  D:008DH         SYMBOL        TH1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  B:0088H.6       SYMBOL        TR1
+  N:0032H         SYMBOL        T_ON
+  C:0030H         SYMBOL        _DO_NOTHING
+  C:0000H         LINE#         8
+  C:0003H         LINE#         10
+  C:000BH         LINE#         12
+  C:0013H         LINE#         14
+  C:001BH         LINE#         16
+  C:001EH         LINE#         20
+  C:0021H         LINE#         21
+  C:0023H         LINE#         22
+  C:0025H         LINE#         23
+  C:0028H         LINE#         24
+  C:002BH         LINE#         25
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/23/2017  22:55:52  PAGE 2
+
+
+  C:002EH         LINE#         26
+  C:0030H         LINE#         28
+  C:0032H         LINE#         29
+  C:0033H         LINE#         32
+  C:0035H         LINE#         33
+  C:0037H         LINE#         35
+  C:0039H         LINE#         36
+  C:003AH         LINE#         39
+  C:003CH         LINE#         40
+  C:003EH         LINE#         41
+  C:0040H         LINE#         42
+  C:0041H         LINE#         45
+  C:0043H         LINE#         46
+  C:0045H         LINE#         47
+  C:0046H         LINE#         50
+  C:0048H         LINE#         51
+  C:004AH         LINE#         52
+  -------         ENDMOD        PWM_DIEUKHIEN_DONGCO
+
+Program Size: data=8.0 xdata=0 code=75
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

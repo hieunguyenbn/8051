@@ -1,0 +1,108 @@
+A51 MACRO ASSEMBLER  RECEIVER                                                             05/22/2017 20:25:03 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN receiver.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE receiver.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209)
+                       2     ; Chuong trinh truyen thong noi tiep 8051 bang UART va phan mem
+                       3     ; Code ben nhan
+  00A0                 4     PIN_7SEG                        EQU             P2
+  0080                 5     SOFTPIN_7SEG            EQU     P0
+  0092                 6     SERIAL_DATA_PIN         EQU             P1.2
+                       7     
+0000                   8     ORG                                     0H
+0000 020026            9     LJMP                            MAIN  
+0023                  10     ORG                                     0023H
+0023 02004F           11     LJMP                            ISR_HARDWARE_SERIAL
+                      12     
+0026                  13     MAIN:
+0026 75A891           14     MOV                                     IE,#10010001B ; Cho phep ngat 0 va ngat truyen thon
+                             g noi tiep
+0029 D288             15     SETB                            TCON.0 ; Ngat 0 theo xung cao-xuong-thap
+002B 758920           16     MOV                                     TMOD,#20h ; Timer 1, che do 2 tu nap lai
+002E 758DF4           17     MOV                                     TH1, #0F4h ; Baud rate  = 2400
+0031 759850           18     MOV                                     SCON,#50h ; Khung du lieu 8 bit, 1 Stop, cho phep R
+                             I
+0034 D28E             19     SETB                            TR1
+0036                  20     _loop_forever:
+                      21     ; Thuc hien nhan du lieu noi tiep bang phan mem, sau do hien thi ra LED
+0036 7908             22     MOV                                     R1,#8
+0038 7400             23     MOV                                     A,#0
+003A                  24     _while_idle:
+003A 2092FD           25     JB                                      SERIAL_DATA_PIN,_while_idle
+                      26     ; Phat hien bit Start
+003D 00               27     NOP
+003E                  28     _receive_bits:
+003E 209203           29     JB                                      SERIAL_DATA_PIN,_bit_1
+                      30     ; _bit_0:
+0041 C3               31     CLR                                     C
+0042 8002             32     JMP                                     _rotate
+0044                  33     _bit_1:
+0044 D3               34     SETB                            C
+0045 00               35     NOP
+0046                  36     _rotate:
+0046 13               37     RRC                                     A
+0047                  38     _continue:
+0047 D9F5             39     DJNZ                            R1,_receive_bits
+0049 03               40     RR                                      A
+004A F580             41     MOV                                     SOFTPIN_7SEG,A                                  
+004C 80E8             42     JMP                                     _loop_forever
+004E 22               43     RET
+                      44     
+004F                  45     ISR_HARDWARE_SERIAL:
+004F 209907           46     JB                                      TI,_trans
+                      47     ; Nhan du lieu tu UART
+0052 E599             48     MOV                                     A,SBUF
+0054 F5A0             49     MOV                                     PIN_7SEG,A      
+0056 C298             50     CLR                                     RI  
+0058 32               51     RETI
+0059                  52     _trans:
+0059 C299             53     CLR                                     TI
+005B 32               54     RETI
+                      55     
+                      56     END
+A51 MACRO ASSEMBLER  RECEIVER                                                             05/22/2017 20:25:03 PAGE     2
+
+                             
+A51 MACRO ASSEMBLER  RECEIVER                                                             05/22/2017 20:25:03 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E   ATTRIBUTES
+
+IE. . . . . . . . .  D ADDR   00A8H   A   
+ISR_HARDWARE_SERIAL  C ADDR   004FH   A   
+MAIN. . . . . . . .  C ADDR   0026H   A   
+P0. . . . . . . . .  D ADDR   0080H   A   
+P1. . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . .  D ADDR   00A0H   A   
+PIN_7SEG. . . . . .  D ADDR   00A0H   A   
+RI. . . . . . . . .  B ADDR   0098H.0 A   
+SBUF. . . . . . . .  D ADDR   0099H   A   
+SCON. . . . . . . .  D ADDR   0098H   A   
+SERIAL_DATA_PIN . .  B ADDR   0090H.2 A   
+SOFTPIN_7SEG. . . .  D ADDR   0080H   A   
+TCON. . . . . . . .  D ADDR   0088H   A   
+TH1 . . . . . . . .  D ADDR   008DH   A   
+TI. . . . . . . . .  B ADDR   0098H.1 A   
+TMOD. . . . . . . .  D ADDR   0089H   A   
+TR1 . . . . . . . .  B ADDR   0088H.6 A   
+_BIT_1. . . . . . .  C ADDR   0044H   A   
+_CONTINUE . . . . .  C ADDR   0047H   A   
+_LOOP_FOREVER . . .  C ADDR   0036H   A   
+_RECEIVE_BITS . . .  C ADDR   003EH   A   
+_ROTATE . . . . . .  C ADDR   0046H   A   
+_TRANS. . . . . . .  C ADDR   0059H   A   
+_WHILE_IDLE . . . .  C ADDR   003AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

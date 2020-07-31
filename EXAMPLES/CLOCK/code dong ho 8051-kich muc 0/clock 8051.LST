@@ -1,0 +1,694 @@
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE CLOCK_8051
+OBJECT MODULE PLACED IN clock 8051.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE clock 8051.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          
+   3          #define SEC     0x00
+   4          #define MIN     0x01
+   5          #define HOUR    0x02
+   6          #define DAY     0x03
+   7          #define DATE    0x04
+   8          #define MONTH   0x05
+   9          #define YEAR    0x06
+  10          #define A_MIN   0x08
+  11          #define A_HOUR  0x09
+  12          char sec,hour,min,day,date,month,year,year_20,a_min,a_hour;
+  13          
+  14          sbit SDA  = P1^0;
+  15          sbit SCL  = P1^1;
+  16          sbit Mode = P1^2;
+  17          sbit Up   = P1^3;
+  18          sbit Down = P1^4;
+  19          sbit Ok   = P1^5;
+  20          sbit Alarm   = P1^6;
+  21          sbit Loa   = P1^7;
+  22          
+  23          sbit L01  = P2^0;
+  24          sbit L02  = P2^1;
+  25          sbit L03  = P2^2;
+  26          sbit L04  = P2^3;
+  27          sbit L05  = P2^4;
+  28          sbit L06  = P2^5;
+  29          sbit L07  = P2^6;
+  30          sbit L08  = P2^7;
+  31          
+  32          sbit L09  = P3^0;
+  33          sbit L10  = P3^1;
+  34          sbit L11  = P3^2;
+  35          sbit L12  = P3^3;
+  36          sbit L13  = P3^4;
+  37          sbit L14  = P3^5;
+  38          sbit L15  = P3^6; 
+  39          sbit PM   = P3^7;
+  40          
+  41          //******************************************************************************
+  42          // KHAI BAO BIEN, MANG... 
+  43          unsigned char led7_data[10] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 }; //Decimal to Led7seg
+  44          unsigned char Data,Display,time,index,mode,bat_nhay,read_time,alarm,kt,on_off;
+  45          
+  46          // KHAI BAO HAM, CHUONG TRINH CON
+  47          void set_main(void);                    // Chuong trinh khoi tao main
+  48          void setup_timer(void);                 // Chuong trinh cai dat timer 1 va 0
+  49          void delay(unsigned int time);  // Delay
+  50          void Fix_time(void);                    // Kiem tra va hieu chinh gia tri cua gio,phut,giay
+  51          void Keypad(void);                              // Kiem tra xu ly phim nhan.
+  52          void T1_ISR(void);                              //ngat timer 1 phuc vu nhay led
+  53          void T0_ISR(void);                              // Dung ngat timer 0 de quet led
+  54          //******************************************************************************
+  55          void bip(void)
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 2   
+
+  56          {
+  57   1              unsigned char n;
+  58   1          for(n=0;n<100;n++)
+  59   1          {
+  60   2                      Loa=1; delay(50);
+  61   2              Loa=0; delay(50);
+  62   2          }    
+  63   1      }
+  64          //******************************************************************************
+  65          // CAC CHUONG TRINH CON CHO I2C
+  66          //******************************************************************************
+  67          void I2C_start(void)
+  68          {
+  69   1              SCL = 1; SCL = 0;
+  70   1              SDA = 1; SCL = 1;
+  71   1              delay(2);
+  72   1              SDA = 0; delay(2);
+  73   1              SCL = 0; delay(2);
+  74   1      }
+  75          void I2C_stop(void)
+  76          {
+  77   1              SCL = 1; SCL = 0;
+  78   1              SDA = 0; delay(2);
+  79   1              SCL = 1; delay(2);
+  80   1              SDA = 1;
+  81   1      }
+  82          bit I2C_write(unsigned char dat)
+  83          {
+  84   1              unsigned char i;
+  85   1              for (i=0;i<8;i++)
+  86   1              {
+  87   2                      SDA = (dat & 0x80) ? 1:0;
+  88   2                      SCL=1;SCL=0;
+  89   2                      dat<<=1;
+  90   2              }
+  91   1              SCL = 1; delay(2);
+  92   1              SCL = 0;
+  93   1              return dat;
+  94   1      }
+  95          unsigned char I2C_read(void)
+  96          {
+  97   1              bit rd_bit;
+  98   1              unsigned char i, dat;
+  99   1              dat = 0x00;
+ 100   1              for(i=0;i<8;i++)                /* For loop read data 1 byte */
+ 101   1              {
+ 102   2                      delay(2);
+ 103   2                      SCL = 1; delay(2);      /* Set SCL */
+ 104   2                      rd_bit = SDA;           /* Keep for check acknowledge */
+ 105   2                      dat = dat<<1;
+ 106   2                      dat = dat | rd_bit; /* Keep bit data in dat */
+ 107   2                      SCL = 0;                        /* Clear SCL */
+ 108   2              }
+ 109   1              return dat;
+ 110   1      }
+ 111          //******************************************************************************
+ 112          // CAC CHUONG TRINH CON CHO DS1307
+ 113          //******************************************************************************
+ 114          unsigned char DS1307_read(unsigned char addr)
+ 115          {
+ 116   1              unsigned int temp,ret;
+ 117   1              I2C_start();            /* Start i2c bus */
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 3   
+
+ 118   1              I2C_write(0xD0);        /* Connect to DS1307 */
+ 119   1              I2C_write(addr);        /* Request RAM address on DS1307 */
+ 120   1              I2C_start();            /* Start i2c bus */
+ 121   1              I2C_write(0XD1);        /* Connect to DS1307 for Read */
+ 122   1              ret = I2C_read();       /* Receive data */
+ 123   1              I2C_stop();
+ 124   1              //**********************************************************
+ 125   1              temp = ret;                                                     /*BCD to HEX*/
+ 126   1              ret = (((ret/16)*10)+ (temp & 0x0f));   /*for Led 7seg*/
+ 127   1              //**********************************************************
+ 128   1              return ret;
+ 129   1      }
+ 130          
+ 131          void DS1307_Write(unsigned char addr,unsigned char dat)
+ 132          {
+ 133   1              unsigned int temp;
+ 134   1              //********************************************** 
+ 135   1              temp = dat ;                                            /*HEX to BCD*/
+ 136   1              dat = (((dat/10)*16)|(temp %10));       /*for Led 7seg*/
+ 137   1              //**********************************************
+ 138   1              I2C_start();            /* Start i2c bus */
+ 139   1              I2C_write(0XD0);        /* Connect to DS1307 */
+ 140   1              I2C_write(addr);        /* Request RAM address on DS1307 */
+ 141   1              I2C_write(dat);         /* Connect to DS1307 for Read */
+ 142   1              I2C_stop();
+ 143   1      }
+ 144          
+ 145          void Out_1Hz()
+ 146          {
+ 147   1              I2C_start(); /* Start i2c bus */
+ 148   1              I2C_write(0xD0); /* Connect to DS1307 */
+ 149   1              I2C_write(0x07);   //vi tri con tro RTC
+ 150   1              I2C_write(0x10);
+ 151   1              I2C_stop();
+ 152   1      }
+ 153          
+ 154          void Read_DS1307()
+ 155          {
+ 156   1              sec   = DS1307_read(SEC);
+ 157   1              min   = DS1307_read(MIN);
+ 158   1              hour  = DS1307_read(HOUR);
+ 159   1              day   = DS1307_read(DAY);
+ 160   1              date  = DS1307_read(DATE);
+ 161   1              month = DS1307_read(MONTH);
+ 162   1              year  = DS1307_read(YEAR);
+ 163   1      }
+ 164          
+ 165          void Write_DS1307()
+ 166          {
+ 167   1              DS1307_Write(SEC,sec);
+ 168   1              DS1307_Write(MIN,min);
+ 169   1              DS1307_Write(HOUR,hour);
+ 170   1              DS1307_Write(DAY,day);
+ 171   1              DS1307_Write(DATE,date);
+ 172   1              DS1307_Write(MONTH,month);
+ 173   1              DS1307_Write(YEAR,year); 
+ 174   1      }
+ 175          
+ 176          void Write_Alarm()
+ 177          {
+ 178   1              DS1307_Write(A_MIN,a_min);
+ 179   1              DS1307_Write(A_HOUR,a_hour);
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 4   
+
+ 180   1      }
+ 181          //******************************************************************************
+ 182          void delay(unsigned int time)
+ 183          { 
+ 184   1              while(time--); 
+ 185   1      }
+ 186          void set_main(void) // Chuong trinh khoi tao main
+ 187          {
+ 188   1              P1=0xFF; 
+ 189   1              P0=P2=P3=0x00;
+ 190   1      }
+ 191          void setup_timer(void) // Setup timer 0 va timer 1
+ 192          {
+ 193   1              TMOD=0x11; // timer0 & timer1 set che do 1
+ 194   1              ET1=1; ET0=1; EA=1;
+ 195   1              TF0=0; TF1=0; 
+ 196   1              TR0=1; TR1=1;
+ 197   1      }
+ 198          void Set_Clock(void) // Kiem tra va hieu chinh gia tri cua gio,phut,giay
+ 199          {
+ 200   1              unsigned char y;
+ 201   1              y=(year%4)*100;
+ 202   1      //Tang
+ 203   1              if(min>59) { min=0; }
+ 204   1              if(hour>23){ hour=0; }
+ 205   1              if(day>8) day=2;
+ 206   1              if((month==2)&&(date>29)&&(y==0)) { date=1; }
+ 207   1              else    if((month==2)&&(date>28)&&(y!=0)) { date=1; }
+ 208   1                              else    if(((month==4)||(month==6)||(month==9)||(month==11))&&(date>30)&&(y!=0)){ date=1; }
+ 209   1                                              else    if(date>31) { date=1; }
+ 210   1              if(month>12) { month=1; }
+ 211   1              if(year>99) { year_20++; year=0; if(year_20>99){year_20=0;}  }
+ 212   1      //Giam
+ 213   1              if(min<0) { min=59; }
+ 214   1              if(hour<0) { hour=23; }
+ 215   1              if(day<2) day=8;
+ 216   1              if((month==2)&&(date<1)&&(y==0)) { date=29; }
+ 217   1              else    if((month==2)&&(date<1)&&(y!=0)) { date=28; }
+ 218   1                              else    if(((month==4)||(month==6)||(month==9)||(month==11))&&(date<1)&&(y!=0)){ date=30; }
+ 219   1                                              else    if(date<1) { date=31; }
+ 220   1              if(month<1) { month=12; }
+ 221   1              if(year<0) { year_20--; year=99; if(year_20<0){year_20=99;} }
+ 222   1      }
+ 223          void Keypad(void) // Kiem tra phim nhan.
+ 224          {
+ 225   1              if(!Ok)
+ 226   1              {
+ 227   2                      bip(); 
+ 228   2                      if(on_off==1)
+ 229   2                      {
+ 230   3                              Display=mode=alarm=0;
+ 231   3                              Write_Alarm();  
+ 232   3                      }
+ 233   2                      else 
+ 234   2                      {
+ 235   3                              Display=alarm=mode=0; 
+ 236   3                              Write_DS1307();
+ 237   3                      }
+ 238   2              }
+ 239   1      //*********************************************************************
+ 240   1              if(Display==0)
+ 241   1              {
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 5   
+
+ 242   2                      if(!Mode)
+ 243   2                      { 
+ 244   3                              bip(); mode++; sec=0;
+ 245   3                              if(mode==7) 
+ 246   3                              {               
+ 247   4                                      mode=1;
+ 248   4                              }
+ 249   3                      }
+ 250   2                      if(mode==1)
+ 251   2                      { 
+ 252   3                              if(!Up) 
+ 253   3                              {
+ 254   4                                      min=min+1; delay(50000);
+ 255   4                              }
+ 256   3                              if(!Down) 
+ 257   3                              {
+ 258   4                                      min=min-1; delay(50000);
+ 259   4                              }
+ 260   3                      }
+ 261   2                      if(mode==2)
+ 262   2                      { 
+ 263   3                              if(!Up) 
+ 264   3                              {
+ 265   4                                      hour=hour+1; delay(50000);
+ 266   4                              }
+ 267   3                              if(!Down) 
+ 268   3                              {       
+ 269   4                                      hour=hour-1; delay(50000);
+ 270   4                              }
+ 271   3                      }
+ 272   2                      if(mode==3)
+ 273   2                      { 
+ 274   3                              if(!Up) 
+ 275   3                              {
+ 276   4                                      day=day+1; delay(50000);
+ 277   4                              }
+ 278   3                              if(!Down) 
+ 279   3                              {       
+ 280   4                                      day=day-1; delay(50000);
+ 281   4                              }
+ 282   3                      }
+ 283   2                      if(mode==4)
+ 284   2                      { 
+ 285   3                              if(!Up) 
+ 286   3                              {
+ 287   4                                      date=date+1; delay(50000);
+ 288   4                              }
+ 289   3                              if(!Down) 
+ 290   3                              {       
+ 291   4                                      date=date-1; delay(50000);
+ 292   4                              }
+ 293   3                      }
+ 294   2                      if(mode==5)
+ 295   2                      { 
+ 296   3                              if(!Up) 
+ 297   3                              {
+ 298   4                                      month=month+1; delay(50000);
+ 299   4                              }
+ 300   3                              if(!Down) 
+ 301   3                              {       
+ 302   4                                      month=month-1; delay(50000);
+ 303   4                              }
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 6   
+
+ 304   3                      }
+ 305   2                      if(mode==6)
+ 306   2                      { 
+ 307   3                              if(!Up) 
+ 308   3                              {
+ 309   4                                      year=year+1; delay(50000);
+ 310   4                              }
+ 311   3                              if(!Down) 
+ 312   3                              {       
+ 313   4                                      year=year-1; delay(50000);
+ 314   4                              }
+ 315   3                      }
+ 316   2              }
+ 317   1              if(!Alarm)
+ 318   1              {
+ 319   2                      bip(); Display=1;
+ 320   2              }
+ 321   1              if(Display==1)
+ 322   1              {
+ 323   2                      if(!Mode)
+ 324   2                      { 
+ 325   3                              bip(); alarm++; 
+ 326   3                              if(alarm==4) 
+ 327   3                              {               
+ 328   4                                      alarm=1;
+ 329   4                              }
+ 330   3                      }
+ 331   2                      if(alarm==1)
+ 332   2                      { 
+ 333   3                              if(!Up) //min++; 
+ 334   3                              {
+ 335   4                                      a_min=a_min+1; delay(50000);
+ 336   4                              }
+ 337   3                              if(!Down) //min--;
+ 338   3                              {
+ 339   4                                      a_min=a_min-1; delay(50000);
+ 340   4                              }
+ 341   3                      }
+ 342   2                      if(alarm==2)
+ 343   2                      { 
+ 344   3                              if(!Up) //hour++;
+ 345   3                              {
+ 346   4                                      a_hour=a_hour+1; delay(50000);
+ 347   4                              }
+ 348   3                              if(!Down) //hour--;
+ 349   3                              {       
+ 350   4                                      a_hour=a_hour-1; delay(50000);
+ 351   4                              }
+ 352   3                      }
+ 353   2                      if(alarm==3)
+ 354   2                      { 
+ 355   3                              if(!Up) //hour++;
+ 356   3                              {
+ 357   4                                      on_off=1; delay(50000); 
+ 358   4                              }
+ 359   3                              if(!Down) //hour--;
+ 360   3                              {       
+ 361   4                                      on_off=0; delay(50000);
+ 362   4                              }
+ 363   3                      }
+ 364   2              }
+ 365   1      
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 7   
+
+ 366   1      //*********************************************************************
+ 367   1              Set_Clock(); 
+ 368   1              delay(1000);
+ 369   1      }
+ 370          void T0_ISR(void) interrupt 1 // Dung ngat Timer0 de doc DS1307
+ 371          {
+ 372   1              TR0=0;
+ 373   1              TF0=0;
+ 374   1              TH0=0x3C; // Gia tri cho Timer0: 50000(us)x10=0.5(s)
+ 375   1              TL0=0xAF;
+ 376   1              time++;
+ 377   1              if(time==10)
+ 378   1              {
+ 379   2                      time=0; bat_nhay++; read_time=1;
+ 380   2                      if(bat_nhay==2) bat_nhay=0;
+ 381   2              }
+ 382   1              TR0=1;
+ 383   1      }
+ 384          /*************************************/
+ 385          void T1_ISR(void) interrupt 3 // Dung ngat Timer1 de hien thi 15 Led_7D
+ 386          {
+ 387   1              TR1=0;
+ 388   1              TF1=0;
+ 389   1              TH1=0xFC; // Gia tri cho Timer1: 1000(us) x 15 = 15(ms)
+ 390   1              TL1=0x18;
+ 391   1              if(Display==0)
+ 392   1              {
+ 393   2                      index++;
+ 394   2                      if(index==1)
+ 395   2                      {
+ 396   3                              Data=sec;
+ 397   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 398   3                              P0=0xff;
+ 399   3                              L01=0;
+ 400   3                              P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 401   3                      }
+ 402   2                      if(index==2)
+ 403   2                      {
+ 404   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 405   3                              P0=0xff;
+ 406   3                              L02=0;
+ 407   3                              P0=led7_data[Data/10]; //xuat gia tri hang truc
+ 408   3                      }
+ 409   2              //******************************************************************************
+ 410   2                      if(index==3)
+ 411   2                      {
+ 412   3                              if(mode==1 && bat_nhay==1){ index++; index++; }
+ 413   3                              else
+ 414   3                              {
+ 415   4                                      Data=min;
+ 416   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 417   4                                      P0=0xff;
+ 418   4                                      L03=0;
+ 419   4                                      P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 420   4                              }
+ 421   3                      }
+ 422   2                      if(index==4)
+ 423   2                      {
+ 424   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 425   3                              P0=0xff;
+ 426   3                              L04=0;
+ 427   3                              P0=led7_data[Data/10]; //xuat gia tri hang truc
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 8   
+
+ 428   3                      }
+ 429   2              //******************************************************************************
+ 430   2                      if(index==5)
+ 431   2                      {
+ 432   3                              if(mode==2 && bat_nhay==1){ index++; index++; }
+ 433   3                              else
+ 434   3                              { 
+ 435   4                                      Data=hour;
+ 436   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 437   4                                      P0=0xff;
+ 438   4                                      L05=0;
+ 439   4                                      P0=led7_data[Data%10];
+ 440   4                              }
+ 441   3                      }
+ 442   2                      if(index==6)
+ 443   2                      {       
+ 444   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 445   3                              P0=0xff;
+ 446   3                              L06=0;
+ 447   3                              P0=led7_data[Data/10]; 
+ 448   3                      } 
+ 449   2              //******************************************************************************
+ 450   2                      if(index==7) 
+ 451   2                      {
+ 452   3                              if(mode==3 && bat_nhay==1){ index++; }
+ 453   3                              else
+ 454   3                              {       
+ 455   4                                      Data=day;
+ 456   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 457   4                                      P0=0xff;
+ 458   4                                      L15=0;
+ 459   4                                      P0=led7_data[Data%10]; 
+ 460   4                              } 
+ 461   3                      }
+ 462   2              //******************************************************************************
+ 463   2                      if(index==8)
+ 464   2                      {
+ 465   3                              if(mode==4 && bat_nhay==1){ index++; index++; }
+ 466   3                              else
+ 467   3                              {
+ 468   4                                      Data=date;
+ 469   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 470   4                                      P0=0xff;
+ 471   4                                      L07=0;
+ 472   4                                      P0=led7_data[Data/10];// xuat gia tri hang truc
+ 473   4                              }
+ 474   3                      }
+ 475   2                      if(index==9)
+ 476   2                      {
+ 477   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 478   3                              P0=0xff;
+ 479   3                              L08=0;
+ 480   3                              P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 481   3                      }
+ 482   2              //******************************************************************************
+ 483   2                      if(index==10)
+ 484   2                      {
+ 485   3                              if(mode==5 && bat_nhay==1){ index++; index++; }
+ 486   3                              else
+ 487   3                              {
+ 488   4                                      Data=month;
+ 489   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 9   
+
+ 490   4                                      P0=0xff;
+ 491   4                                      L09=0;
+ 492   4                                      P0=led7_data[Data/10];// xuat gia tri hang truc
+ 493   4                              }
+ 494   3                      }
+ 495   2                      if(index==11)
+ 496   2                      {
+ 497   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 498   3                              P0=0xff;
+ 499   3                              L10=0;
+ 500   3                              P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 501   3                      }
+ 502   2              //******************************************************************************
+ 503   2                      if(index==12)
+ 504   2                      {
+ 505   3                              if(mode==6 && bat_nhay==1){ index++; index++; }
+ 506   3                              else
+ 507   3                              {
+ 508   4                                      Data=year;
+ 509   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 510   4                                      P0=0xff;
+ 511   4                                      L13=0;
+ 512   4                                      P0=led7_data[Data/10];// xuat gia tri hang truc
+ 513   4                              }
+ 514   3                      }
+ 515   2                      if(index==13)
+ 516   2                      {
+ 517   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 518   3                              P0=0xff;
+ 519   3                              L14=0;
+ 520   3                              P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 521   3                      }
+ 522   2                      if(index==14)
+ 523   2                      {
+ 524   3                              Data=year_20;
+ 525   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 526   3                              P0=0xff;
+ 527   3                              L11=0;
+ 528   3                              P0=led7_data[Data/10];// xuat gia tri hang truc
+ 529   3                      }
+ 530   2                      if(index==15)
+ 531   2                      {
+ 532   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 533   3                              P0=0xff;
+ 534   3                              L12=0;
+ 535   3                              P0=led7_data[Data%10];//xuat gia tri hang don vi
+ 536   3                              index=0;
+ 537   3                      }
+ 538   2              }
+ 539   1              if(Display==1)
+ 540   1              {
+ 541   2                      index++;
+ 542   2                      if(index==1)
+ 543   2                      {
+ 544   3                              if(alarm==1 && bat_nhay==1){ index++; index++; }
+ 545   3                              else
+ 546   3                              {
+ 547   4                                      Data=a_min;
+ 548   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 549   4                                      P0=0xff;
+ 550   4                                      L03=0;
+ 551   4                                      P0=led7_data[Data%10];
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 10  
+
+ 552   4                              }
+ 553   3                      }
+ 554   2                      if(index==2)
+ 555   2                      {
+ 556   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 557   3                              P0=0xff;
+ 558   3                              L04=0;
+ 559   3                              P0=led7_data[Data/10];
+ 560   3                      }
+ 561   2                      if(index==3)
+ 562   2                      {
+ 563   3                              if(alarm==2 && bat_nhay==1){ index++; index++; }
+ 564   3                              else
+ 565   3                              {
+ 566   4                                      Data=a_hour;
+ 567   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 568   4                                      P0=0xff;
+ 569   4                                      L05=0;
+ 570   4                                      P0=led7_data[Data%10];
+ 571   4                              }
+ 572   3                      }
+ 573   2                      if(index==4)
+ 574   2                      {
+ 575   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 576   3                              P0=0xff;
+ 577   3                              L06=0;
+ 578   3                              P0=led7_data[Data/10];
+ 579   3                      }
+ 580   2                      if(index==5)
+ 581   2                      {
+ 582   3                              if(alarm==3 && bat_nhay==1){ index++; index++; }
+ 583   3                              else
+ 584   3                              {
+ 585   4                                      P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 586   4                                      P0=0xff;
+ 587   4                                      if(on_off==1)
+ 588   4                                      {
+ 589   5                                              L13=0;
+ 590   5                                              P0=0xC8;        
+ 591   5                                      }
+ 592   4                                      else 
+ 593   4                                      {
+ 594   5                                              L13=0;
+ 595   5                                              P0=0x8E;
+ 596   5                                      }
+ 597   4                              }
+ 598   3                      }
+ 599   2                      if(index==6)
+ 600   2                      {
+ 601   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 602   3                              P0=0xff;
+ 603   3                              if(on_off==1)
+ 604   3                              {
+ 605   4                                      L14=0;
+ 606   4                                      P0=0xff;        
+ 607   4                              }
+ 608   3                              else 
+ 609   3                              {
+ 610   4                                      L14=0;
+ 611   4                                      P0=0x8E;
+ 612   4                              }
+ 613   3                      }
+C51 COMPILER V9.01   CLOCK_8051                                                            06/30/2015 10:16:08 PAGE 11  
+
+ 614   2                      if(index==7)
+ 615   2                      {
+ 616   3                              P2=0xFF; L09=L10=L11=L12=L13=L14=L15=1;
+ 617   3                              P0=0xff;
+ 618   3                              L12=0;
+ 619   3                              P0=led7_data[0];
+ 620   3                              index=0;
+ 621   3                      }
+ 622   2              }
+ 623   1      //******************************************************************************
+ 624   1              TR1=1;
+ 625   1      }
+ 626          //************ CHUONG TRINH CHINH *************
+ 627          void main()
+ 628          {
+ 629   1              bip(); delay(10);
+ 630   1              Out_1Hz();
+ 631   1      
+ 632   1              set_main();
+ 633   1              year_20=20;
+ 634   1              time=index=mode=read_time=0;
+ 635   1              setup_timer();
+ 636   1              while(1)
+ 637   1              {
+ 638   2                      Keypad();
+ 639   2                      if(hour>=12) PM=1;
+ 640   2                      else PM=0;
+ 641   2                      if((mode==0)&&(read_time==1))
+ 642   2                      {
+ 643   3                                      read_time = 0;
+ 644   3                                      Read_DS1307();
+ 645   3                      }
+ 646   2                      if(((a_min==min)&&(a_hour==hour)))
+ 647   2                      {
+ 648   3                              if(sec<59) { bip(); delay(10000);}
+ 649   3                      }
+ 650   2              }
+ 651   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2386    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     30       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

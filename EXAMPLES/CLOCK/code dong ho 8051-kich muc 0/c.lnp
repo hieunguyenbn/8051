@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"clock 8051.obj" 
+TO "c" 
+RAMSIZE(256) 

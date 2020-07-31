@@ -1,0 +1,138 @@
+A51 MACRO ASSEMBLER  8051_THUHAI                                                          05/23/2017 22:47:56 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN 8051_thuhai.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 8051_thuhai.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Dang Manh Truong (MSSV 20134209, STT 22 = 16h)
+                       2     ; Chuong trinh thuc hien cong song song co doi thoai (handshaking)
+                       3     ; Code cho 8051 thu hai
+                       4     ; Thuc hien: Nhan du lieu tu 8051 thu nhat theo nguyen ly handshaking; nhan du lieu tu ADC 
+                             khi co tin hieu ket thuc chuyen doi
+                       5     ; (End of Conversion) va gui du lieu vao SRAM
+  0000                 6     SRAM                            EQU                             0000h
+  4000                 7     ADC                                     EQU                             4000h
+  8016                 8     PortData                        EQU                             8016h
+  C016                 9     PortStatus                      EQU                             0C016h
+  REG                 10     Counter                         EQU                             R3
+  0090                11     PIN_7SEG                        EQU                             P1 ; tu P1.4 den P1.7      
+                                    
+  0090                12     DataX                           EQU                             P1 ; tu P1.0 den P1.3
+  00B5                13     ACK_NOT                         EQU                             P3.5
+  00B0                14     ADC_READ                        EQU                             P3.0
+                      15     
+0000                  16     ORG                                     0H
+0000 020016           17     LJMP                            MAIN
+0003                  18     ORG                                     0003H
+0003 02002D           19     LJMP                            ISR_END_OF_CONVERSION
+0013                  20     ORG                                     0013H
+0013 020043           21     LJMP                            ISR_OUTPUT_BUFFER_FULL
+                      22     
+0016                  23     MAIN:
+0016 75A885           24     MOV                                     IE,#10000101B ; Cho phep ngat ngoai 0 va 1
+0019 D288             25     SETB                            TCON.0 ; Ngat ngoai 0 theo suon cao-xuong-thap
+001B D28A             26     SETB                            TCON.2 ; Ngat ngoai 1 theo suon cao-xuong-thap
+001D 7B00             27     MOV                                     Counter,#0h
+001F 740F             28     MOV                                     A,#00001111B
+0021 F590             29     MOV                                     PIN_7SEG,A
+0023 7400             30     MOV                                     A,#0
+0025 7580FF           31     MOV                                     P0,#0FFh
+0028 C2B0             32     CLR                                     ADC_READ
+002A                  33     _loop_forever:
+002A 80FE             34     SJMP                            _loop_forever
+002C 22               35     RET
+                      36     
+002D                  37     ISR_END_OF_CONVERSION:
+002D 75A0FF           38     MOV                                     P2,#0FFh
+                      39     ; Doc du lieu tu ADC 
+0030 904000           40     MOV                                     DPTR,#ADC
+0033 A882             41     MOV                                     R0,DPL
+0035 8583A0           42     MOV                                     P2,DPH
+0038 E2               43     MOVX                            A,@R0 
+                      44     
+                      45     ; Ghi ra SRAM
+0039 900000           46     MOV                                     DPTR,#SRAM
+003C A882             47     MOV                                     R0,DPL
+003E 8583A0           48     MOV                                     P2,DPH
+0041 F2               49     MOVX                            @R0,A
+0042 32               50     RETI 
+                      51     
+0043                  52     ISR_OUTPUT_BUFFER_FULL:  
+0043 C2B5             53     CLR                                     ACK_NOT ; Bat dau nhan du lieu
+                      54     ; Nap du lieu tu XData vao LED  
+0045 C294             55     CLR                                     PIN_7SEG.4
+0047 C295             56     CLR                                     PIN_7SEG.5
+A51 MACRO ASSEMBLER  8051_THUHAI                                                          05/23/2017 22:47:56 PAGE     2
+
+0049 C296             57     CLR                                     PIN_7SEG.6
+004B C297             58     CLR                                     PIN_7SEG.7
+                      59     ;XData_bit0
+004D 309002           60     JNB                                     DataX.0,_XData_bit1
+0050 D294             61     SETB                            PIN_7SEG.4 
+0052                  62     _XData_bit1:
+0052 309102           63     JNB                                     DataX.1,_XData_bit2 
+0055 D295             64     SETB                            PIN_7SEG.5
+0057                  65     _XData_bit2:
+0057 309202           66     JNB                                     DataX.2,_XData_bit3
+005A D296             67     SETB                            PIN_7SEG.6
+005C                  68     _XData_bit3:                    
+005C 309302           69     JNB                                     DataX.3,_output_to_LED  
+005F D297             70     SETB                            PIN_7SEG.7 
+0061                  71     _output_to_LED:                         
+0061 D2B5             72     SETB                            ACK_NOT ; Ket thuc nhan du lieu 
+0063 32               73     RETI
+                      74     
+                      75     ; Tao thoi gian tre cho chuong trinh
+0064                  76     DELAY:
+0064 7EFF             77     MOV                             R6,#255
+0066                  78     _NOP:
+0066 7FFF             79     MOV                             R7,#255
+0068 DFFE             80     DJNZ                            R7,$
+006A DEFA             81     DJNZ                            R6,_NOP
+006C 22               82     RET
+                      83     
+                      84     END
+A51 MACRO ASSEMBLER  8051_THUHAI                                                          05/23/2017 22:47:56 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                 T Y P E  V A L U E   ATTRIBUTES
+
+ACK_NOT. . . . . . . .  B ADDR   00B0H.5 A   
+ADC. . . . . . . . . .  N NUMB   4000H   A   
+ADC_READ . . . . . . .  B ADDR   00B0H.0 A   
+COUNTER. . . . . . . .    REG    R3          
+DATAX. . . . . . . . .  D ADDR   0090H   A   
+DELAY. . . . . . . . .  C ADDR   0064H   A   
+DPH. . . . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . . . .  D ADDR   0082H   A   
+IE . . . . . . . . . .  D ADDR   00A8H   A   
+ISR_END_OF_CONVERSION.  C ADDR   002DH   A   
+ISR_OUTPUT_BUFFER_FULL  C ADDR   0043H   A   
+MAIN . . . . . . . . .  C ADDR   0016H   A   
+P0 . . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . . .  D ADDR   00B0H   A   
+PIN_7SEG . . . . . . .  D ADDR   0090H   A   
+PORTDATA . . . . . . .  N NUMB   8016H   A   
+PORTSTATUS . . . . . .  N NUMB   C016H   A   
+SRAM . . . . . . . . .  N NUMB   0000H   A   
+TCON . . . . . . . . .  D ADDR   0088H   A   
+_LOOP_FOREVER. . . . .  C ADDR   002AH   A   
+_NOP . . . . . . . . .  C ADDR   0066H   A   
+_OUTPUT_TO_LED . . . .  C ADDR   0061H   A   
+_XDATA_BIT1. . . . . .  C ADDR   0052H   A   
+_XDATA_BIT2. . . . . .  C ADDR   0057H   A   
+_XDATA_BIT3. . . . . .  C ADDR   005CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

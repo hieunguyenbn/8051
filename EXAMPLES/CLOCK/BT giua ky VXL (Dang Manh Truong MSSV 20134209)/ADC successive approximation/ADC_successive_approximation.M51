@@ -1,0 +1,118 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/22/2017  13:03:20  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC_successive_approximation.obj TO ADC_successive_approximation
+
+
+INPUT MODULES INCLUDED:
+  ADC_successive_approximation.obj (ADC_SUCCESSIVE_APPROXIMATION)
+
+
+LINK MAP OF MODULE:  ADC_successive_approximation (ADC_SUCCESSIVE_APPROXIMATION)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     050AH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  ADC_successive_approximation (ADC_SUCCESSIVE_APPROXIMATION)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC_SUCCESSIVE_APPROXIMATION
+  C:001BH         SYMBOL        ADC_COMPLETED
+  D:0090H         SYMBOL        ADC_OUTPUT_PORT
+  D:00F0H         SYMBOL        B
+  B:00A0H.7       SYMBOL        CLOCK
+  C:0058H         SYMBOL        COMNWRT
+  C:005EH         SYMBOL        DATAWRT
+  C:0064H         SYMBOL        DELAY
+  D:00A8H         SYMBOL        IE
+  N:0002H         SYMBOL        LCD_BUSY_RD
+  N:0000H         SYMBOL        LCD_CMD_WR
+  N:0003H         SYMBOL        LCD_DATA_RD
+  N:0001H         SYMBOL        LCD_DATA_WR
+  C:0500H         SYMBOL        LCD_VAL
+  C:0006H         SYMBOL        MAIN
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00B0H         SYMBOL        P3
+  D:0088H         SYMBOL        TCON
+  C:0032H         SYMBOL        _CONVERT_NUMBER_FOR_DISPLAY
+  C:0044H         SYMBOL        _DISPLAY_ON_LCD
+  C:0012H         SYMBOL        _LOOP_FOREVER
+  C:0066H         SYMBOL        _NOP
+  C:0000H         LINE#         18
+  C:0003H         LINE#         20
+  C:0006H         LINE#         23
+  C:0009H         LINE#         24
+  C:000CH         LINE#         25
+  C:000EH         LINE#         26
+  C:0010H         LINE#         27
+  C:0012H         LINE#         29
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/22/2017  13:03:20  PAGE 2
+
+
+  C:0014H         LINE#         30
+  C:0016H         LINE#         31
+  C:0018H         LINE#         32
+  C:001AH         LINE#         34
+  C:001BH         LINE#         40
+  C:001DH         LINE#         41
+  C:001FH         LINE#         42
+  C:0021H         LINE#         43
+  C:0023H         LINE#         44
+  C:0025H         LINE#         45
+  C:0027H         LINE#         46
+  C:002AH         LINE#         47
+  C:002CH         LINE#         48
+  C:002EH         LINE#         49
+  C:0030H         LINE#         50
+  C:0032H         LINE#         52
+  C:0035H         LINE#         53
+  C:0036H         LINE#         54
+  C:0038H         LINE#         55
+  C:003BH         LINE#         56
+  C:003CH         LINE#         57
+  C:003EH         LINE#         58
+  C:0041H         LINE#         59
+  C:0042H         LINE#         60
+  C:0044H         LINE#         62
+  C:0047H         LINE#         63
+  C:0048H         LINE#         64
+  C:0049H         LINE#         65
+  C:004BH         LINE#         67
+  C:004CH         LINE#         68
+  C:004DH         LINE#         69
+  C:004FH         LINE#         70
+  C:0051H         LINE#         72
+  C:0052H         LINE#         73
+  C:0053H         LINE#         74
+  C:0055H         LINE#         75
+  C:0057H         LINE#         76
+  C:0058H         LINE#         82
+  C:005AH         LINE#         83
+  C:005BH         LINE#         84
+  C:005DH         LINE#         85
+  C:005EH         LINE#         91
+  C:0060H         LINE#         92
+  C:0061H         LINE#         93
+  C:0063H         LINE#         94
+  C:0064H         LINE#         100
+  C:0066H         LINE#         102
+  C:0068H         LINE#         103
+  C:006AH         LINE#         104
+  C:006CH         LINE#         105
+  -------         ENDMOD        ADC_SUCCESSIVE_APPROXIMATION
+
+Program Size: data=8.0 xdata=0 code=1290
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

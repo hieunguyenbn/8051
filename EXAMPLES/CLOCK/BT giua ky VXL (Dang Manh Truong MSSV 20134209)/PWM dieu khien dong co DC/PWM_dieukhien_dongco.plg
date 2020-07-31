@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Hoctap\Vi xu ly\Lap trinh 8051\BT giua ky VXL\PWM dieu khien dong co DC\PWM_dieukhien_dongco.uvproj
+Project File Date:  05/23/2017
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling PWM_dieukhien_dongco.asm...
+linking...
+Program Size: data=8.0 xdata=0 code=75
+creating hex file from "PWM_dieukhien_dongco"...
+"PWM_dieukhien_dongco" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+assembling PWM_dieukhien_dongco.asm...
+linking...
+Program Size: data=8.0 xdata=0 code=75
+creating hex file from "PWM_dieukhien_dongco"...
+"PWM_dieukhien_dongco" - 0 Error(s), 0 Warning(s).
